@@ -1,0 +1,687 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		071D38971C5FAFFE0063D80E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D38961C5FAFFE0063D80E /* AssetsLibrary.framework */; };
+		071D38991C5FB00E0063D80E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D38981C5FB00E0063D80E /* CoreText.framework */; };
+		071D389B1C5FB01D0063D80E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389A1C5FB01D0063D80E /* SystemConfiguration.framework */; };
+		071D389D1C5FB0250063D80E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389C1C5FB0250063D80E /* CoreTelephony.framework */; };
+		071D389F1C5FB0420063D80E /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389E1C5FB0420063D80E /* BuddyBuildSDK.framework */; };
+		072133FD1C5E92C9004EFCCB /* DataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 072133FC1C5E92C9004EFCCB /* DataLoader.m */; };
+		076965A41C5B5D0700ED2D33 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965A31C5B5D0700ED2D33 /* main.m */; };
+		076965A71C5B5D0700ED2D33 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965A61C5B5D0700ED2D33 /* AppDelegate.m */; };
+		076965AD1C5B5D0700ED2D33 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 076965AB1C5B5D0700ED2D33 /* Main.storyboard */; };
+		076965AF1C5B5D0700ED2D33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 076965AE1C5B5D0700ED2D33 /* Assets.xcassets */; };
+		076965B21C5B5D0700ED2D33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 076965B01C5B5D0700ED2D33 /* LaunchScreen.storyboard */; };
+		076965BD1C5B5D0700ED2D33 /* QuranGardensTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965BC1C5B5D0700ED2D33 /* QuranGardensTests.m */; };
+		076965C81C5B5D0800ED2D33 /* QuranGardensUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965C71C5B5D0800ED2D33 /* QuranGardensUITests.m */; };
+		076965D81C5B60C600ED2D33 /* Sura.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965D71C5B60C600ED2D33 /* Sura.m */; };
+		076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965DA1C5B628200ED2D33 /* SuraViewCell.m */; };
+		076965E01C5B630E00ED2D33 /* QuranGardensViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */; };
+		076965E21C5B6A7A00ED2D33 /* SuraViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076965E11C5B6A7A00ED2D33 /* SuraViewCell.xib */; };
+		07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */; };
+		07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */; };
+		B09B2F22E36C698BDB4E128A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6F86663B27387B6390C993 /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		076965B91C5B5D0700ED2D33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 076965971C5B5D0700ED2D33 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0769659E1C5B5D0700ED2D33;
+			remoteInfo = QuranGardens;
+		};
+		076965C41C5B5D0700ED2D33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 076965971C5B5D0700ED2D33 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0769659E1C5B5D0700ED2D33;
+			remoteInfo = QuranGardens;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		071D38961C5FAFFE0063D80E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		071D38981C5FB00E0063D80E /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		071D389A1C5FB01D0063D80E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		071D389C1C5FB0250063D80E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		071D389E1C5FB0420063D80E /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
+		072133FB1C5E92C9004EFCCB /* DataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoader.h; sourceTree = "<group>"; };
+		072133FC1C5E92C9004EFCCB /* DataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLoader.m; sourceTree = "<group>"; };
+		0769659F1C5B5D0700ED2D33 /* QuranGardens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuranGardens.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		076965A31C5B5D0700ED2D33 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		076965A51C5B5D0700ED2D33 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		076965A61C5B5D0700ED2D33 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		076965AC1C5B5D0700ED2D33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		076965AE1C5B5D0700ED2D33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		076965B11C5B5D0700ED2D33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		076965B31C5B5D0700ED2D33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		076965B81C5B5D0700ED2D33 /* QuranGardensTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuranGardensTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		076965BC1C5B5D0700ED2D33 /* QuranGardensTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuranGardensTests.m; sourceTree = "<group>"; };
+		076965BE1C5B5D0700ED2D33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		076965C31C5B5D0700ED2D33 /* QuranGardensUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuranGardensUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		076965C71C5B5D0800ED2D33 /* QuranGardensUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuranGardensUITests.m; sourceTree = "<group>"; };
+		076965C91C5B5D0800ED2D33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		076965D61C5B60C600ED2D33 /* Sura.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sura.h; sourceTree = "<group>"; };
+		076965D71C5B60C600ED2D33 /* Sura.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sura.m; sourceTree = "<group>"; };
+		076965D91C5B628200ED2D33 /* SuraViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuraViewCell.h; sourceTree = "<group>"; };
+		076965DA1C5B628200ED2D33 /* SuraViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuraViewCell.m; sourceTree = "<group>"; };
+		076965DE1C5B630E00ED2D33 /* QuranGardensViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuranGardensViewController.h; sourceTree = "<group>"; };
+		076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuranGardensViewController.m; sourceTree = "<group>"; };
+		076965E11C5B6A7A00ED2D33 /* SuraViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuraViewCell.xib; sourceTree = "<group>"; };
+		07FC8BF21C5D05C000695E0A /* PeriodicTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeriodicTaskManager.h; sourceTree = "<group>"; };
+		07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodicTaskManager.m; sourceTree = "<group>"; };
+		07FC8BF51C5D05DC00695E0A /* PeriodicTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeriodicTask.h; sourceTree = "<group>"; };
+		07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodicTask.m; sourceTree = "<group>"; };
+		0F6F86663B27387B6390C993 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4471AB38FECC5544ED3AE85D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		8D4AEBCFFED3D4B58B1BED97 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0769659C1C5B5D0700ED2D33 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				071D389F1C5FB0420063D80E /* BuddyBuildSDK.framework in Frameworks */,
+				071D389D1C5FB0250063D80E /* CoreTelephony.framework in Frameworks */,
+				071D389B1C5FB01D0063D80E /* SystemConfiguration.framework in Frameworks */,
+				071D38991C5FB00E0063D80E /* CoreText.framework in Frameworks */,
+				071D38971C5FAFFE0063D80E /* AssetsLibrary.framework in Frameworks */,
+				B09B2F22E36C698BDB4E128A /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		076965B51C5B5D0700ED2D33 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		076965C01C5B5D0700ED2D33 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		076965961C5B5D0700ED2D33 = {
+			isa = PBXGroup;
+			children = (
+				076965A11C5B5D0700ED2D33 /* QuranGardens */,
+				076965BB1C5B5D0700ED2D33 /* QuranGardensTests */,
+				076965C61C5B5D0800ED2D33 /* QuranGardensUITests */,
+				076965A01C5B5D0700ED2D33 /* Products */,
+				33D7BF6FA31AB06A6FA5D5D2 /* Pods */,
+				E5D1290A52CBC62F69226967 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		076965A01C5B5D0700ED2D33 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0769659F1C5B5D0700ED2D33 /* QuranGardens.app */,
+				076965B81C5B5D0700ED2D33 /* QuranGardensTests.xctest */,
+				076965C31C5B5D0700ED2D33 /* QuranGardensUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		076965A11C5B5D0700ED2D33 /* QuranGardens */ = {
+			isa = PBXGroup;
+			children = (
+				076965A51C5B5D0700ED2D33 /* AppDelegate.h */,
+				076965A61C5B5D0700ED2D33 /* AppDelegate.m */,
+				076965AB1C5B5D0700ED2D33 /* Main.storyboard */,
+				076965E11C5B6A7A00ED2D33 /* SuraViewCell.xib */,
+				076965DD1C5B62AE00ED2D33 /* Controller */,
+				076965DC1C5B628F00ED2D33 /* View */,
+				076965D51C5B609100ED2D33 /* Model */,
+				076965AE1C5B5D0700ED2D33 /* Assets.xcassets */,
+				076965B01C5B5D0700ED2D33 /* LaunchScreen.storyboard */,
+				076965B31C5B5D0700ED2D33 /* Info.plist */,
+				076965A21C5B5D0700ED2D33 /* Supporting Files */,
+			);
+			path = QuranGardens;
+			sourceTree = "<group>";
+		};
+		076965A21C5B5D0700ED2D33 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				076965A31C5B5D0700ED2D33 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		076965BB1C5B5D0700ED2D33 /* QuranGardensTests */ = {
+			isa = PBXGroup;
+			children = (
+				076965BC1C5B5D0700ED2D33 /* QuranGardensTests.m */,
+				076965BE1C5B5D0700ED2D33 /* Info.plist */,
+			);
+			path = QuranGardensTests;
+			sourceTree = "<group>";
+		};
+		076965C61C5B5D0800ED2D33 /* QuranGardensUITests */ = {
+			isa = PBXGroup;
+			children = (
+				076965C71C5B5D0800ED2D33 /* QuranGardensUITests.m */,
+				076965C91C5B5D0800ED2D33 /* Info.plist */,
+			);
+			path = QuranGardensUITests;
+			sourceTree = "<group>";
+		};
+		076965D51C5B609100ED2D33 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				076965D61C5B60C600ED2D33 /* Sura.h */,
+				076965D71C5B60C600ED2D33 /* Sura.m */,
+				07FC8BF51C5D05DC00695E0A /* PeriodicTask.h */,
+				07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */,
+				07FC8BF21C5D05C000695E0A /* PeriodicTaskManager.h */,
+				07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */,
+				072133FB1C5E92C9004EFCCB /* DataLoader.h */,
+				072133FC1C5E92C9004EFCCB /* DataLoader.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		076965DC1C5B628F00ED2D33 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				076965D91C5B628200ED2D33 /* SuraViewCell.h */,
+				076965DA1C5B628200ED2D33 /* SuraViewCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		076965DD1C5B62AE00ED2D33 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				076965DE1C5B630E00ED2D33 /* QuranGardensViewController.h */,
+				076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		33D7BF6FA31AB06A6FA5D5D2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4471AB38FECC5544ED3AE85D /* Pods.debug.xcconfig */,
+				8D4AEBCFFED3D4B58B1BED97 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E5D1290A52CBC62F69226967 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				071D389E1C5FB0420063D80E /* BuddyBuildSDK.framework */,
+				071D389C1C5FB0250063D80E /* CoreTelephony.framework */,
+				071D389A1C5FB01D0063D80E /* SystemConfiguration.framework */,
+				071D38981C5FB00E0063D80E /* CoreText.framework */,
+				071D38961C5FAFFE0063D80E /* AssetsLibrary.framework */,
+				0F6F86663B27387B6390C993 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0769659E1C5B5D0700ED2D33 /* QuranGardens */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 076965CC1C5B5D0800ED2D33 /* Build configuration list for PBXNativeTarget "QuranGardens" */;
+			buildPhases = (
+				037FD659BAD3A2B8DD4D1138 /* Check Pods Manifest.lock */,
+				0769659B1C5B5D0700ED2D33 /* Sources */,
+				0769659C1C5B5D0700ED2D33 /* Frameworks */,
+				0769659D1C5B5D0700ED2D33 /* Resources */,
+				5ABC3FABC024B0811E856575 /* Embed Pods Frameworks */,
+				D5745BBD9291DDFCF5261EA9 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QuranGardens;
+			productName = QuranGardens;
+			productReference = 0769659F1C5B5D0700ED2D33 /* QuranGardens.app */;
+			productType = "com.apple.product-type.application";
+		};
+		076965B71C5B5D0700ED2D33 /* QuranGardensTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 076965CF1C5B5D0800ED2D33 /* Build configuration list for PBXNativeTarget "QuranGardensTests" */;
+			buildPhases = (
+				076965B41C5B5D0700ED2D33 /* Sources */,
+				076965B51C5B5D0700ED2D33 /* Frameworks */,
+				076965B61C5B5D0700ED2D33 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				076965BA1C5B5D0700ED2D33 /* PBXTargetDependency */,
+			);
+			name = QuranGardensTests;
+			productName = QuranGardensTests;
+			productReference = 076965B81C5B5D0700ED2D33 /* QuranGardensTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		076965C21C5B5D0700ED2D33 /* QuranGardensUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 076965D21C5B5D0800ED2D33 /* Build configuration list for PBXNativeTarget "QuranGardensUITests" */;
+			buildPhases = (
+				076965BF1C5B5D0700ED2D33 /* Sources */,
+				076965C01C5B5D0700ED2D33 /* Frameworks */,
+				076965C11C5B5D0700ED2D33 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				076965C51C5B5D0700ED2D33 /* PBXTargetDependency */,
+			);
+			name = QuranGardensUITests;
+			productName = QuranGardensUITests;
+			productReference = 076965C31C5B5D0700ED2D33 /* QuranGardensUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		076965971C5B5D0700ED2D33 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "Amr Lotfy";
+				TargetAttributes = {
+					0769659E1C5B5D0700ED2D33 = {
+						CreatedOnToolsVersion = 7.1;
+					};
+					076965B71C5B5D0700ED2D33 = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 0769659E1C5B5D0700ED2D33;
+					};
+					076965C21C5B5D0700ED2D33 = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 0769659E1C5B5D0700ED2D33;
+					};
+				};
+			};
+			buildConfigurationList = 0769659A1C5B5D0700ED2D33 /* Build configuration list for PBXProject "QuranGardens" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 076965961C5B5D0700ED2D33;
+			productRefGroup = 076965A01C5B5D0700ED2D33 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0769659E1C5B5D0700ED2D33 /* QuranGardens */,
+				076965B71C5B5D0700ED2D33 /* QuranGardensTests */,
+				076965C21C5B5D0700ED2D33 /* QuranGardensUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0769659D1C5B5D0700ED2D33 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				076965B21C5B5D0700ED2D33 /* LaunchScreen.storyboard in Resources */,
+				076965AF1C5B5D0700ED2D33 /* Assets.xcassets in Resources */,
+				076965AD1C5B5D0700ED2D33 /* Main.storyboard in Resources */,
+				076965E21C5B6A7A00ED2D33 /* SuraViewCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		076965B61C5B5D0700ED2D33 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		076965C11C5B5D0700ED2D33 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		037FD659BAD3A2B8DD4D1138 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5ABC3FABC024B0811E856575 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D5745BBD9291DDFCF5261EA9 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0769659B1C5B5D0700ED2D33 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				072133FD1C5E92C9004EFCCB /* DataLoader.m in Sources */,
+				076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */,
+				07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */,
+				076965E01C5B630E00ED2D33 /* QuranGardensViewController.m in Sources */,
+				076965D81C5B60C600ED2D33 /* Sura.m in Sources */,
+				07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */,
+				076965A71C5B5D0700ED2D33 /* AppDelegate.m in Sources */,
+				076965A41C5B5D0700ED2D33 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		076965B41C5B5D0700ED2D33 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				076965BD1C5B5D0700ED2D33 /* QuranGardensTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		076965BF1C5B5D0700ED2D33 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				076965C81C5B5D0800ED2D33 /* QuranGardensUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		076965BA1C5B5D0700ED2D33 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0769659E1C5B5D0700ED2D33 /* QuranGardens */;
+			targetProxy = 076965B91C5B5D0700ED2D33 /* PBXContainerItemProxy */;
+		};
+		076965C51C5B5D0700ED2D33 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0769659E1C5B5D0700ED2D33 /* QuranGardens */;
+			targetProxy = 076965C41C5B5D0700ED2D33 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		076965AB1C5B5D0700ED2D33 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				076965AC1C5B5D0700ED2D33 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		076965B01C5B5D0700ED2D33 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				076965B11C5B5D0700ED2D33 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		076965CA1C5B5D0800ED2D33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		076965CB1C5B5D0800ED2D33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		076965CD1C5B5D0800ED2D33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4471AB38FECC5544ED3AE85D /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = QuranGardens/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.evaluation.QuranGardens;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		076965CE1C5B5D0800ED2D33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8D4AEBCFFED3D4B58B1BED97 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = QuranGardens/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.evaluation.QuranGardens;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		076965D01C5B5D0800ED2D33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = QuranGardensTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.evaluation.QuranGardensTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QuranGardens.app/QuranGardens";
+			};
+			name = Debug;
+		};
+		076965D11C5B5D0800ED2D33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = QuranGardensTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.evaluation.QuranGardensTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QuranGardens.app/QuranGardens";
+			};
+			name = Release;
+		};
+		076965D31C5B5D0800ED2D33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = QuranGardensUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.evaluation.QuranGardensUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = QuranGardens;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		076965D41C5B5D0800ED2D33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = QuranGardensUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.evaluation.QuranGardensUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = QuranGardens;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0769659A1C5B5D0700ED2D33 /* Build configuration list for PBXProject "QuranGardens" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				076965CA1C5B5D0800ED2D33 /* Debug */,
+				076965CB1C5B5D0800ED2D33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		076965CC1C5B5D0800ED2D33 /* Build configuration list for PBXNativeTarget "QuranGardens" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				076965CD1C5B5D0800ED2D33 /* Debug */,
+				076965CE1C5B5D0800ED2D33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		076965CF1C5B5D0800ED2D33 /* Build configuration list for PBXNativeTarget "QuranGardensTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				076965D01C5B5D0800ED2D33 /* Debug */,
+				076965D11C5B5D0800ED2D33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		076965D21C5B5D0800ED2D33 /* Build configuration list for PBXNativeTarget "QuranGardensUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				076965D31C5B5D0800ED2D33 /* Debug */,
+				076965D41C5B5D0800ED2D33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 076965971C5B5D0700ED2D33 /* Project object */;
+}
