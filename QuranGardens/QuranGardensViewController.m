@@ -42,7 +42,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    NSLog(@"Refreshing collection view");
     [self.collectionView reloadData];
 }
 
@@ -80,7 +79,6 @@
 }
 
 - (void)refresh{
-    NSLog(@">>>>>>> Refresh took place.");
     [self.collectionView reloadData];
 }
 
@@ -182,6 +180,7 @@ NSInteger const intervalInTenDays = 10*24*60*60;
 
 - (void)dealloc{
     [self.periodicTaskManager saveTasks];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

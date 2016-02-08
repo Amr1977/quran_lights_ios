@@ -54,7 +54,7 @@
 		071D389E1C5FB0420063D80E /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
 		072133FB1C5E92C9004EFCCB /* DataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoader.h; sourceTree = "<group>"; };
 		072133FC1C5E92C9004EFCCB /* DataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLoader.m; sourceTree = "<group>"; };
-		0769659F1C5B5D0700ED2D33 /* QuranGardens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuranGardens.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0769659F1C5B5D0700ED2D33 /* QuranLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuranLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		076965A31C5B5D0700ED2D33 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		076965A51C5B5D0700ED2D33 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		076965A61C5B5D0700ED2D33 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -130,7 +130,7 @@
 		076965A01C5B5D0700ED2D33 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0769659F1C5B5D0700ED2D33 /* QuranGardens.app */,
+				0769659F1C5B5D0700ED2D33 /* QuranLights.app */,
 				076965B81C5B5D0700ED2D33 /* QuranGardensTests.xctest */,
 				076965C31C5B5D0700ED2D33 /* QuranGardensUITests.xctest */,
 			);
@@ -256,7 +256,7 @@
 			);
 			name = QuranGardens;
 			productName = QuranGardens;
-			productReference = 0769659F1C5B5D0700ED2D33 /* QuranGardens.app */;
+			productReference = 0769659F1C5B5D0700ED2D33 /* QuranLights.app */;
 			productType = "com.apple.product-type.application";
 		};
 		076965B71C5B5D0700ED2D33 /* QuranGardensTests */ = {
@@ -574,7 +574,7 @@
 				INFOPLIST_FILE = QuranGardens/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.evaluation.QuranGardens;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = QuranLights;
 			};
 			name = Debug;
 		};
@@ -590,7 +590,7 @@
 				INFOPLIST_FILE = QuranGardens/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.evaluation.QuranGardens;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = QuranLights;
 			};
 			name = Release;
 		};
