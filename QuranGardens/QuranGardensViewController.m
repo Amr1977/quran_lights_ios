@@ -11,6 +11,9 @@
 #import "Sura.h"
 #import "PeriodicTaskManager.h"
 
+CGFloat const CellHeight = 170;
+CGFloat const CellWidth = 90;
+
 @interface QuranGardensViewController ()
 
 @property (strong, nonatomic) PeriodicTaskManager *periodicTaskManager;
