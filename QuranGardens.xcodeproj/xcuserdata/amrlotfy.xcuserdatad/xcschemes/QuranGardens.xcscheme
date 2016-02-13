@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0769659E1C5B5D0700ED2D33"
-               BuildableName = "QuranGardens.app"
+               BuildableName = "QuranLights.app"
                BlueprintName = "QuranGardens"
                ReferencedContainer = "container:QuranGardens.xcodeproj">
             </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0769659E1C5B5D0700ED2D33"
-            BuildableName = "QuranGardens.app"
+            BuildableName = "QuranLights.app"
             BlueprintName = "QuranGardens"
             ReferencedContainer = "container:QuranGardens.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0769659E1C5B5D0700ED2D33"
-            BuildableName = "QuranGardens.app"
+            BuildableName = "QuranLights.app"
             BlueprintName = "QuranGardens"
             ReferencedContainer = "container:QuranGardens.xcodeproj">
          </BuildableReference>
@@ -95,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0769659E1C5B5D0700ED2D33"
-            BuildableName = "QuranGardens.app"
+            BuildableName = "QuranLights.app"
             BlueprintName = "QuranGardens"
             ReferencedContainer = "container:QuranGardens.xcodeproj">
          </BuildableReference>

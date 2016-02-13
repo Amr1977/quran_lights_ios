@@ -572,6 +572,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = QuranGardens/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.evaluation.QuranGardens;
 				PRODUCT_NAME = QuranLights;
@@ -588,6 +589,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = QuranGardens/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.evaluation.QuranGardens;
 				PRODUCT_NAME = QuranLights;
