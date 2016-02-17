@@ -42,6 +42,15 @@ CGFloat const CellWidth = 90;
      object:[UIDevice currentDevice]];
     
     [self AddPeriodicrefresh];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"How it works"
+                                                        message:@"After you review any Sura remember to tap its cell here to light it up, that cell light will get weaker with time, you will have 10 days before it reaches its minimum.\nThat shows how fresh are these Suras in your memory.\n\nYou have a lot of lighting to do !"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Got it"
+                                              otherButtonTitles: @"Don't show again",nil];
+
+    alertView.alertViewStyle = UIAlertViewStyleDefault;
+    
+    [alertView show];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
