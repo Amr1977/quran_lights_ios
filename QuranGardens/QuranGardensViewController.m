@@ -11,8 +11,8 @@
 #import "Sura.h"
 #import "PeriodicTaskManager.h"
 
-CGFloat const CellHeight = 170;
-CGFloat const CellWidth = 90;
+CGFloat const CellHeight = 50;
+CGFloat const CellWidth = 170;
 
 @interface QuranGardensViewController ()
 
@@ -170,7 +170,7 @@ NSInteger const intervalInTenDays = 10*24*60*60;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(170, 90);
+    return CGSizeMake(CellWidth, CellHeight);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView  didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
