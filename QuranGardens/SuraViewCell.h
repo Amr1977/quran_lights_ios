@@ -14,4 +14,7 @@
 //amount of time left for next due review time
 @property (weak, nonatomic) IBOutlet UIProgressView *timeProgressView;
 
+@property (weak, nonatomic) IBOutlet UIImageView *image;
+
+
 @end

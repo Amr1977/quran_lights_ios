@@ -122,6 +122,7 @@ CGFloat const CellWidth = 170;
     
     UIImage *image = [UIImage imageNamed:@"galaxy.png"];
     self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:image];
+    //self.collectionView.backgroundView.alpha = 0.8;
     self.collectionView.backgroundView.contentMode = UIViewContentModeScaleAspectFit;
 }
 
@@ -164,18 +165,26 @@ NSInteger const intervalInTenDays = 10*24*60*60;
     SuraViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
     
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
-
-    cell.backgroundColor = [UIColor greenColor];
-    cell.alpha = MAX([task remainingTimeInterval] / task.cycleInterval, 0.2);
-
-    cell.timeProgressView.progress = cell.alpha;
-    cell.suraName.text = [NSString stringWithFormat:@"%u %@", indexPath.row + 1, task.name];
-    cell.suraName.adjustsFontSizeToFitWidth = YES;
     
-    cell.layer.cornerRadius = 10.0f;
-    cell.layer.borderWidth = 1.0f;
-    cell.layer.borderColor = [UIColor clearColor].CGColor;
-    cell.layer.masksToBounds = YES;
+    CGFloat progress = [task remainingTimeInterval] / task.cycleInterval;
+    cell.alpha = MAX(progress, 0.2);
+
+    cell.timeProgressView.progress = progress;
+    
+    cell.suraName.text = [NSString stringWithFormat:@"%u %@", indexPath.row + 1, task.name];
+    
+    if (!cell.tag) {
+        cell.tag = 1;
+        
+        cell.suraName.adjustsFontSizeToFitWidth = YES;
+        
+        cell.layer.cornerRadius = 10.0f;
+        cell.layer.borderWidth = 1.0f;
+        cell.layer.borderColor = [UIColor clearColor].CGColor;
+        cell.layer.masksToBounds = YES;
+        
+        cell.backgroundColor = [UIColor greenColor];
+    }
     
     return cell;
 }

@@ -49,6 +49,7 @@
             </constraints>
             <size key="customSize" width="177" height="162"/>
             <connections>
+                <outlet property="image" destination="L8Q-iz-jQS" id="nZy-6R-1sT"/>
                 <outlet property="suraName" destination="Auy-mw-Mdj" id="RHz-0O-wTi"/>
                 <outlet property="timeProgressView" destination="fQa-4x-aMd" id="CZg-JN-ApQ"/>
             </connections>
