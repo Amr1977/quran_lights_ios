@@ -74,11 +74,7 @@ CGFloat const CellWidth = 170;
         UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * action) { }];
         
-        UIAlertAction* refreshAction = [UIAlertAction actionWithTitle:@"refresh" style:UIAlertActionStyleDefault
-                                                             handler:^(UIAlertAction * action) { [self refresh]; }];
-        
         [_menu addAction:defaultAction];
-        [_menu addAction:refreshAction];
         [_menu addAction:cancelAction];
     }
     return _menu;
