@@ -138,7 +138,7 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
     UINib *nib = [UINib nibWithNibName:@"SuraViewCell" bundle: nil];
     [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"cellIdentifier"];
     
-    UIImage *image = [UIImage imageNamed:@"galaxy.png"];
+    UIImage *image = [UIImage imageNamed:@"dark-stars.jpg"];
     self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:image];
     //self.collectionView.backgroundView.alpha = 0.8;
     self.collectionView.backgroundView.contentMode = UIViewContentModeScaleAspectFit;
