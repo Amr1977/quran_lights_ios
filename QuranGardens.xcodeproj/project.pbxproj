@@ -27,7 +27,7 @@
 		077F34551C7591AD00DF1720 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F34541C7591AD00DF1720 /* Preferences.m */; };
 		07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */; };
 		07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */; };
-		B09B2F22E36C698BDB4E128A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6F86663B27387B6390C993 /* libPods.a */; };
+		EFA6CE2B3696B55BC9CAD173 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6F86663B27387B6390C993 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,7 +97,7 @@
 				071D389B1C5FB01D0063D80E /* SystemConfiguration.framework in Frameworks */,
 				071D38991C5FB00E0063D80E /* CoreText.framework in Frameworks */,
 				071D38971C5FAFFE0063D80E /* AssetsLibrary.framework in Frameworks */,
-				B09B2F22E36C698BDB4E128A /* libPods.a in Frameworks */,
+				EFA6CE2B3696B55BC9CAD173 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,7 +578,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = QuranGardens/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.evaluation.QuranGardens;
 				PRODUCT_NAME = QuranLights;
@@ -595,7 +595,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = QuranGardens/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.evaluation.QuranGardens;
 				PRODUCT_NAME = QuranLights;
