@@ -14,10 +14,13 @@
 CGFloat const CellHeight = 50;
 CGFloat const CellWidth = 170;
 
-@interface QuranGardensViewController ()
+NSString *const ShowHelpScreenKey = @"Show_help_screen";
+
+@interface QuranGardensViewController () <UIAlertViewDelegate>
 
 @property (strong, nonatomic) PeriodicTaskManager *periodicTaskManager;
 @property (strong, nonatomic) UIAlertController *menu;
+@property (nonatomic) BOOL showHelpScreen;
 
 @end
 
@@ -47,15 +50,34 @@ CGFloat const CellWidth = 170;
      object:[UIDevice currentDevice]];
     
     [self AddPeriodicrefresh];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"How it works"
-                                                        message:@"After you review any Sura remember to tap its cell here to light it up, you have 10 days before light goes off.\nThat will give you an overview of Suras in your memory.\n\nLet's turn light on !"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Got it"
-                                              otherButtonTitles: @"Don't show again",nil];
+    if ([self showHelpScreen]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"How it works"
+                                                            message:@"After you review any Sura remember to tap its cell here to light it up, you have 10 days before light goes off.\nThat will give you an overview of Suras in your memory.\n\nLet's turn light on !"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Got it"
+                                                  otherButtonTitles: @"Don't show again",nil];
+        
+        alertView.alertViewStyle = UIAlertViewStyleDefault;
+        
+        [alertView show];
+    }
+}
 
-    alertView.alertViewStyle = UIAlertViewStyleDefault;
-    
-    [alertView show];
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1){
+        [self setShowHelpScreen:NO];
+    }
+}
+
+- (BOOL)showHelpScreen{
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:ShowHelpScreenKey]) {
+        return YES;
+    }
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:ShowHelpScreenKey] boolValue];
+}
+
+- (void)setShowHelpScreen:(BOOL)showHelpScreen{
+    [[NSUserDefaults standardUserDefaults] setBool:showHelpScreen forKey:ShowHelpScreenKey];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
