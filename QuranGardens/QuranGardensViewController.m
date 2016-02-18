@@ -51,15 +51,7 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
     
     [self AddPeriodicrefresh];
     if ([self showHelpScreen]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"How it works"
-                                                            message:@"After you review any Sura remember to tap its cell here to light it up, you have 10 days before light goes off.\nThat will give you an overview of Suras in your memory.\n\nLet's turn light on !"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"Got it"
-                                                  otherButtonTitles: @"Don't show again",nil];
-        
-        alertView.alertViewStyle = UIAlertViewStyleDefault;
-        
-        [alertView show];
+        [self howItWorks];
     }
 }
 
@@ -67,6 +59,18 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
     if (buttonIndex == 1){
         [self setShowHelpScreen:NO];
     }
+}
+
+- (void)howItWorks{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"How it works"
+                                                        message:@"After you review any Sura remember to tap its cell here to light it up, you have 10 days before light goes off.\nThat will give you an overview of Suras in your memory.\n\nLet's turn light on !"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Got it"
+                                              otherButtonTitles: @"Don't show again",nil];
+    
+    alertView.alertViewStyle = UIAlertViewStyleDefault;
+    
+    [alertView show];
 }
 
 - (BOOL)showHelpScreen{
@@ -93,10 +97,15 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
         UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Reset" style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * action) { [self resetAllTasks]; }];
         
+        UIAlertAction* howItWorksAction = [UIAlertAction actionWithTitle:@"How it works" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) { [self howItWorks]; }];
+        
+        
         UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * action) { }];
         
         [_menu addAction:defaultAction];
+        [_menu addAction:howItWorksAction];
         [_menu addAction:cancelAction];
     }
     return _menu;
