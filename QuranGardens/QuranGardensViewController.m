@@ -103,9 +103,8 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
         
         UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * action) { }];
-        
-        [_menu addAction:defaultAction];
         [_menu addAction:howItWorksAction];
+        [_menu addAction:defaultAction];
         [_menu addAction:cancelAction];
     }
     return _menu;
@@ -194,9 +193,23 @@ NSInteger const intervalInTenDays = 10*24*60*60;
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
     
     CGFloat progress = [task remainingTimeInterval] / task.cycleInterval;
-    cell.alpha = MAX(progress, 0.2);
+    if (progress > 0.2) {
+        [UIView animateWithDuration:1 animations:^{
+            cell.alpha = MAX(progress, 0.2);
+        }];
+    }
+    else{
+        cell.alpha = MAX(progress, 0.2);
+    }
 
     cell.timeProgressView.progress = progress;
+    
+    if (progress < 0.3){
+        cell.timeProgressView.progressTintColor  = [UIColor redColor];
+    }
+    else {
+        cell.timeProgressView.progressTintColor  = [UIColor blueColor];
+    }
     
     cell.suraName.text = [NSString stringWithFormat:@"%u %@", indexPath.row + 1, task.name];
     
