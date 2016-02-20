@@ -30,25 +30,42 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    [self handleDeviceOrientation];
     
-     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"sunrise.jpg"] forBarMetrics:UIBarMetricsDefault];
+    [self setnavigationBar];
     
+    [self initTaskManager];
+    
+    [self setupCollectionView];
+    
+    [self AddPeriodicrefresh];
+    
+    [self startupHelpAlert];
+}
+
+- (void)initTaskManager{
     self.periodicTaskManager = [PeriodicTaskManager new];
     [self.periodicTaskManager loadTasks];
     if (![self.periodicTaskManager taskCount]) {
         [self initSuras];
     }
-    [self setupCollectionView];
-    
+}
+
+- (void)setnavigationBar{
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"sunrise.jpg"] forBarMetrics:UIBarMetricsDefault];
     [self setMenuButton];
-    
+}
+
+- (void)handleDeviceOrientation{
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(orientationChanged:)
      name:UIDeviceOrientationDidChangeNotification
      object:[UIDevice currentDevice]];
-    
-    [self AddPeriodicrefresh];
+}
+
+- (void)startupHelpAlert{
     if ([self showHelpScreen]) {
         [self howItWorks];
     }
@@ -255,7 +272,6 @@ NSInteger const intervalInTenDays = 10*24*60*60;
         cell.backgroundColor = [UIColor colorWithRed:1/255 green:progress blue:1/255 alpha:1];
         cell.timeProgressView.progressTintColor  = [UIColor blueColor];
     }
-    
     
     cell.suraName.text = [NSString stringWithFormat:@"%u %@", indexPath.row + 1, task.name];
     
