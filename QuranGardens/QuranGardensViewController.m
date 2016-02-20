@@ -31,9 +31,7 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
 {
     [super viewDidLoad];
     
-    UIImage *image = [UIImage imageNamed:@"galaxy.png"];
-    self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:image];
-    self.collectionView.backgroundView.contentMode = UIViewContentModeCenter;
+     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"sunrise.jpg"] forBarMetrics:UIBarMetricsDefault];
     
     self.periodicTaskManager = [PeriodicTaskManager new];
     [self.periodicTaskManager loadTasks];
@@ -41,8 +39,8 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
         [self initSuras];
     }
     [self setupCollectionView];
-    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(showActionMenu)];
-    self.navigationItem.rightBarButtonItem = menuButton;
+    
+    [self setMenuButton];
     
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter]
@@ -54,6 +52,25 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
     if ([self showHelpScreen]) {
         [self howItWorks];
     }
+}
+
+- (void)setMenuButton{
+    UIImage *barButtonImage =  [UIImage imageNamed:@"sun.jpg"];
+    CGRect imageFrame = CGRectMake(0, 0, 40, 40);
+    
+    UIButton *someButton = [[UIButton alloc] initWithFrame:imageFrame];
+    
+    [someButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
+    [someButton addTarget:self
+                   action:@selector(showActionMenu)
+         forControlEvents:UIControlEventTouchUpInside];
+    
+    [someButton setShowsTouchWhenHighlighted:YES];
+    
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:someButton];
+    [UIView animateWithDuration:1 animations:^{
+        self.navigationItem.rightBarButtonItem = menuButton;
+    }];
 }
 
 - (void)howItWorks{
@@ -168,6 +185,7 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
 }
 
 - (void)setupCollectionView{
+    
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
@@ -178,10 +196,10 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
     UINib *nib = [UINib nibWithNibName:@"SuraViewCell" bundle: nil];
     [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"cellIdentifier"];
     
-//    UIImage *image = [UIImage imageNamed:@"moon.jpg"];
-//    self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:image];
-//    self.collectionView.backgroundView.alpha = 0.8;
-//    self.collectionView.backgroundView.contentMode = UIViewContentModeScaleAspectFit;
+    UIImage *image = [UIImage imageNamed:@"star.jpg"];
+    self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:image];
+    self.collectionView.backgroundView.alpha = 0.8;
+    self.collectionView.backgroundView.contentMode = UIViewContentModeScaleAspectFit;
 }
 
 NSInteger const intervalInTenDays = 10*24*60*60;
@@ -267,14 +285,16 @@ NSInteger const intervalInTenDays = 10*24*60*60;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView  didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
-    PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
-   
-    RLMRealm *realm = [RLMRealm defaultRealm];
-    [realm beginWriteTransaction];
-    task.lastOccurrence = [[NSDate alloc] init];
-    [realm commitWriteTransaction];
-    
-    [self.collectionView reloadData];
+    [self areYouSureDialogWithMessage:@"Did you review this Sura ?" yesBlock:^{
+        PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
+        
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        [realm beginWriteTransaction];
+        task.lastOccurrence = [[NSDate alloc] init];
+        [realm commitWriteTransaction];
+        
+        [self.collectionView reloadData];
+    }];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
