@@ -16,11 +16,12 @@ CGFloat const CellWidth = 170;
 
 NSString *const ShowHelpScreenKey = @"Show_help_screen";
 
-@interface QuranGardensViewController () <UIAlertViewDelegate>
+@interface QuranGardensViewController ()
 
 @property (strong, nonatomic) PeriodicTaskManager *periodicTaskManager;
 @property (strong, nonatomic) UIAlertController *menu;
 @property (nonatomic) BOOL showHelpScreen;
+@property (nonatomic) BOOL menuOpened;
 
 @end
 
@@ -40,8 +41,8 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
         [self initSuras];
     }
     [self setupCollectionView];
-    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(showActionMenu)];
-    self.navigationItem.rightBarButtonItem = anotherButton;
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(showActionMenu)];
+    self.navigationItem.rightBarButtonItem = menuButton;
     
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter]
@@ -55,22 +56,26 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
     }
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1){
-        [self setShowHelpScreen:NO];
-    }
-}
-
 - (void)howItWorks{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"How it works"
-                                                        message:@"After you review any Sura remember to tap its cell here to light it up, you have 10 days before light goes off.\nThat will give you an overview of Suras in your memory.\n\nLet's turn light on !"
-                                                       delegate:self
-                                              cancelButtonTitle:@"Got it"
-                                              otherButtonTitles: @"Don't show again",nil];
     
-    alertView.alertViewStyle = UIAlertViewStyleDefault;
+   UIAlertController *howItWorks = [UIAlertController alertControllerWithTitle:@"How it works"
+                                          message:@"After you review any Sura remember to tap its cell here to light it up, you have 10 days before light goes almost off unless you review it again.\n\nThat will give you an overview of how frequent you review Suras and how fresh are they in your memory.\n\nLet's add more light to our lives !"
+                                   preferredStyle:UIAlertControllerStyleAlert];
     
-    [alertView show];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
+                                                          handler:nil];
+    
+    UIAlertAction* doNotShowAgain = [UIAlertAction actionWithTitle:@"Don't show again" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) { [self setShowHelpScreen:NO]; }];
+    
+    
+    if (!self.menuOpened) {
+        [howItWorks addAction:doNotShowAgain];
+    }
+    [howItWorks addAction:defaultAction];
+    
+    [self presentViewController:howItWorks animated:YES completion:nil];
+    
 }
 
 - (BOOL)showHelpScreen{
@@ -95,14 +100,20 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
                                              preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Reset" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) { [self resetAllTasks]; }];
+                                                              handler:^(UIAlertAction * action) {
+                                                                  [self resetAllTasks];
+                                                                  self.menuOpened = NO;
+                                                              }];
         
         UIAlertAction* howItWorksAction = [UIAlertAction actionWithTitle:@"How it works" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) { [self howItWorks]; }];
+                                                              handler:^(UIAlertAction * action) {
+                                                                  [self howItWorks];
+                                                                  self.menuOpened = NO;
+                                                              }];
         
         
         UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) { }];
+                                                             handler:^(UIAlertAction * action) { self.menuOpened = NO; }];
         [_menu addAction:howItWorksAction];
         [_menu addAction:defaultAction];
         [_menu addAction:cancelAction];
@@ -118,6 +129,7 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
 
 
 - (void)showActionMenu{
+    self.menuOpened = YES;
     [self presentViewController:self.menu animated:YES completion:nil];
 }
 
@@ -193,7 +205,7 @@ NSInteger const intervalInTenDays = 10*24*60*60;
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
     
     CGFloat progress = [task remainingTimeInterval] / task.cycleInterval;
-    if (progress > 0.2) {
+    if (progress < 0.3) {
         [UIView animateWithDuration:1 animations:^{
             cell.alpha = MAX(progress, 0.2);
         }];
