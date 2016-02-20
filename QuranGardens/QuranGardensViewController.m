@@ -246,20 +246,16 @@ NSInteger const intervalInTenDays = 10*24*60*60;
     if (progress < 0.3) {
         [UIView animateWithDuration:1 animations:^{
             cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
+            cell.timeProgressView.progress = progress;
+            cell.timeProgressView.progressTintColor  = [UIColor redColor];
         }];
     }
     else{
+        cell.timeProgressView.progress = progress;
         cell.backgroundColor = [UIColor colorWithRed:1/255 green:progress blue:1/255 alpha:1];
-    }
-
-    cell.timeProgressView.progress = progress;
-    
-    if (progress < 0.3){
-        cell.timeProgressView.progressTintColor  = [UIColor redColor];
-    }
-    else {
         cell.timeProgressView.progressTintColor  = [UIColor blueColor];
     }
+    
     
     cell.suraName.text = [NSString stringWithFormat:@"%u %@", indexPath.row + 1, task.name];
     
@@ -272,11 +268,7 @@ NSInteger const intervalInTenDays = 10*24*60*60;
         cell.layer.borderWidth = 1.0f;
         cell.layer.borderColor = [UIColor clearColor].CGColor;
         cell.layer.masksToBounds = YES;
-        
-        
     }
-    
-    
     
     return cell;
 }
