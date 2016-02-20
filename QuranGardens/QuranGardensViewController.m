@@ -142,9 +142,29 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
     [self.collectionView reloadData];
 }
 
+- (void)areYouSureDialogWithMessage:(NSString *)message yesBlock:(void(^)(void))yesBlock{
+    UIAlertController *confirmation = [UIAlertController alertControllerWithTitle:@"Are You sure ?"
+                                                                        message:message
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault
+                                                          handler:nil];
+    
+    UIAlertAction* yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * action) { yesBlock(); }];
+    
+    [confirmation addAction:noAction];
+    [confirmation addAction:yesAction];
+    
+    [self presentViewController:confirmation animated:YES completion:nil];
+}
+
 - (void)resetAllTasks{
-    [self.periodicTaskManager resetTasks];
-    [self refresh];
+    [self areYouSureDialogWithMessage:@"Reset all Suras states ?" yesBlock:^{
+        [self.periodicTaskManager resetTasks];
+        [self refresh];
+        NSLog(@"Destructed !");
+    }];
 }
 
 - (void)setupCollectionView{
@@ -158,10 +178,10 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
     UINib *nib = [UINib nibWithNibName:@"SuraViewCell" bundle: nil];
     [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"cellIdentifier"];
     
-    UIImage *image = [UIImage imageNamed:@"dark-stars.jpg"];
-    self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:image];
-    //self.collectionView.backgroundView.alpha = 0.8;
-    self.collectionView.backgroundView.contentMode = UIViewContentModeScaleAspectFit;
+//    UIImage *image = [UIImage imageNamed:@"moon.jpg"];
+//    self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:image];
+//    self.collectionView.backgroundView.alpha = 0.8;
+//    self.collectionView.backgroundView.contentMode = UIViewContentModeScaleAspectFit;
 }
 
 NSInteger const intervalInTenDays = 10*24*60*60;
