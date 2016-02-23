@@ -13,6 +13,9 @@
 		071D389D1C5FB0250063D80E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389C1C5FB0250063D80E /* CoreTelephony.framework */; };
 		071D389F1C5FB0420063D80E /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389E1C5FB0420063D80E /* BuddyBuildSDK.framework */; };
 		072133FD1C5E92C9004EFCCB /* DataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 072133FC1C5E92C9004EFCCB /* DataLoader.m */; };
+		073B7AF41C78F41D00612110 /* UsersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 073B7AF31C78F41D00612110 /* UsersManager.m */; };
+		073B7AF71C78F43E00612110 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 073B7AF61C78F43E00612110 /* User.m */; };
+		073B7AFA1C78F45800612110 /* SuraList.m in Sources */ = {isa = PBXBuildFile; fileRef = 073B7AF91C78F45800612110 /* SuraList.m */; };
 		076965A41C5B5D0700ED2D33 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965A31C5B5D0700ED2D33 /* main.m */; };
 		076965A71C5B5D0700ED2D33 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965A61C5B5D0700ED2D33 /* AppDelegate.m */; };
 		076965AD1C5B5D0700ED2D33 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 076965AB1C5B5D0700ED2D33 /* Main.storyboard */; };
@@ -55,6 +58,12 @@
 		071D389E1C5FB0420063D80E /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
 		072133FB1C5E92C9004EFCCB /* DataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoader.h; sourceTree = "<group>"; };
 		072133FC1C5E92C9004EFCCB /* DataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLoader.m; sourceTree = "<group>"; };
+		073B7AF21C78F41D00612110 /* UsersManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersManager.h; sourceTree = "<group>"; };
+		073B7AF31C78F41D00612110 /* UsersManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersManager.m; sourceTree = "<group>"; };
+		073B7AF51C78F43E00612110 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		073B7AF61C78F43E00612110 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		073B7AF81C78F45800612110 /* SuraList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuraList.h; sourceTree = "<group>"; };
+		073B7AF91C78F45800612110 /* SuraList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuraList.m; sourceTree = "<group>"; };
 		0769659F1C5B5D0700ED2D33 /* QuranLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuranLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		076965A31C5B5D0700ED2D33 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		076965A51C5B5D0700ED2D33 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -197,6 +206,12 @@
 				072133FC1C5E92C9004EFCCB /* DataLoader.m */,
 				077F34531C7591AD00DF1720 /* Preferences.h */,
 				077F34541C7591AD00DF1720 /* Preferences.m */,
+				073B7AF21C78F41D00612110 /* UsersManager.h */,
+				073B7AF31C78F41D00612110 /* UsersManager.m */,
+				073B7AF51C78F43E00612110 /* User.h */,
+				073B7AF61C78F43E00612110 /* User.m */,
+				073B7AF81C78F45800612110 /* SuraList.h */,
+				073B7AF91C78F45800612110 /* SuraList.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -423,12 +438,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				073B7AFA1C78F45800612110 /* SuraList.m in Sources */,
 				072133FD1C5E92C9004EFCCB /* DataLoader.m in Sources */,
 				076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */,
 				07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */,
 				076965E01C5B630E00ED2D33 /* QuranGardensViewController.m in Sources */,
 				076965D81C5B60C600ED2D33 /* Sura.m in Sources */,
 				07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */,
+				073B7AF71C78F43E00612110 /* User.m in Sources */,
+				073B7AF41C78F41D00612110 /* UsersManager.m in Sources */,
 				076965A71C5B5D0700ED2D33 /* AppDelegate.m in Sources */,
 				076965A41C5B5D0700ED2D33 /* main.m in Sources */,
 				077F34551C7591AD00DF1720 /* Preferences.m in Sources */,

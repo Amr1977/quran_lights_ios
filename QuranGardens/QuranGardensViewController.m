@@ -48,7 +48,7 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
     self.periodicTaskManager = [PeriodicTaskManager new];
     [self.periodicTaskManager loadTasks];
     if (![self.periodicTaskManager taskCount]) {
-        [self initSuras];
+        [self initSuraList];
     }
 }
 
@@ -221,7 +221,7 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
 
 NSInteger const intervalInTenDays = 10*24*60*60;
 //TODO: create suras in a method and randomize content in another method
-- (void)initSuras{
+- (void)initSuraList{
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
     [realm deleteAllObjects];
