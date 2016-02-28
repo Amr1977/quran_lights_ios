@@ -261,11 +261,9 @@ NSInteger const intervalInTenDays = 10*24*60*60;
     
     CGFloat progress = [task remainingTimeInterval] / task.cycleInterval;
     if (progress < 0.3) {
-        [UIView animateWithDuration:1 animations:^{
-            cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
-            cell.timeProgressView.progress = progress;
-            cell.timeProgressView.progressTintColor  = [UIColor redColor];
-        }];
+        cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
+        cell.timeProgressView.progress = progress;
+        cell.timeProgressView.progressTintColor  = [UIColor redColor];
     }
     else{
         cell.timeProgressView.progress = progress;
@@ -295,16 +293,17 @@ NSInteger const intervalInTenDays = 10*24*60*60;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView  didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
-    [self areYouSureDialogWithMessage:@"Did you review this Sura ?" yesBlock:^{
-        PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
-        
-        RLMRealm *realm = [RLMRealm defaultRealm];
-        [realm beginWriteTransaction];
-        task.lastOccurrence = [[NSDate alloc] init];
-        [realm commitWriteTransaction];
-        
-        [self.collectionView reloadData];
-    }];
+//    [self areYouSureDialogWithMessage:@"Did you review this Sura ?" yesBlock:^{
+//        
+//    }];
+    PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
+    
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    task.lastOccurrence = [[NSDate alloc] init];
+    [realm commitWriteTransaction];
+    
+    [self.collectionView reloadData];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
