@@ -300,7 +300,14 @@ NSInteger const intervalInTenDays = 10*24*60*60;
     
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
-    task.lastOccurrence = [[NSDate alloc] init];
+    //TODO: if task already recent then reset it
+    SuraViewCell *cell = (SuraViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    if (cell.timeProgressView.progress > 0.9) {
+        task.lastOccurrence = [NSDate dateWithTimeIntervalSince1970:0];
+    } else {
+       task.lastOccurrence = [[NSDate alloc] init];
+    }
+    
     [realm commitWriteTransaction];
     
     [self.collectionView reloadData];
