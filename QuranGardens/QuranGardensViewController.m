@@ -302,7 +302,7 @@ NSInteger const intervalInTenDays = 10*24*60*60;
     [realm beginWriteTransaction];
     //TODO: if task already recent then reset it
     SuraViewCell *cell = (SuraViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    if (cell.timeProgressView.progress > 0.9) {
+    if (cell.timeProgressView.progress > 0.99) {
         task.lastOccurrence = [NSDate dateWithTimeIntervalSince1970:0];
     } else {
        task.lastOccurrence = [[NSDate alloc] init];
