@@ -14,7 +14,14 @@
 CGFloat const CellHeight = 50;
 CGFloat const CellWidth = 170;
 
-NSString *const ShowHelpScreenKey = @"Show_help_screen";
+static NSString *const ShowHelpScreenKey = @"Show_help_screen";
+static NSString *const ReversedSortOrderOptionKey = @"reversed_sort_order";
+static NSString *const SorterTypeOptionKey = @"sorter_type";
+
+typedef NS_OPTIONS(NSUInteger, SorterType) {
+    NormalSuraOrderSorter = 0,
+    WeakerFirstSorter = 1
+};
 
 @interface QuranGardensViewController ()
 
@@ -22,6 +29,9 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
 @property (strong, nonatomic) UIAlertController *menu;
 @property (nonatomic) BOOL showHelpScreen;
 @property (nonatomic) BOOL menuOpened;
+
+@property (nonatomic) BOOL reversedSortOrder;
+@property (nonatomic, assign) SorterType sortType;
 
 @end
 
@@ -39,7 +49,9 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
     
     [self setupCollectionView];
     
-    [self AddPeriodicrefresh];
+    [self applyCurrentSort];
+    
+    [self AddPeriodicRefresh];
     
     [self startupHelpAlert];
 }
@@ -172,6 +184,7 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
     
     UIAlertAction* normalSoraOrderSort = [UIAlertAction actionWithTitle:@"Normal Sura Order" style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * action) {
+                                                               self.reversedSortOrder = NO;
                                                                [self normalSuraOrderSort];
                                                            }];
     
@@ -182,6 +195,7 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
     
     UIAlertAction* weakerFirst = [UIAlertAction actionWithTitle:@"Weaker First" style:UIAlertActionStyleDefault
                                                                 handler:^(UIAlertAction * action) {
+                                                                    self.reversedSortOrder = NO;
                                                                     [self weakerFirstSuraFirstSort];
                                                                 }];
     
@@ -218,15 +232,35 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
     
     [self.periodicTaskManager saveTasks];
     
+    self.sortType = NormalSuraOrderSorter;
+    
     [self.collectionView reloadData];
 }
 
+- (void)setReversedSortOrder:(BOOL)reversedSortOrder{
+    [[NSUserDefaults standardUserDefaults] setBool:reversedSortOrder forKey:ReversedSortOrderOptionKey];
+}
+
+- (BOOL)reversedSortOrder{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:ReversedSortOrderOptionKey];
+}
+
+- (void)setSortType:(SorterType)sortType{
+    [[NSUserDefaults standardUserDefaults] setInteger:sortType forKey:SorterTypeOptionKey];
+}
+
+- (SorterType)sortType{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:SorterTypeOptionKey] integerValue];
+}
+
 - (void)reversedSuraOrderSort{
+    self.reversedSortOrder = !self.reversedSortOrder;
     [self.periodicTaskManager sortListReverseOrder];
     [self.collectionView reloadData];
 }
 
 - (void)weakerFirstSuraFirstSort{
+    self.sortType = WeakerFirstSorter;
     [self.periodicTaskManager sortListWeakerFirst];
     [self.collectionView reloadData];
 }
@@ -236,7 +270,7 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
     [self.collectionView reloadData];
 }
 
-- (void)AddPeriodicrefresh{
+- (void)AddPeriodicRefresh{
     NSInteger RefreshPeriod = 300; // refresh each 5 minutes;
     NSTimer* timer = [NSTimer timerWithTimeInterval:RefreshPeriod target:self selector:@selector(refresh) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
@@ -374,14 +408,10 @@ NSInteger const intervalInTenDays = 10*24*60*60;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView  didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
-//    [self areYouSureDialogWithMessage:@"Did you review this Sura ?" yesBlock:^{
-//        
-//    }];
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
     
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
-    //TODO: if task already recent then reset it
     SuraViewCell *cell = (SuraViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     if (cell.timeProgressView.progress > 0.99) {
         task.lastOccurrence = [NSDate dateWithTimeIntervalSince1970:0];
@@ -390,8 +420,21 @@ NSInteger const intervalInTenDays = 10*24*60*60;
     }
     
     [realm commitWriteTransaction];
-    
+
+    [self applyCurrentSort];
+
     [self.collectionView reloadData];
+}
+
+- (void)applyCurrentSort{
+    if (self.sortType == NormalSuraOrderSorter) {
+        [self normalSuraOrderSort];
+    } else {
+        [self weakerFirstSuraFirstSort];
+    }
+    if (self.reversedSortOrder) {
+        [self reversedSuraOrderSort];
+    }
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
