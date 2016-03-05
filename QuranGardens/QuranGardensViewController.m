@@ -175,30 +175,24 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
                                                                [self normalSuraOrderSort];
                                                            }];
     
-    UIAlertAction* reservedSoraOrderSort = [UIAlertAction actionWithTitle:@"Reversed Sura order" style:UIAlertActionStyleDefault
+    UIAlertAction* reverseCurrentOrder = [UIAlertAction actionWithTitle:@"Reversed Current order" style:UIAlertActionStyleDefault
                                                                 handler:^(UIAlertAction * action) {
                                                                     [self reversedSuraOrderSort];
                                                                 }];
     
-    UIAlertAction* oldest = [UIAlertAction actionWithTitle:@"Oldest reviewed First" style:UIAlertActionStyleDefault
+    UIAlertAction* weakerFirst = [UIAlertAction actionWithTitle:@"Weaker First" style:UIAlertActionStyleDefault
                                                                 handler:^(UIAlertAction * action) {
                                                                     [self weakerFirstSuraFirstSort];
                                                                 }];
     
-    UIAlertAction* newest = [UIAlertAction actionWithTitle:@"Latest Reviewed First" style:UIAlertActionStyleDefault
-                                                                handler:^(UIAlertAction * action) {
-                                                                    [self strongerFirstSuraOrderSort];
-                                                                }];
     
     UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action) { self.menuOpened = NO; }];
     
     [sortAlerController addAction:normalSoraOrderSort];
-    
-    [sortAlerController addAction:reservedSoraOrderSort];
-    [sortAlerController addAction:oldest];
-    [sortAlerController addAction:newest];
+    [sortAlerController addAction:weakerFirst];
+    [sortAlerController addAction:reverseCurrentOrder];
     
     [sortAlerController addAction:cancelAction];
     
