@@ -188,7 +188,7 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
                                                                [self normalSuraOrderSort];
                                                            }];
     
-    UIAlertAction* reverseCurrentOrder = [UIAlertAction actionWithTitle:@"Reversed Current order" style:UIAlertActionStyleDefault
+    UIAlertAction* reverseCurrentOrder = [UIAlertAction actionWithTitle:@"Reverse Current order" style:UIAlertActionStyleDefault
                                                                 handler:^(UIAlertAction * action) {
                                                                     [self reversedSuraOrderSort];
                                                                 }];
