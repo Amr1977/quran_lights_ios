@@ -10,11 +10,58 @@
 
 @interface PeriodicTaskManager ()
 
-@property (strong, nonatomic) NSMutableArray<PeriodicTask *> *tasks;
+
 
 @end
 
 @implementation PeriodicTaskManager
+
+- (void)soraListNormalOrder{
+    
+}
+
+- (void)sortListReverseOrder{
+    NSMutableArray <PeriodicTask *> *reversedTasks = [[[self.tasks reverseObjectEnumerator] allObjects] mutableCopy];
+    self.tasks = reversedTasks;
+    [self saveTasks];
+}
+
+- (void)sortListWeakerFirst{
+    NSMutableArray *sortedArray;
+    sortedArray = [self.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        double firstStrength = (((PeriodicTask *)a).remainingTimeInterval/((PeriodicTask *)a).cycleInterval);
+        double secondStrength = (((PeriodicTask *)b).remainingTimeInterval/((PeriodicTask *)b).cycleInterval);
+        NSComparisonResult result;
+        if (firstStrength > secondStrength ) {
+            result = NSOrderedDescending;
+        } else if (firstStrength < secondStrength ) {
+            result = NSOrderedAscending;
+        } else {
+            result = NSOrderedSame;
+        }
+        
+        return result;
+    }].mutableCopy;
+    
+    self.tasks = sortedArray;
+    
+    [self saveTasks];
+}
+
+- (void)sortListStrongestFirst{
+    [self sortListWeakerFirst];
+    [self sortListReverseOrder];
+    [self saveTasks];
+}
+
+- (void)sortWithBlock:(NSComparisonResult(^) (id object1, id object2))sortBlock{
+    NSMutableArray *sortedArray;
+    sortedArray = [self.tasks sortedArrayUsingComparator:sortBlock].mutableCopy;
+    
+    self.tasks = sortedArray;
+    
+    [self saveTasks];
+}
 
 - (void)resetTasks{
     NSDate *oldDay = [NSDate dateWithTimeIntervalSince1970:0];

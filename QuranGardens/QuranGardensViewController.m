@@ -133,26 +133,113 @@ NSString *const ShowHelpScreenKey = @"Show_help_screen";
                                                     message:@""
                                              preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Reset" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {
+        UIAlertAction* resetAction = [UIAlertAction actionWithTitle:@"Reset"
+                                                              style:UIAlertActionStyleDestructive
+                                                            handler:^(UIAlertAction * action) {
                                                                   [self resetAllTasks];
                                                                   self.menuOpened = NO;
                                                               }];
         
-        UIAlertAction* howItWorksAction = [UIAlertAction actionWithTitle:@"How it works" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {
+        UIAlertAction* howItWorksAction = [UIAlertAction actionWithTitle:@"How it works"
+                                                                   style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction * action) {
                                                                   [self howItWorks];
                                                                   self.menuOpened = NO;
                                                               }];
         
+        UIAlertAction* sortAction = [UIAlertAction actionWithTitle:@"Sort Suras"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * action) {
+                                                                     [self sorter];
+                                                                     self.menuOpened = NO;
+                                                                 }];
         
-        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                               style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action) { self.menuOpened = NO; }];
         [_menu addAction:howItWorksAction];
-        [_menu addAction:defaultAction];
+        [_menu addAction:sortAction];
+        [_menu addAction:resetAction];
         [_menu addAction:cancelAction];
     }
     return _menu;
+}
+
+- (void)sorter{
+    UIAlertController *sortAlerController = [UIAlertController alertControllerWithTitle:@"Sort Suras"
+                                                                        message:@"Please select prefered sort style:"
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* normalSoraOrderSort = [UIAlertAction actionWithTitle:@"Normal Sura Order" style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * action) {
+                                                               [self normalSuraOrderSort];
+                                                           }];
+    
+    UIAlertAction* reservedSoraOrderSort = [UIAlertAction actionWithTitle:@"Reversed Sura order" style:UIAlertActionStyleDefault
+                                                                handler:^(UIAlertAction * action) {
+                                                                    [self reversedSuraOrderSort];
+                                                                }];
+    
+    UIAlertAction* oldest = [UIAlertAction actionWithTitle:@"Oldest reviewed First" style:UIAlertActionStyleDefault
+                                                                handler:^(UIAlertAction * action) {
+                                                                    [self weakerFirstSuraFirstSort];
+                                                                }];
+    
+    UIAlertAction* newest = [UIAlertAction actionWithTitle:@"Latest Reviewed First" style:UIAlertActionStyleDefault
+                                                                handler:^(UIAlertAction * action) {
+                                                                    [self strongerFirstSuraOrderSort];
+                                                                }];
+    
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) { self.menuOpened = NO; }];
+    
+    [sortAlerController addAction:normalSoraOrderSort];
+    
+    [sortAlerController addAction:reservedSoraOrderSort];
+    [sortAlerController addAction:oldest];
+    [sortAlerController addAction:newest];
+    
+    [sortAlerController addAction:cancelAction];
+    
+    [self presentViewController:sortAlerController animated:YES completion:nil];
+}
+
+- (void)normalSuraOrderSort{
+    NSMutableArray *sortedArray;
+    sortedArray = [self.periodicTaskManager.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSUInteger firstOrder = [[Sura suraNames] indexOfObject:((PeriodicTask *)a).name];
+        NSUInteger secondOrder = [[Sura suraNames] indexOfObject:((PeriodicTask *)b).name];
+        NSComparisonResult result;
+        if (firstOrder > secondOrder ) {
+            result = NSOrderedDescending;
+        } else {
+            result = NSOrderedAscending;
+        }
+        
+        return result;
+    }].mutableCopy;
+    
+    self.periodicTaskManager.tasks = sortedArray;
+    
+    [self.periodicTaskManager saveTasks];
+    
+    [self.collectionView reloadData];
+}
+
+- (void)reversedSuraOrderSort{
+    [self.periodicTaskManager sortListReverseOrder];
+    [self.collectionView reloadData];
+}
+
+- (void)weakerFirstSuraFirstSort{
+    [self.periodicTaskManager sortListWeakerFirst];
+    [self.collectionView reloadData];
+}
+
+- (void)strongerFirstSuraOrderSort{
+    [self.periodicTaskManager sortListStrongestFirst];
+    [self.collectionView reloadData];
 }
 
 - (void)AddPeriodicrefresh{
@@ -271,7 +358,7 @@ NSInteger const intervalInTenDays = 10*24*60*60;
         cell.timeProgressView.progressTintColor  = [UIColor blueColor];
     }
     
-    cell.suraName.text = [NSString stringWithFormat:@"%u %@", indexPath.row + 1, task.name];
+    cell.suraName.text = [NSString stringWithFormat:@"%u %@", [Sura.suraNames indexOfObject:task.name] + 1, task.name];
     
     if (!cell.tag) {
         cell.tag = 1;
