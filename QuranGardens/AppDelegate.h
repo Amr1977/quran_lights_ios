@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define Demo NO
+#define Demo YES
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
