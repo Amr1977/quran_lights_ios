@@ -17,6 +17,7 @@ CGFloat const CellWidth = 170;
 static NSString *const ShowHelpScreenKey = @"Show_help_screen";
 static NSString *const ReversedSortOrderOptionKey = @"reversed_sort_order";
 static NSString *const SorterTypeOptionKey = @"sorter_type";
+static NSString *const InstallDateKey = @"install_date";
 
 typedef NS_OPTIONS(NSUInteger, SorterType) {
     NormalSuraOrderSorter = 0,
@@ -40,6 +41,10 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    while ([self isDemoOver]) {
+        [self infoWithMessage:@"Your demo is over !"];
+    }
 
     [self handleDeviceOrientation];
     
@@ -133,6 +138,27 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
 
 - (void)setShowHelpScreen:(BOOL)showHelpScreen{
     [[NSUserDefaults standardUserDefaults] setBool:showHelpScreen forKey:ShowHelpScreenKey];
+}
+
+- (void)setInstallDate{
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate new] forKey:InstallDateKey];
+}
+
+- (BOOL)isDemoOver{
+    if (!Demo) {
+        return NO;
+    }
+    NSTimeInterval MonthTimeInterval = 31*24*60*60;
+    NSDate *installDate = [[NSUserDefaults standardUserDefaults] objectForKey:InstallDateKey];
+    if (!installDate) {
+        [self setInstallDate];
+        [self infoWithMessage:[NSString stringWithFormat:@"Demo count down: %ld !", lroundf(MonthTimeInterval -[[NSDate new] timeIntervalSinceDate:installDate])]];
+        return NO;
+    } else {
+        [self infoWithMessage:[NSString stringWithFormat:@"Demo count down: %ld !", lroundf(MonthTimeInterval -[[NSDate new] timeIntervalSinceDate:installDate])]];
+        
+        return [[NSDate new] timeIntervalSinceDate:installDate] > MonthTimeInterval;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -304,6 +330,19 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
     
     [confirmation addAction:noAction];
     [confirmation addAction:yesAction];
+    
+    [self presentViewController:confirmation animated:YES completion:nil];
+}
+
+- (void)infoWithMessage:(NSString *)message {
+    UIAlertController *confirmation = [UIAlertController alertControllerWithTitle:@"Info"
+                                                                          message:message
+                                                                   preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* noAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
+                                                     handler:nil];
+    
+    [confirmation addAction:noAction];
     
     [self presentViewController:confirmation animated:YES completion:nil];
 }

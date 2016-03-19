@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define Demo YES
+
 extern CGFloat const CellHeight;
 extern CGFloat const CellWidth;
 

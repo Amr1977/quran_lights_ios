@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define Demo YES
-
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
