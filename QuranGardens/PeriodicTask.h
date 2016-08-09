@@ -7,14 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Realm/Realm.h>
 
 
 /** 
  A task that should occurre at least once within a preset time period, this time period is the maximum allowed time between two occurrences of a periodic task.
  
  */
-@interface PeriodicTask : RLMObject
+@interface PeriodicTask : NSObject <NSCoding>
 
 /** Task name */
 @property (strong, nonatomic) NSString *name;
@@ -43,5 +42,3 @@
                            lastOccurrence:(NSDate *)lastOccurrence;
 
 @end
-
-RLM_ARRAY_TYPE(PeriodicTask)

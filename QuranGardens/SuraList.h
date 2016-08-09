@@ -8,6 +8,6 @@
 
 #import <Realm/Realm.h>
 
-@interface SuraList : RLMObject
+@interface SuraList : NSObject <NSCoding>
 
 @end

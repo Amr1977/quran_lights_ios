@@ -10,6 +10,30 @@
 
 @implementation PeriodicTask
 
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    
+    self.name = [decoder decodeObjectForKey:@"name"];
+    self.taskDescription = [decoder decodeObjectForKey:@"taskDescription"];
+    self.lastOccurrence = [decoder decodeObjectForKey:@"taskDescription"];
+    self.cycleInterval = [[decoder decodeObjectForKey:@"cycleInterval"] doubleValue];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeObject:self.name forKey:@"name"];
+    [encoder encodeObject:self.taskDescription forKey:@"taskDescription"];
+    [encoder encodeObject:self.lastOccurrence forKey:@"lastOccurrence"];
+    [encoder encodeObject:[NSNumber numberWithDouble:self.cycleInterval] forKey:@"cycleInterval"];
+}
+
+
 - (instancetype)initWithName:(NSString *)name
                  description:(NSString *)description
                cycleInterval:(NSTimeInterval)interval
@@ -47,10 +71,7 @@
 }
 
 - (void)save{
-    RLMRealm * realm = [RLMRealm defaultRealm];
-    [realm beginWriteTransaction];
-    [realm addObject:self];
-    [realm commitWriteTransaction];
+    //TODO: do it!
 }
 
 @end
