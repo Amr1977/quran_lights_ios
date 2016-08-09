@@ -84,8 +84,8 @@ struct TrueExpression : realm::Expression {
 
         return realm::not_found;
     }
-    void set_table(const Table*) override {}
-    const Table* get_table() const override { return nullptr; }
+    void set_base_table(const Table*) override {}
+    const Table* get_base_table() const override { return nullptr; }
     std::unique_ptr<Expression> clone(QueryNodeHandoverPatches*) const override
     {
         return std::unique_ptr<Expression>(new TrueExpression(*this));
@@ -94,8 +94,8 @@ struct TrueExpression : realm::Expression {
 
 struct FalseExpression : realm::Expression {
     size_t find_first(size_t, size_t) const override { return realm::not_found; }
-    void set_table(const Table*) override {}
-    const Table* get_table() const override { return nullptr; }
+    void set_base_table(const Table*) override {}
+    const Table* get_base_table() const override { return nullptr; }
     std::unique_ptr<Expression> clone(QueryNodeHandoverPatches*) const override
     {
         return std::unique_ptr<Expression>(new FalseExpression(*this));
@@ -141,42 +141,112 @@ NSString *operatorName(NSPredicateOperatorType operatorType)
 // A reference to a column within a query. Can be resolved to a Columns<T> for use in query expressions.
 class ColumnReference {
 public:
-    ColumnReference(RLMProperty* property, const std::vector<size_t>& links) :
-        m_property(property), m_links(links)
+    ColumnReference(RLMSchema *schema, RLMProperty* property, const std::vector<RLMProperty*>& links) :
+        m_links(links), m_property(property), m_schema(schema)
     {
     }
-    explicit ColumnReference(RLMProperty* property) : m_property(property) { }
-
-    template <typename T>
-    auto resolve(Query& query) const
+    ColumnReference(RLMSchema *schema, RLMProperty* property) : m_property(property), m_schema(schema)
     {
-        return table_for_query(query)->template column<T>(index());
     }
 
     template <typename T>
-    auto resolveWithSubquery(Query& query, Query subquery) const
+    auto resolve(Query& query) const;
+
+    template <typename T>
+    auto resolve_with_subquery(Query& query, Query subquery) const
     {
-        return table_for_query(query)->template column<T>(index(), std::move(subquery));
+        if (type() != RLMPropertyTypeLinkingObjects) {
+            return table_for_query(query)->template column<T>(index(), std::move(subquery));
+        }
+        else {
+            RLMObjectSchema *link_origin_schema = m_schema[property().objectClassName];
+            Table& link_origin_table = *link_origin_schema.table;
+            size_t link_origin_column = link_origin_schema[property().linkOriginPropertyName].column;
+            return table_for_query(query)->template column<T>(link_origin_table, link_origin_column, std::move(subquery));
+        }
     }
 
     RLMProperty *property() const { return m_property; }
-    size_t index() const { return m_property.column; }
-    RLMPropertyType type() const { return m_property.type; }
+    size_t index() const { return property().column; }
+    RLMPropertyType type() const { return property().type; }
+
+    RLMObjectSchema *link_target_object_schema() const
+    {
+        switch (type()) {
+            case RLMPropertyTypeObject:
+            case RLMPropertyTypeArray:
+            case RLMPropertyTypeLinkingObjects:
+                return m_schema[property().objectClassName];
+            default:
+                REALM_ASSERT(false);
+        }
+    }
+
     bool has_links() const { return m_links.size(); }
+
+    bool has_any_to_many_links() const {
+        return std::any_of(begin(m_links), end(m_links), [](RLMProperty *property) {
+            return property.type == RLMPropertyTypeArray || property.type == RLMPropertyTypeLinkingObjects;
+        });
+    }
+
+    util::Optional<ColumnReference> last_link_column() const {
+        if (!m_links.size()) {
+            return util::none;
+        }
+        auto links = m_links;
+        RLMProperty *property = links.back();
+        links.resize(links.size() - 1);
+        return ColumnReference(m_schema, property, std::move(links));
+    }
+
+    ColumnReference column_ignoring_links() const {
+        return {m_schema, m_property};
+    }
 
 private:
     Table* table_for_query(Query& query) const
     {
         realm::TableRef& table = query.get_table();
-        for (size_t col : m_links) {
-            table->link(col); // mutates m_link_chain on table
+        for (const auto& link : m_links) {
+            // mutates m_link_chain on table
+            if (link.type != RLMPropertyTypeLinkingObjects) {
+                table->link(link.column);
+            }
+            else {
+                RLMObjectSchema *link_origin_schema = m_schema[link.objectClassName];
+                const Table& link_origin_table = *link_origin_schema.table;
+                size_t link_origin_column = link_origin_schema[link.linkOriginPropertyName].column;
+                table->backlink(link_origin_table, link_origin_column);
+            }
         }
         return table.get();
     }
 
+    std::vector<RLMProperty*> m_links;
     RLMProperty *m_property;
-    std::vector<size_t> m_links;
+    RLMSchema *m_schema;
 };
+
+template <typename T>
+auto ColumnReference::resolve(Query& query) const
+{
+    return table_for_query(query)->template column<T>(index());
+}
+
+template <>
+auto ColumnReference::resolve<Link>(Query& query) const
+{
+    if (type() != RLMPropertyTypeLinkingObjects) {
+        return table_for_query(query)->template column<Link>(index());
+    }
+    else {
+        RLMObjectSchema *link_origin_schema = m_schema[property().objectClassName];
+        Table& link_origin_table = *link_origin_schema.table;
+        size_t link_origin_column = link_origin_schema[property().linkOriginPropertyName].column;
+        return table_for_query(query)->template column<Link>(link_origin_table, link_origin_column);
+    }
+}
 
 class CollectionOperation {
 public:
@@ -193,8 +263,8 @@ public:
         , m_link_column(std::move(link_column))
         , m_column(std::move(column))
     {
-        RLMPrecondition(m_link_column.type() == RLMPropertyTypeArray, @"Invalid predicate",
-                        @"Collection operation can only be applied to a property of type RLMArray.");
+        RLMPrecondition(m_link_column.type() == RLMPropertyTypeArray || m_link_column.type() == RLMPropertyTypeLinkingObjects,
+                        @"Invalid predicate", @"Collection operation can only be applied to a property of type RLMArray.");
 
         switch (m_type) {
             case Count:
@@ -216,8 +286,7 @@ public:
 
     Type type() const { return m_type; }
     const ColumnReference& link_column() const { return m_link_column; }
-    NSUInteger column_index() const { return m_column->index(); }
-    RLMPropertyType column_type() const { return m_column->type(); }
+    const ColumnReference& column() const { return *m_column; }
 
     void validate_comparison(id value) const {
         switch (m_type) {
@@ -411,39 +480,24 @@ void add_constraint_to_query(realm::Query &query, RLMPropertyType type,
                              L lhs, R rhs);
 
 void add_between_constraint_to_query(realm::Query &query, const ColumnReference& column, id value) {
+    if (column.has_any_to_many_links()) {
+        auto link_column = *column.last_link_column();
+        Query subquery = link_column.link_target_object_schema().table->where();
+        add_between_constraint_to_query(subquery, column.column_ignoring_links(), value);
+
+        query.and_query(link_column.resolve_with_subquery<Link>(query, std::move(subquery)).count() > 0);
+        return;
+    }
+
     id from, to;
     validate_and_extract_between_range(value, column.property(), &from, &to);
 
     RLMPropertyType type = column.type();
-    if (column.has_links()) {
-        query.group();
-        add_constraint_to_query(query, type, NSGreaterThanOrEqualToPredicateOperatorType, 0, column, from);
-        add_constraint_to_query(query, type, NSLessThanOrEqualToPredicateOperatorType, 0, column, to);
-        query.end_group();
-        return;
-    }
 
-    // add to query
-    NSUInteger index = column.index();
-    switch (type) {
-        case type_DateTime:
-            query.between_datetime(index,
-                                   [from timeIntervalSince1970],
-                                   [to timeIntervalSince1970]);
-            break;
-        case type_Double:
-            query.between(index, [from doubleValue], [to doubleValue]);
-            break;
-        case type_Float:
-            query.between(index, [from floatValue], [to floatValue]);
-            break;
-        case type_Int:
-            query.between(index, [from longLongValue], [to longLongValue]);
-            break;
-        default:
-            @throw RLMPredicateException(@"Unsupported predicate value type",
-                                         @"Object type %@ not supported for BETWEEN operations", RLMTypeToString(type));
-    }
+    query.group();
+    add_constraint_to_query(query, type, NSGreaterThanOrEqualToPredicateOperatorType, 0, column, from);
+    add_constraint_to_query(query, type, NSLessThanOrEqualToPredicateOperatorType, 0, column, to);
+    query.end_group();
 }
 
 template<typename T>
@@ -501,24 +555,20 @@ void add_link_constraint_to_query(realm::Query & query,
                                   NSPredicateOperatorType operatorType,
                                   const ColumnReference& column,
                                   RLMObject *obj) {
-    RLMPrecondition(!column.has_links(), @"Unsupported operator", @"Multi-level object equality link queries are not supported.");
     RLMPrecondition(operatorType == NSEqualToPredicateOperatorType || operatorType == NSNotEqualToPredicateOperatorType,
                     @"Invalid operator type", @"Only 'Equal' and 'Not Equal' operators supported for object comparison");
-    if (operatorType == NSNotEqualToPredicateOperatorType) {
-        query.Not();
-    }
-
-    if (!obj->_row.is_attached()) {
-        query.and_query(std::unique_ptr<Expression>(new FalseExpression));
-        return;
-    }
 
     // NOTE: This precondition assumes that the argument `obj` will be always originating from the
     // queried table as verified before by `validate_property_value`
-    RLMPrecondition(query.get_table()->get_link_target(column.index()).get() == obj->_row.get_table(),
+    RLMPrecondition(column.link_target_object_schema() == obj.objectSchema || !obj->_row.is_attached(),
                     @"Invalid value origin", @"Object must be from the Realm being queried");
 
-    query.links_to(column.index(), obj->_row);
+    if (operatorType == NSEqualToPredicateOperatorType) {
+        query.and_query(column.resolve<Link>(query) == obj->_row);
+    }
+    else {
+        query.and_query(column.resolve<Link>(query) != obj->_row);
+    }
 }
 
 void add_link_constraint_to_query(realm::Query & query,
@@ -582,8 +632,8 @@ template <typename RequestedType>
 RequestedType convert(id value);
 
 template <>
-DateTime convert<DateTime>(id value) {
-    return [value timeIntervalSince1970];
+Timestamp convert<Timestamp>(id value) {
+    return RLMTimestampForNSDate(value);
 }
 
 template <>
@@ -636,29 +686,30 @@ void do_add_constraint_to_query(realm::Query &query, RLMPropertyType type,
     static_assert(sizeof...(T) == 2, "do_add_constraint_to_query accepts only two values as arguments");
 
     switch (type) {
-        case type_Bool:
+        case RLMPropertyTypeBool:
             add_bool_constraint_to_query(query, operatorType, value_of_type_for_query<bool>(query, values)...);
             break;
-        case type_DateTime:
-            add_numeric_constraint_to_query(query, type, operatorType, value_of_type_for_query<realm::DateTime>(query, values)...);
+        case RLMPropertyTypeDate:
+            add_numeric_constraint_to_query(query, type, operatorType, value_of_type_for_query<realm::Timestamp>(query, values)...);
             break;
-        case type_Double:
+        case RLMPropertyTypeDouble:
             add_numeric_constraint_to_query(query, type, operatorType, value_of_type_for_query<Double>(query, values)...);
             break;
-        case type_Float:
+        case RLMPropertyTypeFloat:
             add_numeric_constraint_to_query(query, type, operatorType, value_of_type_for_query<Float>(query, values)...);
             break;
-        case type_Int:
+        case RLMPropertyTypeInt:
             add_numeric_constraint_to_query(query, type, operatorType, value_of_type_for_query<Int>(query, values)...);
             break;
-        case type_String:
+        case RLMPropertyTypeString:
             add_string_constraint_to_query(query, operatorType, predicateOptions, value_of_type_for_query<String>(query, values)...);
             break;
-        case type_Binary:
+        case RLMPropertyTypeData:
             add_binary_constraint_to_query(query, operatorType, values...);
             break;
-        case type_Link:
-        case type_LinkList:
+        case RLMPropertyTypeObject:
+        case RLMPropertyTypeArray:
+        case RLMPropertyTypeLinkingObjects:
             add_link_constraint_to_query(query, operatorType, values...);
             break;
         default:
@@ -703,50 +754,46 @@ void add_constraint_to_query(realm::Query &query, RLMPropertyType type,
     }
 }
 
-ColumnReference column_reference_from_key_path(RLMSchema *schema, RLMObjectSchema *desc,
+ColumnReference column_reference_from_key_path(RLMSchema *schema, RLMObjectSchema *objectSchema,
                                                NSString *keyPath, bool isAggregate)
 {
-    std::vector<size_t> indexes;
-    RLMProperty *prop = nil;
+    RLMProperty *property;
+    std::vector<RLMProperty *> links;
 
-    NSString *prevPath = nil;
+    bool keyPathContainsToManyRelationship = false;
+
     NSUInteger start = 0, length = keyPath.length, end = NSNotFound;
     do {
         end = [keyPath rangeOfString:@"." options:0 range:{start, length - start}].location;
-        NSString *path = [keyPath substringWithRange:{start, end == NSNotFound ? length - start : end - start}];
-        if (prop) {
-            RLMPrecondition(prop.type == RLMPropertyTypeObject || prop.type == RLMPropertyTypeArray,
-                            @"Invalid value", @"Property '%@' is not a link in object of type '%@'", prevPath, desc.className);
-            indexes.push_back(prop.column);
-            prop = desc[path];
-            RLMPrecondition(prop, @"Invalid property name",
-                            @"Property '%@' not found in object of type '%@'", path, desc.className);
-        }
-        else {
-            prop = desc[path];
-            RLMPrecondition(prop, @"Invalid property name",
-                            @"Property '%@' not found in object of type '%@'", path, desc.className);
+        NSString *propertyName = [keyPath substringWithRange:{start, end == NSNotFound ? length - start : end - start}];
+        property = objectSchema[propertyName];
+        RLMPrecondition(property, @"Invalid property name",
+                        @"Property '%@' not found in object of type '%@'", propertyName, objectSchema.className);
 
-            if (isAggregate) {
-                RLMPrecondition(prop.type == RLMPropertyTypeArray,
-                                @"Invalid predicate",
-                                @"Aggregate operations can only be used on RLMArray properties");
-            }
-            else {
-                RLMPrecondition(prop.type != RLMPropertyTypeArray,
-                                @"Invalid predicate",
-                                @"RLMArray predicates must use aggregate operations");
-            }
+        if (property.type == RLMPropertyTypeArray || property.type == RLMPropertyTypeLinkingObjects)
+            keyPathContainsToManyRelationship = true;
+
+        if (end != NSNotFound) {
+            RLMPrecondition(property.type == RLMPropertyTypeObject || property.type == RLMPropertyTypeArray || property.type == RLMPropertyTypeLinkingObjects,
+                            @"Invalid value", @"Property '%@' is not a link in object of type '%@'", propertyName, objectSchema.className);
+
+            links.push_back(property);
+            REALM_ASSERT(property.objectClassName);
+            objectSchema = schema[property.objectClassName];
         }
 
-        if (prop.objectClassName) {
-            desc = schema[prop.objectClassName];
-        }
-        prevPath = path;
         start = end + 1;
     } while (end != NSNotFound);
 
-    return ColumnReference(prop, indexes);
+    if (isAggregate && !keyPathContainsToManyRelationship) {
+        @throw RLMPredicateException(@"Invalid predicate",
+                                     @"Aggregate operations can only be used on key paths that include an array property");
+    } else if (!isAggregate && keyPathContainsToManyRelationship) {
+        @throw RLMPredicateException(@"Invalid predicate",
+                                     @"Key paths that include an array property must use aggregate operations");
+    }
+
+    return ColumnReference(schema, property, std::move(links));
 }
 
 void validate_property_value(const ColumnReference& column,
@@ -783,7 +830,7 @@ struct ValueOfTypeWithCollectionOperationHelper<T, OperationType> { \
     static auto convert(Query& query, const CollectionOperation& operation) \
     { \
         REALM_ASSERT(operation.type() == OperationType); \
-        auto targetColumn = operation.link_column().resolve<Link>(query).template column<T>(operation.column_index()); \
+        auto targetColumn = operation.link_column().resolve<Link>(query).template column<T>(operation.column().index()); \
         return targetColumn.function(); \
     } \
 } \
@@ -835,19 +882,19 @@ void add_collection_operation_constraint_to_query(realm::Query& query, NSPredica
             break;
         }
         case CollectionOperation::Minimum: {
-            add_collection_operation_constraint_to_query<CollectionOperation::Minimum>(query, collectionOperation.column_type(), operatorType, values...);
+            add_collection_operation_constraint_to_query<CollectionOperation::Minimum>(query, collectionOperation.column().type(), operatorType, values...);
             break;
         }
         case CollectionOperation::Maximum: {
-            add_collection_operation_constraint_to_query<CollectionOperation::Maximum>(query, collectionOperation.column_type(), operatorType, values...);
+            add_collection_operation_constraint_to_query<CollectionOperation::Maximum>(query, collectionOperation.column().type(), operatorType, values...);
             break;
         }
         case CollectionOperation::Sum: {
-            add_collection_operation_constraint_to_query<CollectionOperation::Sum>(query, collectionOperation.column_type(), operatorType, values...);
+            add_collection_operation_constraint_to_query<CollectionOperation::Sum>(query, collectionOperation.column().type(), operatorType, values...);
             break;
         }
         case CollectionOperation::Average: {
-            add_collection_operation_constraint_to_query<CollectionOperation::Average>(query, collectionOperation.column_type(), operatorType, values...);
+            add_collection_operation_constraint_to_query<CollectionOperation::Average>(query, collectionOperation.column().type(), operatorType, values...);
             break;
         }
     }
@@ -934,7 +981,7 @@ void update_query_with_value_expression(RLMSchema *schema,
         return;
     }
 
-    // turn IN into ored together ==
+    // turn "key.path IN collection" into ored together ==. "collection IN key.path" is handled elsewhere.
     if (pred.predicateOperatorType == NSInPredicateOperatorType) {
         process_or_group(query, value, [&](id item) {
             id normalized = value_from_constant_expression_or_value(item);
@@ -1035,7 +1082,7 @@ void update_query_with_subquery_count_expression(RLMSchema *schema, RLMObjectSch
     Query subquery = collectionMemberObjectSchema.table->where();
     RLMUpdateQueryWithPredicate(&subquery, subqueryPredicate, schema, collectionMemberObjectSchema);
 
-    add_numeric_constraint_to_query(query, RLMPropertyTypeInt, operatorType, collectionColumn.resolveWithSubquery<LinkList>(query, std::move(subquery)).count(), value);
+    add_numeric_constraint_to_query(query, RLMPropertyTypeInt, operatorType, collectionColumn.resolve_with_subquery<LinkList>(query, std::move(subquery)).count(), value);
 }
 
 void update_query_with_function_subquery_expression(RLMSchema *schema, RLMObjectSchema *objectSchema, realm::Query& query,
@@ -1121,9 +1168,19 @@ void update_query_with_predicate(NSPredicate *predicate, RLMSchema *schema,
         }
 
         if (compp.predicateOperatorType == NSBetweenPredicateOperatorType || compp.predicateOperatorType == NSInPredicateOperatorType) {
-            // Inserting an array via %@ gives NSConstantValueExpressionType, but
-            // including it directly gives NSAggregateExpressionType
-            if (exp1Type != NSKeyPathExpressionType || (exp2Type != NSAggregateExpressionType && exp2Type != NSConstantValueExpressionType)) {
+            // Inserting an array via %@ gives NSConstantValueExpressionType, but including it directly gives NSAggregateExpressionType
+            if (exp1Type == NSKeyPathExpressionType && (exp2Type == NSAggregateExpressionType || exp2Type == NSConstantValueExpressionType)) {
+                // "key.path IN %@", "key.path IN {…}", "key.path BETWEEN %@", or "key.path BETWEEN {…}".
+                exp2Type = NSConstantValueExpressionType;
+            }
+            else if (compp.predicateOperatorType == NSInPredicateOperatorType && exp1Type == NSConstantValueExpressionType && exp2Type == NSKeyPathExpressionType) {
+                // "%@ IN key.path" is equivalent to "ANY key.path IN %@". Rewrite the former into the latter.
+                compp = [NSComparisonPredicate predicateWithLeftExpression:compp.rightExpression rightExpression:compp.leftExpression
+                                                                  modifier:NSAnyPredicateModifier type:NSEqualToPredicateOperatorType options:0];
+                exp1Type = NSKeyPathExpressionType;
+                exp2Type = NSConstantValueExpressionType;
+            }
+            else {
                 if (compp.predicateOperatorType == NSBetweenPredicateOperatorType) {
                     @throw RLMPredicateException(@"Invalid predicate",
                                                  @"Predicate with BETWEEN operator must compare a KeyPath with an aggregate with two values");
@@ -1133,7 +1190,6 @@ void update_query_with_predicate(NSPredicate *predicate, RLMSchema *schema,
                                                  @"Predicate with IN operator must compare a KeyPath with an aggregate");
                 }
             }
-            exp2Type = NSConstantValueExpressionType;
         }
 
         if (exp1Type == NSKeyPathExpressionType && exp2Type == NSKeyPathExpressionType) {
@@ -1220,11 +1276,11 @@ void RLMUpdateQueryWithPredicate(realm::Query *query, NSPredicate *predicate, RL
 
 realm::SortOrder RLMSortOrderFromDescriptors(RLMObjectSchema *objectSchema, NSArray *descriptors) {
     realm::SortOrder sort;
-    sort.columnIndices.reserve(descriptors.count);
+    sort.column_indices.reserve(descriptors.count);
     sort.ascending.reserve(descriptors.count);
 
     for (RLMSortDescriptor *descriptor in descriptors) {
-        sort.columnIndices.push_back(RLMValidatedPropertyForSort(objectSchema, descriptor.property).column);
+        sort.column_indices.push_back(RLMValidatedPropertyForSort(objectSchema, descriptor.property).column);
         sort.ascending.push_back(descriptor.ascending);
     }
 

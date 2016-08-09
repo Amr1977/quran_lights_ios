@@ -9,7 +9,7 @@
 #import "Sura.h"
 
 /** Hours period between due reviews. */
-static NSInteger const ReviewCyclePeriodInHours = 240;
+static NSInteger const ReviewCyclePeriodInHours = 24*30;
 
 
 @implementation Sura

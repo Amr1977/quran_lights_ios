@@ -1,1 +1,1 @@
-pod 'Realm'
+pod 'Realm', '~> 0.102.1'
