@@ -8,16 +8,11 @@
 
 #import "Sura.h"
 
-/** Hours period between due reviews. */
-static NSInteger const ReviewCyclePeriodInHours = 24*30;
+NSInteger const DefaultCycleInterval = 60*24*60*60;
+NSTimeInterval const DemoTimeInterval = 60*24*60*60;
 
 
 @implementation Sura
-
-- (NSInteger)remainingTimeForNextReview{
-    //TODO: Do it !
-    return arc4random_uniform(ReviewCyclePeriodInHours);
-}
 
 + (NSArray <NSString *>*)suraNames{
     static NSArray *suraNames;

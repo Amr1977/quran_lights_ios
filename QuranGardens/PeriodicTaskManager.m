@@ -7,28 +7,35 @@
 //
 
 #import "PeriodicTaskManager.h"
+#import "Sura.h"
 
 @interface PeriodicTaskManager ()
-
-
 
 @end
 
 @implementation PeriodicTaskManager
+
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        _dataSource = [[DataSource alloc] init];
+        [_dataSource load];
+    }
+    return self;
+}
 
 - (void)soraListNormalOrder{
     
 }
 
 - (void)sortListReverseOrder{
-    NSMutableArray <PeriodicTask *> *reversedTasks = [[[self.tasks reverseObjectEnumerator] allObjects] mutableCopy];
-    self.tasks = reversedTasks;
-    [self saveTasks];
+    NSMutableArray <PeriodicTask *> *reversedTasks = [[[self.dataSource.tasks reverseObjectEnumerator] allObjects] mutableCopy];
+    self.dataSource.tasks = reversedTasks;
 }
 
 - (void)sortListWeakerFirst{
     NSMutableArray *sortedArray;
-    sortedArray = [self.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+    sortedArray = [self.dataSource.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
         double firstStrength = (((PeriodicTask *)a).remainingTimeInterval/((PeriodicTask *)a).cycleInterval);
         double secondStrength = (((PeriodicTask *)b).remainingTimeInterval/((PeriodicTask *)b).cycleInterval);
         NSComparisonResult result;
@@ -43,85 +50,39 @@
         return result;
     }].mutableCopy;
     
-    self.tasks = sortedArray;
-    
-    [self saveTasks];
+    self.dataSource.tasks = sortedArray;
 }
 
 - (void)sortListStrongestFirst{
     [self sortListWeakerFirst];
     [self sortListReverseOrder];
-    [self saveTasks];
 }
 
 - (void)sortWithBlock:(NSComparisonResult(^) (id object1, id object2))sortBlock{
     NSMutableArray *sortedArray;
-    sortedArray = [self.tasks sortedArrayUsingComparator:sortBlock].mutableCopy;
+    sortedArray = [self.dataSource.tasks sortedArrayUsingComparator:sortBlock].mutableCopy;
     
-    self.tasks = sortedArray;
-    
-    [self saveTasks];
+    self.dataSource.tasks = sortedArray;
 }
 
 - (void)resetTasks{
     NSDate *oldDay = [NSDate dateWithTimeIntervalSince1970:0];
-    RLMRealm *realm = [RLMRealm defaultRealm];
-    [realm beginWriteTransaction];
-    for (PeriodicTask * task in self.tasks) {
+    for (PeriodicTask * task in self.dataSource.tasks) {
         task.lastOccurrence = oldDay;
     }
-    [realm commitWriteTransaction];
-}
-
-- (void)addPeriodicTask:(PeriodicTask *)task{
-    [self.tasks addObject:task];
-}
-
-- (BOOL)removeTaskByName:(nonnull NSString *)name{
-    NSInteger indexToRemove = -1;
-    for (NSInteger index = 0; index < [self.tasks count]; index++) {
-        if ([self.tasks[index].name isEqualToString:name]) {
-            indexToRemove = index;
-            break;
-        }
-    }
-    if (indexToRemove > -1) {
-        [self.tasks removeObjectAtIndex:indexToRemove];
-    }
-    
-    return (indexToRemove != -1);
-}
-
-- (NSArray *)tasks{
-    if (!_tasks) {
-        _tasks = @[].mutableCopy;
-    }
-    return _tasks;
-}
-
-- (void)loadTasks{
-    RLMResults <PeriodicTask *> *results = [PeriodicTask allObjects];
-    for (PeriodicTask * task in results) {
-        [self.tasks addObject:task];
-    }
-}
-
-- (void)saveTasks{
-    RLMRealm * realm = [RLMRealm defaultRealm];
-    [realm transactionWithBlock:^{
-        for (PeriodicTask *task in self.tasks) {
-            [realm addObject:task]; ;
-        }
-    }];
-    
+    [self saveTasks];
 }
 
 - (NSInteger)taskCount{
-    return [self.tasks count];
+    return [self.dataSource.tasks count];
 }
 
 - (PeriodicTask * _Nullable)getTaskAtIndex:(NSInteger)index{
-    return [self.tasks objectAtIndex:index];
+    return [self.dataSource.tasks objectAtIndex:index];
+}
+
+- (void)saveTasks{
+    [self.dataSource save];
 }
 
 @end

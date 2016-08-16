@@ -8,23 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import "PeriodicTask.h"
+#import "DataSource.h"
 
 @interface PeriodicTaskManager : NSObject
 
-@property (strong, nonatomic) NSMutableArray<PeriodicTask *> *tasks;
+@property (strong, nonatomic, nonnull) DataSource *dataSource;
 
-- (void)addPeriodicTask:(nonnull PeriodicTask *)task;
-- (BOOL)removeTaskByName:(nonnull NSString *)name;
 - (PeriodicTask * _Nullable)getTaskAtIndex:(NSInteger)index;
-
-- (void)loadTasks;
-- (void)saveTasks;
 - (void)resetTasks;
 - (NSInteger)taskCount;
-
 - (void)sortListReverseOrder;
 - (void)sortListWeakerFirst;
 - (void)sortListStrongestFirst;
-- (void)sortWithBlock:(NSComparisonResult(^) (id object1, id object2))sortBlock;
+- (void)sortWithBlock:(NSComparisonResult(^ _Nullable) (id _Nullable object1, id _Nullable object2))sortBlock;
+- (void)saveTasks;
 
 @end

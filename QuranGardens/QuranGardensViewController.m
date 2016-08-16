@@ -13,6 +13,7 @@
 
 CGFloat const CellHeight = 50;
 CGFloat const CellWidth = 170;
+NSInteger const RefreshPeriod = 300; // refresh each 5 minutes;
 
 static NSString *const ShowHelpScreenKey = @"Show_help_screen";
 static NSString *const ReversedSortOrderOptionKey = @"reversed_sort_order";
@@ -43,7 +44,7 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
     [super viewDidLoad];
     
     while ([self isDemoOver]) {
-        [self infoWithMessage:@"Your demo is over !"];
+        [self infoWithMessage:@"Demo is Completed, I wish my app helped you add more lights 😀"];
     }
 
     [self handleDeviceOrientation];
@@ -62,11 +63,7 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
 }
 
 - (void)initTaskManager{
-    self.periodicTaskManager = [PeriodicTaskManager new];
-    [self.periodicTaskManager loadTasks];
-    if (![self.periodicTaskManager taskCount]) {
-        [self initSuraList];
-    }
+    self.periodicTaskManager = [[PeriodicTaskManager alloc] init];
 }
 
 - (void)setnavigationBar{
@@ -110,7 +107,7 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
 - (void)howItWorks{
     
    UIAlertController *howItWorks = [UIAlertController alertControllerWithTitle:@"How it works"
-                                          message:@"After you review any Sura remember to tap its cell here to light it up, you have 30 days before light goes almost off unless you review it again.\n\nThat will give you an overview of how frequent you review Suras and how fresh are they in your memory.\n\nLet's add more light to our lives !"
+                                          message:@"After you review any Sura remember to tap its cell here to light it up, you have a set of days before light goes almost off unless you review it again.\n\nThat will give you an overview of how frequent you review Suras and how fresh are they in your memory.\n\nLet's add more light to our lives !"
                                    preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
@@ -148,16 +145,16 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
     if (!Demo) {
         return NO;
     }
-    NSTimeInterval MonthTimeInterval = 31*24*60*60;
+    
     NSDate *installDate = [[NSUserDefaults standardUserDefaults] objectForKey:InstallDateKey];
     if (!installDate) {
         [self setInstallDate];
-        [self infoWithMessage:[NSString stringWithFormat:@"Demo count down: %ld !", lroundf(MonthTimeInterval -[[NSDate new] timeIntervalSinceDate:installDate])]];
+        [self infoWithMessage:[NSString stringWithFormat:@"Demo count down: %ld !", lroundf(DemoTimeInterval -[[NSDate new] timeIntervalSinceDate:installDate])]];
         return NO;
     } else {
-        [self infoWithMessage:[NSString stringWithFormat:@"Demo count down: %ld !", lroundf(MonthTimeInterval -[[NSDate new] timeIntervalSinceDate:installDate])]];
+        [self infoWithMessage:[NSString stringWithFormat:@"Demo count down: %ld !", lroundf(DemoTimeInterval -[[NSDate new] timeIntervalSinceDate:installDate])]];
         
-        return [[NSDate new] timeIntervalSinceDate:installDate] > MonthTimeInterval;
+        return [[NSDate new] timeIntervalSinceDate:installDate] > DemoTimeInterval;
     }
 }
 
@@ -219,7 +216,7 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
                                                                     [self reversedSuraOrderSort];
                                                                 }];
     
-    UIAlertAction* weakerFirst = [UIAlertAction actionWithTitle:@"Weaker First" style:UIAlertActionStyleDefault
+    UIAlertAction* weakerFirst = [UIAlertAction actionWithTitle:@"Oldest reviewed first" style:UIAlertActionStyleDefault
                                                                 handler:^(UIAlertAction * action) {
                                                                     self.reversedSortOrder = NO;
                                                                     [self weakerFirstSuraFirstSort];
@@ -241,7 +238,7 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
 
 - (void)normalSuraOrderSort{
     NSMutableArray *sortedArray;
-    sortedArray = [self.periodicTaskManager.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+    sortedArray = [self.periodicTaskManager.dataSource.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
         NSUInteger firstOrder = [[Sura suraNames] indexOfObject:((PeriodicTask *)a).name];
         NSUInteger secondOrder = [[Sura suraNames] indexOfObject:((PeriodicTask *)b).name];
         NSComparisonResult result;
@@ -254,9 +251,7 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
         return result;
     }].mutableCopy;
     
-    self.periodicTaskManager.tasks = sortedArray;
-    
-    [self.periodicTaskManager saveTasks];
+    self.periodicTaskManager.dataSource.tasks = sortedArray;
     
     self.sortType = NormalSuraOrderSorter;
     
@@ -297,7 +292,6 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
 }
 
 - (void)AddPeriodicRefresh{
-    NSInteger RefreshPeriod = 300; // refresh each 5 minutes;
     NSTimer* timer = [NSTimer timerWithTimeInterval:RefreshPeriod target:self selector:@selector(refresh) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
@@ -373,34 +367,6 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
     self.collectionView.backgroundView.contentMode = UIViewContentModeScaleAspectFit;
 }
 
-NSInteger const intervalInTenDays = 10*24*60*60;
-//TODO: create suras in a method and randomize content in another method
-- (void)initSuraList{
-    RLMRealm *realm = [RLMRealm defaultRealm];
-    [realm beginWriteTransaction];
-    [realm deleteAllObjects];
-    for (NSInteger i = 1; i <= 114; i++) {
-        PeriodicTask *sura = [[PeriodicTask alloc] init];
-        sura.name = [Sura suraNames][i-1];
-        sura.cycleInterval = intervalInTenDays;
-        sura.lastOccurrence = [NSDate dateWithTimeIntervalSince1970:0];
-        [self.periodicTaskManager addPeriodicTask:sura];
-    }
-    [realm commitWriteTransaction];
-    [self.periodicTaskManager saveTasks];
-}
-
-- (void)randomizeSuralastOccurrence{
-    RLMRealm *realm = [RLMRealm defaultRealm];
-    [realm beginWriteTransaction];
-    for (NSInteger i = 0; i <= 113; i++) {
-        PeriodicTask *sura = [self.periodicTaskManager getTaskAtIndex:i];
-        NSTimeInterval randomIntervalWithintenDays = arc4random_uniform(intervalInTenDays);
-        sura.lastOccurrence = [NSDate dateWithTimeIntervalSinceNow:(-1 * randomIntervalWithintenDays)];
-    }
-    [realm commitWriteTransaction];
-    [self.periodicTaskManager saveTasks];
-}
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -449,8 +415,6 @@ NSInteger const intervalInTenDays = 10*24*60*60;
 - (void)collectionView:(UICollectionView *)collectionView  didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
     
-    RLMRealm *realm = [RLMRealm defaultRealm];
-    [realm beginWriteTransaction];
     SuraViewCell *cell = (SuraViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     if (cell.timeProgressView.progress > 0.99) {
         task.lastOccurrence = [NSDate dateWithTimeIntervalSince1970:0];
@@ -458,10 +422,8 @@ NSInteger const intervalInTenDays = 10*24*60*60;
        task.lastOccurrence = [[NSDate alloc] init];
     }
     
-    [realm commitWriteTransaction];
-
+    [self.periodicTaskManager.dataSource saveSuraLastRefresh:task.lastOccurrence suraName:task.name];
     [self applyCurrentSort];
-
     [self.collectionView reloadData];
 }
 

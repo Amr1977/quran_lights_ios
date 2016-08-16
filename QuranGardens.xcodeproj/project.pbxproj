@@ -12,10 +12,7 @@
 		071D389B1C5FB01D0063D80E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389A1C5FB01D0063D80E /* SystemConfiguration.framework */; };
 		071D389D1C5FB0250063D80E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389C1C5FB0250063D80E /* CoreTelephony.framework */; };
 		071D389F1C5FB0420063D80E /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389E1C5FB0420063D80E /* BuddyBuildSDK.framework */; };
-		072133FD1C5E92C9004EFCCB /* DataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 072133FC1C5E92C9004EFCCB /* DataLoader.m */; };
-		073B7AF41C78F41D00612110 /* UsersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 073B7AF31C78F41D00612110 /* UsersManager.m */; };
-		073B7AF71C78F43E00612110 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 073B7AF61C78F43E00612110 /* User.m */; };
-		073B7AFA1C78F45800612110 /* SuraList.m in Sources */ = {isa = PBXBuildFile; fileRef = 073B7AF91C78F45800612110 /* SuraList.m */; };
+		075909F21D631B8900A6B7B1 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 075909F11D631B8900A6B7B1 /* DataSource.m */; };
 		076965A41C5B5D0700ED2D33 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965A31C5B5D0700ED2D33 /* main.m */; };
 		076965A71C5B5D0700ED2D33 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965A61C5B5D0700ED2D33 /* AppDelegate.m */; };
 		076965AD1C5B5D0700ED2D33 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 076965AB1C5B5D0700ED2D33 /* Main.storyboard */; };
@@ -27,10 +24,8 @@
 		076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965DA1C5B628200ED2D33 /* SuraViewCell.m */; };
 		076965E01C5B630E00ED2D33 /* QuranGardensViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */; };
 		076965E21C5B6A7A00ED2D33 /* SuraViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076965E11C5B6A7A00ED2D33 /* SuraViewCell.xib */; };
-		077F34551C7591AD00DF1720 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 077F34541C7591AD00DF1720 /* Preferences.m */; };
 		07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */; };
 		07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */; };
-		EFA6CE2B3696B55BC9CAD173 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F6F86663B27387B6390C993 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,14 +51,8 @@
 		071D389A1C5FB01D0063D80E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		071D389C1C5FB0250063D80E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		071D389E1C5FB0420063D80E /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
-		072133FB1C5E92C9004EFCCB /* DataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoader.h; sourceTree = "<group>"; };
-		072133FC1C5E92C9004EFCCB /* DataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLoader.m; sourceTree = "<group>"; };
-		073B7AF21C78F41D00612110 /* UsersManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersManager.h; sourceTree = "<group>"; };
-		073B7AF31C78F41D00612110 /* UsersManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersManager.m; sourceTree = "<group>"; };
-		073B7AF51C78F43E00612110 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		073B7AF61C78F43E00612110 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		073B7AF81C78F45800612110 /* SuraList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuraList.h; sourceTree = "<group>"; };
-		073B7AF91C78F45800612110 /* SuraList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuraList.m; sourceTree = "<group>"; };
+		075909F01D631B8900A6B7B1 /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
+		075909F11D631B8900A6B7B1 /* DataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSource.m; sourceTree = "<group>"; };
 		0769659F1C5B5D0700ED2D33 /* Quran Lights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Quran Lights.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		076965A31C5B5D0700ED2D33 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		076965A51C5B5D0700ED2D33 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -85,15 +74,10 @@
 		076965DE1C5B630E00ED2D33 /* QuranGardensViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuranGardensViewController.h; sourceTree = "<group>"; };
 		076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuranGardensViewController.m; sourceTree = "<group>"; };
 		076965E11C5B6A7A00ED2D33 /* SuraViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuraViewCell.xib; sourceTree = "<group>"; };
-		077F34531C7591AD00DF1720 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
-		077F34541C7591AD00DF1720 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 		07FC8BF21C5D05C000695E0A /* PeriodicTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeriodicTaskManager.h; sourceTree = "<group>"; };
 		07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodicTaskManager.m; sourceTree = "<group>"; };
 		07FC8BF51C5D05DC00695E0A /* PeriodicTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeriodicTask.h; sourceTree = "<group>"; };
 		07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodicTask.m; sourceTree = "<group>"; };
-		0F6F86663B27387B6390C993 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		4471AB38FECC5544ED3AE85D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		8D4AEBCFFED3D4B58B1BED97 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +90,6 @@
 				071D389B1C5FB01D0063D80E /* SystemConfiguration.framework in Frameworks */,
 				071D38991C5FB00E0063D80E /* CoreText.framework in Frameworks */,
 				071D38971C5FAFFE0063D80E /* AssetsLibrary.framework in Frameworks */,
-				EFA6CE2B3696B55BC9CAD173 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,7 +117,6 @@
 				076965BB1C5B5D0700ED2D33 /* QuranGardensTests */,
 				076965C61C5B5D0800ED2D33 /* QuranGardensUITests */,
 				076965A01C5B5D0700ED2D33 /* Products */,
-				33D7BF6FA31AB06A6FA5D5D2 /* Pods */,
 				E5D1290A52CBC62F69226967 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -196,22 +178,14 @@
 		076965D51C5B609100ED2D33 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				075909F01D631B8900A6B7B1 /* DataSource.h */,
+				075909F11D631B8900A6B7B1 /* DataSource.m */,
 				076965D61C5B60C600ED2D33 /* Sura.h */,
 				076965D71C5B60C600ED2D33 /* Sura.m */,
 				07FC8BF51C5D05DC00695E0A /* PeriodicTask.h */,
 				07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */,
 				07FC8BF21C5D05C000695E0A /* PeriodicTaskManager.h */,
 				07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */,
-				072133FB1C5E92C9004EFCCB /* DataLoader.h */,
-				072133FC1C5E92C9004EFCCB /* DataLoader.m */,
-				077F34531C7591AD00DF1720 /* Preferences.h */,
-				077F34541C7591AD00DF1720 /* Preferences.m */,
-				073B7AF21C78F41D00612110 /* UsersManager.h */,
-				073B7AF31C78F41D00612110 /* UsersManager.m */,
-				073B7AF51C78F43E00612110 /* User.h */,
-				073B7AF61C78F43E00612110 /* User.m */,
-				073B7AF81C78F45800612110 /* SuraList.h */,
-				073B7AF91C78F45800612110 /* SuraList.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -234,15 +208,6 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		33D7BF6FA31AB06A6FA5D5D2 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4471AB38FECC5544ED3AE85D /* Pods.debug.xcconfig */,
-				8D4AEBCFFED3D4B58B1BED97 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		E5D1290A52CBC62F69226967 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,7 +216,6 @@
 				071D389A1C5FB01D0063D80E /* SystemConfiguration.framework */,
 				071D38981C5FB00E0063D80E /* CoreText.framework */,
 				071D38961C5FAFFE0063D80E /* AssetsLibrary.framework */,
-				0F6F86663B27387B6390C993 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -263,12 +227,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 076965CC1C5B5D0800ED2D33 /* Build configuration list for PBXNativeTarget "QuranGardens" */;
 			buildPhases = (
-				037FD659BAD3A2B8DD4D1138 /* Check Pods Manifest.lock */,
 				0769659B1C5B5D0700ED2D33 /* Sources */,
 				0769659C1C5B5D0700ED2D33 /* Frameworks */,
 				0769659D1C5B5D0700ED2D33 /* Resources */,
-				5ABC3FABC024B0811E856575 /* Embed Pods Frameworks */,
-				D5745BBD9291DDFCF5261EA9 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -386,71 +347,19 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		037FD659BAD3A2B8DD4D1138 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		5ABC3FABC024B0811E856575 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D5745BBD9291DDFCF5261EA9 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		0769659B1C5B5D0700ED2D33 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				073B7AFA1C78F45800612110 /* SuraList.m in Sources */,
-				072133FD1C5E92C9004EFCCB /* DataLoader.m in Sources */,
 				076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */,
+				075909F21D631B8900A6B7B1 /* DataSource.m in Sources */,
 				07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */,
 				076965E01C5B630E00ED2D33 /* QuranGardensViewController.m in Sources */,
 				076965D81C5B60C600ED2D33 /* Sura.m in Sources */,
 				07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */,
-				073B7AF71C78F43E00612110 /* User.m in Sources */,
-				073B7AF41C78F41D00612110 /* UsersManager.m in Sources */,
 				076965A71C5B5D0700ED2D33 /* AppDelegate.m in Sources */,
 				076965A41C5B5D0700ED2D33 /* main.m in Sources */,
-				077F34551C7591AD00DF1720 /* Preferences.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,7 +498,6 @@
 		};
 		076965CD1C5B5D0800ED2D33 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4471AB38FECC5544ED3AE85D /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -610,7 +518,6 @@
 		};
 		076965CE1C5B5D0800ED2D33 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8D4AEBCFFED3D4B58B1BED97 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

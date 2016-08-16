@@ -11,11 +11,12 @@
 
 @interface Sura : PeriodicTask
 
+extern NSInteger const DefaultCycleInterval;
+extern NSTimeInterval const DemoTimeInterval;
+
 /** Sura order in mushaf. */
 @property (nonatomic) NSInteger order;
 
-/** Calculates remaining hours */
-- (NSInteger)remainingTimeForNextReview;
 + (NSArray<NSString *> *)suraNames;
 
 @end
