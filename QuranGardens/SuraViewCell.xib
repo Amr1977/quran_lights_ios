@@ -13,9 +13,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="177" height="162"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L8Q-iz-jQS">
-                        <rect key="frame" x="0.0" y="0.0" width="177" height="162"/>
-                    </imageView>
                     <progressView contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fQa-4x-aMd">
                         <rect key="frame" x="13" y="131" width="150" height="3"/>
                         <color key="backgroundColor" red="0.0054648042929292817" green="0.0054648042929292817" blue="0.0054648042929292817" alpha="1" colorSpace="calibratedRGB"/>
@@ -36,19 +33,14 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
-                <constraint firstItem="L8Q-iz-jQS" firstAttribute="leading" secondItem="3fq-Gd-ssG" secondAttribute="leading" id="89i-jZ-cKp"/>
-                <constraint firstAttribute="bottom" secondItem="L8Q-iz-jQS" secondAttribute="bottom" id="9bB-W2-kvg"/>
                 <constraint firstAttribute="trailing" secondItem="fQa-4x-aMd" secondAttribute="trailing" constant="14" id="ENL-Yt-tNF"/>
                 <constraint firstItem="Auy-mw-Mdj" firstAttribute="leading" secondItem="3fq-Gd-ssG" secondAttribute="leading" constant="8" id="EoP-uA-DXL"/>
                 <constraint firstItem="Auy-mw-Mdj" firstAttribute="top" secondItem="3fq-Gd-ssG" secondAttribute="top" constant="5" id="F69-wV-7bE"/>
-                <constraint firstItem="L8Q-iz-jQS" firstAttribute="top" secondItem="3fq-Gd-ssG" secondAttribute="top" id="Pay-l9-q9W"/>
                 <constraint firstItem="fQa-4x-aMd" firstAttribute="leading" secondItem="3fq-Gd-ssG" secondAttribute="leading" constant="13" id="PjZ-1a-SBG"/>
-                <constraint firstAttribute="trailing" secondItem="L8Q-iz-jQS" secondAttribute="trailing" id="WMD-9L-5BM"/>
                 <constraint firstAttribute="bottom" secondItem="fQa-4x-aMd" secondAttribute="bottom" constant="15" id="oIi-rt-qdL"/>
             </constraints>
             <size key="customSize" width="177" height="162"/>
             <connections>
-                <outlet property="image" destination="L8Q-iz-jQS" id="nZy-6R-1sT"/>
                 <outlet property="suraName" destination="Auy-mw-Mdj" id="RHz-0O-wTi"/>
                 <outlet property="timeProgressView" destination="fQa-4x-aMd" id="CZg-JN-ApQ"/>
             </connections>
