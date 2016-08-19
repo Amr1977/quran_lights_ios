@@ -10,6 +10,7 @@
 #import "SuraViewCell.h"
 #import "Sura.h"
 #import "PeriodicTaskManager.h"
+#import <QuartzCore/CAAnimation.h>
 
 CGFloat const CellHeight = 50;
 CGFloat const CellWidth = 170;
@@ -38,6 +39,9 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
 @end
 
 @implementation QuranGardensViewController
+
+static double averageCellRenderTime = 0;
+static double totalRenderedCellCount = 0;
 
 - (void)viewDidLoad
 {
@@ -375,7 +379,10 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SuraViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
+    totalRenderedCellCount++;
+    double startTime = CACurrentMediaTime();
+    
+    SuraViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
     
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
     
@@ -404,6 +411,10 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
         cell.layer.masksToBounds = YES;
     }
     
+    double endTime = CACurrentMediaTime();
+    double difference = (endTime - startTime) * 1000000;
+    averageCellRenderTime = (averageCellRenderTime + difference) / totalRenderedCellCount;
+   
     return cell;
 }
 
@@ -447,6 +458,11 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
 - (void)dealloc{
     [self.periodicTaskManager saveTasks];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    NSLog(@"averageCellRenderTime for cell creation/modification: %f µs", averageCellRenderTime);
 }
 
 @end
