@@ -13,6 +13,11 @@
 		071D389B1C5FB01D0063D80E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389A1C5FB01D0063D80E /* SystemConfiguration.framework */; };
 		071D389D1C5FB0250063D80E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389C1C5FB0250063D80E /* CoreTelephony.framework */; };
 		071D389F1C5FB0420063D80E /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389E1C5FB0420063D80E /* BuddyBuildSDK.framework */; };
+		0750B0CA1D68F51C0081B1C4 /* reval.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0750B0C91D68F51C0081B1C4 /* reval.txt */; };
+		0750B0CC1D68F5FD0081B1C4 /* versecount.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0750B0CB1D68F5FD0081B1C4 /* versecount.txt */; };
+		0750B0CE1D68F61C0081B1C4 /* wordcount in Resources */ = {isa = PBXBuildFile; fileRef = 0750B0CD1D68F61C0081B1C4 /* wordcount */; };
+		0750B0D01D68F6380081B1C4 /* charcount in Resources */ = {isa = PBXBuildFile; fileRef = 0750B0CF1D68F6380081B1C4 /* charcount */; };
+		0750B0D21D68F6600081B1C4 /* arabic-sura-names in Resources */ = {isa = PBXBuildFile; fileRef = 0750B0D11D68F6600081B1C4 /* arabic-sura-names */; };
 		075909F21D631B8900A6B7B1 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 075909F11D631B8900A6B7B1 /* DataSource.m */; };
 		076965A41C5B5D0700ED2D33 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965A31C5B5D0700ED2D33 /* main.m */; };
 		076965A71C5B5D0700ED2D33 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965A61C5B5D0700ED2D33 /* AppDelegate.m */; };
@@ -56,6 +61,11 @@
 		071D389A1C5FB01D0063D80E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		071D389C1C5FB0250063D80E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		071D389E1C5FB0420063D80E /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
+		0750B0C91D68F51C0081B1C4 /* reval.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = reval.txt; sourceTree = "<group>"; };
+		0750B0CB1D68F5FD0081B1C4 /* versecount.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = versecount.txt; sourceTree = "<group>"; };
+		0750B0CD1D68F61C0081B1C4 /* wordcount */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordcount; sourceTree = "<group>"; };
+		0750B0CF1D68F6380081B1C4 /* charcount */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = charcount; sourceTree = "<group>"; };
+		0750B0D11D68F6600081B1C4 /* arabic-sura-names */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "arabic-sura-names"; sourceTree = "<group>"; };
 		075909F01D631B8900A6B7B1 /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
 		075909F11D631B8900A6B7B1 /* DataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSource.m; sourceTree = "<group>"; };
 		0769659F1C5B5D0700ED2D33 /* Quran Lights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Quran Lights.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +164,7 @@
 				076965B01C5B5D0700ED2D33 /* LaunchScreen.storyboard */,
 				076965B31C5B5D0700ED2D33 /* Info.plist */,
 				076965A21C5B5D0700ED2D33 /* Supporting Files */,
+				0750B0C91D68F51C0081B1C4 /* reval.txt */,
 			);
 			path = QuranGardens;
 			sourceTree = "<group>";
@@ -162,6 +173,10 @@
 			isa = PBXGroup;
 			children = (
 				076965A31C5B5D0700ED2D33 /* main.m */,
+				0750B0CB1D68F5FD0081B1C4 /* versecount.txt */,
+				0750B0CD1D68F61C0081B1C4 /* wordcount */,
+				0750B0CF1D68F6380081B1C4 /* charcount */,
+				0750B0D11D68F6600081B1C4 /* arabic-sura-names */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -337,10 +352,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0750B0D01D68F6380081B1C4 /* charcount in Resources */,
 				076965B21C5B5D0700ED2D33 /* LaunchScreen.storyboard in Resources */,
+				0750B0CA1D68F51C0081B1C4 /* reval.txt in Resources */,
 				076965AF1C5B5D0700ED2D33 /* Assets.xcassets in Resources */,
 				076965AD1C5B5D0700ED2D33 /* Main.storyboard in Resources */,
+				0750B0CC1D68F5FD0081B1C4 /* versecount.txt in Resources */,
 				076965E21C5B6A7A00ED2D33 /* SuraViewCell.xib in Resources */,
+				0750B0CE1D68F61C0081B1C4 /* wordcount in Resources */,
+				0750B0D21D68F6600081B1C4 /* arabic-sura-names in Resources */,
 				07FAC8EC1D66FA0000A18525 /* SettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
