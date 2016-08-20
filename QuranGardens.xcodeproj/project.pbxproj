@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		071C17AB1D673B5800019CDD /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 071C17AA1D673B5800019CDD /* Settings.m */; };
 		071D38971C5FAFFE0063D80E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D38961C5FAFFE0063D80E /* AssetsLibrary.framework */; };
 		071D38991C5FB00E0063D80E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D38981C5FB00E0063D80E /* CoreText.framework */; };
 		071D389B1C5FB01D0063D80E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389A1C5FB01D0063D80E /* SystemConfiguration.framework */; };
@@ -48,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		071C17A91D673B5800019CDD /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		071C17AA1D673B5800019CDD /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		071D38961C5FAFFE0063D80E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		071D38981C5FB00E0063D80E /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		071D389A1C5FB01D0063D80E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -191,6 +194,8 @@
 				07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */,
 				07FC8BF21C5D05C000695E0A /* PeriodicTaskManager.h */,
 				07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */,
+				071C17A91D673B5800019CDD /* Settings.h */,
+				071C17AA1D673B5800019CDD /* Settings.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -363,6 +368,7 @@
 			files = (
 				076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */,
 				075909F21D631B8900A6B7B1 /* DataSource.m in Sources */,
+				071C17AB1D673B5800019CDD /* Settings.m in Sources */,
 				07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */,
 				07FAC8EB1D66FA0000A18525 /* SettingsViewController.m in Sources */,
 				076965E01C5B630E00ED2D33 /* QuranGardensViewController.m in Sources */,
