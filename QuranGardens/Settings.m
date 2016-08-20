@@ -8,24 +8,18 @@
 
 #import "Settings.h"
 
+NSInteger const DefaultCycleInterval = 180;//60*24*60*60;
+
 @implementation Settings
 
-- (double)fadeTimeToSeconds{
-    return [[self class] getTimeInSeconds:self.fadeTime];
++ (NSArray <NSString *>*)sortTypeList{
+    static NSArray *sortTypes;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sortTypes = @[@""];
+    });
+    
+    return sortTypes;
 }
-
-- (void)setFadeTimeFromSeconds:(double)seconds{
-    self.fadeTime = [[self class] getTimeStringFromSeconds:seconds];
-}
-
-+ (double)getTimeInSeconds:(NSString *)timeString{
-    //TODO: Do it !
-    return 0;
-}
-+ (NSString *)getTimeStringFromSeconds:(double)seconds{
-    //TODO: Do it !
-    return nil;
-}
-
 
 @end

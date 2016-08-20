@@ -8,15 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSInteger const DefaultCycleInterval;
+
+typedef NS_OPTIONS(NSUInteger, SorterType) {
+    NormalSuraOrderSort = 0,
+    LightSort = 1,
+    RevalationOrderSort = 2,
+    VersesCountSort = 3,
+    WordCountSort = 4,
+    CharCountSort = 5,
+};
+
+typedef NS_OPTIONS(NSUInteger, SortDirection) {
+    Ascending = 0,
+    Descending = 1
+};
+
 @interface Settings : NSObject
 
-/** either a number of days or in the format xdxhxmxs, where x is an integer, d: day, h: hour, m: minute, s: second*/
-@property (strong, nonatomic) NSString *fadeTime;
+@property (nonatomic) unsigned long fadeTime;
+@property (strong, nonatomic) NSString *sortType;
 
-- (double)fadeTimeToSeconds;
-- (void)setFadeTimeFromSeconds:(double)seconds;
-
-+ (double)getTimeInSeconds:(NSString *)timeString;
-+ (NSString *)getTimeStringFromSeconds:(double)seconds;
++ (NSArray<NSString *>*)sortTypeList;
 
 @end

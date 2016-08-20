@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "PeriodicTask.h"
+#import "Settings.h"
 
 @interface DataSource : NSObject
 
 @property (strong, nonatomic) NSMutableArray<PeriodicTask *> *tasks;
+@property (strong, nonatomic) Settings *settings;
 
 - (void)load;
 - (void)save;

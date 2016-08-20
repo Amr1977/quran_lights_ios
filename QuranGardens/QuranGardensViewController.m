@@ -11,6 +11,7 @@
 #import "Sura.h"
 #import "PeriodicTaskManager.h"
 #import <QuartzCore/CAAnimation.h>
+#import "Settings.h"
 
 CGFloat const CellHeight = 50;
 CGFloat const CellWidth = 170;
@@ -21,10 +22,7 @@ static NSString *const ReversedSortOrderOptionKey = @"reversed_sort_order";
 static NSString *const SorterTypeOptionKey = @"sorter_type";
 static NSString *const InstallDateKey = @"install_date";
 
-typedef NS_OPTIONS(NSUInteger, SorterType) {
-    NormalSuraOrderSorter = 0,
-    WeakerFirstSorter = 1
-};
+
 
 @interface QuranGardensViewController ()
 
@@ -257,7 +255,7 @@ static double totalRenderedCellCount = 0;
     
     self.periodicTaskManager.dataSource.tasks = sortedArray;
     
-    self.sortType = NormalSuraOrderSorter;
+    self.sortType = NormalSuraOrderSort;
     
     [self.collectionView reloadData];
 }
@@ -285,7 +283,7 @@ static double totalRenderedCellCount = 0;
 }
 
 - (void)weakerFirstSuraFirstSort{
-    self.sortType = WeakerFirstSorter;
+    self.sortType = LightSort;
     [self.periodicTaskManager sortListWeakerFirst];
     [self.collectionView reloadData];
 }
@@ -439,7 +437,7 @@ static double totalRenderedCellCount = 0;
 }
 
 - (void)applyCurrentSort{
-    if (self.sortType == NormalSuraOrderSorter) {
+    if (self.sortType == NormalSuraOrderSort) {
         [self normalSuraOrderSort];
     } else {
         [self weakerFirstSuraFirstSort];

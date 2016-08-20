@@ -146,6 +146,7 @@
 				076965A61C5B5D0700ED2D33 /* AppDelegate.m */,
 				076965AB1C5B5D0700ED2D33 /* Main.storyboard */,
 				076965E11C5B6A7A00ED2D33 /* SuraViewCell.xib */,
+				07FAC8EA1D66FA0000A18525 /* SettingsViewController.xib */,
 				076965DD1C5B62AE00ED2D33 /* Controller */,
 				076965DC1C5B628F00ED2D33 /* View */,
 				076965D51C5B609100ED2D33 /* Model */,
@@ -216,7 +217,6 @@
 				076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */,
 				07FAC8E81D66FA0000A18525 /* SettingsViewController.h */,
 				07FAC8E91D66FA0000A18525 /* SettingsViewController.m */,
-				07FAC8EA1D66FA0000A18525 /* SettingsViewController.xib */,
 			);
 			name = Controller;
 			sourceTree = "<group>";

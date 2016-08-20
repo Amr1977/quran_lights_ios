@@ -8,7 +8,7 @@
 
 #import "Sura.h"
 
-NSInteger const DefaultCycleInterval = 180;//60*24*60*60;
+
 NSTimeInterval const DemoTimeInterval = 60*24*60*60;
 
 
