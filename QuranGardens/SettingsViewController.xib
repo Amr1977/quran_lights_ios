@@ -40,6 +40,9 @@
                         <segment title="Ascending"/>
                         <segment title="Descending"/>
                     </segments>
+                    <connections>
+                        <action selector="setSortDirection:" destination="-1" eventType="valueChanged" id="UiM-Ng-YUS"/>
+                    </connections>
                 </segmentedControl>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sort Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZiG-Jc-Muc">
                     <rect key="frame" x="28" y="107" width="177" height="30"/>

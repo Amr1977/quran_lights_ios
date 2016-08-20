@@ -95,4 +95,12 @@ static NSString * const DefaultTimeUnit = @"d";
     }
 }
 
+#pragma mark - UISegmentControl
+
+- (IBAction)setSortDirection:(id)sender{
+    self.settings.descendingSort = (self.sortDirectionSegments.selectedSegmentIndex == 1);
+    self.settingsAltered = YES;
+    //TODO: create a clone of settings on loading view and compare it with settings on exit to determine if we need to change settings in the delegate
+}
+
 @end
