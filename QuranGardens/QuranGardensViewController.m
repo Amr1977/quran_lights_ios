@@ -212,7 +212,8 @@ static double totalRenderedCellCount = 0;
 
 - (void)settings{
     SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
-    
+    settingsViewController.settings = [self.periodicTaskManager.dataSource.settings copy];
+
     //TODO: Complete this !
 }
 

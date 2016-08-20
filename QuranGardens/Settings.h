@@ -19,15 +19,11 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
     CharCountSort = 5,
 };
 
-typedef NS_OPTIONS(NSUInteger, SortDirection) {
-    Ascending = 0,
-    Descending = 1
-};
-
 @interface Settings : NSObject
 
 @property (nonatomic) unsigned long fadeTime;
-@property (strong, nonatomic) NSString *sortType;
+@property (nonatomic) SorterType sortType;
+@property (nonatomic) BOOL descendingSort;
 
 + (NSArray<NSString *>*)sortTypeList;
 
