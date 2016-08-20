@@ -21,6 +21,8 @@ static NSString * const DefaultTimeUnit = @"d";
 
 @interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UITextField *refreshPeriodText;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *sortDirectionSegments;
 @property (weak, nonatomic) IBOutlet UITableView *sortTypeTableView;
 
 /** Either a number of days or in the format [xy][xn][xw][xd][xh][xm][xs], where x is an integer, y: year, n: month, w: week, d: day, h: hour, m: minute, s: second*/
@@ -30,6 +32,8 @@ static NSString * const DefaultTimeUnit = @"d";
 @end
 
 @implementation SettingsViewController
+
+//TODO: add UITableView handling methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,7 +56,6 @@ static NSString * const DefaultTimeUnit = @"d";
 }
 */
 
-
 + (double)getTimeInSeconds:(NSString *)timeString{
     //TODO: Do it !
 
@@ -63,9 +66,5 @@ static NSString * const DefaultTimeUnit = @"d";
     
     return nil;
 }
-
-
-
-
 
 @end

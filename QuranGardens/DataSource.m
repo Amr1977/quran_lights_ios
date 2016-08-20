@@ -52,6 +52,9 @@ NSString* const LastRefreshKeySuffix = @"lastRefresh";
         [[NSUserDefaults standardUserDefaults] setObject:task.lastOccurrence forKey:[self lastRefreshKeyForSuraName:task.name]];
     }
     
+    //TODO: save settings
+    
+    
 }
 
 - (NSString *)cyclePeriodKeyForSuraName:(NSString *)suraName{

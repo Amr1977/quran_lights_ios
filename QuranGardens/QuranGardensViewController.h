@@ -7,12 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SettingsViewController.h"
 
 #define Demo NO
 
 extern CGFloat const CellHeight;
 extern CGFloat const CellWidth;
 
-@interface QuranGardensViewController : UICollectionViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@protocol SettingsViewControllerDelegate <NSObject>
+
+- (void)settingsViewController:(SettingsViewController *)settingsViewController didChangeSettings:(Settings *)settings;
+
+@end
+
+@interface QuranGardensViewController : UICollectionViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, SettingsViewControllerDelegate>
 
 @end

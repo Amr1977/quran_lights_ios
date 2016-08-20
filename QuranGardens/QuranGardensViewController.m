@@ -191,15 +191,29 @@ static double totalRenderedCellCount = 0;
                                                                      self.menuOpened = NO;
                                                                  }];
         
+        UIAlertAction* settingsAction = [UIAlertAction actionWithTitle:@"Settings"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * action) {
+                                                               [self settings];
+                                                               self.menuOpened = NO;
+                                                           }];
+        
         UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                                style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action) { self.menuOpened = NO; }];
         [_menu addAction:howItWorksAction];
         [_menu addAction:sortAction];
+        [_menu addAction:settingsAction];
         [_menu addAction:resetAction];
         [_menu addAction:cancelAction];
     }
     return _menu;
+}
+
+- (void)settings{
+    SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
+    
+    //TODO: Complete this !
 }
 
 - (void)sorter{
@@ -218,7 +232,7 @@ static double totalRenderedCellCount = 0;
                                                                     [self reversedSuraOrderSort];
                                                                 }];
     
-    UIAlertAction* weakerFirst = [UIAlertAction actionWithTitle:@"Oldest reviewed first" style:UIAlertActionStyleDefault
+    UIAlertAction* weakerFirst = [UIAlertAction actionWithTitle:@"Most faded first" style:UIAlertActionStyleDefault
                                                                 handler:^(UIAlertAction * action) {
                                                                     self.reversedSortOrder = NO;
                                                                     [self weakerFirstSuraFirstSort];
@@ -461,6 +475,12 @@ static double totalRenderedCellCount = 0;
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     NSLog(@"averageCellRenderTime for cell creation/modification: %f µs", averageCellRenderTime);
+}
+
+- (void)settingsViewController:(SettingsViewController *)settingsViewController didChangeSettings:(Settings *)settings{
+    self.periodicTaskManager.dataSource.settings = [settings copy];
+    [self.periodicTaskManager.dataSource save];
+    //TODO: Apply new settings
 }
 
 @end
