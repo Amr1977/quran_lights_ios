@@ -27,8 +27,7 @@ static NSString * const DefaultTimeUnit = @"d";
 @property (nonatomic) BOOL settingsAltered;
 
 /** Either a number of days or in the format [xy][xn][xw][xd][xh][xm][xs], where x is an integer, y: year, n: month, w: week, d: day, h: hour, m: minute, s: second*/
-@property (strong, nonatomic) NSString *fadeTimeString;
-
+//@property (strong, nonatomic) NSString *fadeTimeString;
 
 @end
 
@@ -102,5 +101,20 @@ static NSString * const DefaultTimeUnit = @"d";
     self.settingsAltered = YES;
     //TODO: create a clone of settings on loading view and compare it with settings on exit to determine if we need to change settings in the delegate
 }
+
+#pragma mark - Fade out period
+
+- (IBAction)fadeTimeAltered:(id)sender{
+    self.settings.fadeTime = [self.refreshPeriodText.text integerValue] * 24 * 60 * 60;
+    self.settingsAltered = YES;
+}
+
+#pragma mark - Apply
+
+- (IBAction)apply:(id)sender{
+    [self.delegate settingsViewController:self didChangeSettings:self.settings];
+}
+
+
 
 @end

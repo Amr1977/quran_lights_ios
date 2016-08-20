@@ -12,5 +12,13 @@
 @interface SettingsViewController : UIViewController
 
 @property (strong, nonatomic) Settings *settings;
+@property (weak, nonatomic) id delegate;
 
 @end
+
+@protocol SettingsViewControllerDelegate <NSObject>
+
+- (void)settingsViewController:(SettingsViewController *)settingsViewController didChangeSettings:(Settings *)settings;
+
+@end
+

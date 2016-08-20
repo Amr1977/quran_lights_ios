@@ -19,6 +19,8 @@
 - (void)save;
 - (void)listTasksData;
 
+- (void)saveSettings;
+
 - (NSTimeInterval)loadSuraCyclePeriod:(NSString *)suraName;
 - (void)saveSuraCyclePeriod:(NSTimeInterval)period suraName:(NSString *)suraName;
 

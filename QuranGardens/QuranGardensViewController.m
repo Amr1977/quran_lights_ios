@@ -469,7 +469,6 @@ static double totalRenderedCellCount = 0;
 }
 
 - (void)dealloc{
-    [self.periodicTaskManager saveTasks];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -478,9 +477,11 @@ static double totalRenderedCellCount = 0;
     NSLog(@"averageCellRenderTime for cell creation/modification: %f µs", averageCellRenderTime);
 }
 
+#pragma mark - SettingsViewControllerDelegate
+
 - (void)settingsViewController:(SettingsViewController *)settingsViewController didChangeSettings:(Settings *)settings{
     self.periodicTaskManager.dataSource.settings = [settings copy];
-    [self.periodicTaskManager.dataSource save];
+    [self.periodicTaskManager.dataSource saveSettings];
     //TODO: Apply new settings
 }
 

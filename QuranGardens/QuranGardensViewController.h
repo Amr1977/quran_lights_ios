@@ -14,11 +14,7 @@
 extern CGFloat const CellHeight;
 extern CGFloat const CellWidth;
 
-@protocol SettingsViewControllerDelegate <NSObject>
 
-- (void)settingsViewController:(SettingsViewController *)settingsViewController didChangeSettings:(Settings *)settings;
-
-@end
 
 @interface QuranGardensViewController : UICollectionViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, SettingsViewControllerDelegate>
 

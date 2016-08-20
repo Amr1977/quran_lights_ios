@@ -9,8 +9,12 @@
 #import "DataSource.h"
 #import "Sura.h"
 
-NSString* const IntervalKeySuffix = @"interval";
-NSString* const LastRefreshKeySuffix = @"lastRefresh";
+NSString * const IntervalKeySuffix = @"interval";
+NSString * const LastRefreshKeySuffix = @"lastRefresh";
+
+NSString * const GlobalRefreshIntervaKey = @"GlobalRefreshIntervaKey";
+NSString * const SortDirectionKey = @"SortDirectionKey";
+NSString * const SortTypeKey = @"SortTypeKey";
 
 @implementation DataSource
 
@@ -97,6 +101,18 @@ NSString* const LastRefreshKeySuffix = @"lastRefresh";
 - (void)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName{
     [[NSUserDefaults standardUserDefaults] setObject:lastRefreshDate forKey:[self lastRefreshKeyForSuraName:suraName]];
     NSLog(@"saved for %@ refreshed at: %@",suraName,lastRefreshDate);
+}
+
+- (void)saveSettings{
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.descendingSort forKey:SortDirectionKey];
+    [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime forKey:GlobalRefreshIntervaKey];
+    [[NSUserDefaults standardUserDefaults] setInteger:self.settings.sortType forKey:SortTypeKey];
+}
+
+- (void)loadSettings{
+    self.settings.descendingSort = [[NSUserDefaults standardUserDefaults] boolForKey:SortDirectionKey];
+    self.settings.fadeTime = [[NSUserDefaults standardUserDefaults] doubleForKey:GlobalRefreshIntervaKey];
+    self.settings.sortType = (SorterType) [[NSUserDefaults standardUserDefaults] integerForKey:SortTypeKey];
 }
 
 @end
