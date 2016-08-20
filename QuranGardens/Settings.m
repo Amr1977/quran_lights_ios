@@ -16,7 +16,13 @@ NSInteger const DefaultCycleInterval = 180;//60*24*60*60;
     static NSArray *sortTypes;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sortTypes = @[@""];
+        sortTypes = @[@"Moshaf Order",
+                      @"Light Strength",
+                      @"Revelation Order",
+                      @"Verses Count",
+                      @"Word Count",
+                      @"Character Count"
+                      ];
     });
     
     return sortTypes;
