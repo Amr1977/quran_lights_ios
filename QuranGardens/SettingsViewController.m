@@ -24,6 +24,7 @@ static NSString * const DefaultTimeUnit = @"d";
 @property (weak, nonatomic) IBOutlet UITextField *refreshPeriodText;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *sortDirectionSegments;
 @property (weak, nonatomic) IBOutlet UITableView *sortTypeTableView;
+@property (nonatomic) BOOL settingsAltered;
 
 /** Either a number of days or in the format [xy][xn][xw][xd][xh][xm][xs], where x is an integer, y: year, n: month, w: week, d: day, h: hour, m: minute, s: second*/
 @property (strong, nonatomic) NSString *fadeTimeString;
@@ -33,12 +34,11 @@ static NSString * const DefaultTimeUnit = @"d";
 
 @implementation SettingsViewController
 
-//TODO: add UITableView handling methods
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.sortTypeTableView.delegate = self;
+    self.sortTypeTableView.dataSource = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,6 +65,34 @@ static NSString * const DefaultTimeUnit = @"d";
     //TODO: Do it !
     
     return nil;
+}
+
+//TODO: add UITableView handling methods
+#pragma mark - UITableViewDataSource
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *CellIdentifier = @"sortTypeCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+    cell.textLabel.text = [Settings sortTypeList][indexPath.row];
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [[Settings sortTypeList] count];
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //TODO: find sort type by indexing string in cell text in sortTypeList in Settings class
+    if (self.settings.sortType != indexPath.row) {
+        self.settingsAltered = YES;
+        self.settings.sortType = indexPath.row;
+    }
 }
 
 @end
