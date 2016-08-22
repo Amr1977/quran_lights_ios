@@ -47,7 +47,7 @@ static double totalRenderedCellCount = 0;
     
     [self handleDeviceOrientation];
     
-    [self setnavigationBar];
+    [self setNavigationBar];
     
     [self initTaskManager];
     
@@ -64,7 +64,7 @@ static double totalRenderedCellCount = 0;
     self.periodicTaskManager = [[PeriodicTaskManager alloc] init];
 }
 
-- (void)setnavigationBar{
+- (void)setNavigationBar{
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"sunrise.jpg"] forBarMetrics:UIBarMetricsDefault];
     [self setMenuButton];
 }
@@ -407,7 +407,7 @@ static double totalRenderedCellCount = 0;
         cell.timeProgressView.progressTintColor  = [UIColor blueColor];
     }
     
-    cell.suraName.text = [NSString stringWithFormat:@"%u %@", [Sura.suraNames indexOfObject:task.name] + 1, task.name];
+    cell.suraName.text = [NSString stringWithFormat:@"%lu %@", [Sura.suraNames indexOfObject:task.name] + 1, task.name];
     
     if (!cell.tag) {
         cell.tag = 1;
