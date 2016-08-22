@@ -43,6 +43,7 @@ NSString * const SortTypeKey = @"SortTypeKey";
         }
     NSLog(@"Load completed.");
     [self listTasksData];
+    [self loadSettings];
 }
 
 - (void)save{
@@ -110,6 +111,7 @@ NSString * const SortTypeKey = @"SortTypeKey";
 }
 
 - (void)loadSettings{
+    //TODO: load defaults if keys do not exist    
     self.settings.descendingSort = [[NSUserDefaults standardUserDefaults] boolForKey:SortDirectionKey];
     self.settings.fadeTime = [[NSUserDefaults standardUserDefaults] doubleForKey:GlobalRefreshIntervaKey];
     self.settings.sortType = (SorterType) [[NSUserDefaults standardUserDefaults] integerForKey:SortTypeKey];

@@ -40,11 +40,6 @@ static NSString * const DefaultTimeUnit = @"d";
     self.sortTypeTableView.dataSource = self;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 /*
 #pragma mark - Navigation
 
