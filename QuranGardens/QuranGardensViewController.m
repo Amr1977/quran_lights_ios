@@ -45,10 +45,6 @@ static double totalRenderedCellCount = 0;
 {
     [super viewDidLoad];
     
-    while ([self isDemoOver]) {
-        [self infoWithMessage:@"Demo is Completed, I wish my app helped you add more lights 😀"];
-    }
-
     [self handleDeviceOrientation];
     
     [self setnavigationBar];
