@@ -373,36 +373,19 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
     return [self.periodicTaskManager taskCount];
 }
 
+- (NSString *)formattedPercentage:(CGFloat)percentage{
+    
+    return nil;
+}
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SuraViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
     
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
-    
     CGFloat progress = [task remainingTimeInterval] / DefaultCycleInterval;//task.cycleInterval;
-    if (progress < 0.3) {
-        cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
-        cell.timeProgressView.progress = progress;
-        cell.timeProgressView.progressTintColor  = [UIColor redColor];
-    }
-    else{
-        cell.timeProgressView.progress = progress;
-        cell.backgroundColor = [UIColor colorWithRed:1/255 green:progress blue:1/255 alpha:1];
-        cell.timeProgressView.progressTintColor  = [UIColor blueColor];
-    }
-    
-    cell.suraName.text = [NSString stringWithFormat:@"%u %@", [Sura.suraNames indexOfObject:task.name] + 1, task.name];
-    
-    if (!cell.tag) {
-        cell.tag = 1;
-        
-        cell.suraName.adjustsFontSizeToFitWidth = YES;
-        
-        cell.layer.cornerRadius = 10.0f;
-        cell.layer.borderWidth = 1.0f;
-        cell.layer.borderColor = [UIColor clearColor].CGColor;
-        cell.layer.masksToBounds = YES;
-    }
+    cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
+    cell.suraName.text = [NSString stringWithFormat:@"%u %@ ", [Sura.suraNames indexOfObject:task.name] + 1, task.name];
     
     return cell;
 }
