@@ -379,7 +379,7 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
     
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
     
-    CGFloat progress = [task remainingTimeInterval] / task.cycleInterval;
+    CGFloat progress = [task remainingTimeInterval] / DefaultCycleInterval;//task.cycleInterval;
     if (progress < 0.3) {
         cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
         cell.timeProgressView.progress = progress;
