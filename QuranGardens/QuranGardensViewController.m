@@ -383,7 +383,7 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
     SuraViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
     
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
-    CGFloat progress = [task remainingTimeInterval] / DefaultCycleInterval;//task.cycleInterval;
+    CGFloat progress = [task remainingTimeInterval] / DefaultCycleInterval;
     cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
     cell.suraName.text = [NSString stringWithFormat:@"%u %@ ", [Sura.suraNames indexOfObject:task.name] + 1, task.name];
     
