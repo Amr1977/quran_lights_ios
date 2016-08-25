@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,12 +14,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="177" height="162"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+<<<<<<< HEAD
                     <progressView contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fQa-4x-aMd">
                         <rect key="frame" x="13" y="131" width="150" height="3"/>
                         <color key="backgroundColor" red="0.0054648042929292817" green="0.0054648042929292817" blue="0.0054648042929292817" alpha="1" colorSpace="calibratedRGB"/>
                     </progressView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Auy-mw-Mdj" userLabel="sura name">
                         <rect key="frame" x="8" y="8" width="161" height="41"/>
+=======
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Auy-mw-Mdj" userLabel="sura name">
+                        <rect key="frame" x="8" y="61" width="161" height="41"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="41" id="C51-L0-tsc"/>
+                        </constraints>
+>>>>>>> master
                         <attributedString key="attributedText">
                             <fragment content="Label">
                                 <attributes>
@@ -33,16 +42,27 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+<<<<<<< HEAD
                 <constraint firstAttribute="trailing" secondItem="fQa-4x-aMd" secondAttribute="trailing" constant="14" id="ENL-Yt-tNF"/>
                 <constraint firstItem="Auy-mw-Mdj" firstAttribute="leading" secondItem="3fq-Gd-ssG" secondAttribute="leading" constant="8" id="EoP-uA-DXL"/>
                 <constraint firstItem="Auy-mw-Mdj" firstAttribute="top" secondItem="3fq-Gd-ssG" secondAttribute="top" constant="5" id="F69-wV-7bE"/>
                 <constraint firstItem="fQa-4x-aMd" firstAttribute="leading" secondItem="3fq-Gd-ssG" secondAttribute="leading" constant="13" id="PjZ-1a-SBG"/>
                 <constraint firstAttribute="bottom" secondItem="fQa-4x-aMd" secondAttribute="bottom" constant="15" id="oIi-rt-qdL"/>
+=======
+                <constraint firstItem="Auy-mw-Mdj" firstAttribute="centerY" secondItem="3fq-Gd-ssG" secondAttribute="centerY" id="5Dl-oD-Ivb"/>
+                <constraint firstItem="Auy-mw-Mdj" firstAttribute="leading" secondItem="3fq-Gd-ssG" secondAttribute="leadingMargin" id="FE8-9g-edR"/>
+                <constraint firstItem="Auy-mw-Mdj" firstAttribute="top" secondItem="3fq-Gd-ssG" secondAttribute="topMargin" id="UiE-0S-4ET"/>
+                <constraint firstItem="Auy-mw-Mdj" firstAttribute="trailing" secondItem="3fq-Gd-ssG" secondAttribute="trailingMargin" id="p7Z-KU-QEa"/>
+>>>>>>> master
             </constraints>
             <size key="customSize" width="177" height="162"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="UiE-0S-4ET"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="suraName" destination="Auy-mw-Mdj" id="RHz-0O-wTi"/>
-                <outlet property="timeProgressView" destination="fQa-4x-aMd" id="CZg-JN-ApQ"/>
             </connections>
             <point key="canvasLocation" x="439.5" y="335"/>
         </collectionViewCell>

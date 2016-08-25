@@ -22,8 +22,6 @@ static NSString *const ReversedSortOrderOptionKey = @"reversed_sort_order";
 static NSString *const SorterTypeOptionKey = @"sorter_type";
 static NSString *const InstallDateKey = @"install_date";
 
-
-
 @interface QuranGardensViewController ()
 
 @property (strong, nonatomic) PeriodicTaskManager *periodicTaskManager;
@@ -388,41 +386,13 @@ static double totalRenderedCellCount = 0;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    totalRenderedCellCount++;
-    double startTime = CACurrentMediaTime();
-    
     SuraViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
-    
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
+
+    CGFloat progress = [task remainingTimeInterval] / DefaultCycleInterval;
     
-    CGFloat progress = [task remainingTimeInterval] / task.cycleInterval;
-    if (progress < 0.3) {
-        cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
-        cell.timeProgressView.progress = progress;
-        cell.timeProgressView.progressTintColor  = [UIColor redColor];
-    }
-    else{
-        cell.timeProgressView.progress = progress;
-        cell.backgroundColor = [UIColor colorWithRed:1/255 green:progress blue:1/255 alpha:1];
-        cell.timeProgressView.progressTintColor  = [UIColor blueColor];
-    }
-    
-    cell.suraName.text = [NSString stringWithFormat:@"%lu %@", [Sura.suraNames indexOfObject:task.name] + 1, task.name];
-    
-    if (!cell.tag) {
-        cell.tag = 1;
-        
-        cell.suraName.adjustsFontSizeToFitWidth = YES;
-        
-        cell.layer.cornerRadius = 10.0f;
-        cell.layer.borderWidth = 1.0f;
-        cell.layer.borderColor = [UIColor clearColor].CGColor;
-        cell.layer.masksToBounds = YES;
-    }
-    
-    double endTime = CACurrentMediaTime();
-    double difference = (endTime - startTime) * 1000000;
-    averageCellRenderTime = (averageCellRenderTime + difference) / totalRenderedCellCount;
+    cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
+    cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", [Sura.suraNames indexOfObject:task.name] + 1, task.name];
    
     return cell;
 }
