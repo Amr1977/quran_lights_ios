@@ -13,7 +13,7 @@
 #import <QuartzCore/CAAnimation.h>
 #import "Settings.h"
 
-CGFloat const CellHeight = 50;
+CGFloat const CellHeight = 25;
 CGFloat const CellWidth = 170;
 NSInteger const RefreshPeriod = 5; // refresh each 5 minutes;
 
@@ -35,9 +35,6 @@ static NSString *const InstallDateKey = @"install_date";
 @end
 
 @implementation QuranGardensViewController
-
-static double averageCellRenderTime = 0;
-static double totalRenderedCellCount = 0;
 
 - (void)viewDidLoad
 {
@@ -137,23 +134,6 @@ static double totalRenderedCellCount = 0;
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate new] forKey:InstallDateKey];
 }
 
-- (BOOL)isDemoOver{
-    if (!Demo) {
-        return NO;
-    }
-    
-    NSDate *installDate = [[NSUserDefaults standardUserDefaults] objectForKey:InstallDateKey];
-    if (!installDate) {
-        [self setInstallDate];
-        [self infoWithMessage:[NSString stringWithFormat:@"Demo count down: %ld !", lroundf(DemoTimeInterval -[[NSDate new] timeIntervalSinceDate:installDate])]];
-        return NO;
-    } else {
-        [self infoWithMessage:[NSString stringWithFormat:@"Demo count down: %ld !", lroundf(DemoTimeInterval -[[NSDate new] timeIntervalSinceDate:installDate])]];
-        
-        return [[NSDate new] timeIntervalSinceDate:installDate] > DemoTimeInterval;
-    }
-}
-
 - (void)viewWillAppear:(BOOL)animated{
     [self.collectionView reloadData];
 }
@@ -207,6 +187,9 @@ static double totalRenderedCellCount = 0;
 - (void)settings{
     SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
     settingsViewController.settings = [self.periodicTaskManager.dataSource.settings copy];
+    
+    //[self presentViewController:settingsViewController animated:YES completion:nil];
+    [self.navigationController pushViewController:settingsViewController animated:YES];
 
     //TODO: Complete this !
 }
@@ -365,6 +348,11 @@ static double totalRenderedCellCount = 0;
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+    
+    //http://stackoverflow.com/questions/28325277/how-to-set-cell-spacing-and-uicollectionview-uicollectionviewflowlayout-size-r
+    layout.minimumInteritemSpacing = 2;
+    layout.minimumLineSpacing = 2;
+
     self.collectionView=[[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
     [self.collectionView setDataSource:self];
     [self.collectionView setDelegate:self];
@@ -392,7 +380,7 @@ static double totalRenderedCellCount = 0;
     CGFloat progress = [task remainingTimeInterval] / DefaultCycleInterval;
     
     cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
-    cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", [Sura.suraNames indexOfObject:task.name] + 1, task.name];
+    cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, task.name];
    
     return cell;
 }
@@ -436,11 +424,6 @@ static double totalRenderedCellCount = 0;
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    NSLog(@"averageCellRenderTime for cell creation/modification: %f µs", averageCellRenderTime);
 }
 
 #pragma mark - SettingsViewControllerDelegate

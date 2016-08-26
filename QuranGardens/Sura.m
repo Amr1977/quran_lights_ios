@@ -8,8 +8,6 @@
 
 #import "Sura.h"
 
-NSInteger const DefaultCycleInterval = 30*24*60*60;
-
 @implementation Sura
 
 + (NSArray <NSString *>*)suraNames{

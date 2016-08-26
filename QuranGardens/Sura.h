@@ -11,8 +11,6 @@
 
 @interface Sura : PeriodicTask
 
-extern NSTimeInterval const DemoTimeInterval;
-
 /** Sura order in mushaf. */
 @property (nonatomic) NSInteger order;
 

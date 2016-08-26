@@ -18,7 +18,6 @@ static NSString * const SecondTimeUnit = @"s";
 
 static NSString * const DefaultTimeUnit = @"d";
 
-
 @interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *refreshPeriodText;
@@ -109,7 +108,5 @@ static NSString * const DefaultTimeUnit = @"d";
 - (IBAction)apply:(id)sender{
     [self.delegate settingsViewController:self didChangeSettings:self.settings];
 }
-
-
 
 @end
