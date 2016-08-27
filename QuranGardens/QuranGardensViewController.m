@@ -371,7 +371,9 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 {
     SuraViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
-
+    
+    task.cycleInterval = self.periodicTaskManager.dataSource.settings.fadeTime;
+    
     CGFloat progress = [task remainingTimeInterval] / self.periodicTaskManager.dataSource.settings.fadeTime;
     
     cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
