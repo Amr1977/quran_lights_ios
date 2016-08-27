@@ -12,11 +12,22 @@
 NSString * const IntervalKeySuffix = @"interval";
 NSString * const LastRefreshKeySuffix = @"lastRefresh";
 
-NSString * const GlobalRefreshIntervaKey = @"GlobalRefreshIntervaKey";
+NSString * const GlobalRefreshIntervalKey = @"GlobalRefreshIntervalKey";
 NSString * const SortDirectionKey = @"SortDirectionKey";
 NSString * const SortTypeKey = @"SortTypeKey";
 
 @implementation DataSource
+
+- (Settings *)settings {
+    if (!_settings) {
+        _settings = [[Settings alloc] init];
+        _settings.fadeTime = DefaultCycleInterval;
+        _settings.sortType = NormalSuraOrderSort;
+        _settings.descendingSort = NO;
+    }
+    
+    return _settings;
+}
 
 - (void)listTasksData{
     for (PeriodicTask *sura in self.tasks) {
@@ -106,15 +117,38 @@ NSString * const SortTypeKey = @"SortTypeKey";
 
 - (void)saveSettings{
     [[NSUserDefaults standardUserDefaults] setBool:self.settings.descendingSort forKey:SortDirectionKey];
-    [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime forKey:GlobalRefreshIntervaKey];
+    [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime forKey:GlobalRefreshIntervalKey];
     [[NSUserDefaults standardUserDefaults] setInteger:self.settings.sortType forKey:SortTypeKey];
 }
 
 - (void)loadSettings{
-    //TODO: load defaults if keys do not exist    
-    self.settings.descendingSort = [[NSUserDefaults standardUserDefaults] boolForKey:SortDirectionKey];
-    self.settings.fadeTime = [[NSUserDefaults standardUserDefaults] doubleForKey:GlobalRefreshIntervaKey];
-    self.settings.sortType = (SorterType) [[NSUserDefaults standardUserDefaults] integerForKey:SortTypeKey];
+    NSLog(@"Loading Settings...");
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:SortDirectionKey]) {
+        self.settings.descendingSort = [[NSUserDefaults standardUserDefaults] boolForKey:SortDirectionKey];
+    } else {
+        self.settings.descendingSort = NO;
+        [[NSUserDefaults standardUserDefaults] setBool:self.settings.descendingSort forKey:SortDirectionKey];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:GlobalRefreshIntervalKey]) {
+        self.settings.fadeTime = [[NSUserDefaults standardUserDefaults] doubleForKey:GlobalRefreshIntervalKey];
+        if (!self.settings.fadeTime) {
+            self.settings.fadeTime = DefaultCycleInterval;
+            [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime forKey:GlobalRefreshIntervalKey];
+        }
+    } else {
+        self.settings.fadeTime = DefaultCycleInterval;
+        [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime forKey:GlobalRefreshIntervalKey];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:SortTypeKey]) {
+        self.settings.sortType = (SorterType) [[NSUserDefaults standardUserDefaults] integerForKey:SortTypeKey];
+    } else {
+        self.settings.sortType = NormalSuraOrderSort;
+        [[NSUserDefaults standardUserDefaults] setInteger:self.settings.sortType forKey:SortTypeKey];
+    }
+    
+    NSLog(@"Loaded Settings: %@", self.settings);
 }
 
 @end

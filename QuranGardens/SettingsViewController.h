@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Settings.h"
 
-@interface SettingsViewController : UIViewController
+@interface SettingsViewController : UIViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) Settings *settings;
 @property (weak, nonatomic) id delegate;

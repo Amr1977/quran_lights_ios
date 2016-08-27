@@ -19,12 +19,14 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
     CharCountSort = 5,
 };
 
-@interface Settings : NSObject
+@interface Settings : NSObject <NSCopying>
 
 /** Sura Cell fade time in seconds*/
 @property (nonatomic) double fadeTime;
 @property (nonatomic) SorterType sortType;
 @property (nonatomic) BOOL descendingSort;
+
+- (BOOL)isEqual:(Settings *)settings;
 
 + (NSArray<NSString *>*)sortTypeList;
 

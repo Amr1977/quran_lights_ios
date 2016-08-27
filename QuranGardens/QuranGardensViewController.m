@@ -20,7 +20,6 @@ NSInteger const RefreshPeriod = 5; // refresh each 5 minutes;
 static NSString *const ShowHelpScreenKey = @"Show_help_screen";
 static NSString *const ReversedSortOrderOptionKey = @"reversed_sort_order";
 static NSString *const SorterTypeOptionKey = @"sorter_type";
-static NSString *const InstallDateKey = @"install_date";
 
 @interface QuranGardensViewController ()
 
@@ -130,10 +129,6 @@ static NSString *const InstallDateKey = @"install_date";
     [[NSUserDefaults standardUserDefaults] setBool:showHelpScreen forKey:ShowHelpScreenKey];
 }
 
-- (void)setInstallDate{
-    [[NSUserDefaults standardUserDefaults] setObject:[NSDate new] forKey:InstallDateKey];
-}
-
 - (void)viewWillAppear:(BOOL)animated{
     [self.collectionView reloadData];
 }
@@ -187,6 +182,7 @@ static NSString *const InstallDateKey = @"install_date";
 - (void)settings{
     SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
     settingsViewController.settings = [self.periodicTaskManager.dataSource.settings copy];
+    settingsViewController.delegate = self;
     
     //[self presentViewController:settingsViewController animated:YES completion:nil];
     [self.navigationController pushViewController:settingsViewController animated:YES];
@@ -202,17 +198,24 @@ static NSString *const InstallDateKey = @"install_date";
     UIAlertAction* normalSoraOrderSort = [UIAlertAction actionWithTitle:@"Normal Sura Order" style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * action) {
                                                                self.reversedSortOrder = NO;
+                                                               
+                                                               self.periodicTaskManager.dataSource.settings.sortType = NormalSuraOrderSort;
+                                                               self.periodicTaskManager.dataSource.settings.descendingSort = NO;
+                                                               
                                                                [self normalSuraOrderSort];
                                                            }];
     
     UIAlertAction* reverseCurrentOrder = [UIAlertAction actionWithTitle:@"Reverse Current order" style:UIAlertActionStyleDefault
                                                                 handler:^(UIAlertAction * action) {
+                                                                    self.periodicTaskManager.dataSource.settings.descendingSort = YES;
                                                                     [self reversedSuraOrderSort];
                                                                 }];
     
     UIAlertAction* weakerFirst = [UIAlertAction actionWithTitle:@"Most faded first" style:UIAlertActionStyleDefault
                                                                 handler:^(UIAlertAction * action) {
-                                                                    self.reversedSortOrder = NO;
+                                                                    self.periodicTaskManager.dataSource.settings.descendingSort = NO;
+                                                                    self.periodicTaskManager.dataSource.settings.sortType = LightSort;
+                                                                    
                                                                     [self weakerFirstSuraFirstSort];
                                                                 }];
     
@@ -231,6 +234,7 @@ static NSString *const InstallDateKey = @"install_date";
 }
 
 - (void)normalSuraOrderSort{
+    //TODO: move sorting to a separate class
     NSMutableArray *sortedArray;
     sortedArray = [self.periodicTaskManager.dataSource.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
         NSUInteger firstOrder = [[Sura suraNames] indexOfObject:((PeriodicTask *)a).name];
@@ -253,23 +257,22 @@ static NSString *const InstallDateKey = @"install_date";
 }
 
 - (void)setReversedSortOrder:(BOOL)reversedSortOrder{
-    [[NSUserDefaults standardUserDefaults] setBool:reversedSortOrder forKey:ReversedSortOrderOptionKey];
+    self.periodicTaskManager.dataSource.settings.descendingSort = reversedSortOrder;
 }
 
 - (BOOL)reversedSortOrder{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:ReversedSortOrderOptionKey];
+    return self.periodicTaskManager.dataSource.settings.descendingSort;
 }
 
 - (void)setSortType:(SorterType)sortType{
-    [[NSUserDefaults standardUserDefaults] setInteger:sortType forKey:SorterTypeOptionKey];
+    self.periodicTaskManager.dataSource.settings.sortType = sortType;
 }
 
 - (SorterType)sortType{
-    return [[[NSUserDefaults standardUserDefaults] objectForKey:SorterTypeOptionKey] integerValue];
+    return self.periodicTaskManager.dataSource.settings.sortType;
 }
 
 - (void)reversedSuraOrderSort{
-    self.reversedSortOrder = !self.reversedSortOrder;
     [self.periodicTaskManager sortListReverseOrder];
     [self.collectionView reloadData];
 }
@@ -377,7 +380,7 @@ static NSString *const InstallDateKey = @"install_date";
     SuraViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
 
-    CGFloat progress = [task remainingTimeInterval] / DefaultCycleInterval;
+    CGFloat progress = [task remainingTimeInterval] / self.periodicTaskManager.dataSource.settings.fadeTime;
     
     cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
     cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, task.name];
@@ -408,7 +411,7 @@ static NSString *const InstallDateKey = @"install_date";
 - (void)applyCurrentSort{
     if (self.sortType == NormalSuraOrderSort) {
         [self normalSuraOrderSort];
-    } else {
+    } else if (self.sortType == LightSort) {
         [self weakerFirstSuraFirstSort];
     }
     if (self.reversedSortOrder) {
@@ -430,7 +433,10 @@ static NSString *const InstallDateKey = @"install_date";
 
 - (void)settingsViewController:(SettingsViewController *)settingsViewController didChangeSettings:(Settings *)settings{
     self.periodicTaskManager.dataSource.settings = [settings copy];
+    NSLog(@"QuranGardensViewController: received Settings: %@", self.periodicTaskManager.dataSource.settings);
     [self.periodicTaskManager.dataSource saveSettings];
+    [self applyCurrentSort];
+    [self.collectionView reloadData];
     //TODO: Apply new settings
 }
 
