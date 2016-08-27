@@ -24,8 +24,8 @@
                         <navigationItem title="Title" id="EdM-qn-aCE"/>
                     </items>
                 </navigationBar>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EOB-cR-xfL">
-                    <rect key="frame" x="-12" y="54" width="624" height="476"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="EOB-cR-xfL">
+                    <rect key="frame" x="-12" y="54" width="600" height="476"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Light fade out days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lqw-lJ-cpp">
                             <rect key="frame" x="21" y="20" width="177" height="30"/>
@@ -78,27 +78,24 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7fh-KB-XlF">
-                            <rect key="frame" x="20" y="223" width="584" height="233"/>
+                            <rect key="frame" x="13" y="223" width="330" height="233"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="492" id="awH-4u-Kn3"/>
-                                <constraint firstAttribute="height" constant="233" id="b4J-4V-IZ7"/>
+                                <constraint firstAttribute="height" constant="233" id="BOz-sK-JhM"/>
                             </constraints>
                             <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="sectionIndexBackgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="awH-4u-Kn3"/>
-                                </mask>
-                            </variation>
                         </tableView>
                     </subviews>
                     <constraints>
                         <constraint firstItem="gB2-Dt-28v" firstAttribute="top" secondItem="lqw-lJ-cpp" secondAttribute="bottom" constant="8" symbolic="YES" id="1TD-vG-GbZ"/>
-                        <constraint firstItem="7fh-KB-XlF" firstAttribute="top" secondItem="ZiG-Jc-Muc" secondAttribute="bottom" constant="2" id="764-IN-A52"/>
                         <constraint firstItem="gB2-Dt-28v" firstAttribute="leading" secondItem="EOB-cR-xfL" secondAttribute="leading" constant="20" id="89i-sK-Vhb"/>
                         <constraint firstItem="lqw-lJ-cpp" firstAttribute="leading" secondItem="9Yb-jN-Yrb" secondAttribute="leading" id="8jK-6Y-Ecq"/>
                         <constraint firstItem="ZiG-Jc-Muc" firstAttribute="top" secondItem="542-CG-KmS" secondAttribute="bottom" constant="8" symbolic="YES" id="9tm-Jj-pYi"/>
+                        <constraint firstItem="7fh-KB-XlF" firstAttribute="top" secondItem="ZiG-Jc-Muc" secondAttribute="bottom" constant="2" id="Ko2-5L-w7k"/>
+                        <constraint firstItem="7fh-KB-XlF" firstAttribute="width" secondItem="EOB-cR-xfL" secondAttribute="width" id="MSN-Wk-mRT"/>
+                        <constraint firstAttribute="bottom" secondItem="7fh-KB-XlF" secondAttribute="bottom" constant="20" id="Q3g-Wv-Dz0"/>
+                        <constraint firstItem="7fh-KB-XlF" firstAttribute="width" secondItem="EOB-cR-xfL" secondAttribute="width" id="QvW-6p-GhE"/>
                         <constraint firstItem="542-CG-KmS" firstAttribute="leading" secondItem="ZiG-Jc-Muc" secondAttribute="leading" id="TW0-dv-M2y"/>
                         <constraint firstItem="542-CG-KmS" firstAttribute="top" secondItem="9Yb-jN-Yrb" secondAttribute="bottom" constant="8" symbolic="YES" id="TkV-XK-aJb"/>
                         <constraint firstItem="ZiG-Jc-Muc" firstAttribute="leading" secondItem="7fh-KB-XlF" secondAttribute="leading" id="W27-JR-Qo7"/>
@@ -110,16 +107,17 @@
                         <constraint firstItem="lqw-lJ-cpp" firstAttribute="trailing" secondItem="9Yb-jN-Yrb" secondAttribute="trailing" id="saK-5i-DTI"/>
                         <constraint firstAttribute="trailing" secondItem="7fh-KB-XlF" secondAttribute="trailing" constant="20" id="suz-Ha-kOB"/>
                         <constraint firstItem="542-CG-KmS" firstAttribute="trailing" secondItem="ZiG-Jc-Muc" secondAttribute="trailing" id="tOn-lL-okC"/>
-                        <constraint firstItem="7fh-KB-XlF" firstAttribute="centerX" secondItem="EOB-cR-xfL" secondAttribute="centerX" id="xJm-dj-Fd7"/>
                     </constraints>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="EOB-cR-xfL" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="6gJ-WE-lFe"/>
+                <constraint firstAttribute="trailing" secondItem="EOB-cR-xfL" secondAttribute="trailing" constant="12" id="0RH-ep-d4T"/>
+                <constraint firstItem="EOB-cR-xfL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="54" id="CMu-XO-CTJ"/>
                 <constraint firstItem="EOB-cR-xfL" firstAttribute="centerX" secondItem="64l-DZ-lLT" secondAttribute="centerX" id="I6V-1J-uWT"/>
                 <constraint firstAttribute="trailing" secondItem="64l-DZ-lLT" secondAttribute="trailing" id="L9P-1C-1VR"/>
-                <constraint firstItem="EOB-cR-xfL" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="OF6-Pd-S0g"/>
+                <constraint firstItem="EOB-cR-xfL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-12" id="QBb-Zq-SIP"/>
+                <constraint firstAttribute="bottom" secondItem="EOB-cR-xfL" secondAttribute="bottom" constant="70" id="XDb-7z-D7b"/>
                 <constraint firstItem="EOB-cR-xfL" firstAttribute="top" secondItem="64l-DZ-lLT" secondAttribute="bottom" constant="10" id="a86-e2-fxf"/>
                 <constraint firstAttribute="bottom" secondItem="EOB-cR-xfL" secondAttribute="bottom" constant="70" id="cWL-zH-WMv"/>
                 <constraint firstItem="64l-DZ-lLT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mCX-Q2-IfI"/>
@@ -128,6 +126,7 @@
             </constraints>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="I6V-1J-uWT"/>
                     <exclude reference="cWL-zH-WMv"/>
                     <exclude reference="mQx-RK-Gax"/>
                 </mask>

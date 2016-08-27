@@ -44,7 +44,16 @@ static Settings* settingsCopy;
     self.view.userInteractionEnabled = YES;
     self.scrollview.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
+
+    
     //self.refreshPeriodText.keyboardType = UIKeyboardTypeNumberPad;
+}
+
+- (void)viewDidLayoutSubviews{
+    self.scrollview.frame = self.view.frame;
+    //self.scrollview.backgroundColor = [UIColor greenColor];
+    self.scrollview.frame = CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height);
+    self.scrollview.contentSize = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height + 10).size;
 }
 
 -(void)hideKeyBoard {
@@ -54,7 +63,7 @@ static Settings* settingsCopy;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    //settingsCopy = [self.settings copy];
+    
     [self updateUI];
 }
 
