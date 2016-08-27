@@ -19,6 +19,7 @@ static NSString * const SecondTimeUnit = @"s";
 static NSString * const DefaultTimeUnit = @"d";
 
 @interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollview;
 
 @property (weak, nonatomic) IBOutlet UITextField *refreshPeriodText;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *sortDirectionSegments;
@@ -40,12 +41,20 @@ static Settings* settingsCopy;
     self.sortTypeTableView.delegate = self;
     self.sortTypeTableView.dataSource = self;
     self.refreshPeriodText.delegate = self;
+    self.view.userInteractionEnabled = YES;
+    self.scrollview.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
-    self.refreshPeriodText.keyboardType = UIKeyboardTypeNumberPad;
+    //self.refreshPeriodText.keyboardType = UIKeyboardTypeNumberPad;
+}
+
+-(void)hideKeyBoard {
+    NSLog(@"Hide KB");
+    [self.refreshPeriodText resignFirstResponder];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    //settingsCopy = [self.settings copy];
     [self updateUI];
 }
 
@@ -72,7 +81,7 @@ static Settings* settingsCopy;
 
 - (void)setSettings:(Settings *)settings{
     _settings = settings;
-    settingsCopy = settings;
+    settingsCopy = [settings copy];
     
     [self updateUI];
     
@@ -126,17 +135,6 @@ static Settings* settingsCopy;
     }
 }
 
-#pragma mark - Apply
-
-- (IBAction)apply:(id)sender{
-    self.settings.fadeTime = [self.refreshPeriodText.text integerValue] * 24 * 60 * 60;
-    self.settings.descendingSort = (self.sortDirectionSegments.selectedSegmentIndex == 1);
-    self.settings.sortType = self.sortTypeTableView.indexPathForSelectedRow.row;
-    NSLog(@"SettingsViewController: delivering settings: %@",[self settings]);
-    [self.delegate settingsViewController:self didChangeSettings:self.settings];
-}
-
-
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     NSLog(@"textFieldShouldBeginEditing");
     NSLog(@"fself.refreshPeriodText.text: %@", self.refreshPeriodText.text);
@@ -159,6 +157,30 @@ static Settings* settingsCopy;
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     NSLog(@"textFieldDidEndEditing");
     NSLog(@"fself.refreshPeriodText.text: %@", self.refreshPeriodText.text);
+}
+
+- (IBAction)didEndEditing:(id)sender{
+    NSLog(@"didEndEditing");
+    [self hideKeyBoard];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    NSLog(@"touchesBegan");
+    [self hideKeyBoard];
+}
+
+- (void)dealloc{
+    self.settings.fadeTime = [self.refreshPeriodText.text integerValue] * 24 * 60 * 60;
+    self.settings.descendingSort = (self.sortDirectionSegments.selectedSegmentIndex == 1);
+    self.settings.sortType = self.sortTypeTableView.indexPathForSelectedRow.row;
+    NSLog(@"SettingsViewController: delivering settings: %@",[self settings]);
+    NSLog(@"Settings copy %@", settingsCopy);
+    if (![self.settings isEqual:settingsCopy]) {
+        [self.delegate settingsViewController:self didChangeSettings:self.settings];
+    } else {
+        NSLog(@"Nothing changed");
+    }
+    
 }
 
 @end

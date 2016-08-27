@@ -153,13 +153,6 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
                                                                   self.menuOpened = NO;
                                                               }];
         
-        UIAlertAction* sortAction = [UIAlertAction actionWithTitle:@"Sort Suras"
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction * action) {
-                                                                     [self sorter];
-                                                                     self.menuOpened = NO;
-                                                                 }];
-        
         UIAlertAction* settingsAction = [UIAlertAction actionWithTitle:@"Settings"
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * action) {
@@ -171,7 +164,6 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
                                                                style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action) { self.menuOpened = NO; }];
         [_menu addAction:howItWorksAction];
-        [_menu addAction:sortAction];
         [_menu addAction:settingsAction];
         [_menu addAction:resetAction];
         [_menu addAction:cancelAction];
