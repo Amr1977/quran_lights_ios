@@ -390,8 +390,9 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 - (void)collectionView:(UICollectionView *)collectionView  didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
     
-    SuraViewCell *cell = (SuraViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    if (cell.timeProgressView.progress > 0.99) {
+    CGFloat progress = [task remainingTimeInterval] / self.periodicTaskManager.dataSource.settings.fadeTime;
+    
+    if (progress > 0.99) {
         task.lastOccurrence = [NSDate dateWithTimeIntervalSince1970:0];
     } else {
        task.lastOccurrence = [[NSDate alloc] init];
