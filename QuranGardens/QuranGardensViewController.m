@@ -13,7 +13,7 @@
 #import <QuartzCore/CAAnimation.h>
 #import "Settings.h"
 
-CGFloat const CellHeight = 50;
+CGFloat const CellHeight = 57;
 CGFloat const CellWidth = 170;
 NSInteger const RefreshPeriod = 5; // refresh each 5 minutes;
 

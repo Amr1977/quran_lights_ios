@@ -18,6 +18,8 @@ static NSString * const SecondTimeUnit = @"s";
 
 static NSString * const DefaultTimeUnit = @"d";
 
+static CGFloat const DefaultCellHeight = 44;
+
 @interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollview;
 
@@ -44,6 +46,11 @@ static Settings* settingsCopy;
     self.view.userInteractionEnabled = YES;
     self.scrollview.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
+    self.sortTypeTableView.layer.borderWidth = 1.0;
+    self.sortTypeTableView.layer.borderColor = [UIColor grayColor].CGColor;
+    CGRect frame = self.sortTypeTableView.frame;
+    frame.size.height = DefaultCellHeight * ([[Settings sortTypeList] count] - 1);
+    self.sortTypeTableView.frame = frame;
 
     
     //self.refreshPeriodText.keyboardType = UIKeyboardTypeNumberPad;
