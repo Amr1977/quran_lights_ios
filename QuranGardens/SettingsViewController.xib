@@ -25,7 +25,7 @@
                     </items>
                 </navigationBar>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="EOB-cR-xfL">
-                    <rect key="frame" x="-12" y="54" width="600" height="546"/>
+                    <rect key="frame" x="-12" y="54" width="600" height="528"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Light fade out days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lqw-lJ-cpp">
                             <rect key="frame" x="21" y="20" width="177" height="30"/>
@@ -95,13 +95,13 @@
                         <constraint firstItem="7fh-KB-XlF" firstAttribute="top" secondItem="ZiG-Jc-Muc" secondAttribute="top" id="CiM-9L-okF"/>
                         <constraint firstItem="7fh-KB-XlF" firstAttribute="top" secondItem="ZiG-Jc-Muc" secondAttribute="bottom" constant="8" id="Ko2-5L-w7k"/>
                         <constraint firstItem="7fh-KB-XlF" firstAttribute="width" secondItem="EOB-cR-xfL" secondAttribute="width" constant="-26" id="MSN-Wk-mRT"/>
-                        <constraint firstAttribute="bottom" secondItem="7fh-KB-XlF" secondAttribute="bottom" id="Q3g-Wv-Dz0"/>
+                        <constraint firstAttribute="bottom" secondItem="7fh-KB-XlF" secondAttribute="bottom" constant="-18" id="Q3g-Wv-Dz0"/>
                         <constraint firstItem="7fh-KB-XlF" firstAttribute="width" secondItem="EOB-cR-xfL" secondAttribute="width" constant="-26" id="QvW-6p-GhE"/>
                         <constraint firstItem="542-CG-KmS" firstAttribute="leading" secondItem="ZiG-Jc-Muc" secondAttribute="leading" constant="-1" id="TW0-dv-M2y"/>
                         <constraint firstItem="542-CG-KmS" firstAttribute="top" secondItem="9Yb-jN-Yrb" secondAttribute="bottom" constant="8" symbolic="YES" id="TkV-XK-aJb"/>
                         <constraint firstItem="ZiG-Jc-Muc" firstAttribute="leading" secondItem="7fh-KB-XlF" secondAttribute="leading" constant="8" id="W27-JR-Qo7"/>
                         <constraint firstItem="lqw-lJ-cpp" firstAttribute="leading" secondItem="EOB-cR-xfL" secondAttribute="leading" constant="21" id="YgV-Mw-55Q"/>
-                        <constraint firstAttribute="bottom" secondItem="7fh-KB-XlF" secondAttribute="bottom" id="aca-ka-4Sm"/>
+                        <constraint firstAttribute="bottom" secondItem="7fh-KB-XlF" secondAttribute="bottom" constant="-18" id="aca-ka-4Sm"/>
                         <constraint firstItem="lqw-lJ-cpp" firstAttribute="top" secondItem="EOB-cR-xfL" secondAttribute="top" constant="20" id="bBQ-mj-y4u"/>
                         <constraint firstItem="gB2-Dt-28v" firstAttribute="leading" secondItem="542-CG-KmS" secondAttribute="leading" id="dyX-QW-TZU"/>
                         <constraint firstItem="9Yb-jN-Yrb" firstAttribute="top" secondItem="gB2-Dt-28v" secondAttribute="bottom" constant="8" id="lIW-hv-Q3o"/>
@@ -123,9 +123,8 @@
                 <constraint firstItem="EOB-cR-xfL" firstAttribute="centerX" secondItem="64l-DZ-lLT" secondAttribute="centerX" id="I6V-1J-uWT"/>
                 <constraint firstAttribute="trailing" secondItem="64l-DZ-lLT" secondAttribute="trailing" id="L9P-1C-1VR"/>
                 <constraint firstItem="EOB-cR-xfL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-12" id="QBb-Zq-SIP"/>
-                <constraint firstAttribute="bottom" secondItem="EOB-cR-xfL" secondAttribute="bottom" id="XDb-7z-D7b"/>
+                <constraint firstAttribute="bottom" secondItem="EOB-cR-xfL" secondAttribute="bottom" constant="18" id="XDb-7z-D7b"/>
                 <constraint firstItem="EOB-cR-xfL" firstAttribute="top" secondItem="64l-DZ-lLT" secondAttribute="bottom" constant="10" id="a86-e2-fxf"/>
-                <constraint firstAttribute="bottom" secondItem="EOB-cR-xfL" secondAttribute="bottom" constant="70" id="cWL-zH-WMv"/>
                 <constraint firstItem="64l-DZ-lLT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mCX-Q2-IfI"/>
                 <constraint firstItem="EOB-cR-xfL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-12" id="mQx-RK-Gax"/>
                 <constraint firstItem="64l-DZ-lLT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="oLv-8y-ept"/>
@@ -133,7 +132,6 @@
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="I6V-1J-uWT"/>
-                    <exclude reference="cWL-zH-WMv"/>
                     <exclude reference="mQx-RK-Gax"/>
                 </mask>
             </variation>

@@ -15,6 +15,11 @@
 @property (strong, nonatomic) NSMutableArray<PeriodicTask *> *tasks;
 @property (strong, nonatomic) Settings *settings;
 
+@property (strong, nonatomic) NSArray<NSNumber *> *suraCharsCount;
+@property (strong, nonatomic) NSArray<NSNumber *> *suraWordCount;
+@property (strong, nonatomic) NSArray<NSNumber *> *suraVerseCount;
+@property (strong, nonatomic) NSArray<NSNumber *> *suraRevalOrder;
+
 - (void)load;
 - (void)save;
 - (void)listTasksData;

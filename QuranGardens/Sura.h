@@ -15,5 +15,12 @@
 @property (nonatomic) NSInteger order;
 
 + (NSArray<NSString *> *)suraNames;
++ (NSArray<NSNumber *> *)readNumbersFromFile:(NSString *)fileName;
++ (NSArray<NSString *> *)readLinesFromFile:(NSString *)fileName;
+
++ (NSArray <NSNumber *> *)suraCharsCount;
++ (NSArray <NSNumber *> *)suraVerseCount;
++ (NSArray <NSNumber *> *)suraWordCount;
++ (NSArray <NSNumber *> *)suraRevalOrder;
 
 @end

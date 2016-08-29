@@ -55,6 +55,9 @@ NSString * const SortTypeKey = @"SortTypeKey";
     NSLog(@"Load completed.");
     [self listTasksData];
     [self loadSettings];
+    [Sura readNumbersFromFile:@"versecount"];
+    [Sura readNumbersFromFile:@"charcount"];
+    [Sura readNumbersFromFile:@"wordcount"];
 }
 
 - (void)save{

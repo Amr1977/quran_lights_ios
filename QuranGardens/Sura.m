@@ -10,6 +10,47 @@
 
 @implementation Sura
 
++ (NSArray <NSNumber *> *)suraCharsCount{
+    static NSArray *charsCount;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        charsCount = [Sura readNumbersFromFile:@"charcount"];
+    } );
+    
+    return charsCount;
+}
+
++ (NSArray <NSNumber *> *)suraVerseCount{
+    static NSArray *verseCount;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        verseCount = [Sura readNumbersFromFile:@"versecount"];
+    } );
+    
+    return verseCount;
+}
+
++ (NSArray <NSNumber *> *)suraWordCount{
+    static NSArray *wordCount;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        wordCount = [Sura readNumbersFromFile:@"wordcount"];
+    } );
+    
+    return wordCount;
+}
+
++ (NSArray <NSNumber *> *)suraRevalOrder{
+    static NSArray *revalOrder;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        revalOrder = [Sura readNumbersFromFile:@"reval"];
+    } );
+    
+    return revalOrder;
+}
+
+
 + (NSArray <NSString *>*)suraNames{
     static NSArray *suraNames;
     static dispatch_once_t onceToken;
@@ -134,5 +175,38 @@
     return suraNames;
 }
 
++ (NSArray<NSNumber *> *)readNumbersFromFile:(NSString *)fileName{
+    NSArray<NSString *> *lines = [[self class] readLinesFromFile:fileName];
+    NSMutableArray <NSNumber *> *numbers = @[].mutableCopy;
+    
+    for (NSString *line in lines) {
+        NSNumber *number = [NSNumber numberWithDouble:[line doubleValue]];
+        [numbers addObject:number];
+        NSLog(@"Parsed number: %@\n", number);
+    }
+    
+    return numbers.copy;
+}
+
+
++ (NSArray<NSString *> *)readLinesFromFile:(NSString *)fileName{
+    NSString* fileRoot = [[NSBundle mainBundle]
+                          pathForResource:fileName ofType:@"txt"];
+    if (!fileRoot) {
+        NSLog(@"File not found: %@", fileName);
+        return nil;
+    }
+    NSString* fileContents = [NSString stringWithContentsOfFile:fileRoot
+                                                       encoding:NSUTF8StringEncoding error:nil];
+    
+    // first, separate by new line
+    NSArray* allLinedStrings = [fileContents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    
+    for (NSString *line in allLinedStrings) {
+        NSLog(@"Read line: %@\n", line);
+    }
+    
+    return allLinedStrings;
+}
 
 @end
