@@ -248,6 +248,102 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     [self.collectionView reloadData];
 }
 
+- (void)revalSuraOrderSort{
+    //TODO: move sorting to a separate class
+    NSMutableArray *sortedArray;
+    sortedArray = [self.periodicTaskManager.dataSource.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSUInteger firstOrder = [[Sura suraRevalOrder][[[Sura suraNames] indexOfObject:((PeriodicTask *)a).name]] unsignedIntegerValue];
+        NSUInteger secondOrder = [[Sura suraRevalOrder][[[Sura suraNames] indexOfObject:((PeriodicTask *)b).name]] unsignedIntegerValue];
+        NSComparisonResult result;
+        if (firstOrder > secondOrder ) {
+            result = NSOrderedDescending;
+        } else {
+            result = NSOrderedAscending;
+        }
+        
+        return result;
+    }].mutableCopy;
+    
+    self.periodicTaskManager.dataSource.tasks = sortedArray;
+    
+    self.sortType = RevalationOrderSort;
+    
+    [self.collectionView reloadData];
+}
+
+- (void)charCountSuraSort{
+    //TODO: move sorting to a separate class
+    NSMutableArray *sortedArray;
+    sortedArray = [self.periodicTaskManager.dataSource.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSUInteger firstOrder = [[Sura suraCharsCount][[[Sura suraNames] indexOfObject:((PeriodicTask *)a).name]] unsignedIntegerValue];
+        NSUInteger secondOrder = [[Sura suraCharsCount][[[Sura suraNames] indexOfObject:((PeriodicTask *)b).name]] unsignedIntegerValue];
+        NSComparisonResult result;
+        if (firstOrder > secondOrder ) {
+            result = NSOrderedDescending;
+        } else {
+            result = NSOrderedAscending;
+        }
+        
+        return result;
+    }].mutableCopy;
+    
+    self.periodicTaskManager.dataSource.tasks = sortedArray;
+    
+    self.sortType = CharCountSort;
+    
+    [self.collectionView reloadData];
+}
+
+- (void)wordCountSuraSort{
+    //TODO: move sorting to a separate class
+    NSMutableArray *sortedArray;
+    sortedArray = [self.periodicTaskManager.dataSource.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSUInteger firstOrder = [[Sura suraWordCount][[[Sura suraNames] indexOfObject:((PeriodicTask *)a).name]] unsignedIntegerValue];
+        NSUInteger secondOrder = [[Sura suraWordCount][[[Sura suraNames] indexOfObject:((PeriodicTask *)b).name]] unsignedIntegerValue];
+        NSComparisonResult result;
+        if (firstOrder > secondOrder ) {
+            result = NSOrderedDescending;
+        } else {
+            result = NSOrderedAscending;
+        }
+        
+        return result;
+    }].mutableCopy;
+    
+    self.periodicTaskManager.dataSource.tasks = sortedArray;
+    
+    self.sortType = WordCountSort;
+    
+    [self.collectionView reloadData];
+}
+
+- (void)versesCountSuraSort{
+    //TODO: move sorting to a separate class
+    NSMutableArray *sortedArray;
+    sortedArray = [self.periodicTaskManager.dataSource.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSUInteger firstOrder = [[Sura suraVerseCount][[[Sura suraNames] indexOfObject:((PeriodicTask *)a).name]] unsignedIntegerValue];
+        NSUInteger secondOrder = [[Sura suraVerseCount][[[Sura suraNames] indexOfObject:((PeriodicTask *)b).name]] unsignedIntegerValue];
+        NSComparisonResult result;
+        if (firstOrder > secondOrder ) {
+            result = NSOrderedDescending;
+        } else {
+            result = NSOrderedAscending;
+        }
+        
+        return result;
+    }].mutableCopy;
+    
+    self.periodicTaskManager.dataSource.tasks = sortedArray;
+    
+    self.sortType = VersesCountSort;
+    
+    [self.collectionView reloadData];
+}
+
+
+
+
+
 - (void)setReversedSortOrder:(BOOL)reversedSortOrder{
     self.periodicTaskManager.dataSource.settings.descendingSort = reversedSortOrder;
 }
@@ -404,11 +500,37 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 }
 
 - (void)applyCurrentSort{
-    if (self.sortType == NormalSuraOrderSort) {
-        [self normalSuraOrderSort];
-    } else if (self.sortType == LightSort) {
-        [self weakerFirstSuraFirstSort];
+    
+    switch (self.sortType) {
+        case NormalSuraOrderSort:
+            [self normalSuraOrderSort];
+            break;
+        case LightSort:
+            [self weakerFirstSuraFirstSort];
+            break;
+            
+        case VersesCountSort:
+            [self versesCountSuraSort];
+            break;
+            
+        case WordCountSort:
+            [self wordCountSuraSort];
+            break;
+            
+        case CharCountSort:
+            [self charCountSuraSort];
+            break;
+            
+        case RevalationOrderSort:;
+            [self revalSuraOrderSort];
+            break;
+            
+        default:
+            NSLog(@"Unsupported sort type");
+            break;
     }
+    
+    
     if (self.reversedSortOrder) {
         [self reversedSuraOrderSort];
     }
