@@ -8,6 +8,10 @@
 
 #import "PeriodicTask.h"
 
+static NSString * const PeriodicTaskNameKey = @"name";
+static NSString * const PeriodicTaskLastOccurrenceKey = @"lastOccurrence";
+static NSString * const PeriodicTaskCycleIntervalKey = @"cycleInterval";
+
 @implementation PeriodicTask
 
 #pragma mark - NSCoding
@@ -32,6 +36,21 @@
 //    [encoder encodeObject:self.lastOccurrence forKey:@"lastOccurrence"];
 //    [encoder encodeObject:[NSNumber numberWithDouble:self.cycleInterval] forKey:@"cycleInterval"];
 //}
+
+- (instancetype)initWithPList:(NSDictionary *)plist{
+    if (!plist){
+        return nil;
+    }
+    self = [super init];
+    if (self) {
+        _name = (NSString *)[plist objectForKey:PeriodicTaskNameKey];
+        _taskDescription = nil;
+        _cycleInterval = [(NSNumber *)[plist objectForKey:PeriodicTaskCycleIntervalKey] doubleValue];
+        _lastOccurrence = (NSDate *)[plist objectForKey:PeriodicTaskLastOccurrenceKey];
+    }
+    
+    return self;
+}
 
 - (instancetype)initWithName:(NSString *)name
                  description:(NSString *)description
@@ -71,6 +90,25 @@
 
 - (void)save{
     //TODO: do it!
+}
+
+- (NSDictionary *)toPList{
+    NSMutableDictionary *plist = @{}.mutableCopy;
+    
+    [plist setValue:self.name forKey:@"name"];
+    [plist setValue:self.lastOccurrence forKey:@"lastOccurrence"];
+    [plist setValue:[NSNumber numberWithDouble:self.cycleInterval] forKey:@"cycleInterval"];
+    
+    return [plist copy];
+}
+
+- (void)fromPList:(NSDictionary *)plist{
+    if (!plist) { return; }
+    
+    _name = (NSString *)[plist objectForKey:PeriodicTaskNameKey];
+    _taskDescription = nil;
+    _cycleInterval = [(NSNumber *)[plist objectForKey:PeriodicTaskCycleIntervalKey] doubleValue];
+    _lastOccurrence = (NSDate *)[plist objectForKey:PeriodicTaskLastOccurrenceKey];
 }
 
 @end

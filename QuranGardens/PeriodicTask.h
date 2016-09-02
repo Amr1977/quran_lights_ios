@@ -40,5 +40,9 @@
                               description:(NSString *)description
                             cycleInterval:(NSTimeInterval)interval
                            lastOccurrence:(NSDate *)lastOccurrence;
+- (instancetype)initWithPList:(NSDictionary *)plist;
+
+- (NSDictionary *)toPList;
+- (void)fromPList:(NSDictionary *)plist;
 
 @end

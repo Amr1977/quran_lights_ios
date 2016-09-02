@@ -76,6 +76,52 @@ NSString * const SortTypeKey = @"SortTypeKey";
     
 }
 
+
+#pragma mark - import and export to file
+
+- (NSString *)fullFilePath:(NSString *)fileName{
+    //Creating a file path under iOS:
+    //1) Search for the app's documents directory (copy+paste from Documentation)
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    //2) Create the full file path by appending the desired file name
+    return [documentsDirectory stringByAppendingPathComponent:fileName];
+}
+
+- (void)loadFromFile:(NSString *)fileName completionBlock:(void(^)(BOOL success))completionBlock{
+    NSString *fullFilePath = [self fullFilePath:fileName];
+    NSArray *plistArray = [[NSArray alloc] initWithContentsOfFile:fullFilePath];
+    
+    if (!plistArray) {
+        completionBlock(NO);
+        return;
+    }
+    
+    NSMutableArray *tasks = @[].mutableCopy;
+    
+    for (NSDictionary *plist in plistArray) {
+        PeriodicTask *task = [[PeriodicTask alloc] initWithPList:plist];
+        [tasks addObject:task];
+    }
+    
+    self.tasks = tasks;
+    
+    completionBlock(YES);
+}
+
+- (void)saveToFile:(NSString *)fileName completion:(void (^)(BOOL success))completionBlock{
+    NSString *fullFilePath = [self fullFilePath:fileName];
+    
+    NSMutableArray *tasksPListArray = @[].mutableCopy;
+    
+    for (PeriodicTask *task in self.tasks) {
+        [tasksPListArray addObject:task.toPList];
+    }
+    
+    BOOL success = [tasksPListArray writeToFile:fullFilePath atomically:YES];
+    completionBlock(success);
+}
+
 - (NSString *)cyclePeriodKeyForSuraName:(NSString *)suraName{
     return [NSString stringWithFormat:@"%@_%@",suraName,IntervalKeySuffix];
 }

@@ -160,15 +160,53 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
                                                                self.menuOpened = NO;
                                                            }];
         
+        UIAlertAction* saveAction = [UIAlertAction actionWithTitle:@"Save To File"
+                                                                 style:UIAlertActionStyleDefault
+                                                               handler:^(UIAlertAction * action) {
+                                                                   [self save];
+                                                                   self.menuOpened = NO;
+                                                               }];
+        
+        UIAlertAction* loadAction = [UIAlertAction actionWithTitle:@"Load from File"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * action) {
+                                                               [self load];
+                                                               self.menuOpened = NO;
+                                                           }];
+        
         UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                                style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action) { self.menuOpened = NO; }];
         [_menu addAction:howItWorksAction];
         [_menu addAction:settingsAction];
+        [_menu addAction:saveAction];
+        [_menu addAction:loadAction];
         [_menu addAction:resetAction];
         [_menu addAction:cancelAction];
     }
     return _menu;
+}
+
+- (void)save{
+    [self.periodicTaskManager.dataSource saveToFile:@"status.bin" completion:^(BOOL success){
+        if (success) {
+            NSLog(@"Saved to status.bin");
+        }
+    }];
+}
+
+- (void)load{
+    [self areYouSureDialogWithMessage:@"Loading last saved Suras states ?" yesBlock:^{
+        [self.periodicTaskManager.dataSource loadFromFile:@"status.bin" completionBlock:^(BOOL success){
+            if (success) {
+                NSLog(@"load success from status.bin");
+                [self refresh];
+                [self.periodicTaskManager.dataSource save];
+            } else {
+                NSLog(@"******failed to load from file status.bin");
+            }
+        }];
+    }];
 }
 
 - (void)settings{
@@ -340,10 +378,6 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     [self.collectionView reloadData];
 }
 
-
-
-
-
 - (void)setReversedSortOrder:(BOOL)reversedSortOrder{
     self.periodicTaskManager.dataSource.settings.descendingSort = reversedSortOrder;
 }
@@ -388,6 +422,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 }
 
 - (void)refresh{
+    [self applyCurrentSort];
     [self.collectionView reloadData];
 }
 
@@ -552,8 +587,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     self.periodicTaskManager.dataSource.settings = [settings copy];
     NSLog(@"QuranGardensViewController: received Settings: %@", self.periodicTaskManager.dataSource.settings);
     [self.periodicTaskManager.dataSource saveSettings];
-    [self applyCurrentSort];
-    [self.collectionView reloadData];
+    [self refresh];
     //TODO: Apply new settings
 }
 
