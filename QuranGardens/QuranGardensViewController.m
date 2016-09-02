@@ -15,7 +15,7 @@
 
 CGFloat const CellHeight = 57;
 CGFloat const CellWidth = 170;
-NSInteger const RefreshPeriod = 5; // refresh each 5 minutes;
+NSInteger const RefreshPeriod = 300; // refresh each 5 minutes;
 
 static NSString *const ShowHelpScreenKey = @"Show_help_screen";
 static NSString *const ReversedSortOrderOptionKey = @"reversed_sort_order";
