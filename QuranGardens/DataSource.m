@@ -36,22 +36,23 @@ NSString * const SortTypeKey = @"SortTypeKey";
 }
 
 - (void)load{
-        self.tasks = @[].mutableCopy;
-        for (NSString *suraName in [Sura suraNames]) {
-            NSTimeInterval interval = [[[NSUserDefaults standardUserDefaults] objectForKey:[self cyclePeriodKeyForSuraName:suraName]] doubleValue];
-            NSDate *lastRefresh = [[NSUserDefaults standardUserDefaults] objectForKey:[self lastRefreshKeyForSuraName:suraName]];
-            PeriodicTask *task = [[PeriodicTask alloc] init];
-            task.name = suraName;
-            if (!interval) {
-                interval = DefaultCycleInterval;
-            }
-            task.cycleInterval = interval;
-            if (!lastRefresh) {
-                lastRefresh = [NSDate dateWithTimeIntervalSince1970:0];
-            }
-            task.lastOccurrence = lastRefresh;
-            [self.tasks addObject:task];
+    self.tasks = @[].mutableCopy;
+    double dummySeconds = 0;
+    for (NSString *suraName in [Sura suraNames]) {
+        NSTimeInterval interval = [[[NSUserDefaults standardUserDefaults] objectForKey:[self cyclePeriodKeyForSuraName:suraName]] doubleValue];
+        NSDate *lastRefresh = [[NSUserDefaults standardUserDefaults] objectForKey:[self lastRefreshKeyForSuraName:suraName]];
+        PeriodicTask *task = [[PeriodicTask alloc] init];
+        task.name = suraName;
+        if (!interval) {
+            interval = DefaultCycleInterval;
         }
+        task.cycleInterval = interval;
+        if (!lastRefresh) {
+            lastRefresh = [NSDate dateWithTimeIntervalSince1970:dummySeconds++];
+        }
+        task.lastOccurrence = lastRefresh;
+        [self.tasks addObject:task];
+    }
     NSLog(@"Load completed.");
     [self listTasksData];
     [self loadSettings];

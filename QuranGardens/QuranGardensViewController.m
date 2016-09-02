@@ -188,10 +188,12 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 }
 
 - (void)save{
-    [self.periodicTaskManager.dataSource saveToFile:@"status.bin" completion:^(BOOL success){
-        if (success) {
-            NSLog(@"Saved to status.bin");
-        }
+    [self areYouSureDialogWithMessage:@"Save Suras states (overwrites last save)?" yesBlock:^{
+        [self.periodicTaskManager.dataSource saveToFile:@"status.bin" completion:^(BOOL success){
+            if (success) {
+                NSLog(@"Saved to status.bin");
+            }
+        }];
     }];
 }
 
@@ -272,8 +274,10 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         NSComparisonResult result;
         if (firstOrder > secondOrder ) {
             result = NSOrderedDescending;
-        } else {
+        } else if (firstOrder < secondOrder ) {
             result = NSOrderedAscending;
+        } else {
+            result = NSOrderedSame;
         }
         
         return result;
@@ -295,8 +299,10 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         NSComparisonResult result;
         if (firstOrder > secondOrder ) {
             result = NSOrderedDescending;
-        } else {
+        } else if (firstOrder < secondOrder ) {
             result = NSOrderedAscending;
+        } else {
+            result = NSOrderedSame;
         }
         
         return result;
@@ -318,8 +324,10 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         NSComparisonResult result;
         if (firstOrder > secondOrder ) {
             result = NSOrderedDescending;
-        } else {
+        } else if (firstOrder < secondOrder ) {
             result = NSOrderedAscending;
+        } else {
+            result = NSOrderedSame;
         }
         
         return result;
@@ -341,8 +349,10 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         NSComparisonResult result;
         if (firstOrder > secondOrder ) {
             result = NSOrderedDescending;
-        } else {
+        } else if (firstOrder < secondOrder ) {
             result = NSOrderedAscending;
+        } else {
+            result = NSOrderedSame;
         }
         
         return result;
@@ -364,8 +374,10 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         NSComparisonResult result;
         if (firstOrder > secondOrder ) {
             result = NSOrderedDescending;
-        } else {
+        } else if (firstOrder < secondOrder ) {
             result = NSOrderedAscending;
+        } else {
+            result = NSOrderedSame;
         }
         
         return result;
