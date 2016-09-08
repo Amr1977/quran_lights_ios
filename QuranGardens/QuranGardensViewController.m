@@ -14,7 +14,7 @@
 #import "Settings.h"
 
 CGFloat const CellHeight = 57;
-CGFloat const CellWidth = 170;
+CGFloat const CellWidth = 150;
 NSInteger const RefreshPeriod = 300; // refresh each 5 minutes;
 
 static NSString *const ShowHelpScreenKey = @"Show_help_screen";
