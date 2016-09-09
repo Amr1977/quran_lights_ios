@@ -519,6 +519,12 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
     CGFloat progress = [task remainingTimeInterval] / self.periodicTaskManager.dataSource.settings.fadeTime;
     
+    if (progress < 0.10) {
+        cell.suraName.textColor = [UIColor lightGrayColor];
+    } else {
+        cell.suraName.textColor = [UIColor blackColor];
+    }
+    
     cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
     cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, task.name];
    
