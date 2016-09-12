@@ -36,6 +36,9 @@
 - (void)sortListWeakerFirst{
     NSMutableArray *sortedArray;
     sortedArray = [self.dataSource.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSUInteger firstSuraOrder = [[Sura suraNames] indexOfObject:((PeriodicTask *)a).name];
+        NSUInteger secondSuraOrder = [[Sura suraNames] indexOfObject:((PeriodicTask *)b).name];
+        
         double firstStrength = (((PeriodicTask *)a).remainingTimeInterval/((PeriodicTask *)a).cycleInterval);
         double secondStrength = (((PeriodicTask *)b).remainingTimeInterval/((PeriodicTask *)b).cycleInterval);
         NSComparisonResult result;
@@ -43,8 +46,10 @@
             result = NSOrderedDescending;
         } else if (firstStrength < secondStrength ) {
             result = NSOrderedAscending;
+        } else if(firstSuraOrder > secondSuraOrder) {
+            result = NSOrderedAscending;
         } else {
-            result = NSOrderedSame;
+            result = NSOrderedDescending;
         }
         
         return result;

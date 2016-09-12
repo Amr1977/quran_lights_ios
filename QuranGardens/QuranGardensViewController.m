@@ -222,48 +222,50 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     //TODO: Complete this !
 }
 
-- (void)sorter{
-    UIAlertController *sortAlerController = [UIAlertController alertControllerWithTitle:@"Sort Suras"
-                                                                        message:@"Please select prefered sort style:"
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction* normalSoraOrderSort = [UIAlertAction actionWithTitle:@"Normal Sura Order" style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction * action) {
-                                                               self.reversedSortOrder = NO;
-                                                               
-                                                               self.periodicTaskManager.dataSource.settings.sortType = NormalSuraOrderSort;
-                                                               self.periodicTaskManager.dataSource.settings.descendingSort = NO;
-                                                               
-                                                               [self normalSuraOrderSort];
-                                                           }];
-    
-    UIAlertAction* reverseCurrentOrder = [UIAlertAction actionWithTitle:@"Reverse Current order" style:UIAlertActionStyleDefault
-                                                                handler:^(UIAlertAction * action) {
-                                                                    self.periodicTaskManager.dataSource.settings.descendingSort = YES;
-                                                                    [self reversedSuraOrderSort];
-                                                                }];
-    
-    UIAlertAction* weakerFirst = [UIAlertAction actionWithTitle:@"Most faded first" style:UIAlertActionStyleDefault
-                                                                handler:^(UIAlertAction * action) {
-                                                                    self.periodicTaskManager.dataSource.settings.descendingSort = NO;
-                                                                    self.periodicTaskManager.dataSource.settings.sortType = LightSort;
-                                                                    
-                                                                    [self weakerFirstSuraFirstSort];
-                                                                }];
-    
-    
-    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * action) { self.menuOpened = NO; }];
-    
-    [sortAlerController addAction:normalSoraOrderSort];
-    [sortAlerController addAction:weakerFirst];
-    [sortAlerController addAction:reverseCurrentOrder];
-    
-    [sortAlerController addAction:cancelAction];
-    
-    [self presentViewController:sortAlerController animated:YES completion:nil];
-}
+//- (void)sorter{
+//    UIAlertController *sortAlerController = [UIAlertController alertControllerWithTitle:@"Sort Suras"
+//                                                                        message:@"Please select prefered sort style:"
+//                                                                 preferredStyle:UIAlertControllerStyleAlert];
+//    
+//    UIAlertAction* normalSoraOrderSort = [UIAlertAction actionWithTitle:@"Normal Sura Order" style:UIAlertActionStyleDefault
+//                                                           handler:^(UIAlertAction * action) {
+//                                                               self.reversedSortOrder = NO;
+//                                                               
+//                                                               self.periodicTaskManager.dataSource.settings.sortType = NormalSuraOrderSort;
+//                                                               self.periodicTaskManager.dataSource.settings.descendingSort = NO;
+//                                                               
+//                                                               [self normalSuraOrderSort];
+//                                                           }];
+//    
+//    UIAlertAction* reverseCurrentOrder = [UIAlertAction actionWithTitle:@"Reverse Current order" style:UIAlertActionStyleDefault
+//                                                                handler:^(UIAlertAction * action) {
+//                                                                    self.periodicTaskManager.dataSource.settings.descendingSort = YES;
+//                                                                    [self reversedSuraOrderSort];
+//                                                                }];
+//    
+//    UIAlertAction* weakerFirst = [UIAlertAction actionWithTitle:@"Most faded first" style:UIAlertActionStyleDefault
+//                                                                handler:^(UIAlertAction * action) {
+//                                                                    self.periodicTaskManager.dataSource.settings.descendingSort = NO;
+//                                                                    self.periodicTaskManager.dataSource.settings.sortType = LightSort;
+//                                                                    
+//                                                                    [self weakerFirstSuraFirstSort];
+//                                                                }];
+//    
+//    
+//    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+//                                                           style:UIAlertActionStyleDefault
+//                                                         handler:^(UIAlertAction * action) { self.menuOpened = NO; }];
+//    
+//    [sortAlerController addAction:normalSoraOrderSort];
+//    [sortAlerController addAction:weakerFirst];
+//    [sortAlerController addAction:reverseCurrentOrder];
+//    
+//    [sortAlerController addAction:cancelAction];
+//    
+//    [self presentViewController:sortAlerController animated:YES completion:nil];
+//}
+
+//TODO: extract common steps to some block
 
 - (void)normalSuraOrderSort{
     //TODO: move sorting to a separate class
@@ -276,8 +278,6 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
             result = NSOrderedDescending;
         } else if (firstOrder < secondOrder ) {
             result = NSOrderedAscending;
-        } else {
-            result = NSOrderedSame;
         }
         
         return result;
@@ -294,16 +294,21 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     //TODO: move sorting to a separate class
     NSMutableArray *sortedArray;
     sortedArray = [self.periodicTaskManager.dataSource.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        NSUInteger firstOrder = [[Sura suraRevalOrder][[[Sura suraNames] indexOfObject:((PeriodicTask *)a).name]] unsignedIntegerValue];
-        NSUInteger secondOrder = [[Sura suraRevalOrder][[[Sura suraNames] indexOfObject:((PeriodicTask *)b).name]] unsignedIntegerValue];
+        NSUInteger firstSuraOrder = [[Sura suraNames] indexOfObject:((PeriodicTask *)a).name];
+        NSUInteger secondSuraOrder = [[Sura suraNames] indexOfObject:((PeriodicTask *)b).name];
+        NSUInteger firstOrder = [[Sura suraRevalOrder][firstSuraOrder] unsignedIntegerValue];
+        NSUInteger secondOrder = [[Sura suraRevalOrder][secondSuraOrder] unsignedIntegerValue];
         NSComparisonResult result;
         if (firstOrder > secondOrder ) {
             result = NSOrderedDescending;
         } else if (firstOrder < secondOrder ) {
             result = NSOrderedAscending;
+        } else if(firstSuraOrder > secondSuraOrder) {
+            result = NSOrderedDescending;
         } else {
-            result = NSOrderedSame;
+            result = NSOrderedAscending;
         }
+
         
         return result;
     }].mutableCopy;
@@ -319,15 +324,19 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     //TODO: move sorting to a separate class
     NSMutableArray *sortedArray;
     sortedArray = [self.periodicTaskManager.dataSource.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        NSUInteger firstOrder = [[Sura suraCharsCount][[[Sura suraNames] indexOfObject:((PeriodicTask *)a).name]] unsignedIntegerValue];
-        NSUInteger secondOrder = [[Sura suraCharsCount][[[Sura suraNames] indexOfObject:((PeriodicTask *)b).name]] unsignedIntegerValue];
+        NSUInteger firstSuraOrder = [[Sura suraNames] indexOfObject:((PeriodicTask *)a).name];
+        NSUInteger secondSuraOrder = [[Sura suraNames] indexOfObject:((PeriodicTask *)b).name];
+        NSUInteger firstOrder = [[Sura suraCharsCount][firstSuraOrder] unsignedIntegerValue];
+        NSUInteger secondOrder = [[Sura suraCharsCount][secondSuraOrder] unsignedIntegerValue];
         NSComparisonResult result;
         if (firstOrder > secondOrder ) {
             result = NSOrderedDescending;
         } else if (firstOrder < secondOrder ) {
             result = NSOrderedAscending;
+        } else if(firstSuraOrder > secondSuraOrder) {
+            result = NSOrderedDescending;
         } else {
-            result = NSOrderedSame;
+            result = NSOrderedAscending;
         }
         
         return result;
@@ -344,15 +353,19 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     //TODO: move sorting to a separate class
     NSMutableArray *sortedArray;
     sortedArray = [self.periodicTaskManager.dataSource.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        NSUInteger firstOrder = [[Sura suraWordCount][[[Sura suraNames] indexOfObject:((PeriodicTask *)a).name]] unsignedIntegerValue];
-        NSUInteger secondOrder = [[Sura suraWordCount][[[Sura suraNames] indexOfObject:((PeriodicTask *)b).name]] unsignedIntegerValue];
+        NSUInteger firstSuraOrder = [[Sura suraNames] indexOfObject:((PeriodicTask *)a).name];
+        NSUInteger secondSuraOrder = [[Sura suraNames] indexOfObject:((PeriodicTask *)b).name];
+        NSUInteger firstOrder = [[Sura suraWordCount][firstSuraOrder] unsignedIntegerValue];
+        NSUInteger secondOrder = [[Sura suraWordCount][secondSuraOrder] unsignedIntegerValue];
         NSComparisonResult result;
         if (firstOrder > secondOrder ) {
             result = NSOrderedDescending;
         } else if (firstOrder < secondOrder ) {
             result = NSOrderedAscending;
+        } else if(firstSuraOrder > secondSuraOrder) {
+            result = NSOrderedDescending;
         } else {
-            result = NSOrderedSame;
+            result = NSOrderedAscending;
         }
         
         return result;
@@ -369,15 +382,20 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     //TODO: move sorting to a separate class
     NSMutableArray *sortedArray;
     sortedArray = [self.periodicTaskManager.dataSource.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        NSUInteger firstOrder = [[Sura suraVerseCount][[[Sura suraNames] indexOfObject:((PeriodicTask *)a).name]] unsignedIntegerValue];
-        NSUInteger secondOrder = [[Sura suraVerseCount][[[Sura suraNames] indexOfObject:((PeriodicTask *)b).name]] unsignedIntegerValue];
+        NSUInteger firstSuraOrder = [[Sura suraNames] indexOfObject:((PeriodicTask *)a).name];
+        NSUInteger secondSuraOrder = [[Sura suraNames] indexOfObject:((PeriodicTask *)b).name];
+        
+        NSUInteger firstOrder = [[Sura suraVerseCount][firstSuraOrder] unsignedIntegerValue];
+        NSUInteger secondOrder = [[Sura suraVerseCount][secondSuraOrder] unsignedIntegerValue];
         NSComparisonResult result;
         if (firstOrder > secondOrder ) {
             result = NSOrderedDescending;
         } else if (firstOrder < secondOrder ) {
             result = NSOrderedAscending;
+        } else if(firstSuraOrder > secondSuraOrder) {
+            result = NSOrderedDescending;
         } else {
-            result = NSOrderedSame;
+            result = NSOrderedAscending;
         }
         
         return result;
@@ -412,7 +430,6 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 }
 
 - (void)weakerFirstSuraFirstSort{
-    self.sortType = LightSort;
     [self.periodicTaskManager sortListWeakerFirst];
     [self.collectionView reloadData];
 }
@@ -519,7 +536,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
     CGFloat progress = [task remainingTimeInterval] / self.periodicTaskManager.dataSource.settings.fadeTime;
     
-    if (progress < 0.10) {
+    if (progress < 0.30) {
         cell.suraName.textColor = [UIColor colorWithRed:153/255 green:255/255 blue:153/255 alpha:1];
     } else {
         cell.suraName.textColor = [UIColor blackColor];
