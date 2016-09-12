@@ -216,54 +216,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     settingsViewController.settings = [self.periodicTaskManager.dataSource.settings copy];
     settingsViewController.delegate = self;
     
-    //[self presentViewController:settingsViewController animated:YES completion:nil];
     [self.navigationController pushViewController:settingsViewController animated:YES];
-
-    //TODO: Complete this !
 }
-
-//- (void)sorter{
-//    UIAlertController *sortAlerController = [UIAlertController alertControllerWithTitle:@"Sort Suras"
-//                                                                        message:@"Please select prefered sort style:"
-//                                                                 preferredStyle:UIAlertControllerStyleAlert];
-//    
-//    UIAlertAction* normalSoraOrderSort = [UIAlertAction actionWithTitle:@"Normal Sura Order" style:UIAlertActionStyleDefault
-//                                                           handler:^(UIAlertAction * action) {
-//                                                               self.reversedSortOrder = NO;
-//                                                               
-//                                                               self.periodicTaskManager.dataSource.settings.sortType = NormalSuraOrderSort;
-//                                                               self.periodicTaskManager.dataSource.settings.descendingSort = NO;
-//                                                               
-//                                                               [self normalSuraOrderSort];
-//                                                           }];
-//    
-//    UIAlertAction* reverseCurrentOrder = [UIAlertAction actionWithTitle:@"Reverse Current order" style:UIAlertActionStyleDefault
-//                                                                handler:^(UIAlertAction * action) {
-//                                                                    self.periodicTaskManager.dataSource.settings.descendingSort = YES;
-//                                                                    [self reversedSuraOrderSort];
-//                                                                }];
-//    
-//    UIAlertAction* weakerFirst = [UIAlertAction actionWithTitle:@"Most faded first" style:UIAlertActionStyleDefault
-//                                                                handler:^(UIAlertAction * action) {
-//                                                                    self.periodicTaskManager.dataSource.settings.descendingSort = NO;
-//                                                                    self.periodicTaskManager.dataSource.settings.sortType = LightSort;
-//                                                                    
-//                                                                    [self weakerFirstSuraFirstSort];
-//                                                                }];
-//    
-//    
-//    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
-//                                                           style:UIAlertActionStyleDefault
-//                                                         handler:^(UIAlertAction * action) { self.menuOpened = NO; }];
-//    
-//    [sortAlerController addAction:normalSoraOrderSort];
-//    [sortAlerController addAction:weakerFirst];
-//    [sortAlerController addAction:reverseCurrentOrder];
-//    
-//    [sortAlerController addAction:cancelAction];
-//    
-//    [self presentViewController:sortAlerController animated:YES completion:nil];
-//}
 
 //TODO: extract common steps to some block
 
