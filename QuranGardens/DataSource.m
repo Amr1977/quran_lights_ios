@@ -178,15 +178,16 @@ NSString * const SortTypeKey = @"SortTypeKey";
     [history addObjectsFromArray:oldHistory];
     [history addObject:lastRefreshDate];
     
+    NSLog(@"Sura History for %@\n",suraName);
+    for(NSDate *date in history){
+        NSLog(@"Reviewed on Date: %@\n",date);
+    }
+    
     [[NSUserDefaults standardUserDefaults] setObject:history.copy forKey:[self refreshHistoryKeyForSuraName:suraName]];
 }
 
 - (NSArray<NSDate *>*)loadRefreshHistoryForSuraName:(NSString *)suraName{
     NSArray<NSDate *>* history = [[NSUserDefaults standardUserDefaults] objectForKey:[self refreshHistoryKeyForSuraName:suraName]];
-    NSLog(@"\nSura History for %@\n",suraName);
-    for(NSDate *date in history){
-        NSLog(@"Reviewed on Date: %@\n",date);
-    }
     return history;
 }
 

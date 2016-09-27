@@ -517,6 +517,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     NSMutableArray<NSDate *>* history = [self.periodicTaskManager.dataSource loadRefreshHistoryForSuraName:task.name].mutableCopy;
     if(!history){
         history = @[].mutableCopy;
+        [history addObject:task.lastOccurrence];
+        [self.periodicTaskManager.dataSource saveSuraLastRefresh:task.lastOccurrence suraName:task.name];
     }
     
     //TODO: create another way to undo last action on cell
