@@ -27,6 +27,8 @@
 /** Last time that task Occurred */
 @property (strong, nonatomic) NSDate *lastOccurrence;
 
+@property(strong, nonatomic) NSMutableArray<NSDate *> *history;
+
 /** Calculates time interval remaining to reach maximum allowed time period between two task occurrences*/
 - (NSTimeInterval)remainingTimeInterval;
 
@@ -40,6 +42,7 @@
                               description:(NSString *)description
                             cycleInterval:(NSTimeInterval)interval
                            lastOccurrence:(NSDate *)lastOccurrence;
+
 - (instancetype)initWithPList:(NSDictionary *)plist;
 
 - (NSDictionary *)toPList;
