@@ -11,6 +11,7 @@
 
 NSString * const IntervalKeySuffix = @"interval";
 NSString * const LastRefreshKeySuffix = @"lastRefresh";
+NSString * const RefreshHistoryKeySuffix = @"RefreshHistory";
 
 NSString * const GlobalRefreshIntervalKey = @"GlobalRefreshIntervalKey";
 NSString * const SortDirectionKey = @"SortDirectionKey";
@@ -131,6 +132,10 @@ NSString * const SortTypeKey = @"SortTypeKey";
     return [NSString stringWithFormat:@"%@_%@",suraName,LastRefreshKeySuffix];
 }
 
+- (NSString *)refreshHistoryKeyForSuraName:(NSString *)suraName{
+    return [NSString stringWithFormat:@"%@_%@",suraName,RefreshHistoryKeySuffix];
+}
+
 - (NSTimeInterval)loadSuraCyclePeriod:(NSString *)suraName{
     NSTimeInterval result = DefaultCycleInterval;
     NSString *suraIntervalKey = [NSString stringWithFormat:@"%@_%@",suraName,IntervalKeySuffix];
@@ -163,6 +168,26 @@ NSString * const SortTypeKey = @"SortTypeKey";
 - (void)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName{
     [[NSUserDefaults standardUserDefaults] setObject:lastRefreshDate forKey:[self lastRefreshKeyForSuraName:suraName]];
     NSLog(@"saved for %@ refreshed at: %@",suraName,lastRefreshDate);
+    
+    NSArray<NSDate *>* oldHistory = [self loadRefreshHistoryForSuraName:suraName];
+    if (!oldHistory){
+        oldHistory = @[];
+    }
+    
+    NSMutableArray<NSDate *>* history = @[].mutableCopy ;
+    [history addObjectsFromArray:oldHistory];
+    [history addObject:lastRefreshDate];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:history.copy forKey:[self refreshHistoryKeyForSuraName:suraName]];
+}
+
+- (NSArray<NSDate *>*)loadRefreshHistoryForSuraName:(NSString *)suraName{
+    NSArray<NSDate *>* history = [[NSUserDefaults standardUserDefaults] objectForKey:[self refreshHistoryKeyForSuraName:suraName]];
+    NSLog(@"\nSura History for %@\n",suraName);
+    for(NSDate *date in history){
+        NSLog(@"Reviewed on Date: %@\n",date);
+    }
+    return history;
 }
 
 - (void)saveSettings{

@@ -27,6 +27,8 @@
 - (void)loadFromFile:(NSString *)fileName completionBlock:(void(^)(BOOL success))completionBlock;
 - (void)saveToFile:(NSString *)fileName completion:(void (^)(BOOL success))completionBlock;
 
+- (NSArray<NSDate *>*)loadRefreshHistoryForSuraName:(NSString *)suraName;
+
 - (void)saveSettings;
 
 - (NSTimeInterval)loadSuraCyclePeriod:(NSString *)suraName;

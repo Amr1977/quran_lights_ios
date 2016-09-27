@@ -514,10 +514,23 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
     CGFloat progress = [task remainingTimeInterval] / self.periodicTaskManager.dataSource.settings.fadeTime;
     
+    NSMutableArray<NSDate *>* history = [self.periodicTaskManager.dataSource loadRefreshHistoryForSuraName:task.name].mutableCopy;
+    if(!history){
+        history = @[].mutableCopy;
+    }
+    
+    //TODO: create another way to undo last action on cell
     if (progress > 0.99) {
-        task.lastOccurrence = [NSDate dateWithTimeIntervalSince1970:0];
+        //undo action
+        [history removeLastObject];
+        if ([history count] < 1) {
+            task.lastOccurrence = [NSDate dateWithTimeIntervalSince1970:[Sura.suraNames indexOfObject:task.name]];
+        } else {
+            task.lastOccurrence = [history lastObject];
+        }
     } else {
-       task.lastOccurrence = [[NSDate alloc] init];
+        //sura reviewed now
+        task.lastOccurrence = [[NSDate alloc] init];
     }
     
     [self.periodicTaskManager.dataSource saveSuraLastRefresh:task.lastOccurrence suraName:task.name];
