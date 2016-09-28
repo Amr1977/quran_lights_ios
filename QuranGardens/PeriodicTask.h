@@ -13,6 +13,8 @@
  A task that should occurre at least once within a preset time period, this time period is the maximum allowed time between two occurrences of a periodic task.
  
  */
+
+//TODO: move sura dependant properties to sura class and resolev conflicts between the two classes
 @interface PeriodicTask : NSObject
 
 /** Task name */
@@ -28,6 +30,8 @@
 @property (strong, nonatomic) NSDate *lastOccurrence;
 
 @property(strong, nonatomic) NSMutableArray<NSDate *> *history;
+
+@property (nonatomic) BOOL memorized;
 
 /** Calculates time interval remaining to reach maximum allowed time period between two task occurrences*/
 - (NSTimeInterval)remainingTimeInterval;

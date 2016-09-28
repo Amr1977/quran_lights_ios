@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,28 +16,48 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Auy-mw-Mdj" userLabel="sura name">
-                        <rect key="frame" x="8" y="61" width="161" height="41"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="41" id="C51-L0-tsc"/>
                         </constraints>
                         <attributedString key="attributedText">
                             <fragment content="Label">
                                 <attributes>
-                                    <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <font key="NSFont" size="19" name="HelveticaNeue-Bold"/>
                                 </attributes>
                             </fragment>
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kv3-fq-SnJ">
+                        <frame key="frameInset" minX="8" minY="133" width="42" height="21"/>
+                        <attributedString key="attributedText">
+                            <fragment content="M">
+                                <attributes>
+                                    <font key="NSFont" metaFont="system" size="17"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2h-r9-vaj">
+                        <frame key="frameInset" minX="127" minY="133" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
                 <constraint firstItem="Auy-mw-Mdj" firstAttribute="centerY" secondItem="3fq-Gd-ssG" secondAttribute="centerY" id="5Dl-oD-Ivb"/>
                 <constraint firstItem="Auy-mw-Mdj" firstAttribute="leading" secondItem="3fq-Gd-ssG" secondAttribute="leadingMargin" id="FE8-9g-edR"/>
+                <constraint firstItem="kv3-fq-SnJ" firstAttribute="leading" secondItem="3fq-Gd-ssG" secondAttribute="leading" constant="8" id="HKS-aI-lOC"/>
                 <constraint firstItem="Auy-mw-Mdj" firstAttribute="top" secondItem="3fq-Gd-ssG" secondAttribute="topMargin" id="UiE-0S-4ET"/>
+                <constraint firstAttribute="trailing" secondItem="h2h-r9-vaj" secondAttribute="trailing" constant="8" id="gsV-iL-kWs"/>
+                <constraint firstAttribute="bottom" secondItem="h2h-r9-vaj" secondAttribute="bottom" constant="8" id="i22-2u-fkR"/>
                 <constraint firstItem="Auy-mw-Mdj" firstAttribute="trailing" secondItem="3fq-Gd-ssG" secondAttribute="trailingMargin" id="p7Z-KU-QEa"/>
+                <constraint firstAttribute="bottom" secondItem="kv3-fq-SnJ" secondAttribute="bottom" constant="8" id="qGy-JU-5eB"/>
             </constraints>
             <size key="customSize" width="177" height="162"/>
             <variation key="default">
@@ -45,6 +66,8 @@
                 </mask>
             </variation>
             <connections>
+                <outlet property="daysElapsed" destination="h2h-r9-vaj" id="joB-UY-1CC"/>
+                <outlet property="memorizedFlag" destination="kv3-fq-SnJ" id="90W-TV-abN"/>
                 <outlet property="suraName" destination="Auy-mw-Mdj" id="RHz-0O-wTi"/>
             </connections>
             <point key="canvasLocation" x="439.5" y="335"/>

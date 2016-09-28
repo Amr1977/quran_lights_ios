@@ -25,6 +25,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 
 @property (strong, nonatomic) PeriodicTaskManager *periodicTaskManager;
 @property (strong, nonatomic) UIAlertController *menu;
+@property (strong, nonatomic) UIAlertController *suraMenu;
+@property (strong, nonatomic) PeriodicTask *selectedTask;
 @property (nonatomic) BOOL showHelpScreen;
 @property (nonatomic) BOOL menuOpened;
 
@@ -185,6 +187,56 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         [_menu addAction:cancelAction];
     }
     return _menu;
+}
+
+
+//handlers keys are used as action titles, values are blocks to be executed on selecting that action
+- (void)showMenuWithTitle:(NSString *)title handlers:(NSDictionary *)handlers{
+    UIAlertController *menu = [UIAlertController alertControllerWithTitle:title
+                                                                  message:@""
+                                                           preferredStyle:UIAlertControllerStyleAlert];
+    
+    for (NSString *actionTitle in [handlers allKeys]) {
+        UIAlertAction* action = [UIAlertAction actionWithTitle:actionTitle
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * action) {
+                                                           void (^ block)() = handlers[actionTitle];
+                                                           block();
+                                                       }];
+        [menu addAction:action];
+    }
+    
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil];
+    
+    
+
+    [menu addAction:cancelAction];
+    
+    [self presentViewController:menu animated:YES completion:nil];
+}
+
+- (UIAlertController *)suraMenu{
+    //TODO: Do it!
+    if(!_suraMenu){
+        _suraMenu = [UIAlertController alertControllerWithTitle:self.selectedTask.name
+                                                    message:@""
+                                             preferredStyle:UIAlertControllerStyleAlert];
+    }
+    
+    return _suraMenu;
+}
+
+//TODO: save/load memorization state
+
+- (void)showSuraMenu{
+    NSMutableDictionary *operations = @{}.mutableCopy;
+    operations[@"Refresh"] = ^(){[self refreshTask:self.selectedTask];};
+    operations[@"Toggle Memorized state"] = ^(){self.selectedTask.memorized = !self.selectedTask.memorized;};
+    operations[@"Remove last refresh"] = ^(){NSLog(@"TODO !!");};
+    
+    [self showMenuWithTitle:self.selectedTask.name handlers:operations];
 }
 
 - (void)save{
@@ -498,6 +550,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
     cell.suraName.adjustsFontSizeToFitWidth = YES;
     
+    cell.memorizedFlag.hidden = task.memorized;
+    
     cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
     cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, task.name];
    
@@ -511,9 +565,12 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 
 - (void)collectionView:(UICollectionView *)collectionView  didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
+    self.selectedTask = task;
     
-    CGFloat progress = [task remainingTimeInterval] / self.periodicTaskManager.dataSource.settings.fadeTime;
-    
+    [self showSuraMenu];
+}
+
+- (void)refreshTask:(PeriodicTask *)task{
     NSMutableArray<NSDate *>* history = [self.periodicTaskManager.dataSource loadRefreshHistoryForSuraName:task.name].mutableCopy;
     if(!history){
         history = @[].mutableCopy;
@@ -522,7 +579,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     }
     
     //TODO: create another way to undo last action on cell
-    if (progress > 0.99) {
+    NSTimeInterval intervalSinceLastRefresh = -1 * [task.lastOccurrence timeIntervalSinceNow];
+    if (intervalSinceLastRefresh <= 5) {
         //undo action
         [history removeLastObject];
         if ([history count] < 1) {
@@ -538,6 +596,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     [self.periodicTaskManager.dataSource saveSuraLastRefresh:task.lastOccurrence suraName:task.name];
     [self applyCurrentSort];
     [self.collectionView reloadData];
+    
 }
 
 - (void)applyCurrentSort{
