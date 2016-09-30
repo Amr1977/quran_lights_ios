@@ -33,6 +33,9 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (nonatomic) BOOL reversedSortOrder;
 @property (nonatomic, assign) SorterType sortType;
 
+@property (strong,nonatomic) UIImage *sunImage;
+@property (strong,nonatomic) UIImage *starImage;
+
 @end
 
 @implementation QuranGardensViewController
@@ -40,6 +43,9 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.sunImage = [UIImage imageNamed:@"sun.jpg"];
+    self.starImage = [UIImage imageNamed:@"gold-star.png"];
     
     [self handleDeviceOrientation];
     
@@ -562,7 +568,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
             
         case 1://was memorized
             cell.memorized.hidden = NO;
-            [cell.memorized setImage:[UIImage imageNamed:@"gold-star.png"]];
+            cell.memorized.image = self.starImage;
             if (!cell.memorized.image) {
                 NSLog(@"nil image");
             }
@@ -570,7 +576,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
             
         case 2://is memorized
             cell.memorized.hidden = NO;
-            cell.memorized.image = [UIImage imageNamed:@"sun.png"];;
+            cell.memorized.image = self.sunImage;
             if (!cell.memorized.image) {
                 NSLog(@"nil image");
             }
