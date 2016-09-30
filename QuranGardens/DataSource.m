@@ -11,6 +11,7 @@
 
 NSString * const IntervalKeySuffix = @"interval";
 NSString * const LastRefreshKeySuffix = @"lastRefresh";
+NSString * const MemorizedKeySuffix = @"memorized";
 NSString * const RefreshHistoryKeySuffix = @"RefreshHistory";
 
 NSString * const GlobalRefreshIntervalKey = @"GlobalRefreshIntervalKey";
@@ -44,10 +45,14 @@ NSString * const SortTypeKey = @"SortTypeKey";
         NSDate *lastRefresh = [[NSUserDefaults standardUserDefaults] objectForKey:[self lastRefreshKeyForSuraName:suraName]];
         PeriodicTask *task = [[PeriodicTask alloc] init];
         task.name = suraName;
+        task.memorizedState = [self loadMemorizedStateForSura:suraName];
         if (!interval) {
             interval = DefaultCycleInterval;
         }
         task.cycleInterval = interval;
+        
+        task.history = [self loadRefreshHistoryForSuraName:suraName];
+        
         if (!lastRefresh) {
             lastRefresh = [NSDate dateWithTimeIntervalSince1970:dummySeconds++];
         }
@@ -128,6 +133,10 @@ NSString * const SortTypeKey = @"SortTypeKey";
     return [NSString stringWithFormat:@"%@_%@",suraName,IntervalKeySuffix];
 }
 
+- (NSString *)memorizedKeyForSuraName:(NSString *)suraName{
+    return [NSString stringWithFormat:@"%@_%@",suraName,MemorizedKeySuffix];
+}
+
 - (NSString *)lastRefreshKeyForSuraName:(NSString *)suraName{
     return [NSString stringWithFormat:@"%@_%@",suraName,LastRefreshKeySuffix];
 }
@@ -165,29 +174,40 @@ NSString * const SortTypeKey = @"SortTypeKey";
     return result;
 }
 
+- (PeriodicTask *)getTaskWithSuraName:(NSString *)suraName{
+    for (PeriodicTask *task in self.tasks) {
+        if ([task.name isEqualToString:suraName]) {
+            return task;
+        }
+    }
+    
+    return nil;
+}
+
 - (void)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName{
     [[NSUserDefaults standardUserDefaults] setObject:lastRefreshDate forKey:[self lastRefreshKeyForSuraName:suraName]];
     NSLog(@"saved for %@ refreshed at: %@",suraName,lastRefreshDate);
     
-    NSArray<NSDate *>* oldHistory = [self loadRefreshHistoryForSuraName:suraName];
-    if (!oldHistory){
-        oldHistory = @[];
-    }
+    PeriodicTask *task = [self getTaskWithSuraName:suraName];
+    NSMutableArray<NSDate *> * oldHistory = task.history.mutableCopy;
     
-    NSMutableArray<NSDate *>* history = @[].mutableCopy ;
-    [history addObjectsFromArray:oldHistory];
-    [history addObject:lastRefreshDate];
+    [oldHistory addObject:lastRefreshDate];
+    
+    task.history = oldHistory.copy;
     
     NSLog(@"Sura History for %@\n",suraName);
-    for(NSDate *date in history){
+    for(NSDate *date in task.history){
         NSLog(@"Reviewed on Date: %@\n",date);
     }
     
-    [[NSUserDefaults standardUserDefaults] setObject:history.copy forKey:[self refreshHistoryKeyForSuraName:suraName]];
+    [[NSUserDefaults standardUserDefaults] setObject:task.history.copy forKey:[self refreshHistoryKeyForSuraName:suraName]];
 }
 
-- (NSArray<NSDate *>*)loadRefreshHistoryForSuraName:(NSString *)suraName{
-    NSArray<NSDate *>* history = [[NSUserDefaults standardUserDefaults] objectForKey:[self refreshHistoryKeyForSuraName:suraName]];
+- (NSMutableArray<NSDate *>*)loadRefreshHistoryForSuraName:(NSString *)suraName{
+    NSMutableArray<NSDate *>* history = [[NSUserDefaults standardUserDefaults] objectForKey:[self refreshHistoryKeyForSuraName:suraName]];
+    if(!history){
+        history = @[].mutableCopy;
+    }
     return history;
 }
 
@@ -225,6 +245,21 @@ NSString * const SortTypeKey = @"SortTypeKey";
     }
     
     NSLog(@"Loaded Settings: %@", self.settings);
+}
+
+- (NSInteger)loadMemorizedStateForSura:(NSString *)suraName{
+    return [[NSUserDefaults standardUserDefaults] integerForKey:[self memorizedKeyForSuraName:suraName]];
+}
+
+- (void)saveMemorizedStateForSura:(NSString *)suraName{
+    PeriodicTask* sura = [self getTaskWithSuraName:suraName];
+    [[NSUserDefaults standardUserDefaults] setInteger:sura.memorizedState forKey:[self memorizedKeyForSuraName:suraName]];
+}
+
+- (void)saveMemorizedStateForTask:(PeriodicTask *)task{
+    if (task) {
+        [[NSUserDefaults standardUserDefaults] setInteger:task.memorizedState forKey:[self memorizedKeyForSuraName:task.name]];
+    }
 }
 
 @end

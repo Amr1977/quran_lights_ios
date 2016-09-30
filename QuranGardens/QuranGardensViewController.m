@@ -80,7 +80,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 }
 
 - (void)setMenuButton{
-    UIImage *barButtonImage =  [UIImage imageNamed:@"sun.jpg"];
+    UIImage *barButtonImage = [UIImage imageNamed:@"sun.jpg"];
     CGRect imageFrame = CGRectMake(0, 0, 40, 40);
     
     UIButton *someButton = [[UIButton alloc] initWithFrame:imageFrame];
@@ -217,24 +217,27 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     [self presentViewController:menu animated:YES completion:nil];
 }
 
-- (UIAlertController *)suraMenu{
-    //TODO: Do it!
-    if(!_suraMenu){
-        _suraMenu = [UIAlertController alertControllerWithTitle:self.selectedTask.name
-                                                    message:@""
-                                             preferredStyle:UIAlertControllerStyleAlert];
-    }
-    
-    return _suraMenu;
-}
-
 //TODO: save/load memorization state
 
 - (void)showSuraMenu{
     NSMutableDictionary *operations = @{}.mutableCopy;
     operations[@"Refresh"] = ^(){[self refreshTask:self.selectedTask];};
-    operations[@"Toggle Memorized state"] = ^(){self.selectedTask.memorized = !self.selectedTask.memorized;};
+    if(self.selectedTask.memorizedState != 2){
+        operations[@"Memorized"] = ^(){
+            self.selectedTask.memorizedState = 2;
+            NSLog(@"memorized: %d",self.selectedTask.memorizedState);
+            [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
+            [self.collectionView reloadData];
+        };
+    }
     operations[@"Remove last refresh"] = ^(){NSLog(@"TODO !!");};
+    
+    operations[@"Was Memorized"] = ^(){
+        self.selectedTask.memorizedState = 1;
+        [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
+        NSLog(@"was memorized: %d",self.selectedTask.memorizedState);
+        [self.collectionView reloadData];
+    };
     
     [self showMenuWithTitle:self.selectedTask.name handlers:operations];
 }
@@ -549,8 +552,41 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     }
     
     cell.suraName.adjustsFontSizeToFitWidth = YES;
+
+    //TODO: remove this after testing
     
-    cell.memorizedFlag.hidden = task.memorized;
+    switch (task.memorizedState) {
+        case 0://not memorized
+            cell.memorized.hidden = YES;
+            break;
+            
+        case 1://was memorized
+            cell.memorized.hidden = NO;
+            [cell.memorized setImage:[UIImage imageNamed:@"gold-star.png"]];
+            if (!cell.memorized.image) {
+                NSLog(@"nil image");
+            }
+            break;
+            
+        case 2://is memorized
+            cell.memorized.hidden = NO;
+            cell.memorized.image = [UIImage imageNamed:@"sun.png"];;
+            if (!cell.memorized.image) {
+                NSLog(@"nil image");
+            }
+            break;
+            
+        default:
+            break;
+    }
+    
+    
+    NSUInteger days = [[NSDate new] timeIntervalSinceDate:task.lastOccurrence] / (60*60*24);
+    if (days < 1000 && days > 0) {
+        cell.daysElapsed.text = [NSString stringWithFormat:@"%ld", (long)days];
+    } else {
+        cell.daysElapsed.text = nil;
+    }
     
     cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
     cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, task.name];
@@ -565,9 +601,12 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 
 - (void)collectionView:(UICollectionView *)collectionView  didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
+
     self.selectedTask = task;
     
     [self showSuraMenu];
+    [self applyCurrentSort];
+    [self.collectionView reloadData];
 }
 
 - (void)refreshTask:(PeriodicTask *)task{

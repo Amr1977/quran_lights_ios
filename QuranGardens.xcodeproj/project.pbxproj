@@ -30,6 +30,8 @@
 		076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965DA1C5B628200ED2D33 /* SuraViewCell.m */; };
 		076965E01C5B630E00ED2D33 /* QuranGardensViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */; };
 		076965E21C5B6A7A00ED2D33 /* SuraViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076965E11C5B6A7A00ED2D33 /* SuraViewCell.xib */; };
+		07D7D30D1D9E64FE00CF4FE4 /* safe.png in Resources */ = {isa = PBXBuildFile; fileRef = 07D7D30C1D9E64FE00CF4FE4 /* safe.png */; };
+		07D7D30F1D9E885300CF4FE4 /* gold-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 07D7D30E1D9E885300CF4FE4 /* gold-star.png */; };
 		07FAC8EB1D66FA0000A18525 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FAC8E91D66FA0000A18525 /* SettingsViewController.m */; };
 		07FAC8EC1D66FA0000A18525 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07FAC8EA1D66FA0000A18525 /* SettingsViewController.xib */; };
 		07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */; };
@@ -91,6 +93,8 @@
 		076965DE1C5B630E00ED2D33 /* QuranGardensViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuranGardensViewController.h; sourceTree = "<group>"; };
 		076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuranGardensViewController.m; sourceTree = "<group>"; };
 		076965E11C5B6A7A00ED2D33 /* SuraViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuraViewCell.xib; sourceTree = "<group>"; };
+		07D7D30C1D9E64FE00CF4FE4 /* safe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = safe.png; sourceTree = "<group>"; };
+		07D7D30E1D9E885300CF4FE4 /* gold-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gold-star.png"; sourceTree = "<group>"; };
 		07FAC8E81D66FA0000A18525 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		07FAC8E91D66FA0000A18525 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		07FAC8EA1D66FA0000A18525 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
@@ -154,6 +158,7 @@
 		076965A11C5B5D0700ED2D33 /* QuranGardens */ = {
 			isa = PBXGroup;
 			children = (
+				076965AE1C5B5D0700ED2D33 /* Assets.xcassets */,
 				0725940E1D74AEB0009E5F05 /* charcount.txt */,
 				0725940F1D74AEB0009E5F05 /* reval.txt */,
 				072594101D74AEB0009E5F05 /* versecount.txt */,
@@ -166,7 +171,6 @@
 				076965DD1C5B62AE00ED2D33 /* Controller */,
 				076965DC1C5B628F00ED2D33 /* View */,
 				076965D51C5B609100ED2D33 /* Model */,
-				076965AE1C5B5D0700ED2D33 /* Assets.xcassets */,
 				076965B01C5B5D0700ED2D33 /* LaunchScreen.storyboard */,
 				076965B31C5B5D0700ED2D33 /* Info.plist */,
 				076965A21C5B5D0700ED2D33 /* Supporting Files */,
@@ -178,6 +182,8 @@
 		076965A21C5B5D0700ED2D33 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				07D7D30E1D9E885300CF4FE4 /* gold-star.png */,
+				07D7D30C1D9E64FE00CF4FE4 /* safe.png */,
 				076965A31C5B5D0700ED2D33 /* main.m */,
 				0750B0CB1D68F5FD0081B1C4 /* versecount.txt */,
 				0750B0D11D68F6600081B1C4 /* arabic-sura-names */,
@@ -314,7 +320,7 @@
 		076965971C5B5D0700ED2D33 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Amr Lotfy";
 				TargetAttributes = {
 					0769659E1C5B5D0700ED2D33 = {
@@ -358,8 +364,10 @@
 			files = (
 				076965B21C5B5D0700ED2D33 /* LaunchScreen.storyboard in Resources */,
 				076965AF1C5B5D0700ED2D33 /* Assets.xcassets in Resources */,
+				07D7D30D1D9E64FE00CF4FE4 /* safe.png in Resources */,
 				076965AD1C5B5D0700ED2D33 /* Main.storyboard in Resources */,
 				072594121D74AEB0009E5F05 /* charcount.txt in Resources */,
+				07D7D30F1D9E885300CF4FE4 /* gold-star.png in Resources */,
 				0750B0CA1D68F51C0081B1C4 /* reval.txt in Resources */,
 				0750B0CC1D68F5FD0081B1C4 /* versecount.txt in Resources */,
 				072594131D74AEB0009E5F05 /* wordcount.txt in Resources */,
@@ -467,8 +475,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -511,8 +521,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

@@ -27,7 +27,11 @@
 - (void)loadFromFile:(NSString *)fileName completionBlock:(void(^)(BOOL success))completionBlock;
 - (void)saveToFile:(NSString *)fileName completion:(void (^)(BOOL success))completionBlock;
 
-- (NSArray<NSDate *>*)loadRefreshHistoryForSuraName:(NSString *)suraName;
+- (NSMutableArray<NSDate *>*)loadRefreshHistoryForSuraName:(NSString *)suraName;
+
+- (NSInteger)loadMemorizedStateForSura:(NSString *)suraName;
+- (void)saveMemorizedStateForSura:(NSString *)suraName;
+- (void)saveMemorizedStateForTask:(PeriodicTask *)task;
 
 - (void)saveSettings;
 

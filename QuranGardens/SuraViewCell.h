@@ -16,8 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *image;
 
-@property (weak, nonatomic) IBOutlet UILabel *memorizedFlag;
-
 @property (weak, nonatomic) IBOutlet UILabel *daysElapsed;
+@property (weak, nonatomic) IBOutlet UIImageView *memorized;
+
 
 @end
