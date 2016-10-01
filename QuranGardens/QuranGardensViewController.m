@@ -557,8 +557,6 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
     cell.suraName.adjustsFontSizeToFitWidth = YES;
 
-    //TODO: remove this after testing
-    
     switch (task.memorizedState) {
         case 0://not memorized
             cell.memorized.hidden = YES;
@@ -568,18 +566,12 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
             cell.memorized.hidden = NO;
             cell.memorized.image = self.sunImage;
             cell.memorized.alpha = 0.5;
-            if (!cell.memorized.image) {
-                NSLog(@"nil image");
-            }
             break;
             
         case 2://is memorized
             cell.memorized.hidden = NO;
             cell.memorized.image = self.sunImage;
             cell.memorized.alpha = 1.0;
-            if (!cell.memorized.image) {
-                NSLog(@"nil image");
-            }
             break;
             
         default:
