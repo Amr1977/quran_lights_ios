@@ -34,7 +34,6 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (nonatomic, assign) SorterType sortType;
 
 @property (strong,nonatomic) UIImage *sunImage;
-@property (strong,nonatomic) UIImage *starImage;
 
 @end
 
@@ -45,7 +44,6 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     [super viewDidLoad];
     
     self.sunImage = [UIImage imageNamed:@"sun.jpg"];
-    self.starImage = [UIImage imageNamed:@"gold-star.png"];
     
     [self handleDeviceOrientation];
     
@@ -568,7 +566,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
             
         case 1://was memorized
             cell.memorized.hidden = NO;
-            cell.memorized.image = self.starImage;
+            cell.memorized.image = self.sunImage;
+            cell.memorized.alpha = 0.5;
             if (!cell.memorized.image) {
                 NSLog(@"nil image");
             }
@@ -577,6 +576,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         case 2://is memorized
             cell.memorized.hidden = NO;
             cell.memorized.image = self.sunImage;
+            cell.memorized.alpha = 1.0;
             if (!cell.memorized.image) {
                 NSLog(@"nil image");
             }
