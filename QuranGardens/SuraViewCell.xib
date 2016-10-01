@@ -29,11 +29,12 @@
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2h-r9-vaj">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="h2h-r9-vaj">
                         <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fatiha" translatesAutoresizingMaskIntoConstraints="NO" id="jSv-5p-wYy"/>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun" translatesAutoresizingMaskIntoConstraints="NO" id="CrV-tX-pb7" userLabel="memorized">
                         <constraints>
                             <constraint firstAttribute="width" constant="19" id="7E5-w1-ejV"/>
@@ -46,9 +47,13 @@
                 <constraint firstItem="Auy-mw-Mdj" firstAttribute="centerY" secondItem="3fq-Gd-ssG" secondAttribute="centerY" id="5Dl-oD-Ivb"/>
                 <constraint firstAttribute="trailing" secondItem="h2h-r9-vaj" secondAttribute="trailing" constant="5" id="AZB-em-o6e"/>
                 <constraint firstItem="Auy-mw-Mdj" firstAttribute="leading" secondItem="3fq-Gd-ssG" secondAttribute="leadingMargin" id="FE8-9g-edR"/>
+                <constraint firstItem="jSv-5p-wYy" firstAttribute="width" secondItem="3fq-Gd-ssG" secondAttribute="width" id="MH4-zl-jzp"/>
+                <constraint firstItem="jSv-5p-wYy" firstAttribute="leading" secondItem="3fq-Gd-ssG" secondAttribute="leading" id="gMI-ZL-L5u"/>
                 <constraint firstAttribute="bottom" secondItem="h2h-r9-vaj" secondAttribute="bottom" id="i22-2u-fkR"/>
                 <constraint firstItem="Auy-mw-Mdj" firstAttribute="trailing" secondItem="3fq-Gd-ssG" secondAttribute="trailingMargin" id="p7Z-KU-QEa"/>
+                <constraint firstItem="jSv-5p-wYy" firstAttribute="top" secondItem="3fq-Gd-ssG" secondAttribute="top" id="qcz-a1-RjF"/>
                 <constraint firstAttribute="bottom" secondItem="CrV-tX-pb7" secondAttribute="bottom" id="rHz-Ro-AIM"/>
+                <constraint firstItem="jSv-5p-wYy" firstAttribute="bottom" secondItem="CrV-tX-pb7" secondAttribute="top" id="tPf-u6-Fuk"/>
                 <constraint firstItem="CrV-tX-pb7" firstAttribute="leading" secondItem="3fq-Gd-ssG" secondAttribute="leading" id="yF0-7N-mvM"/>
             </constraints>
             <size key="customSize" width="177" height="162"/>
@@ -61,6 +66,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="fatiha" width="198" height="67"/>
         <image name="sun" width="148" height="149"/>
     </resources>
 </document>
