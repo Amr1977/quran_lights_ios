@@ -34,6 +34,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (nonatomic, assign) SorterType sortType;
 
 @property (strong,nonatomic) UIImage *sunImage;
+@property (strong,nonatomic) UIImage *recordImage;
 
 @end
 
@@ -44,6 +45,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     [super viewDidLoad];
     
     self.sunImage = [UIImage imageNamed:@"sun.jpg"];
+    self.recordImage = [UIImage imageNamed:@"record.png"];
     
     [self handleDeviceOrientation];
     
@@ -229,17 +231,25 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     if(self.selectedTask.memorizedState != 2){
         operations[@"Memorized"] = ^(){
             self.selectedTask.memorizedState = 2;
-            NSLog(@"memorized: %d",self.selectedTask.memorizedState);
+            NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
             [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
             [self.collectionView reloadData];
         };
     }
+    
+    operations[@"Being Memorized"] = ^(){
+        self.selectedTask.memorizedState = 3;
+        NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
+        [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
+        [self.collectionView reloadData];
+    };
+    
     operations[@"Remove last refresh"] = ^(){NSLog(@"TODO !!");};
     
     operations[@"Was Memorized"] = ^(){
         self.selectedTask.memorizedState = 1;
         [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
-        NSLog(@"was memorized: %d",self.selectedTask.memorizedState);
+        NSLog(@"was memorized: %ld",(long)self.selectedTask.memorizedState);
         [self.collectionView reloadData];
     };
     
@@ -571,6 +581,12 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         case 2://is memorized
             cell.memorized.hidden = NO;
             cell.memorized.image = self.sunImage;
+            cell.memorized.alpha = 1.0;
+            break;
+            
+        case 3:
+            cell.memorized.hidden = NO;
+            cell.memorized.image = self.recordImage;
             cell.memorized.alpha = 1.0;
             break;
             

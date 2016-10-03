@@ -35,7 +35,7 @@
 //@property (nonatomic) BOOL wasMemorized;
 //@property (nonatomic) BOOL beingMemorized;
 
-// 0: not memorized, 1: was memorized, 2: is memorized
+// 0: not memorized, 1: was memorized, 2: is memorized 3: being memorized
 @property (nonatomic) NSInteger memorizedState;
 
 /** Calculates time interval remaining to reach maximum allowed time period between two task occurrences*/
