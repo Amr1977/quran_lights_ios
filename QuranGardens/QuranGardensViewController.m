@@ -13,7 +13,7 @@
 #import <QuartzCore/CAAnimation.h>
 #import "Settings.h"
 
-CGFloat const CellHeight = 57;
+CGFloat const CellHeight = 80;
 CGFloat const CellWidth = 160;
 NSInteger const RefreshPeriod = 300; // refresh each 5 minutes;
 
@@ -538,9 +538,9 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     UINib *nib = [UINib nibWithNibName:@"SuraViewCell" bundle: nil];
     [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"cellIdentifier"];
     
-    UIImage *image = [UIImage imageNamed:@"star.jpg"];
-    self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:image];
-    self.collectionView.backgroundView.alpha = 0.8;
+//    UIImage *image = [UIImage imageNamed:@"star.jpg"];
+//    self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:image];
+//    self.collectionView.backgroundView.alpha = 0.8;
     self.collectionView.backgroundView.contentMode = UIViewContentModeScaleAspectFit;
 }
 
