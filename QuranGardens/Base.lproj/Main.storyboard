@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cf0-gY-Sub">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cf0-gY-Sub">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -25,7 +26,7 @@
             <objects>
                 <collectionViewController id="tII-DL-flJ" customClass="QuranGardensViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="sYx-Vc-T6D">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="w5d-xr-Br4">
                             <size key="itemSize" width="200" height="200"/>
@@ -39,7 +40,14 @@
                             <outlet property="delegate" destination="tII-DL-flJ" id="aY4-0F-etD"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="48c-RC-ZsH"/>
+                    <navigationItem key="navigationItem" id="48c-RC-ZsH">
+                        <barButtonItem key="leftBarButtonItem" title="Score" id="4jf-WK-OZw">
+                            <color key="tintColor" red="0.5925779927" green="1" blue="0.65644660239999997" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="score" destination="4jf-WK-OZw" id="uhN-Ui-05f"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dzs-Tt-XOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

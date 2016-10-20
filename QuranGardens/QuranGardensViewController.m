@@ -38,6 +38,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (strong,nonatomic) UIImage *recordImage;
 
 @property (strong, nonatomic) Statistics* statistics;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *score;
+
 
 @end
 
@@ -56,9 +58,6 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
     [self initTaskManager];
     
-    //TODO: make singleton of data source to avoid this
-    self.statistics = [Statistics initWithDataSource:self.periodicTaskManager.dataSource];
-    
     [self setupCollectionView];
     
     [self applyCurrentSort];
@@ -66,6 +65,11 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     [self AddPeriodicRefresh];
     
     [self startupHelpAlert];
+    
+    //TODO: make singleton of data source to avoid this
+    self.statistics = [[Statistics alloc] initWithDataSource:self.periodicTaskManager.dataSource];
+    self.score.title = [NSString stringWithFormat:@"Score: %u", self.statistics.score];
+    
 }
 
 - (void)initTaskManager{
@@ -75,6 +79,19 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 - (void)setNavigationBar{
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"sunrise.jpg"] forBarMetrics:UIBarMetricsDefault];
     [self setMenuButton];
+    [self.navigationController.navigationBar.layer addAnimation:PSPDFFadeTransition() forKey:nil];
+}
+
+CATransition *PSPDFFadeTransition(void) {
+    return PSPDFFadeTransitionWithDuration(0.25f);
+}
+
+CATransition *PSPDFFadeTransitionWithDuration(CGFloat duration) {
+    CATransition *transition = [CATransition animation];
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    transition.duration = duration;
+    return transition;
 }
 
 - (void)handleDeviceOrientation{
@@ -633,8 +650,17 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     NSInteger suraIndex = [Sura.suraNames indexOfObject:task.name];
     NSNumber *charCount = [[Sura suraCharsCount] objectAtIndex:suraIndex];
     NSInteger charCountInt = [charCount integerValue];
+
+    self.score.title = [NSString stringWithFormat:@"Score: %u",self.statistics.score];
+        [self.score setTintColor:[UIColor blackColor]];
+    [UIView animateWithDuration:3 animations:^{
+
+        [self.score setTintColor:[UIColor greenColor]];
+        //TODO: play with fadding green color
+    }];
+    
     [self.statistics increaseScore:charCountInt];
-    NSLog(@"Added score: [%ul] , total score: [%ul]",charCountInt, self.statistics.score);
+    NSLog(@"Added score: [%u] , total score: [%u]",charCountInt, self.statistics.score);
     NSMutableArray<NSDate *>* history = [self.periodicTaskManager.dataSource loadRefreshHistoryForSuraName:task.name].mutableCopy;
     if(!history){
         history = @[].mutableCopy;

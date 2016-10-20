@@ -16,7 +16,7 @@ static NSString *const score_key = @"score_key";
 @property(nonatomic) NSInteger score;
 @property(weak, nonatomic) DataSource* dataSource;
 
-+ (instancetype)initWithDataSource:(DataSource *)dataSource;
+- (instancetype)initWithDataSource:(DataSource *)dataSource;
 
 - (void)increaseScore:(NSInteger)delta;
 
