@@ -15,6 +15,7 @@
 		071D389F1C5FB0420063D80E /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389E1C5FB0420063D80E /* BuddyBuildSDK.framework */; };
 		072594121D74AEB0009E5F05 /* charcount.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0725940E1D74AEB0009E5F05 /* charcount.txt */; };
 		072594131D74AEB0009E5F05 /* wordcount.txt in Resources */ = {isa = PBXBuildFile; fileRef = 072594111D74AEB0009E5F05 /* wordcount.txt */; };
+		073AA6F21DB89E0300370847 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 073AA6F11DB89E0300370847 /* Statistics.m */; };
 		0750B0CA1D68F51C0081B1C4 /* reval.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0750B0C91D68F51C0081B1C4 /* reval.txt */; };
 		0750B0CC1D68F5FD0081B1C4 /* versecount.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0750B0CB1D68F5FD0081B1C4 /* versecount.txt */; };
 		0750B0D21D68F6600081B1C4 /* arabic-sura-names in Resources */ = {isa = PBXBuildFile; fileRef = 0750B0D11D68F6600081B1C4 /* arabic-sura-names */; };
@@ -67,6 +68,8 @@
 		0725940F1D74AEB0009E5F05 /* reval.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = reval.txt; sourceTree = "<group>"; };
 		072594101D74AEB0009E5F05 /* versecount.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = versecount.txt; sourceTree = "<group>"; };
 		072594111D74AEB0009E5F05 /* wordcount.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = wordcount.txt; sourceTree = "<group>"; };
+		073AA6F01DB89E0300370847 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
+		073AA6F11DB89E0300370847 /* Statistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statistics.m; sourceTree = "<group>"; };
 		0750B0C91D68F51C0081B1C4 /* reval.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = reval.txt; sourceTree = "<group>"; };
 		0750B0CB1D68F5FD0081B1C4 /* versecount.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = versecount.txt; sourceTree = "<group>"; };
 		0750B0D11D68F6600081B1C4 /* arabic-sura-names */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "arabic-sura-names"; sourceTree = "<group>"; };
@@ -222,6 +225,8 @@
 				07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */,
 				071C17A91D673B5800019CDD /* Settings.h */,
 				071C17AA1D673B5800019CDD /* Settings.m */,
+				073AA6F01DB89E0300370847 /* Statistics.h */,
+				073AA6F11DB89E0300370847 /* Statistics.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -398,6 +403,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				073AA6F21DB89E0300370847 /* Statistics.m in Sources */,
 				076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */,
 				075909F21D631B8900A6B7B1 /* DataSource.m in Sources */,
 				071C17AB1D673B5800019CDD /* Settings.m in Sources */,

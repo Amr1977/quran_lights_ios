@@ -12,6 +12,7 @@
 #import "PeriodicTaskManager.h"
 #import <QuartzCore/CAAnimation.h>
 #import "Settings.h"
+#import "Statistics.h"
 
 CGFloat const CellHeight = 80;
 CGFloat const CellWidth = 160;
@@ -36,6 +37,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (strong,nonatomic) UIImage *sunImage;
 @property (strong,nonatomic) UIImage *recordImage;
 
+@property (strong, nonatomic) Statistics* statistics;
+
 @end
 
 @implementation QuranGardensViewController
@@ -52,6 +55,9 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     [self setNavigationBar];
     
     [self initTaskManager];
+    
+    //TODO: make singleton of data source to avoid this
+    self.statistics = [Statistics initWithDataSource:self.periodicTaskManager.dataSource];
     
     [self setupCollectionView];
     

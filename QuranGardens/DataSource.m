@@ -8,6 +8,7 @@
 
 #import "DataSource.h"
 #import "Sura.h"
+#import "Statistics.h"
 
 NSString * const IntervalKeySuffix = @"interval";
 NSString * const LastRefreshKeySuffix = @"lastRefresh";
@@ -260,6 +261,13 @@ NSString * const SortTypeKey = @"SortTypeKey";
     if (task) {
         [[NSUserDefaults standardUserDefaults] setInteger:task.memorizedState forKey:[self memorizedKeyForSuraName:task.name]];
     }
+}
+
+- (NSInteger)getScore{
+    return [[NSUserDefaults standardUserDefaults] integerForKey:score_key];
+}
+- (void)saveScore:(NSInteger)score{
+    [[NSUserDefaults standardUserDefaults] setInteger:score forKey:score_key];
 }
 
 @end
