@@ -68,8 +68,15 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
     //TODO: make singleton of data source to avoid this
     self.statistics = [[Statistics alloc] initWithDataSource:self.periodicTaskManager.dataSource];
-    self.score.title = [NSString stringWithFormat:@"Score Today: %u , Yesterday: %u, Total: %u", [self.statistics todayScore], [self.statistics yesterdayScore],[self.statistics totalScore]];
+    [self refreshScoreButton];
     
+}
+
+- (void)refreshScoreButton{
+    NSInteger todayScore =  [self.statistics todayScore];
+    NSInteger yesterdayScore = [self.statistics yesterdayScore];
+    
+    self.score.title = [NSString stringWithFormat:@"Score Today: %u%@ , Yesterday: %u, Total: %u", todayScore, (todayScore > yesterdayScore ? @"😀" : @"🙁"), yesterdayScore,[self.statistics totalScore]];
 }
 
 - (void)initTaskManager{
@@ -647,11 +654,7 @@ CATransition *PSPDFFadeTransitionWithDuration(CGFloat duration) {
 }
 
 - (void)refreshTask:(PeriodicTask *)task{
-    NSInteger suraIndex = [Sura.suraNames indexOfObject:task.name];
-    NSNumber *charCount = [[Sura suraCharsCount] objectAtIndex:suraIndex];
-    NSInteger charCountInt = [charCount integerValue];
-
-    self.score.title = [NSString stringWithFormat:@"Score Today: %u , Yesterday: %u, Total: %u", [self.statistics todayScore], [self.statistics yesterdayScore],[self.statistics totalScore]];
+    [self refreshScoreButton];
 
     [self.score setTintColor:[UIColor blackColor]];
     [UIView animateWithDuration:3 animations:^{
