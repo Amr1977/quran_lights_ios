@@ -630,6 +630,11 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 }
 
 - (void)refreshTask:(PeriodicTask *)task{
+    NSInteger suraIndex = [Sura.suraNames indexOfObject:task.name];
+    NSNumber *charCount = [[Sura suraCharsCount] objectAtIndex:suraIndex];
+    NSInteger charCountInt = [charCount integerValue];
+    [self.statistics increaseScore:charCountInt];
+    NSLog(@"Added score: [%ul] , total score: [%ul]",charCountInt, self.statistics.score);
     NSMutableArray<NSDate *>* history = [self.periodicTaskManager.dataSource loadRefreshHistoryForSuraName:task.name].mutableCopy;
     if(!history){
         history = @[].mutableCopy;
