@@ -263,11 +263,4 @@ NSString * const SortTypeKey = @"SortTypeKey";
     }
 }
 
-- (NSInteger)getScore{
-    return [[NSUserDefaults standardUserDefaults] integerForKey:score_key];
-}
-- (void)saveScore:(NSInteger)score{
-    [[NSUserDefaults standardUserDefaults] setInteger:score forKey:score_key];
-}
-
 @end

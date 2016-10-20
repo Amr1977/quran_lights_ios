@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "DataSource.h"
 
-static NSString *const score_key = @"score_key";
-
 @interface Statistics : NSObject
 
-@property(nonatomic) NSInteger score;
 @property(weak, nonatomic) DataSource* dataSource;
 
 - (instancetype)initWithDataSource:(DataSource *)dataSource;
 
-- (void)increaseScore:(NSInteger)delta;
+- (NSInteger)todayScore;
+- (NSInteger)yesterdayScore;
+- (NSInteger)totalScore;
+
 
 @end

@@ -41,7 +41,4 @@
 - (NSDate *)loadSuraLastRefresh:(NSString *)suraName;
 - (void)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName;
 
-- (NSInteger)getScore;
-- (void)saveScore:(NSInteger)score;
-
 @end

@@ -68,7 +68,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
     //TODO: make singleton of data source to avoid this
     self.statistics = [[Statistics alloc] initWithDataSource:self.periodicTaskManager.dataSource];
-    self.score.title = [NSString stringWithFormat:@"Score: %u", self.statistics.score];
+    self.score.title = [NSString stringWithFormat:@"Score Today: %u , Yesterday: %u, Total: %u", [self.statistics todayScore], [self.statistics yesterdayScore],[self.statistics totalScore]];
     
 }
 
@@ -651,16 +651,15 @@ CATransition *PSPDFFadeTransitionWithDuration(CGFloat duration) {
     NSNumber *charCount = [[Sura suraCharsCount] objectAtIndex:suraIndex];
     NSInteger charCountInt = [charCount integerValue];
 
-    self.score.title = [NSString stringWithFormat:@"Score: %u",self.statistics.score];
-        [self.score setTintColor:[UIColor blackColor]];
+    self.score.title = [NSString stringWithFormat:@"Score Today: %u , Yesterday: %u, Total: %u", [self.statistics todayScore], [self.statistics yesterdayScore],[self.statistics totalScore]];
+
+    [self.score setTintColor:[UIColor blackColor]];
     [UIView animateWithDuration:3 animations:^{
 
         [self.score setTintColor:[UIColor greenColor]];
         //TODO: play with fadding green color
     }];
-    
-    [self.statistics increaseScore:charCountInt];
-    NSLog(@"Added score: [%u] , total score: [%u]",charCountInt, self.statistics.score);
+
     NSMutableArray<NSDate *>* history = [self.periodicTaskManager.dataSource loadRefreshHistoryForSuraName:task.name].mutableCopy;
     if(!history){
         history = @[].mutableCopy;
