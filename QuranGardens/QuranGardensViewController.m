@@ -75,8 +75,11 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 - (void)refreshScoreButton{
     NSInteger todayScore =  [self.statistics todayScore];
     NSInteger yesterdayScore = [self.statistics yesterdayScore];
+
+    self.score.title = [NSString stringWithFormat:@"Score Today: %ld , Yesterday: %ld, Total: %ld", todayScore,  yesterdayScore,(long)[self.statistics totalScore]];
     
-    self.score.title = [NSString stringWithFormat:@"Score Today: %u%@ , Yesterday: %u, Total: %u", todayScore, (todayScore > yesterdayScore ? @"😀" : @"🙁"), yesterdayScore,[self.statistics totalScore]];
+    UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
+    [self.score setTintColor:color];
 }
 
 - (void)initTaskManager{
@@ -86,19 +89,6 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 - (void)setNavigationBar{
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"sunrise.jpg"] forBarMetrics:UIBarMetricsDefault];
     [self setMenuButton];
-    [self.navigationController.navigationBar.layer addAnimation:PSPDFFadeTransition() forKey:nil];
-}
-
-CATransition *PSPDFFadeTransition(void) {
-    return PSPDFFadeTransitionWithDuration(0.25f);
-}
-
-CATransition *PSPDFFadeTransitionWithDuration(CGFloat duration) {
-    CATransition *transition = [CATransition animation];
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionFade;
-    transition.duration = duration;
-    return transition;
 }
 
 - (void)handleDeviceOrientation{
@@ -654,15 +644,6 @@ CATransition *PSPDFFadeTransitionWithDuration(CGFloat duration) {
 }
 
 - (void)refreshTask:(PeriodicTask *)task{
-    [self refreshScoreButton];
-
-    [self.score setTintColor:[UIColor blackColor]];
-    [UIView animateWithDuration:3 animations:^{
-
-        [self.score setTintColor:[UIColor greenColor]];
-        //TODO: play with fadding green color
-    }];
-
     NSMutableArray<NSDate *>* history = [self.periodicTaskManager.dataSource loadRefreshHistoryForSuraName:task.name].mutableCopy;
     if(!history){
         history = @[].mutableCopy;
@@ -687,6 +668,7 @@ CATransition *PSPDFFadeTransitionWithDuration(CGFloat duration) {
     
     [self.periodicTaskManager.dataSource saveSuraLastRefresh:task.lastOccurrence suraName:task.name];
     [self applyCurrentSort];
+    [self refreshScoreButton];
     [self.collectionView reloadData];
     
 }

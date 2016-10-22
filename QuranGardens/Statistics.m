@@ -29,12 +29,10 @@
         NSNumber *charCount = [[Sura suraCharsCount] objectAtIndex:suraIndex];
         NSInteger taskScore = [charCount integerValue];
         
-        for (NSInteger i = task.history.count - 1; i >= 0 ; i--) {
+        for (NSInteger i = 0; i < task.history.count ; i++) {
             NSDate *date = task.history[i];
             if ([date compare:todayStart] == NSOrderedDescending) {
                 result += taskScore;
-            } else {
-                break;
             }
         }
     }
@@ -64,12 +62,10 @@
         NSNumber *charCount = [[Sura suraCharsCount] objectAtIndex:suraIndex];
         NSInteger taskScore = [charCount integerValue];
         
-        for (NSInteger i = task.history.count - 1; i >= 0 ; i--) {
+        for (NSInteger i = 0; i < task.history.count ; i++) {
             NSDate *date = task.history[i];
             if ([date compare:today] == NSOrderedAscending && [date compare:yesterday] == NSOrderedDescending) {
                 result += taskScore;
-            } else {
-                break;
             }
         }
     }
