@@ -15,7 +15,7 @@
 #import "Statistics.h"
 
 CGFloat const CellHeight = 80;
-CGFloat const CellWidth = 160;
+CGFloat const CellWidth = 140;
 NSInteger const RefreshPeriod = 300; // refresh each 5 minutes;
 
 static NSString *const ShowHelpScreenKey = @"Show_help_screen";
