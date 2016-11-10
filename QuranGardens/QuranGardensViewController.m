@@ -651,20 +651,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         [self.periodicTaskManager.dataSource saveSuraLastRefresh:task.lastOccurrence suraName:task.name];
     }
     
-    //TODO: create another way to undo last action on cell
-    NSTimeInterval intervalSinceLastRefresh = -1 * [task.lastOccurrence timeIntervalSinceNow];
-    if (intervalSinceLastRefresh <= 5) {
-        //undo action
-        [history removeLastObject];
-        if ([history count] < 1) {
-            task.lastOccurrence = [NSDate dateWithTimeIntervalSince1970:[Sura.suraNames indexOfObject:task.name]];
-        } else {
-            task.lastOccurrence = [history lastObject];
-        }
-    } else {
-        //sura reviewed now
-        task.lastOccurrence = [[NSDate alloc] init];
-    }
+    task.lastOccurrence = [[NSDate alloc] init];
     
     [self.periodicTaskManager.dataSource saveSuraLastRefresh:task.lastOccurrence suraName:task.name];
     [self applyCurrentSort];
