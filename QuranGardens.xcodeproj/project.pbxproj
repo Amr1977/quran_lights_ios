@@ -39,6 +39,8 @@
 		07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */; };
 		0A8DAB34FE051E524BD30303 /* Pods_QuranGardens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82855D8766F94B78534A777E /* Pods_QuranGardens.framework */; };
 		C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C566F4571E21143200628A94 /* GoogleService-Info.plist */; };
+		C5CC35171E2143A70070D14F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CC35161E2143A70070D14F /* LoginViewController.m */; };
+		C5CC35191E2144580070D14F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5CC35181E2144580070D14F /* Login.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +112,9 @@
 		82855D8766F94B78534A777E /* Pods_QuranGardens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuranGardens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC5A8B9D69C915AD7FE135C0 /* Pods-QuranGardens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranGardens.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens.release.xcconfig"; sourceTree = "<group>"; };
 		C566F4571E21143200628A94 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C5CC35151E2143A70070D14F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		C5CC35161E2143A70070D14F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		C5CC35181E2144580070D14F /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		CC0FB87F801C545BFDDA00FB /* Pods-QuranGardens.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranGardens.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,6 +192,7 @@
 				076965B31C5B5D0700ED2D33 /* Info.plist */,
 				076965A21C5B5D0700ED2D33 /* Supporting Files */,
 				0750B0C91D68F51C0081B1C4 /* reval.txt */,
+				C5CC35181E2144580070D14F /* Login.storyboard */,
 			);
 			path = QuranGardens;
 			sourceTree = "<group>";
@@ -256,6 +262,8 @@
 				076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */,
 				07FAC8E81D66FA0000A18525 /* SettingsViewController.h */,
 				07FAC8E91D66FA0000A18525 /* SettingsViewController.m */,
+				C5CC35151E2143A70070D14F /* LoginViewController.h */,
+				C5CC35161E2143A70070D14F /* LoginViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -391,6 +399,7 @@
 			files = (
 				C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */,
 				076965B21C5B5D0700ED2D33 /* LaunchScreen.storyboard in Resources */,
+				C5CC35191E2144580070D14F /* Login.storyboard in Resources */,
 				076965AF1C5B5D0700ED2D33 /* Assets.xcassets in Resources */,
 				07D7D30D1D9E64FE00CF4FE4 /* safe.png in Resources */,
 				076965AD1C5B5D0700ED2D33 /* Main.storyboard in Resources */,
@@ -482,6 +491,7 @@
 				07FAC8EB1D66FA0000A18525 /* SettingsViewController.m in Sources */,
 				076965E01C5B630E00ED2D33 /* QuranGardensViewController.m in Sources */,
 				076965D81C5B60C600ED2D33 /* Sura.m in Sources */,
+				C5CC35171E2143A70070D14F /* LoginViewController.m in Sources */,
 				07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */,
 				076965A71C5B5D0700ED2D33 /* AppDelegate.m in Sources */,
 				076965A41C5B5D0700ED2D33 /* main.m in Sources */,
