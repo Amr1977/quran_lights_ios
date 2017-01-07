@@ -13,6 +13,7 @@
 #import <QuartzCore/CAAnimation.h>
 #import "Settings.h"
 #import "Statistics.h"
+#import "AppDelegate.h"
 
 CGFloat const CellHeight = 80;
 CGFloat const CellWidth = 140;
@@ -657,6 +658,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     [self applyCurrentSort];
     [self refreshScoreButton];
     [self.collectionView reloadData];
+    
     
 }
 

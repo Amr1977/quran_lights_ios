@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <BuddyBuildSDK/BuddyBuildSDK.h>
+@import FirebaseAuth;
 
 @interface AppDelegate ()
 
@@ -19,8 +20,35 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [BuddyBuildSDK setup];
+    [FIRApp configure];
+    self.firebaseDatabaseReference = [[FIRDatabase database] reference];
+    [self firebaseSignIn];
+    
+    
     return YES;
 }
+
+- (void)firebaseSignIn{
+    [[FIRAuth auth]
+     signInAnonymouslyWithCompletion:^(FIRUser *_Nullable user, NSError *_Nullable error) {
+         if (!error) {
+             self.isSignedIn = YES;
+             NSLog(@"user.uid: %@",user.uid);
+             self.userID = user.uid;
+             
+         } else {
+             NSLog(@"Error signing in to firebase %@", error);
+         }
+         
+     }];
+}
+
+- (void)refreshSura:(NSString *)suraName{
+    NSMutableDictionary *mdata = @{}.mutableCopy;
+    mdata[@"date"] =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];
+    [[[[[[self.firebaseDatabaseReference child: self.userID] child:@"Suras"] child:suraName] child:@"reviews"] childByAutoId] setValue: mdata[@"date"]];
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

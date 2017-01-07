@@ -37,6 +37,8 @@
 		07FAC8EC1D66FA0000A18525 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07FAC8EA1D66FA0000A18525 /* SettingsViewController.xib */; };
 		07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */; };
 		07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */; };
+		0A8DAB34FE051E524BD30303 /* Pods_QuranGardens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82855D8766F94B78534A777E /* Pods_QuranGardens.framework */; };
+		C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C566F4571E21143200628A94 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +107,10 @@
 		07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodicTaskManager.m; sourceTree = "<group>"; };
 		07FC8BF51C5D05DC00695E0A /* PeriodicTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeriodicTask.h; sourceTree = "<group>"; };
 		07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodicTask.m; sourceTree = "<group>"; };
+		82855D8766F94B78534A777E /* Pods_QuranGardens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuranGardens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC5A8B9D69C915AD7FE135C0 /* Pods-QuranGardens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranGardens.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens.release.xcconfig"; sourceTree = "<group>"; };
+		C566F4571E21143200628A94 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CC0FB87F801C545BFDDA00FB /* Pods-QuranGardens.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranGardens.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +123,7 @@
 				071D389B1C5FB01D0063D80E /* SystemConfiguration.framework in Frameworks */,
 				071D38991C5FB00E0063D80E /* CoreText.framework in Frameworks */,
 				071D38971C5FAFFE0063D80E /* AssetsLibrary.framework in Frameworks */,
+				0A8DAB34FE051E524BD30303 /* Pods_QuranGardens.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +152,7 @@
 				076965C61C5B5D0800ED2D33 /* QuranGardensUITests */,
 				076965A01C5B5D0700ED2D33 /* Products */,
 				E5D1290A52CBC62F69226967 /* Frameworks */,
+				1A31A46E988B24B386D3DD0C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -161,6 +169,7 @@
 		076965A11C5B5D0700ED2D33 /* QuranGardens */ = {
 			isa = PBXGroup;
 			children = (
+				C566F4571E21143200628A94 /* GoogleService-Info.plist */,
 				076965AE1C5B5D0700ED2D33 /* Assets.xcassets */,
 				0725940E1D74AEB0009E5F05 /* charcount.txt */,
 				0725940F1D74AEB0009E5F05 /* reval.txt */,
@@ -251,6 +260,15 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		1A31A46E988B24B386D3DD0C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CC0FB87F801C545BFDDA00FB /* Pods-QuranGardens.debug.xcconfig */,
+				AC5A8B9D69C915AD7FE135C0 /* Pods-QuranGardens.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		E5D1290A52CBC62F69226967 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +277,7 @@
 				071D389A1C5FB01D0063D80E /* SystemConfiguration.framework */,
 				071D38981C5FB00E0063D80E /* CoreText.framework */,
 				071D38961C5FAFFE0063D80E /* AssetsLibrary.framework */,
+				82855D8766F94B78534A777E /* Pods_QuranGardens.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -270,9 +289,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 076965CC1C5B5D0800ED2D33 /* Build configuration list for PBXNativeTarget "QuranGardens" */;
 			buildPhases = (
+				94EC31F8EA0FE2BEAEBD3398 /* [CP] Check Pods Manifest.lock */,
 				0769659B1C5B5D0700ED2D33 /* Sources */,
 				0769659C1C5B5D0700ED2D33 /* Frameworks */,
 				0769659D1C5B5D0700ED2D33 /* Resources */,
+				2B4422EBA3D3BC3B1BD8F997 /* [CP] Embed Pods Frameworks */,
+				4D905F10AED41217FC695C88 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -367,6 +389,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */,
 				076965B21C5B5D0700ED2D33 /* LaunchScreen.storyboard in Resources */,
 				076965AF1C5B5D0700ED2D33 /* Assets.xcassets in Resources */,
 				07D7D30D1D9E64FE00CF4FE4 /* safe.png in Resources */,
@@ -397,6 +420,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2B4422EBA3D3BC3B1BD8F997 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4D905F10AED41217FC695C88 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		94EC31F8EA0FE2BEAEBD3398 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0769659B1C5B5D0700ED2D33 /* Sources */ = {
@@ -556,6 +627,7 @@
 		};
 		076965CD1C5B5D0800ED2D33 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC0FB87F801C545BFDDA00FB /* Pods-QuranGardens.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -576,6 +648,7 @@
 		};
 		076965CE1C5B5D0800ED2D33 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC5A8B9D69C915AD7FE135C0 /* Pods-QuranGardens.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

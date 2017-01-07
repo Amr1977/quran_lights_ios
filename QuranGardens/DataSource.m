@@ -9,6 +9,7 @@
 #import "DataSource.h"
 #import "Sura.h"
 #import "Statistics.h"
+#import "AppDelegate.h"
 
 NSString * const IntervalKeySuffix = @"interval";
 NSString * const LastRefreshKeySuffix = @"lastRefresh";
@@ -202,6 +203,7 @@ NSString * const SortTypeKey = @"SortTypeKey";
     }
     
     [[NSUserDefaults standardUserDefaults] setObject:task.history.copy forKey:[self refreshHistoryKeyForSuraName:suraName]];
+    [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura: [NSString stringWithFormat:@"%lu",(unsigned long) [Sura.suraNames indexOfObject:task.name] + 1]];
 }
 
 - (NSMutableArray<NSDate *>*)loadRefreshHistoryForSuraName:(NSString *)suraName{
