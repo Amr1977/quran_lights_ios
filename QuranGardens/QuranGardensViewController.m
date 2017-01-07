@@ -77,7 +77,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     NSInteger todayScore =  [self.statistics todayScore];
     NSInteger yesterdayScore = [self.statistics yesterdayScore];
 
-    self.score.title = [NSString stringWithFormat:@"Score Today: %ld , Yesterday: %ld, Total: %ld", todayScore,  yesterdayScore,(long)[self.statistics totalScore]];
+    self.score.title = [NSString stringWithFormat:@"Score Today: %ld , Total: %ld", todayScore, (long)[self.statistics totalScore]];
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
     [self.score setTintColor:color];

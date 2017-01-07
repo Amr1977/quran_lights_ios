@@ -35,6 +35,7 @@
              self.isSignedIn = YES;
              NSLog(@"user.uid: %@",user.uid);
              self.userID = user.uid;
+             [[NSNotificationCenter defaultCenter] postNotificationName:FireBaseSignInNotification object:self];
              
          } else {
              NSLog(@"Error signing in to firebase %@", error);
@@ -44,10 +45,19 @@
 }
 
 - (void)refreshSura:(NSString *)suraName{
-    NSMutableDictionary *mdata = @{}.mutableCopy;
-    mdata[@"date"] =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];
-    [[[[[[self.firebaseDatabaseReference child: self.userID] child:@"Suras"] child:suraName] child:@"reviews"] childByAutoId] setValue: mdata[@"date"]];
+    NSNumber *date =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];
+    [[[[[[[self.firebaseDatabaseReference child:@"users"] child: self.userID] child:@"Suras"] child:suraName] child:@"reviews"] childByAutoId] setValue: date];
 }
+
+- (void)refreshSura:(NSString *)suraName withHistory:(NSArray *)history{
+    for (NSDate *date in history) {
+        NSNumber *dateNumber =  [NSNumber numberWithLongLong:[date timeIntervalSince1970]];
+        NSLog(@"attempting to send %@",dateNumber);
+    [[[[[[[self.firebaseDatabaseReference child:@"users"] child: self.userID] child:@"Suras"] child:suraName] child:@"reviews"] childByAutoId] setValue: dateNumber];
+    }
+    
+}
+
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

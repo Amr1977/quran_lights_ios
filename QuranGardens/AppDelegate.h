@@ -10,6 +10,8 @@
 @import Firebase;
 @import FirebaseDatabase;
 
+#define FireBaseSignInNotification @"FirebaseSignedIn"
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -19,6 +21,7 @@
 @property (nonatomic) BOOL isSignedIn;
 
 - (void)refreshSura:(NSString *)suraName;
+- (void)refreshSura:(NSString *)suraName withHistory:(NSArray *)history;
 
 @end
 

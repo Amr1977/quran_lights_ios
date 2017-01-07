@@ -39,7 +39,23 @@ NSString * const SortTypeKey = @"SortTypeKey";
     }
 }
 
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)onFirebaseSignIn{
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"UploadedToFireBase"]) {
+        for (PeriodicTask *task in self.tasks) {
+            [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:[self suraIndexFromSuraName:task.name] withHistory:task.history];
+        }
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"UploadedToFireBase"];
+    }
+    
+}
+
 - (void)load{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFirebaseSignIn) name:FireBaseSignInNotification object:nil];
+    
     self.tasks = @[].mutableCopy;
     double dummySeconds = 0;
     for (NSString *suraName in [Sura suraNames]) {
@@ -61,6 +77,7 @@ NSString * const SortTypeKey = @"SortTypeKey";
         task.lastOccurrence = lastRefresh;
         [self.tasks addObject:task];
     }
+    
     NSLog(@"Load completed.");
     [self listTasksData];
     [self loadSettings];
@@ -203,7 +220,11 @@ NSString * const SortTypeKey = @"SortTypeKey";
     }
     
     [[NSUserDefaults standardUserDefaults] setObject:task.history.copy forKey:[self refreshHistoryKeyForSuraName:suraName]];
-    [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura: [NSString stringWithFormat:@"%lu",(unsigned long) [Sura.suraNames indexOfObject:task.name] + 1]];
+    [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura: [self suraIndexFromSuraName:task.name]];
+}
+
+- (NSString *)suraIndexFromSuraName:(NSString *)suraName{
+    return [NSString stringWithFormat:@"%lu",((unsigned long) [Sura.suraNames indexOfObject:suraName] + 1)];
 }
 
 - (NSMutableArray<NSDate *>*)loadRefreshHistoryForSuraName:(NSString *)suraName{
