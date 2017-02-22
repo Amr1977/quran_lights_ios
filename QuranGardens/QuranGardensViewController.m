@@ -50,6 +50,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncHistory) name:@"HistoryLoadedFromFireBase" object:nil];
+    
     self.sunImage = [UIImage imageNamed:@"sun.jpg"];
     self.recordImage = [UIImage imageNamed:@"record.png"];
     
@@ -72,6 +74,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     [self refreshScoreButton];
     
 }
+
+
 
 - (void)refreshScoreButton{
     NSInteger todayScore =  [self.statistics todayScore];
@@ -104,6 +108,10 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     if ([self showHelpScreen]) {
         [self howItWorks];
     }
+}
+
+- (void)syncHistory{
+    
 }
 
 - (void)setMenuButton{
@@ -168,12 +176,12 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
                                                     message:@""
                                              preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction* resetAction = [UIAlertAction actionWithTitle:@"Reset"
-                                                              style:UIAlertActionStyleDestructive
-                                                            handler:^(UIAlertAction * action) {
-                                                                  [self resetAllTasks];
-                                                                  self.menuOpened = NO;
-                                                              }];
+//        UIAlertAction* resetAction = [UIAlertAction actionWithTitle:@"Reset"
+//                                                              style:UIAlertActionStyleDestructive
+//                                                            handler:^(UIAlertAction * action) {
+//                                                                  [self resetAllTasks];
+//                                                                  self.menuOpened = NO;
+//                                                              }];
         
         UIAlertAction* howItWorksAction = [UIAlertAction actionWithTitle:@"How it works"
                                                                    style:UIAlertActionStyleDefault
@@ -210,7 +218,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         [_menu addAction:settingsAction];
         [_menu addAction:saveAction];
         [_menu addAction:loadAction];
-        [_menu addAction:resetAction];
+        //[_menu addAction:resetAction];
         [_menu addAction:cancelAction];
     }
     return _menu;

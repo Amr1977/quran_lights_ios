@@ -19,8 +19,11 @@
 @property (nonatomic) FIRDatabaseHandle refHandle;
 @property(strong, nonatomic) NSString *userID;
 @property (nonatomic) BOOL isSignedIn;
+@property (strong, nonatomic) NSMutableArray<NSMutableArray<NSNumber *> *> *fbRefreshHistory;
+
 
 - (void)refreshSura:(NSString *)suraName;
+- (void)refreshSura:(NSString *)suraName withDate:(NSNumber *)date;
 - (void)refreshSura:(NSString *)suraName withHistory:(NSArray *)history;
 
 @end

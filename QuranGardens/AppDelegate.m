@@ -1,4 +1,4 @@
-//
+////
 //  AppDelegate.m
 //  QuranGardens
 //
@@ -36,6 +36,7 @@
              NSLog(@"user.uid: %@",user.uid);
              self.userID = user.uid;
              [[NSNotificationCenter defaultCenter] postNotificationName:FireBaseSignInNotification object:self];
+             [self loadHistory];
              
          } else {
              NSLog(@"Error signing in to firebase %@", error);
@@ -48,6 +49,84 @@
     NSNumber *date =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];
     [[[[[[[self.firebaseDatabaseReference child:@"users"] child: self.userID] child:@"Suras"] child:suraName] child:@"reviews"] childByAutoId] setValue: date];
 }
+
+- (void)refreshSura:(NSString *)suraName withDate:(NSNumber *)date {
+    [[[[[[[self.firebaseDatabaseReference child:@"users"] child: self.userID] child:@"Suras"] child:suraName] child:@"reviews"] childByAutoId] setValue: date];
+}
+
+- (NSMutableArray<NSNumber *> *)sort:(NSMutableArray<NSNumber *> *)source{
+    NSMutableArray<NSNumber *> * result = [source sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSNumber *first = (NSNumber *)a;
+        NSNumber *second = (NSNumber *)b;
+        NSComparisonResult result;
+        if (first > second ) {
+            result = NSOrderedDescending;
+        } else {
+            result = NSOrderedAscending;
+        }
+        return result;
+    }].mutableCopy;
+    
+    return result;
+}
+
+
+- (void)loadHistory{
+    
+    self.fbRefreshHistory = @[].mutableCopy;
+    
+    [[[[self.firebaseDatabaseReference child:@"users"] child: self.userID] child:@"Suras"] observeSingleEventOfType:FIRDataEventTypeValue
+                                                                                                          withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                                                                                                              //NSLog(@"########## FIRDataSnapshot: %@",snapshot.value);
+                                                                                                              NSMutableArray *suras = ((NSArray *)snapshot.value).mutableCopy;
+                                                                                                              NSLog(@"########## suras[1]: %@",suras[1]);
+                                                                                                              for (NSInteger index = 1; index <= 114; index++) {
+                                                                                                                  NSDictionary *reviews = ((NSDictionary *)suras[index])[@"reviews"];
+                                                                                                                  NSLog(@"Sura %d %@", index, reviews );
+                                                                                                                  NSMutableArray *dates = [reviews allValues].mutableCopy;
+                                                                                                                  dates = [self sort:dates];
+                                                                                                                  [self.fbRefreshHistory addObject:dates];
+                                                                                                              }
+                                                                                                              
+                                                                                                              [[NSNotificationCenter defaultCenter] postNotificationName:@"HistoryLoadedFromFireBase" object:self];
+                                                                                                              
+                                                                                                              
+                                                                                                              //NSMutableArray *result = @[].mutableCopy;
+                                                                                                              
+//                                                                                                              for(NSDictionary *sura in suras){
+//                                                                                                                  if ((([sura[@"archived"] boolValue]) || ([question[@"remove_2from_ui"] boolValue]))) {
+//                                                                                                                      //NSLog(@"ignored a question %@", question);
+//                                                                                                                      continue;
+//                                                                                                                  } if(([question[@"landing_page"] boolValue])) {
+//                                                                                                                      self.landingQuestion = question;
+//                                                                                                                  } else {
+//                                                                                                                      [result addObject:question];
+//                                                                                                                  }
+//                                                                                                              }
+//                                                                                                              
+//                                                                                                              self.questions = result;
+                                                                                                              
+                                                                                                              
+                                                                                                              //NSLog(@"########## suras: %@",suras);
+                                                                                                              //NSLog(@"###### [snapshot.value class] class %@", [snapshot.value class]);
+                                                                                                          }
+                                                                                                    withCancelBlock:^(NSError * _Nonnull error) {
+                                                                                                        NSLog(@"%@", error.localizedDescription);
+                                                                                                    }];
+    
+    //Listen for new questions in the Firebase database
+//    self.refHandle = [[self.firebaseDatabaseReference child:@"questions"] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snapshot) {
+//        [self.questions addObject:snapshot.value];
+//        for (NSDictionary *question in self.questions) {
+//            if ([question objectForKey:QuestionTitleKeyEnglish] && [question objectForKey:QuestionBodyKeyEnglish]) {
+//                NSLog(@"Question Title: %@ , body: %@",question[QuestionTitleKeyEnglish], question[QuestionBodyKeyEnglish]);
+//            }
+//        }
+//    }];
+}
+
+    
+
 
 - (void)refreshSura:(NSString *)suraName withHistory:(NSArray *)history{
     for (NSDate *date in history) {
