@@ -112,6 +112,61 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 
 - (void)syncHistory{
     
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    NSMutableArray<NSMutableArray<NSNumber *> *> *fbRefreshHistory = delegate.fbRefreshHistory;
+    if (fbRefreshHistory == nil) {
+        return;
+    }
+    
+    for (NSInteger index = 0; index < 114; index++) {
+        NSString *suraName = [Sura suraNames][index];
+        NSMutableArray<NSNumber *>* localHistory  = [self mapDatesToNumbers:[self.periodicTaskManager.dataSource loadRefreshHistoryForSuraName:[Sura suraNames][index]].mutableCopy];
+        NSMutableArray<NSNumber *>* remoteHistory = fbRefreshHistory[index];
+        //update remote
+        for (NSNumber *number in localHistory) {
+            if ([remoteHistory indexOfObject:number] == NSNotFound) {
+                [delegate refreshSura:suraName withDate:number];
+                [remoteHistory addObject:number];
+            }
+        }
+        
+        delegate.fbRefreshHistory[index] = [delegate sort:remoteHistory];
+        
+        NSMutableArray *datesArray = [self mapNumbersToDates: delegate.fbRefreshHistory[index]];
+        [self.periodicTaskManager.dataSource setHistory:suraName history:datesArray];
+    }
+    
+    [self.collectionView reloadData];
+}
+
+
+
+- (NSMutableArray<NSNumber *> *)mapDatesToNumbers:(NSArray<NSDate *>*)source{
+    NSMutableArray<NSNumber *> *result = @[].mutableCopy;
+    
+    for (NSDate *date in source) {
+        NSNumber *number = [NSNumber numberWithLongLong:[date timeIntervalSince1970]];
+        [result addObject:number];
+    }
+    
+    return result;
+}
+
+- (NSMutableArray<NSDate *> *)mapNumbersToDates:(NSArray<NSNumber *>*)source{
+    NSMutableArray<NSDate *> *result = @[].mutableCopy;
+    
+    for (NSNumber *number in source) {
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:number.doubleValue];
+        [result addObject:date];
+    }
+    
+    return result;
+}
+
+
+- (void)mergeLocal:(NSMutableArray<NSNumber *> *)local withRemote:(NSMutableArray<NSNumber *> *)remote{
+    
 }
 
 - (void)setMenuButton{
@@ -624,7 +679,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     }
     
     
-    NSUInteger days = [[NSDate new] timeIntervalSinceDate:task.lastOccurrence] / (60*60*24);
+    NSUInteger days = [[NSDate new] timeIntervalSinceDate:[task.history lastObject]] / (60*60*24);
     if (days < 1000 && days > 0) {
         cell.daysElapsed.text = [NSString stringWithFormat:@"%ld", (long)days];
     } else {

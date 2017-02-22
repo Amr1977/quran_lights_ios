@@ -54,7 +54,7 @@ NSString * const SortTypeKey = @"SortTypeKey";
 }
 
 - (void)load{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFirebaseSignIn) name:FireBaseSignInNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFirebaseSignIn) name:FireBaseSignInNotification object:nil];
     
     self.tasks = @[].mutableCopy;
     double dummySeconds = 0;
@@ -233,6 +233,10 @@ NSString * const SortTypeKey = @"SortTypeKey";
         history = @[].mutableCopy;
     }
     return history;
+}
+
+- (void)setHistory:(NSString *)suraName history:(NSArray<NSDate *> *)history{
+    [[NSUserDefaults standardUserDefaults] setObject:history forKey:[self refreshHistoryKeyForSuraName:suraName]];
 }
 
 - (void)saveSettings{

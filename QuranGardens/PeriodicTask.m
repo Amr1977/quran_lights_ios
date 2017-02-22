@@ -70,7 +70,7 @@ static NSString * const PeriodicTaskCycleIntervalKey = @"cycleInterval";
 
 - (NSTimeInterval)remainingTimeInterval{
     NSTimeInterval result = 0;
-    NSTimeInterval ellapsedInterval = [[[NSDate alloc] init] timeIntervalSinceDate:self.lastOccurrence];
+    NSTimeInterval ellapsedInterval = [[[NSDate alloc] init] timeIntervalSinceDate:[self.history lastObject]];
     result = self.cycleInterval - ellapsedInterval;
     return result;
 }

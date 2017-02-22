@@ -55,17 +55,21 @@
 }
 
 - (NSMutableArray<NSNumber *> *)sort:(NSMutableArray<NSNumber *> *)source{
-    NSMutableArray<NSNumber *> * result = [source sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        NSNumber *first = (NSNumber *)a;
-        NSNumber *second = (NSNumber *)b;
-        NSComparisonResult result;
-        if (first > second ) {
-            result = NSOrderedDescending;
-        } else {
-            result = NSOrderedAscending;
-        }
-        return result;
-    }].mutableCopy;
+    NSMutableArray<NSNumber *> * result = source;
+    NSSortDescriptor *lowToHigh = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    [result sortUsingDescriptors:[NSArray arrayWithObject:lowToHigh]];
+    
+//    NSMutableArray<NSNumber *> * result = [source sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+//        NSNumber *first = (NSNumber *)a;
+//        NSNumber *second = (NSNumber *)b;
+//        NSComparisonResult result;
+//        if (first > second ) {
+//            result = NSOrderedDescending;
+//        } else {
+//            result = NSOrderedAscending;
+//        }
+//        return result;
+//    }].mutableCopy;
     
     return result;
 }
