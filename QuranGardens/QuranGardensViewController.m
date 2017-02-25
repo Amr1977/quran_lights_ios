@@ -124,12 +124,12 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         NSMutableArray<NSNumber *>* localHistory  = [self mapDatesToNumbers:[self.periodicTaskManager.dataSource loadRefreshHistoryForSuraName:[Sura suraNames][index]].mutableCopy];
         NSMutableArray<NSNumber *>* remoteHistory = fbRefreshHistory[index];
         
-        NSString *indexStr = [NSString stringWithFormat:@"%d",index];
+        //NSString *indexStr = [NSString stringWithFormat:@"%d",index];
         
         //update remote
         for (NSNumber *number in localHistory) {
             if ([remoteHistory indexOfObject:number] == NSNotFound) {
-                [delegate refreshSura:indexStr withDate:number];
+                [delegate refreshSura:suraName withDate:number];
                 [remoteHistory addObject:number];
             }
         }

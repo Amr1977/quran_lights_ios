@@ -38,6 +38,7 @@
 		07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */; };
 		07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */; };
 		0A8DAB34FE051E524BD30303 /* Pods_QuranGardens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82855D8766F94B78534A777E /* Pods_QuranGardens.framework */; };
+		C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C5147FCA1E61BB5500DE699E /* Reachability.m */; };
 		C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C566F4571E21143200628A94 /* GoogleService-Info.plist */; };
 		C5CC35171E2143A70070D14F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CC35161E2143A70070D14F /* LoginViewController.m */; };
 		C5CC35191E2144580070D14F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5CC35181E2144580070D14F /* Login.storyboard */; };
@@ -111,6 +112,8 @@
 		07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodicTask.m; sourceTree = "<group>"; };
 		82855D8766F94B78534A777E /* Pods_QuranGardens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuranGardens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC5A8B9D69C915AD7FE135C0 /* Pods-QuranGardens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranGardens.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens.release.xcconfig"; sourceTree = "<group>"; };
+		C5147FC91E61BB0300DE699E /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		C5147FCA1E61BB5500DE699E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C566F4571E21143200628A94 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C5CC35151E2143A70070D14F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C5CC35161E2143A70070D14F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
@@ -193,6 +196,8 @@
 				076965A21C5B5D0700ED2D33 /* Supporting Files */,
 				0750B0C91D68F51C0081B1C4 /* reval.txt */,
 				C5CC35181E2144580070D14F /* Login.storyboard */,
+				C5147FC91E61BB0300DE699E /* Reachability.h */,
+				C5147FCA1E61BB5500DE699E /* Reachability.m */,
 			);
 			path = QuranGardens;
 			sourceTree = "<group>";
@@ -483,6 +488,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */,
 				073AA6F21DB89E0300370847 /* Statistics.m in Sources */,
 				076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */,
 				075909F21D631B8900A6B7B1 /* DataSource.m in Sources */,
