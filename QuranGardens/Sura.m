@@ -182,7 +182,7 @@
     for (NSString *line in lines) {
         NSNumber *number = [NSNumber numberWithDouble:[line doubleValue]];
         [numbers addObject:number];
-        NSLog(@"Parsed number: %@\n", number);
+        //NSLog(@"Parsed number: %@\n", number);
     }
     
     return numbers.copy;

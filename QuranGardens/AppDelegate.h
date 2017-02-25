@@ -26,6 +26,7 @@
 - (void)refreshSura:(NSString *)suraName withDate:(NSNumber *)date;
 - (void)refreshSura:(NSString *)suraName withHistory:(NSArray *)history;
 - (NSMutableArray<NSNumber *> *)sort:(NSMutableArray<NSNumber *> *)source;
+- (void)updateTimeStamp;
 
 @end
 

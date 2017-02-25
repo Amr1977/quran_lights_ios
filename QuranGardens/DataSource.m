@@ -98,8 +98,6 @@ NSString * const SortTypeKey = @"SortTypeKey";
     }
     
     //TODO: save settings
-    
-    
 }
 
 
@@ -204,23 +202,19 @@ NSString * const SortTypeKey = @"SortTypeKey";
 }
 
 - (void)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName{
+
+    //local
     [[NSUserDefaults standardUserDefaults] setObject:lastRefreshDate forKey:[self lastRefreshKeyForSuraName:suraName]];
     NSLog(@"saved for %@ refreshed at: %@",suraName,lastRefreshDate);
-    
     PeriodicTask *task = [self getTaskWithSuraName:suraName];
     NSMutableArray<NSDate *> * oldHistory = task.history.mutableCopy;
-    
     [oldHistory addObject:lastRefreshDate];
+    task.history = oldHistory;
+    [[NSUserDefaults standardUserDefaults] setObject:task.history forKey:[self refreshHistoryKeyForSuraName:suraName]];
     
-    task.history = oldHistory.copy;
-    
-    NSLog(@"Sura History for %@\n",suraName);
-    for(NSDate *date in task.history){
-        NSLog(@"Reviewed on Date: %@\n",date);
-    }
-    
-    [[NSUserDefaults standardUserDefaults] setObject:task.history.copy forKey:[self refreshHistoryKeyForSuraName:suraName]];
-    [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura: [self suraIndexFromSuraName:task.name]];
+    //remote
+    NSNumber *dateStamp = [NSNumber numberWithLongLong:[lastRefreshDate timeIntervalSince1970]];
+    [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:suraName withDate:dateStamp];
 }
 
 - (NSString *)suraIndexFromSuraName:(NSString *)suraName{
