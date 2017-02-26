@@ -202,9 +202,9 @@
     // first, separate by new line
     NSArray* allLinedStrings = [fileContents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     
-    for (NSString *line in allLinedStrings) {
-        NSLog(@"Read line: %@\n", line);
-    }
+//    for (NSString *line in allLinedStrings) {
+//        NSLog(@"Read line: %@\n", line);
+//    }
     
     return allLinedStrings;
 }

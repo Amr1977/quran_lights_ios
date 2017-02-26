@@ -111,20 +111,24 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 }
 
 - (void)syncHistory{
-    
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    NSMutableArray<NSMutableArray<NSNumber *> *> *fbRefreshHistory = delegate.fbRefreshHistory;
+    NSMutableDictionary<NSString *,NSMutableArray<NSNumber *> *> *fbRefreshHistory = delegate.fbRefreshHistory;
     if (fbRefreshHistory == nil) {
-        return;
+        fbRefreshHistory = @{}.mutableCopy;
+        delegate.fbRefreshHistory = fbRefreshHistory;
     }
     
     for (NSInteger index = 0; index < 114; index++) {
+        NSString *indexStr = [NSString stringWithFormat:@"%ld", (long)(index + 1)];
+        if (fbRefreshHistory[indexStr] == nil) {
+            fbRefreshHistory[indexStr] = @[].mutableCopy;
+        }
         NSString *suraName = [Sura suraNames][index];
         NSMutableArray<NSNumber *>* localHistory  = [self mapDatesToNumbers:[self.periodicTaskManager.dataSource loadRefreshHistoryForSuraName:[Sura suraNames][index]].mutableCopy];
-        NSMutableArray<NSNumber *>* remoteHistory = fbRefreshHistory[index];
-        
-        //NSString *indexStr = [NSString stringWithFormat:@"%d",index];
+        NSMutableArray<NSNumber *>* remoteHistory = fbRefreshHistory[indexStr];
+        if (remoteHistory == nil) {
+            remoteHistory = @[].mutableCopy;
+        }
         
         //update remote
         for (NSNumber *number in localHistory) {
@@ -134,14 +138,12 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
             }
         }
         
-        delegate.fbRefreshHistory[index] = [delegate sort:remoteHistory];
-        
-        NSMutableArray *datesArray = [self mapNumbersToDates: delegate.fbRefreshHistory[index]];
+        delegate.fbRefreshHistory[indexStr] = [delegate sort:remoteHistory];
+        NSMutableArray *datesArray = [self mapNumbersToDates: delegate.fbRefreshHistory[indexStr]];
         [self.periodicTaskManager.dataSource setHistory:suraName history:datesArray];
     }
     
     [delegate updateTimeStamp];
-    
     
     [self.collectionView reloadData];
 }
@@ -649,10 +651,12 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
     CGFloat progress = [task remainingTimeInterval] / self.periodicTaskManager.dataSource.settings.fadeTime;
     
-    if (progress < 0.30) {
+    if (progress < 0.20) {
         cell.suraName.textColor = [UIColor colorWithRed:153/255 green:255/255 blue:153/255 alpha:1];
+        cell.daysElapsed.textColor = [UIColor colorWithRed:153/255 green:255/255 blue:153/255 alpha:1];
     } else {
         cell.suraName.textColor = [UIColor blackColor];
+        cell.daysElapsed.textColor = [UIColor blackColor];
     }
     
     cell.suraName.adjustsFontSizeToFitWidth = YES;
@@ -692,7 +696,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         cell.daysElapsed.text = nil;
     }
     
-    cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.2) blue:1/255 alpha:1];
+    cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.1) blue:1/255 alpha:1];
     cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, task.name];
    
     return cell;

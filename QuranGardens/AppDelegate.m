@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import <BuddyBuildSDK/BuddyBuildSDK.h>
 #import "Sura.h"
+#import "Reachability.h"
+
 @import FirebaseAuth;
 
 @interface AppDelegate ()
@@ -17,14 +19,50 @@
 
 @implementation AppDelegate
 
+Reachability* reachability;
+NetworkStatus remoteHostStatus;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [BuddyBuildSDK setup];
+    [self initReachability];
     [FIRApp configure];
     self.firebaseDatabaseReference = [[FIRDatabase database] reference];
     [self firebaseSignIn];
     
     return YES;
+}
+
+- (void)initReachability{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNetworkChange:) name:kReachabilityChangedNotification object:nil];
+    
+    reachability = [Reachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+    
+    NetworkStatus remoteHostStatus = [reachability currentReachabilityStatus];
+    
+    NSLog(@"Reachability:\n");
+    if(remoteHostStatus == NotReachable) {NSLog(@" No connection\n");}
+    else if (remoteHostStatus == ReachableViaWiFi) {NSLog(@"wifi Connection\n"); }
+    else if (remoteHostStatus == ReachableViaWWAN) {NSLog(@"cell Connection\n"); }
+}
+
+- (void) handleNetworkChange:(NSNotification *)notice
+{
+    remoteHostStatus = [reachability currentReachabilityStatus];
+    
+    NSLog(@"Reachability:");
+    if(remoteHostStatus == NotReachable) {NSLog(@" No connection\n");}
+    else if (remoteHostStatus == ReachableViaWiFi) {NSLog(@"wifi Connection\n"); }
+    else if (remoteHostStatus == ReachableViaWWAN) {NSLog(@"cell Connection\n"); }
+    
+    if(remoteHostStatus != NotReachable) {
+        if (!self.isSignedIn) {
+            [self firebaseSignIn];
+        } else {
+            [self checkUpdatetimeStamps];
+        }
+    }
 }
 
 - (NSString *)suraIndexFromSuraName:(NSString *)suraName{
@@ -87,16 +125,24 @@
       child:@"update"]
      observeSingleEventOfType:FIRDataEventTypeValue
      withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
-         NSNumber *remoteUpdateTimeStamp = snapshot.value;
-         NSLog(@"Update stamp on Firebase %@", remoteUpdateTimeStamp);
-         NSNumber *localUpdateTimeStamp = [[NSUserDefaults standardUserDefaults] valueForKey:@"LastUpdateTimeStamp"];
-         if ([localUpdateTimeStamp isEqualToNumber:remoteUpdateTimeStamp]) {
-             NSLog(@"History Already Synced with Firebase on %@ %@",
-                   localUpdateTimeStamp,
-                   [NSDate dateWithTimeIntervalSince1970:localUpdateTimeStamp.doubleValue]);
-             return;
-         } else {
+         
+         if (snapshot.value == [NSNull null]) {
              [self loadHistory];
+         } else {
+             NSNumber *localUpdateTimeStamp = [[NSUserDefaults standardUserDefaults] valueForKey:@"LastUpdateTimeStamp"];
+             NSNumber *remoteUpdateTimeStamp = snapshot.value;
+             NSLog(@"Update stamp on Firebase %@", remoteUpdateTimeStamp);
+             
+             if ([localUpdateTimeStamp isEqualToNumber:remoteUpdateTimeStamp]) {
+                 NSLog(@"History Already Synced with Firebase on %@ %@",
+                       localUpdateTimeStamp,
+                       [NSDate dateWithTimeIntervalSince1970:localUpdateTimeStamp.doubleValue]);
+                 return;
+             } else {
+                 if (remoteUpdateTimeStamp != nil){
+                     [self loadHistory];
+                 }
+             }
          }
      }
      withCancelBlock:^(NSError * _Nonnull error) {
@@ -104,27 +150,43 @@
      }];
 }
 
+- (void)uploadHistory{
+    
+}
+
 - (void)loadHistory{
     
-    self.fbRefreshHistory = @[].mutableCopy;
+    self.fbRefreshHistory = @{}.mutableCopy;
+    
+    FIRDatabaseReference * surasRef = [[[self.firebaseDatabaseReference child:@"users"] child: self.userID] child:@"Suras"];
+    FIRDatabaseQuery *query = [surasRef queryOrderedByKey];
     
     [[[[self.firebaseDatabaseReference
         child:@"users"]
-       child: self.userID]
-      child:@"Suras"]
+        child: self.userID]
+        child:@"Suras"]
      observeSingleEventOfType:FIRDataEventTypeValue
      withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-         NSLog(@"########## FIRDataSnapshot: %@",snapshot.value);
-         NSMutableArray *suras = ((NSArray *)snapshot.value).mutableCopy;
-         NSLog(@"########## suras: %@",suras);
-         for (NSInteger index = 1; index <= 114; index++) {
-             NSDictionary *reviews = ((NSDictionary *)suras[index])[@"reviews"];
-             NSLog(@"Sura %d %@", index, reviews );
-             NSMutableArray *dates = [reviews allValues].mutableCopy;
-             dates = [self sort:dates];
-             [self.fbRefreshHistory addObject:dates];
+         if (!(snapshot.value == [NSNull null])) {
+             NSLog(@"########## FIRDataSnapshot snapshot: %@",snapshot);
+             NSLog(@"########## FIRDataSnapshot snapshot.value: %@",snapshot.value);
+             NSMutableArray *suras = ((NSArray *)snapshot.value).mutableCopy;
+             NSLog(@"########## FIRDataSnapshot [snapshot key]: %@",[snapshot key]);
+             NSLog(@"########## FIRDataSnapshot [snapshot value]: %@",[snapshot value]);
+             
+             NSLog(@"########## suras: %@",suras);
+             
+             for (NSInteger index = 1; index <= 114; index++) {
+                 NSString *indexStr = [NSString stringWithFormat:@"%ld", (long)index];
+                 if (((NSDictionary *)suras)[indexStr] != nil) {
+                     NSDictionary *reviews = ((NSDictionary *)suras[index])[@"reviews"];
+                     NSLog(@"Sura %ld %@", (long)index, reviews );
+                     NSMutableArray *dates = [reviews allValues].mutableCopy;
+                     dates = [self sort:dates];
+                     self.fbRefreshHistory[indexStr] = dates;
+                 }
+             }
          }
-         
          [[NSNotificationCenter defaultCenter] postNotificationName:@"HistoryLoadedFromFireBase" object:self];
      }
      withCancelBlock:^(NSError * _Nonnull error) {

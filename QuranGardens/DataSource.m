@@ -57,7 +57,6 @@ NSString * const SortTypeKey = @"SortTypeKey";
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFirebaseSignIn) name:FireBaseSignInNotification object:nil];
     
     self.tasks = @[].mutableCopy;
-    double dummySeconds = 0;
     for (NSString *suraName in [Sura suraNames]) {
         NSTimeInterval interval = [[[NSUserDefaults standardUserDefaults] objectForKey:[self cyclePeriodKeyForSuraName:suraName]] doubleValue];
         NSDate *lastRefresh = [[NSUserDefaults standardUserDefaults] objectForKey:[self lastRefreshKeyForSuraName:suraName]];
@@ -72,9 +71,16 @@ NSString * const SortTypeKey = @"SortTypeKey";
         task.history = [self loadRefreshHistoryForSuraName:suraName];
         
         if (!lastRefresh) {
-            lastRefresh = [NSDate dateWithTimeIntervalSince1970:dummySeconds++];
+            lastRefresh = [NSDate dateWithTimeIntervalSince1970:0];
         }
         task.lastOccurrence = lastRefresh;
+        
+        if (task.history.count == 0) {
+            NSMutableArray *history = @[].mutableCopy;
+            [history addObject:task.lastOccurrence];
+            task.history = history;
+        }
+        
         [self.tasks addObject:task];
     }
     
