@@ -230,6 +230,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [self applyCurrentSort];
+    [self refreshScoreButton];
     [self.collectionView reloadData];
 }
 
@@ -331,6 +333,13 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
     operations[@"Being Memorized"] = ^(){
         self.selectedTask.memorizedState = 3;
+        NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
+        [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
+        [self.collectionView reloadData];
+    };
+    
+    operations[@"Not Memorized"] = ^(){
+        self.selectedTask.memorizedState = 0;
         NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
         [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
         [self.collectionView reloadData];
@@ -567,6 +576,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 
 - (void)refresh{
     [self applyCurrentSort];
+    [self refreshScoreButton];
     [self.collectionView reloadData];
 }
 
