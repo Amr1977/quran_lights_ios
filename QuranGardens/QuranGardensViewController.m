@@ -76,7 +76,6 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 }
 
 
-
 - (void)refreshScoreButton{
     NSInteger todayScore =  [self.statistics todayScore];
     NSInteger yesterdayScore = [self.statistics yesterdayScore];
@@ -182,6 +181,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     CGRect imageFrame = CGRectMake(0, 0, 40, 40);
     
     UIButton *someButton = [[UIButton alloc] initWithFrame:imageFrame];
+    [someButton setTitle:@"s" forState:UIControlStateNormal];
     
     [someButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
     [someButton addTarget:self
@@ -189,10 +189,50 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
          forControlEvents:UIControlEventTouchUpInside];
     
     [someButton setShowsTouchWhenHighlighted:YES];
-    
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:someButton];
+    
+    
+    //sort by normal order
+    UIButton *moshafOrderButton = [[UIButton alloc] initWithFrame:imageFrame];
+    [moshafOrderButton setTitle:@"M" forState:UIControlStateNormal];
+    
+    
+    [moshafOrderButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
+    [moshafOrderButton addTarget:self
+                   action:@selector(normalSuraOrderSort)
+         forControlEvents:UIControlEventTouchUpInside];
+    
+    [moshafOrderButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *moshafOrderItem = [[UIBarButtonItem alloc] initWithCustomView:moshafOrderButton];
+    
+    
+    //sort by light strength
+    UIButton *lightSortButton = [[UIButton alloc] initWithFrame:imageFrame];
+    [lightSortButton setTitle:@"L" forState:UIControlStateNormal];
+    
+    [lightSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
+    [lightSortButton addTarget:self
+                          action:@selector(weakerFirstSuraFirstSort)
+                forControlEvents:UIControlEventTouchUpInside];
+    
+    [lightSortButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *lightSortItem = [[UIBarButtonItem alloc] initWithCustomView:lightSortButton];
+    
+    //sort by character count
+    UIButton *charCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
+    [charCountSortButton setTitle:@"C" forState:UIControlStateNormal];
+    
+    [charCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
+    [charCountSortButton addTarget:self
+                        action:@selector(charCountSuraSort)
+              forControlEvents:UIControlEventTouchUpInside];
+    
+    [charCountSortButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *charCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:charCountSortButton];
+
     [UIView animateWithDuration:1 animations:^{
-        self.navigationItem.rightBarButtonItem = menuButton;
+        //self.navigationItem.rightBarButtonItem = menuButton;
+        self.navigationItem.rightBarButtonItems = @[menuButton, moshafOrderItem, lightSortItem, charCountSortItem];
     }];
 }
 
