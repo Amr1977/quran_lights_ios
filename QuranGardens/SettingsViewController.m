@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import "UIViewController+Gestures.h"
 
 static NSString * const YearTimeUnit = @"y";
 static NSString * const MonthTimeUnit = @"n";
@@ -52,8 +53,14 @@ static Settings* settingsCopy;
     frame.size.height = DefaultCellHeight * ([[Settings sortTypeList] count] - 1);
     self.sortTypeTableView.frame = frame;
 
+    [self addSwipeHandlerToView:self.view direction:@"right" handler:@selector(backToCollection)];
     
     //self.refreshPeriodText.keyboardType = UIKeyboardTypeNumberPad;
+}
+
+- (void)backToCollection{
+    [self.navigationController popViewControllerAnimated: YES];
+    
 }
 
 - (void)viewDidLayoutSubviews{

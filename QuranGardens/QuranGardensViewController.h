@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SettingsViewController.h"
+#import "UIViewController+Gestures.h"
 
 #define Demo NO
 
@@ -17,3 +18,5 @@ extern CGFloat const CellWidth;
 @interface QuranGardensViewController : UICollectionViewController <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, SettingsViewControllerDelegate>
 
 @end
+
+

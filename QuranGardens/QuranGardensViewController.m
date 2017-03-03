@@ -23,6 +23,8 @@ static NSString *const ShowHelpScreenKey = @"Show_help_screen";
 static NSString *const ReversedSortOrderOptionKey = @"reversed_sort_order";
 static NSString *const SorterTypeOptionKey = @"sorter_type";
 
+
+
 @interface QuranGardensViewController ()
 
 @property (strong, nonatomic) PeriodicTaskManager *periodicTaskManager;
@@ -691,6 +693,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 //    self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:image];
 //    self.collectionView.backgroundView.alpha = 0.8;
     self.collectionView.backgroundView.contentMode = UIViewContentModeScaleAspectFit;
+    [self addSwipeHandlerToView:self.collectionView direction:@"left" handler:@selector(settings)];
 }
 
 

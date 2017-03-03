@@ -42,6 +42,7 @@
 		C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C566F4571E21143200628A94 /* GoogleService-Info.plist */; };
 		C5CC35171E2143A70070D14F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CC35161E2143A70070D14F /* LoginViewController.m */; };
 		C5CC35191E2144580070D14F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5CC35181E2144580070D14F /* Login.storyboard */; };
+		C5F17C491E69BB6B00476CA3 /* UIViewController+Gestures.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,8 @@
 		C5CC35151E2143A70070D14F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C5CC35161E2143A70070D14F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		C5CC35181E2144580070D14F /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		C5F17C471E69BB6B00476CA3 /* UIViewController+Gestures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Gestures.h"; sourceTree = "<group>"; };
+		C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Gestures.m"; sourceTree = "<group>"; };
 		CC0FB87F801C545BFDDA00FB /* Pods-QuranGardens.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranGardens.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -269,6 +272,8 @@
 				07FAC8E91D66FA0000A18525 /* SettingsViewController.m */,
 				C5CC35151E2143A70070D14F /* LoginViewController.h */,
 				C5CC35161E2143A70070D14F /* LoginViewController.m */,
+				C5F17C471E69BB6B00476CA3 /* UIViewController+Gestures.h */,
+				C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -488,6 +493,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5F17C491E69BB6B00476CA3 /* UIViewController+Gestures.m in Sources */,
 				C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */,
 				073AA6F21DB89E0300370847 /* Statistics.m in Sources */,
 				076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */,
