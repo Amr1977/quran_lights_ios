@@ -450,6 +450,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     self.periodicTaskManager.dataSource.tasks = sortedArray;
     
     self.sortType = NormalSuraOrderSort;
+    self.periodicTaskManager.dataSource.settings.sortType = NormalSuraOrderSort;
+    [self.periodicTaskManager.dataSource saveSettings];
     
     [self.collectionView reloadData];
 }
@@ -509,6 +511,9 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     self.periodicTaskManager.dataSource.tasks = sortedArray;
     
     self.sortType = CharCountSort;
+    self.periodicTaskManager.dataSource.settings.sortType = CharCountSort;
+    [self.periodicTaskManager.dataSource saveSettings];
+
     
     [self.collectionView reloadData];
 }
@@ -595,6 +600,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 
 - (void)weakerFirstSuraFirstSort{
     [self.periodicTaskManager sortListWeakerFirst];
+    self.periodicTaskManager.dataSource.settings.sortType = LightSort;
+    [self.periodicTaskManager.dataSource saveSettings];
     [self.collectionView reloadData];
 }
 
