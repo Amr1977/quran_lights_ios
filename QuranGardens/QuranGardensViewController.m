@@ -756,6 +756,14 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         cell.daysElapsed.text = nil;
     }
     
+    if (days >= 30) {
+        cell.layer.borderColor = [UIColor redColor].CGColor;
+        cell.layer.borderWidth = 1;
+    } else {
+        cell.layer.borderColor = [UIColor clearColor].CGColor;
+        cell.layer.borderWidth = 0;
+    }
+    
     cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.1) blue:1/255 alpha:1];
     cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, task.name];
    
