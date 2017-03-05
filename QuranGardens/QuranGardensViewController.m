@@ -756,12 +756,21 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         cell.daysElapsed.text = nil;
     }
     
+    
     if (days >= 30) {
         cell.layer.borderColor = [UIColor redColor].CGColor;
         cell.layer.borderWidth = 1;
     } else {
         cell.layer.borderColor = [UIColor clearColor].CGColor;
         cell.layer.borderWidth = 0;
+    }
+    
+    if (days >= 10 && task.memorizedState == 2 ) {
+        cell.memorized.layer.borderColor = [UIColor redColor].CGColor;
+        cell.memorized.layer.borderWidth = 1.0;
+    } else {
+        cell.memorized.layer.borderColor = [UIColor clearColor].CGColor;
+        cell.memorized.layer.borderWidth = 0.0;
     }
     
     cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.1) blue:1/255 alpha:1];
