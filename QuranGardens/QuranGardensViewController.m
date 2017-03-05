@@ -201,7 +201,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
     [moshafOrderButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
     [moshafOrderButton addTarget:self
-                   action:@selector(normalSuraOrderSort)
+                   action:@selector(fastAccessNormalSuraOrderSort)
          forControlEvents:UIControlEventTouchUpInside];
     
     [moshafOrderButton setShowsTouchWhenHighlighted:YES];
@@ -214,7 +214,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
     [lightSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
     [lightSortButton addTarget:self
-                          action:@selector(weakerFirstSuraFirstSort)
+                          action:@selector(fastAccessWeakerFirstSuraFirstSort)
                 forControlEvents:UIControlEventTouchUpInside];
     
     [lightSortButton setShowsTouchWhenHighlighted:YES];
@@ -226,7 +226,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
     [charCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
     [charCountSortButton addTarget:self
-                        action:@selector(charCountSuraSort)
+                        action:@selector(fastAccessCharCountSuraSort)
               forControlEvents:UIControlEventTouchUpInside];
     
     [charCountSortButton setShowsTouchWhenHighlighted:YES];
@@ -486,6 +486,38 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     self.sortType = RevalationOrderSort;
     
     [self.collectionView reloadData];
+}
+
+- (void)fastAccessCharCountSuraSort{
+    if (self.periodicTaskManager.dataSource.settings.sortType == CharCountSort) {
+        self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
+        [self.periodicTaskManager.dataSource saveSettings];
+        [self.collectionView reloadData];
+    }
+    
+    [self charCountSuraSort];
+    [self applyCurrentSort];
+}
+
+- (void)fastAccessNormalSuraOrderSort{
+    if (self.periodicTaskManager.dataSource.settings.sortType == NormalSuraOrderSort) {
+        self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
+        [self.periodicTaskManager.dataSource saveSettings];
+    }
+    
+    [self normalSuraOrderSort];
+    [self applyCurrentSort];
+}
+
+- (void)fastAccessWeakerFirstSuraFirstSort{
+    if (self.periodicTaskManager.dataSource.settings.sortType == LightSort) {
+        self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
+        [self.periodicTaskManager.dataSource saveSettings];
+        [self.collectionView reloadData];
+    }
+    
+    [self weakerFirstSuraFirstSort];
+    [self applyCurrentSort];
 }
 
 - (void)charCountSuraSort{
