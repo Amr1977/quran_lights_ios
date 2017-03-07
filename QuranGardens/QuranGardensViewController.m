@@ -797,9 +797,12 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         cell.layer.borderWidth = 0;
     }
     
+    
     if (days >= 10 && task.memorizedState == 2 ) {
+        cell.memorized.layer.cornerRadius = cell.memorized.frame.size.width / 2.0;
         cell.memorized.layer.borderColor = [UIColor redColor].CGColor;
         cell.memorized.layer.borderWidth = 1.0;
+        
     } else {
         cell.memorized.layer.borderColor = [UIColor clearColor].CGColor;
         cell.memorized.layer.borderWidth = 0.0;
