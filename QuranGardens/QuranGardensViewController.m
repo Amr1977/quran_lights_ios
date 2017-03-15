@@ -23,8 +23,6 @@ static NSString *const ShowHelpScreenKey = @"Show_help_screen";
 static NSString *const ReversedSortOrderOptionKey = @"reversed_sort_order";
 static NSString *const SorterTypeOptionKey = @"sorter_type";
 
-
-
 @interface QuranGardensViewController ()
 
 @property (strong, nonatomic) PeriodicTaskManager *periodicTaskManager;
@@ -737,6 +735,16 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SuraViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
+    if (cell.tag == 0) {
+        cell.tag = 1;
+        cell.content.layer.cornerRadius = 10.0;
+        cell.content.clipsToBounds = YES;
+        cell.content.layer.borderWidth = 2;
+        cell.backgroundColor = [UIColor blackColor];
+        cell.memorized.layer.cornerRadius = cell.memorized.frame.size.width / 2.0;
+        cell.memorized.layer.borderWidth = 2.0;
+        cell.memorized.image = self.sunImage;
+    }
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
     
     task.cycleInterval = self.periodicTaskManager.dataSource.settings.fadeTime;
@@ -760,13 +768,11 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
             
         case 1://was memorized
             cell.memorized.hidden = NO;
-            cell.memorized.image = self.sunImage;
             cell.memorized.alpha = 0.5;
             break;
             
         case 2://is memorized
             cell.memorized.hidden = NO;
-            cell.memorized.image = self.sunImage;
             cell.memorized.alpha = 1.0;
             break;
             
@@ -780,7 +786,6 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
             break;
     }
     
-    
     NSUInteger days = [[NSDate new] timeIntervalSinceDate:[task.history lastObject]] / (60*60*24);
     if (days < 1000 && days > 0) {
         cell.daysElapsed.text = [NSString stringWithFormat:@"%ld", (long)days];
@@ -788,27 +793,20 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         cell.daysElapsed.text = nil;
     }
     
-    
     if (days >= 30) {
-        cell.layer.borderColor = [UIColor redColor].CGColor;
-        cell.layer.borderWidth = 1;
-    } else {
-        cell.layer.borderColor = [UIColor clearColor].CGColor;
-        cell.layer.borderWidth = 0;
-    }
-    
-    
-    if (days >= 10 && task.memorizedState == 2 ) {
-        cell.memorized.layer.cornerRadius = cell.memorized.frame.size.width / 2.0;
-        cell.memorized.layer.borderColor = [UIColor redColor].CGColor;
-        cell.memorized.layer.borderWidth = 1.0;
+        cell.content.layer.borderColor = [UIColor redColor].CGColor;
         
     } else {
-        cell.memorized.layer.borderColor = [UIColor clearColor].CGColor;
-        cell.memorized.layer.borderWidth = 0.0;
+        cell.content.layer.borderColor = [UIColor clearColor].CGColor;
     }
     
-    cell.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.1) blue:1/255 alpha:1];
+    if (days >= 10 && task.memorizedState == 2 ) {
+        cell.memorized.layer.borderColor = [UIColor redColor].CGColor;
+    } else {
+        cell.memorized.layer.borderColor = [UIColor clearColor].CGColor;
+    }
+    
+    cell.content.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.1) blue:1/255 alpha:1];
     cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, task.name];
    
     return cell;

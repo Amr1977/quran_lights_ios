@@ -14,4 +14,8 @@
 
 @implementation SuraViewCell
 
+- (void)configure{
+    
+}
+
 @end
