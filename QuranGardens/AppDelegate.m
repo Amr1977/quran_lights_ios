@@ -15,6 +15,8 @@
 
 @interface AppDelegate ()
 
+@property (nonatomic) BOOL isSignedUp;
+
 @end
 
 @implementation AppDelegate
@@ -102,20 +104,60 @@ NetworkStatus remoteHostStatus;
 //Firebase
 
 - (void)firebaseSignIn{
-    [[FIRAuth auth]
-     signInAnonymouslyWithCompletion:^(FIRUser *_Nullable user, NSError *_Nullable error) {
-         if (!error) {
-             self.isSignedIn = YES;
-             NSLog(@"user.uid: %@",user.uid);
-             self.userID = user.uid;
-             [[NSNotificationCenter defaultCenter] postNotificationName:FireBaseSignInNotification object:self];
-             [self checkUpdatetimeStamps];
+    self.isSignedUp = [[NSUserDefaults standardUserDefaults] boolForKey:@"isSignedUp"];
+    NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:@"email"];
+    NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
+    
+    if (self.isSignedUp && email != nil && password != nil) {
+        [[FIRAuth auth] signInWithEmail:email
+                               password:password
+                             completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
+                                 if (error != nil) {
+                                     NSLog(@"Error Signing in as %@", error.localizedDescription);
+                                 } else {
+                                     NSLog(@"Signed in successfully as %@ with email: %@, password: [%@]", user, email, password);
+                                     self.isSignedIn = YES;
+                                     NSLog(@"user.uid: %@",user.uid);
+                                     self.userID = user.uid;
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:FireBaseSignInNotification object:self];
+                                     [self checkUpdatetimeStamps];
+                                 }
+        }];
+    } else {
+        [[FIRAuth auth]
+         signInAnonymouslyWithCompletion:^(FIRUser *_Nullable user, NSError *_Nullable error) {
+             if (!error) {
+                 self.isSignedIn = YES;
+                 NSLog(@"user.uid: %@",user.uid);
+                 self.userID = user.uid;
+                 [[NSNotificationCenter defaultCenter] postNotificationName:FireBaseSignInNotification object:self];
+                 //[self signUpWithEmail:@"amr.lotf@badrit.com" password:@"pazzword2011" userName:@"amr"];
+                 [self checkUpdatetimeStamps];
+                 
+             } else {
+                 NSLog(@"Error signing in to firebase %@", error);
+             }
              
-         } else {
-             NSLog(@"Error signing in to firebase %@", error);
-         }
-         
-     }];
+         }];
+    }
+}
+
+- (void)signUpWithEmail: (NSString *)email password: (NSString *)password userName: (NSString *)userName {
+    FIRAuthCredential *credential = [FIREmailPasswordAuthProvider credentialWithEmail:email
+                                                                             password:password];
+    [[FIRAuth auth].currentUser linkWithCredential:credential
+                                        completion:^(FIRUser *_Nullable user, NSError *_Nullable error) {
+                                            if (error != nil) {
+                                                NSLog(@"Error linking account as %@", error.localizedDescription);
+                                            } else {
+                                                self.isSignedUp = true;
+                                                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isSignedUp"];
+                                                [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"email"];
+                                                [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
+                                                [[NSUserDefaults standardUserDefaults] setObject:userName forKey:@"userName"];
+                                                
+                                            }
+                                            NSLog(@"firebaseSignIn created user %@ error %@", user, error); }];
 }
 
 - (void)checkUpdatetimeStamps{
@@ -173,18 +215,19 @@ NetworkStatus remoteHostStatus;
              NSMutableArray *suras = ((NSArray *)snapshot.value).mutableCopy;
              NSLog(@"########## FIRDataSnapshot [snapshot key]: %@",[snapshot key]);
              NSLog(@"########## FIRDataSnapshot [snapshot value]: %@",[snapshot value]);
-             
+
              NSLog(@"########## suras: %@",suras);
              
-             for (NSInteger index = 1; index <= 114; index++) {
-                 NSString *indexStr = [NSString stringWithFormat:@"%ld", (long)index];
-                 if (((NSDictionary *)suras)[indexStr] != nil) {
-                     NSDictionary *reviews = ((NSDictionary *)suras[index])[@"reviews"];
-                     NSLog(@"Sura %ld %@", (long)index, reviews );
-                     NSMutableArray *dates = [reviews allValues].mutableCopy;
-                     dates = [self sort:dates];
-                     self.fbRefreshHistory[indexStr] = dates;
-                 }
+             for (FIRDataSnapshot *childSnap in snapshot.children) {
+                 NSLog(@"key: %@", childSnap.key);
+                 NSLog(@"value: %@", childSnap.value);
+                 NSString *indexStr = [NSString stringWithFormat:@"%@", childSnap.key];
+                 NSInteger index = indexStr.integerValue;
+                 NSDictionary *reviews = ((NSDictionary *)(childSnap.value))[@"reviews"];
+                 NSLog(@"Sura %ld %@", (long)index, reviews );
+                 NSMutableArray *dates = [reviews allValues].mutableCopy;
+                 dates = [self sort:dates];
+                 self.fbRefreshHistory[indexStr] = dates;
              }
          }
          [[NSNotificationCenter defaultCenter] postNotificationName:@"HistoryLoadedFromFireBase" object:self];

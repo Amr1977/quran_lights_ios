@@ -189,6 +189,7 @@
 				076965A51C5B5D0700ED2D33 /* AppDelegate.h */,
 				076965A61C5B5D0700ED2D33 /* AppDelegate.m */,
 				076965AB1C5B5D0700ED2D33 /* Main.storyboard */,
+				C5CC35181E2144580070D14F /* Login.storyboard */,
 				07FAC8EA1D66FA0000A18525 /* SettingsViewController.xib */,
 				076965DD1C5B62AE00ED2D33 /* Controller */,
 				076965DC1C5B628F00ED2D33 /* View */,
@@ -197,7 +198,6 @@
 				076965B31C5B5D0700ED2D33 /* Info.plist */,
 				076965A21C5B5D0700ED2D33 /* Supporting Files */,
 				0750B0C91D68F51C0081B1C4 /* reval.txt */,
-				C5CC35181E2144580070D14F /* Login.storyboard */,
 				C5147FC91E61BB0300DE699E /* Reachability.h */,
 				C5147FCA1E61BB5500DE699E /* Reachability.m */,
 			);

@@ -768,11 +768,13 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
             
         case 1://was memorized
             cell.memorized.hidden = NO;
+            cell.memorized.image = self.sunImage;
             cell.memorized.alpha = 0.5;
             break;
             
         case 2://is memorized
             cell.memorized.hidden = NO;
+            cell.memorized.image = self.sunImage;
             cell.memorized.alpha = 1.0;
             break;
             
