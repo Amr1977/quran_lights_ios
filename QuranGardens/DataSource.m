@@ -59,7 +59,7 @@ NSString * const SortTypeKey = @"SortTypeKey";
     self.tasks = @[].mutableCopy;
     for (NSString *suraName in [Sura suraNames]) {
         NSTimeInterval interval = [[[NSUserDefaults standardUserDefaults] objectForKey:[self cyclePeriodKeyForSuraName:suraName]] doubleValue];
-        NSDate *lastRefresh = [[NSUserDefaults standardUserDefaults] objectForKey:[self lastRefreshKeyForSuraName:suraName]];
+
         PeriodicTask *task = [[PeriodicTask alloc] init];
         task.name = suraName;
         task.memorizedState = [self loadMemorizedStateForSura:suraName];
@@ -69,17 +69,6 @@ NSString * const SortTypeKey = @"SortTypeKey";
         task.cycleInterval = interval;
         
         task.history = [self loadRefreshHistoryForSuraName:suraName];
-        
-        if (!lastRefresh) {
-            lastRefresh = [NSDate dateWithTimeIntervalSince1970:0];
-        }
-        task.lastOccurrence = lastRefresh;
-        
-        if (task.history.count == 0) {
-            NSMutableArray *history = @[].mutableCopy;
-            [history addObject:task.lastOccurrence];
-            task.history = history;
-        }
         
         [self.tasks addObject:task];
     }
@@ -100,7 +89,7 @@ NSString * const SortTypeKey = @"SortTypeKey";
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:task.cycleInterval] forKey:[self cyclePeriodKeyForSuraName:task.name]];
         
         //last refresh
-        [[NSUserDefaults standardUserDefaults] setObject:task.lastOccurrence forKey:[self lastRefreshKeyForSuraName:task.name]];
+        //[[NSUserDefaults standardUserDefaults] setObject:task.lastOccurrence forKey:[self lastRefreshKeyForSuraName:task.name]];
     }
     
     //TODO: save settings

@@ -71,11 +71,11 @@
 }
 
 - (void)resetTasks{
-    NSDate *oldDay = [NSDate dateWithTimeIntervalSince1970:0];
-    for (PeriodicTask * task in self.dataSource.tasks) {
-        task.lastOccurrence = oldDay;
-    }
-    [self saveTasks];
+//    NSDate *oldDay = [NSDate dateWithTimeIntervalSince1970:0];
+//    for (PeriodicTask * task in self.dataSource.tasks) {
+//        task.lastOccurrence = oldDay;
+//    }
+//    [self saveTasks];
 }
 
 - (NSInteger)taskCount{

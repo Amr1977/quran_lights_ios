@@ -46,7 +46,7 @@ static NSString * const PeriodicTaskCycleIntervalKey = @"cycleInterval";
         _name = (NSString *)[plist objectForKey:PeriodicTaskNameKey];
         _taskDescription = nil;
         _cycleInterval = [(NSNumber *)[plist objectForKey:PeriodicTaskCycleIntervalKey] doubleValue];
-        _lastOccurrence = (NSDate *)[plist objectForKey:PeriodicTaskLastOccurrenceKey];
+        //_lastOccurrence = (NSDate *)[plist objectForKey:PeriodicTaskLastOccurrenceKey];
     }
     
     return self;
@@ -62,7 +62,7 @@ static NSString * const PeriodicTaskCycleIntervalKey = @"cycleInterval";
         _name = name;
         _taskDescription = description;
         _cycleInterval = interval;
-        _lastOccurrence = lastOccurrence;
+        //_lastOccurrence = lastOccurrence;
     }
     
     return self;
@@ -70,6 +70,9 @@ static NSString * const PeriodicTaskCycleIntervalKey = @"cycleInterval";
 
 - (NSTimeInterval)remainingTimeInterval{
     NSTimeInterval result = 0;
+    if (self.history == nil || self.history.count == 0) {
+        return 0;
+    }
     NSTimeInterval ellapsedInterval = [[[NSDate alloc] init] timeIntervalSinceDate:[self.history lastObject]];
     result = self.cycleInterval - ellapsedInterval;
     return result;
@@ -96,7 +99,7 @@ static NSString * const PeriodicTaskCycleIntervalKey = @"cycleInterval";
     NSMutableDictionary *plist = @{}.mutableCopy;
     
     [plist setValue:self.name forKey:@"name"];
-    [plist setValue:self.lastOccurrence forKey:@"lastOccurrence"];
+    //[plist setValue:self.lastOccurrence forKey:@"lastOccurrence"];
     [plist setValue:[NSNumber numberWithDouble:self.cycleInterval] forKey:@"cycleInterval"];
     
     return [plist copy];
@@ -108,7 +111,7 @@ static NSString * const PeriodicTaskCycleIntervalKey = @"cycleInterval";
     _name = (NSString *)[plist objectForKey:PeriodicTaskNameKey];
     _taskDescription = nil;
     _cycleInterval = [(NSNumber *)[plist objectForKey:PeriodicTaskCycleIntervalKey] doubleValue];
-    _lastOccurrence = (NSDate *)[plist objectForKey:PeriodicTaskLastOccurrenceKey];
+    //_lastOccurrence = (NSDate *)[plist objectForKey:PeriodicTaskLastOccurrenceKey];
 }
 
 @end

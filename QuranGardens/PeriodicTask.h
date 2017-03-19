@@ -27,7 +27,7 @@
 @property (nonatomic) NSTimeInterval cycleInterval;
 
 /** Last time that task Occurred */
-@property (strong, nonatomic) NSDate *lastOccurrence;
+//@property (strong, nonatomic) NSDate *lastOccurrence;
 
 @property(strong, nonatomic) NSArray<NSDate *> *history;
 

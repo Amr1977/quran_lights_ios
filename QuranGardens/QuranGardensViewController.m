@@ -787,7 +787,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
             break;
     }
     
-    NSUInteger days = [[NSDate new] timeIntervalSinceDate:[task.history lastObject]] / (60*60*24);
+    NSUInteger days = progress != 0 ? [[NSDate new] timeIntervalSinceDate:[task.history lastObject]] / (60*60*24) : 10000;
     if (days < 1000 && days > 0) {
         cell.daysElapsed.text = [NSString stringWithFormat:@"%ld", (long)days];
     } else {
@@ -832,13 +832,11 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     NSMutableArray<NSDate *>* history = [self.periodicTaskManager.dataSource loadRefreshHistoryForSuraName:task.name].mutableCopy;
     if(!history){
         history = @[].mutableCopy;
-        [history addObject:task.lastOccurrence];
-        [self.periodicTaskManager.dataSource saveSuraLastRefresh:task.lastOccurrence suraName:task.name];
     }
     
-    task.lastOccurrence = [[NSDate alloc] init];
+    //task.lastOccurrence = [[NSDate alloc] init];
     
-    [self.periodicTaskManager.dataSource saveSuraLastRefresh:task.lastOccurrence suraName:task.name];
+    [self.periodicTaskManager.dataSource saveSuraLastRefresh:[[NSDate alloc] init] suraName:task.name];
     [self applyCurrentSort];
     [self refreshScoreButton];
     [self.collectionView reloadData];
