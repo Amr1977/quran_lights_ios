@@ -75,12 +75,11 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
 }
 
-
 - (void)refreshScoreButton{
     NSInteger todayScore =  [self.statistics todayScore];
     NSInteger yesterdayScore = [self.statistics yesterdayScore];
 
-    self.score.title = [NSString stringWithFormat:@"Score Today: %ld , Total: %ld", todayScore, (long)[self.statistics totalScore]];
+    self.score.title = [NSString stringWithFormat:@"Score: %ld(%ld)",(long)[self.statistics totalScore], (long)todayScore];
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
     [self.score setTintColor:color];

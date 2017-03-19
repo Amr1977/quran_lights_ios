@@ -34,9 +34,9 @@ NSString * const SortTypeKey = @"SortTypeKey";
 }
 
 - (void)listTasksData{
-    for (PeriodicTask *sura in self.tasks) {
-        NSLog(@"%@, CycleInterval: %f , last Refresh: %@",sura.name, sura.cycleInterval, sura.lastOccurrence);
-    }
+//    for (PeriodicTask *sura in self.tasks) {
+//        NSLog(@"%@, CycleInterval: %f , last Refresh: %@",sura.name, sura.cycleInterval, sura.lastOccurrence);
+//    }
 }
 
 - (void)dealloc{

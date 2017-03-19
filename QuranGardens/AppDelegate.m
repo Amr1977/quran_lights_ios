@@ -161,35 +161,37 @@ NetworkStatus remoteHostStatus;
 }
 
 - (void)checkUpdatetimeStamps{
-    [[[[self.firebaseDatabaseReference
-        child:@"users"]
-       child:self.userID]
-      child:@"update"]
-     observeSingleEventOfType:FIRDataEventTypeValue
-     withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
-         
-         if (snapshot.value == [NSNull null]) {
-             [self loadHistory];
-         } else {
-             NSNumber *localUpdateTimeStamp = [[NSUserDefaults standardUserDefaults] valueForKey:@"LastUpdateTimeStamp"];
-             NSNumber *remoteUpdateTimeStamp = snapshot.value;
-             NSLog(@"Update stamp on Firebase %@", remoteUpdateTimeStamp);
+    if (self.userID) {
+        [[[[self.firebaseDatabaseReference
+            child:@"users"]
+           child:self.userID]
+          child:@"update"]
+         observeSingleEventOfType:FIRDataEventTypeValue
+         withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
              
-             if ([localUpdateTimeStamp isEqualToNumber:remoteUpdateTimeStamp]) {
-                 NSLog(@"History Already Synced with Firebase on %@ %@",
-                       localUpdateTimeStamp,
-                       [NSDate dateWithTimeIntervalSince1970:localUpdateTimeStamp.doubleValue]);
-                 return;
+             if (snapshot.value == [NSNull null]) {
+                 [self loadHistory];
              } else {
-                 if (remoteUpdateTimeStamp != nil){
-                     [self loadHistory];
+                 NSNumber *localUpdateTimeStamp = [[NSUserDefaults standardUserDefaults] valueForKey:@"LastUpdateTimeStamp"];
+                 NSNumber *remoteUpdateTimeStamp = snapshot.value;
+                 NSLog(@"Update stamp on Firebase %@", remoteUpdateTimeStamp);
+                 
+                 if ([localUpdateTimeStamp isEqualToNumber:remoteUpdateTimeStamp]) {
+                     NSLog(@"History Already Synced with Firebase on %@ %@",
+                           localUpdateTimeStamp,
+                           [NSDate dateWithTimeIntervalSince1970:localUpdateTimeStamp.doubleValue]);
+                     return;
+                 } else {
+                     if (remoteUpdateTimeStamp != nil){
+                         [self loadHistory];
+                     }
                  }
              }
          }
-     }
-     withCancelBlock:^(NSError * _Nonnull error) {
-         NSLog(@"%@", error.localizedDescription);
-     }];
+         withCancelBlock:^(NSError * _Nonnull error) {
+             NSLog(@"%@", error.localizedDescription);
+         }];
+    }
 }
 
 - (void)uploadHistory{
@@ -197,6 +199,10 @@ NetworkStatus remoteHostStatus;
 }
 
 - (void)loadHistory{
+    
+    if (!self.userID) {
+        return;
+    }
     
     self.fbRefreshHistory = @{}.mutableCopy;
     
@@ -238,6 +244,10 @@ NetworkStatus remoteHostStatus;
 }
 
 - (void)refreshSura:(NSString *)suraName withHistory:(NSArray *)history{
+    [self updateTimeStamp];
+    if (!self.userID) {
+        return;
+    }
     for (NSDate *date in history) {
         NSNumber *dateNumber =  [NSNumber numberWithLongLong:[date timeIntervalSince1970]];
         NSLog(@"attempting to send %@",dateNumber);
@@ -249,42 +259,49 @@ NetworkStatus remoteHostStatus;
            child:@"reviews"] childByAutoId]
          setValue: dateNumber];
     }
-    [self updateTimeStamp];
 }
 
 - (void)refreshSura:(NSString *)suraName{
-    NSNumber *date =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];
     
-    [[[[[[[self.firebaseDatabaseReference
-           child:@"users"]
-          child: self.userID]
-         child:@"Suras"]
-        child:[self suraIndexFromSuraName:suraName]]
-       child:@"reviews"]
-      childByAutoId] setValue: date];
+    if (self.userID) {
+        NSNumber *date =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];
+        
+        [[[[[[[self.firebaseDatabaseReference
+               child:@"users"]
+              child: self.userID]
+             child:@"Suras"]
+            child:[self suraIndexFromSuraName:suraName]]
+           child:@"reviews"]
+          childByAutoId] setValue: date];
+    }
     [self updateTimeStamp];
+    
 }
 
 - (void)refreshSura:(NSString *)suraName withDate:(NSNumber *)date {
-    [[[[[[[self.firebaseDatabaseReference
-           child:@"users"]
-          child: self.userID]
-         child:@"Suras"]
-        child:[self suraIndexFromSuraName:suraName]]
-       child:@"reviews"]
-      childByAutoId]
-     setValue: date];
-    [self updateTimeStamp];
+    if (self.userID) {
+        [[[[[[[self.firebaseDatabaseReference
+               child:@"users"]
+              child: self.userID]
+             child:@"Suras"]
+            child:[self suraIndexFromSuraName:suraName]]
+           child:@"reviews"]
+          childByAutoId]
+         setValue: date];
+    }
+[self updateTimeStamp];
 }
 
 - (void)updateTimeStamp {
     NSNumber *updateDate =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];
-    [[[[self.firebaseDatabaseReference
-        child:@"users"]
-       child: self.userID]
-      child:@"update"]
-     setValue:updateDate];
     [[NSUserDefaults standardUserDefaults] setObject:updateDate forKey:@"LastUpdateTimeStamp"];
+    if (self.userID) {
+        [[[[self.firebaseDatabaseReference
+            child:@"users"]
+           child: self.userID]
+          child:@"update"]
+         setValue:updateDate];
+    }
 }
 
 @end
