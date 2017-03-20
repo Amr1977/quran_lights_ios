@@ -301,27 +301,27 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
                                                                self.menuOpened = NO;
                                                            }];
         
-        UIAlertAction* saveAction = [UIAlertAction actionWithTitle:@"Save To File"
-                                                                 style:UIAlertActionStyleDefault
-                                                               handler:^(UIAlertAction * action) {
-                                                                   [self save];
-                                                                   self.menuOpened = NO;
-                                                               }];
-        
-        UIAlertAction* loadAction = [UIAlertAction actionWithTitle:@"Load from File"
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction * action) {
-                                                               [self load];
-                                                               self.menuOpened = NO;
-                                                           }];
+//        UIAlertAction* saveAction = [UIAlertAction actionWithTitle:@"Save To File"
+//                                                                 style:UIAlertActionStyleDefault
+//                                                               handler:^(UIAlertAction * action) {
+//                                                                   [self save];
+//                                                                   self.menuOpened = NO;
+//                                                               }];
+//        
+//        UIAlertAction* loadAction = [UIAlertAction actionWithTitle:@"Load from File"
+//                                                             style:UIAlertActionStyleDefault
+//                                                           handler:^(UIAlertAction * action) {
+//                                                               [self load];
+//                                                               self.menuOpened = NO;
+//                                                           }];
         
         UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
                                                                style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action) { self.menuOpened = NO; }];
         [_menu addAction:howItWorksAction];
         [_menu addAction:settingsAction];
-        [_menu addAction:saveAction];
-        [_menu addAction:loadAction];
+//        [_menu addAction:saveAction];
+//        [_menu addAction:loadAction];
         //[_menu addAction:resetAction];
         [_menu addAction:cancelAction];
     }
