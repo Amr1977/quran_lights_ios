@@ -66,6 +66,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vdp-YC-Z8Q">
+                                <rect key="frame" x="164" y="374" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="signin"/>
+                                <connections>
+                                    <action selector="onSignin:" destination="Rsg-an-g2D" eventType="touchUpInside" id="YPs-eN-4RC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -93,6 +101,7 @@
                         <outlet property="emailTextField" destination="uTB-H9-Qj1" id="y0c-CE-oKx"/>
                         <outlet property="passwordTextField" destination="EfU-XN-3tu" id="nRe-6b-25o"/>
                         <outlet property="retypePasswordTextField" destination="qLP-jY-3b8" id="KvC-RD-s7t"/>
+                        <outlet property="signin" destination="vdp-YC-Z8Q" id="tvB-hn-b5V"/>
                         <outlet property="userName" destination="Pxs-fB-GY1" id="m3d-Tw-TH2"/>
                     </connections>
                 </viewController>

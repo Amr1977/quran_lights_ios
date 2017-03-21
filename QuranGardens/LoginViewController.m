@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *retypePasswordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *userName;
+@property (weak, nonatomic) IBOutlet UIButton *signin;
 
 
 
@@ -46,6 +47,18 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)onSignin:(id)sender {
+    NSString *email = self.emailTextField.text;
+    NSString *password = self.passwordTextField.text;
+    
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] signInWithEmail:email password:password completion:^(BOOL success) {
+        if (success) {
+            [self presentViewController:[AMRTools showMenuWithTitle:@"user signed in" handlers:nil] animated:YES completion: nil];
+        } else {
+            [self presentViewController:[AMRTools showMenuWithTitle:@"Error signing in, check credentials" handlers:nil] animated:YES completion: nil];
+        }
+    }];
+}
 
 - (IBAction)onSignUp:(id)sender {
 
@@ -54,7 +67,13 @@
     NSString *password = self.passwordTextField.text;
     NSString *password2 = self.retypePasswordTextField.text;
     
-    if (name != nil && email != nil && password != nil && password2 != nil ) {
+    if (name != nil && email != nil && password != nil && password2 != nil && [password isEqualToString:password2]) {
+        NSError *signOutError;
+        BOOL status = [[FIRAuth auth] signOut:&signOutError];
+        if (!status) {
+            NSLog(@"Error signing out: %@", signOutError);
+            return;
+        }
         [(AppDelegate *)[[UIApplication sharedApplication] delegate] signUpWithEmail:email password:password userName:name completion:^(BOOL success){
             if (success) {
                [self presentViewController:[AMRTools showMenuWithTitle:@"Success" handlers:nil] animated:YES completion: nil];
@@ -64,9 +83,6 @@
             }
         }];
     }
-    
-
-    
     
 }
 

@@ -158,10 +158,42 @@ NetworkStatus remoteHostStatus;
                                                 [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
                                                 [[NSUserDefaults standardUserDefaults] setObject:userName forKey:@"userName"];
                                                 NSLog(@"firebaseSignIn created user %@ ", user);
+                                                [self checkUpdatetimeStamps];
                                                 completion(true);
                                             }
                                         }
      ];
+}
+
+- (void)signInWithEmail:(NSString *)email password:(NSString *)password completion:(void (^)(BOOL success))completion {
+    
+    NSError *signOutError;
+    BOOL status = [[FIRAuth auth] signOut:&signOutError];
+    if (!status) {
+        NSLog(@"Error signing out: %@", signOutError);
+    } else {
+        self.isSignedIn = YES;
+    }
+    
+    [[FIRAuth auth]
+     createUserWithEmail:email
+     password:password
+     completion:^(FIRUser *_Nullable user,
+                  NSError *_Nullable error) {
+         if (error != nil) {
+             NSLog(@"firebaseSignIn error signin %@ ", error.localizedDescription);
+             completion(NO);
+         } else {
+             self.isSignedUp = true;
+             self.userID = user.uid;
+             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isSignedUp"];
+             [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"email"];
+             [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
+             NSLog(@"firebaseSignIn signed in user %@ ", user);
+             [self checkUpdatetimeStamps];
+             completion(YES);
+         }
+     }];
 }
 
 - (void)checkUpdatetimeStamps{
@@ -281,6 +313,22 @@ NetworkStatus remoteHostStatus;
     [self updateTimeStamp];
     
 }
+
+- (void)refreshSura:(NSString *)suraName withMemorization:(NSInteger)memorization{
+    
+    if (self.userID) {
+        [[[[[[self.firebaseDatabaseReference
+               child:@"users"]
+              child: self.userID]
+             child:@"Suras"]
+            child:[self suraIndexFromSuraName:suraName]]
+           child:@"memorization"]
+           setValue: [NSNumber numberWithInteger:memorization]];
+    }
+    [self updateTimeStamp];
+    
+}
+
 
 - (void)refreshSura:(NSString *)suraName withDate:(NSNumber *)date {
     if (self.userID) {

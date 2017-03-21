@@ -35,5 +35,11 @@
                userName: (NSString *)userName
              completion: (void (^)(BOOL success))completion;
 
+- (void)signInWithEmail:(NSString *)email
+               password:(NSString *)password
+             completion:(void (^)(BOOL success))completion;
+
+- (void)refreshSura:(NSString *)suraName withMemorization:(NSInteger)memorization;
+
 @end
 
