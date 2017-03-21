@@ -57,10 +57,10 @@
     if (name != nil && email != nil && password != nil && password2 != nil ) {
         [(AppDelegate *)[[UIApplication sharedApplication] delegate] signUpWithEmail:email password:password userName:name completion:^(BOOL success){
             if (success) {
-                [AMRTools showMenuWithTitle:@"Success" handlers:nil];
+               [self presentViewController:[AMRTools showMenuWithTitle:@"Success" handlers:nil] animated:YES completion: nil];
             } else {
                 //TODO check connectivity
-                [AMRTools showMenuWithTitle:@"Error signing up, check credentials" handlers:nil];
+                [self presentViewController:[AMRTools showMenuWithTitle:@"Error signing up, check credentials" handlers:nil] animated:YES completion: nil];
             }
         }];
     }
