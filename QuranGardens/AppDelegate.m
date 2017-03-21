@@ -142,22 +142,26 @@ NetworkStatus remoteHostStatus;
     }
 }
 
-- (void)signUpWithEmail: (NSString *)email password: (NSString *)password userName: (NSString *)userName {
+- (void)signUpWithEmail: (NSString *)email password: (NSString *)password userName: (NSString *)userName
+             completion: (void (^)(BOOL success))completion {
     FIRAuthCredential *credential = [FIREmailPasswordAuthProvider credentialWithEmail:email
                                                                              password:password];
     [[FIRAuth auth].currentUser linkWithCredential:credential
                                         completion:^(FIRUser *_Nullable user, NSError *_Nullable error) {
                                             if (error != nil) {
-                                                NSLog(@"Error linking account as %@", error.localizedDescription);
+                                                NSLog(@"Error linking account %@", error.localizedDescription);
+                                                completion(false);
                                             } else {
                                                 self.isSignedUp = true;
                                                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isSignedUp"];
                                                 [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"email"];
                                                 [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
                                                 [[NSUserDefaults standardUserDefaults] setObject:userName forKey:@"userName"];
-                                                
+                                                NSLog(@"firebaseSignIn created user %@ ", user);
+                                                completion(true);
                                             }
-                                            NSLog(@"firebaseSignIn created user %@ error %@", user, error); }];
+                                        }
+     ];
 }
 
 - (void)checkUpdatetimeStamps{

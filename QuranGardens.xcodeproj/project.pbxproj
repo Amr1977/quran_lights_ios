@@ -40,6 +40,7 @@
 		0A8DAB34FE051E524BD30303 /* Pods_QuranGardens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82855D8766F94B78534A777E /* Pods_QuranGardens.framework */; };
 		C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C5147FCA1E61BB5500DE699E /* Reachability.m */; };
 		C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C566F4571E21143200628A94 /* GoogleService-Info.plist */; };
+		C59A202F1E8116BD003C0F09 /* AMRTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C59A202E1E8116BD003C0F09 /* AMRTools.m */; };
 		C5CC35171E2143A70070D14F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CC35161E2143A70070D14F /* LoginViewController.m */; };
 		C5CC35191E2144580070D14F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5CC35181E2144580070D14F /* Login.storyboard */; };
 		C5F17C491E69BB6B00476CA3 /* UIViewController+Gestures.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */; };
@@ -116,6 +117,8 @@
 		C5147FC91E61BB0300DE699E /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C5147FCA1E61BB5500DE699E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C566F4571E21143200628A94 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C59A202D1E8116BD003C0F09 /* AMRTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMRTools.h; sourceTree = "<group>"; };
+		C59A202E1E8116BD003C0F09 /* AMRTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMRTools.m; sourceTree = "<group>"; };
 		C5CC35151E2143A70070D14F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C5CC35161E2143A70070D14F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		C5CC35181E2144580070D14F /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -272,6 +275,8 @@
 				C5CC35161E2143A70070D14F /* LoginViewController.m */,
 				C5F17C471E69BB6B00476CA3 /* UIViewController+Gestures.h */,
 				C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */,
+				C59A202D1E8116BD003C0F09 /* AMRTools.h */,
+				C59A202E1E8116BD003C0F09 /* AMRTools.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -508,6 +513,7 @@
 				075909F21D631B8900A6B7B1 /* DataSource.m in Sources */,
 				071C17AB1D673B5800019CDD /* Settings.m in Sources */,
 				07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */,
+				C59A202F1E8116BD003C0F09 /* AMRTools.m in Sources */,
 				07FAC8EB1D66FA0000A18525 /* SettingsViewController.m in Sources */,
 				076965E01C5B630E00ED2D33 /* QuranGardensViewController.m in Sources */,
 				076965D81C5B60C600ED2D33 /* Sura.m in Sources */,

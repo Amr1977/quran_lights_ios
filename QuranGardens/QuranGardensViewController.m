@@ -193,7 +193,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
     //sort by normal order
     UIButton *moshafOrderButton = [[UIButton alloc] initWithFrame:imageFrame];
-    [moshafOrderButton setTitle:@"M" forState:UIControlStateNormal];
+    [moshafOrderButton setTitle:@"B" forState:UIControlStateNormal];
     
     
     [moshafOrderButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];

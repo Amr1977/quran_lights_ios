@@ -90,6 +90,17 @@
                                         <segment title="Descending"/>
                                     </segments>
                                 </segmentedControl>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rIZ-Ti-dXM">
+                                    <rect key="frame" x="18" y="511" width="81" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="5N5-Hk-iqg"/>
+                                        <constraint firstAttribute="width" constant="81" id="EYJ-0Z-M24"/>
+                                    </constraints>
+                                    <state key="normal" title="Sign Up"/>
+                                    <connections>
+                                        <action selector="onSignUp:" destination="-1" eventType="touchUpInside" id="MbM-c4-36L"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -98,12 +109,14 @@
                                 <constraint firstItem="gB2-Dt-28v" firstAttribute="leading" secondItem="dVV-CQ-If4" secondAttribute="leading" constant="16" id="NQg-9e-hrQ"/>
                                 <constraint firstItem="9Yb-jN-Yrb" firstAttribute="top" secondItem="gB2-Dt-28v" secondAttribute="bottom" constant="8" id="apP-L1-6Sw"/>
                                 <constraint firstItem="lqw-lJ-cpp" firstAttribute="leading" secondItem="dVV-CQ-If4" secondAttribute="leading" constant="17" id="apU-LK-BiF"/>
+                                <constraint firstItem="rIZ-Ti-dXM" firstAttribute="top" secondItem="7fh-KB-XlF" secondAttribute="bottom" constant="40" id="dfs-QS-HDK"/>
                                 <constraint firstItem="9Yb-jN-Yrb" firstAttribute="top" secondItem="dVV-CQ-If4" secondAttribute="top" constant="84" id="fBl-TQ-jaz"/>
                                 <constraint firstItem="ZiG-Jc-Muc" firstAttribute="leading" secondItem="dVV-CQ-If4" secondAttribute="leading" constant="16" id="gal-Sq-18h"/>
                                 <constraint firstItem="7fh-KB-XlF" firstAttribute="leading" secondItem="dVV-CQ-If4" secondAttribute="leading" constant="8" id="opX-ay-cEo"/>
                                 <constraint firstItem="lqw-lJ-cpp" firstAttribute="top" secondItem="dVV-CQ-If4" secondAttribute="top" constant="8" id="viz-GC-B9k"/>
                                 <constraint firstItem="ZiG-Jc-Muc" firstAttribute="top" secondItem="9Yb-jN-Yrb" secondAttribute="bottom" constant="44" id="vrt-Dz-sWp"/>
                                 <constraint firstItem="7fh-KB-XlF" firstAttribute="top" secondItem="ZiG-Jc-Muc" secondAttribute="bottom" constant="8" id="xVH-dg-h54"/>
+                                <constraint firstItem="rIZ-Ti-dXM" firstAttribute="leading" secondItem="dVV-CQ-If4" secondAttribute="leading" constant="18" id="zXJ-5h-mYJ"/>
                             </constraints>
                         </view>
                     </subviews>

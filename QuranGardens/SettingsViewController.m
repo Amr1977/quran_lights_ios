@@ -8,6 +8,7 @@
 
 #import "SettingsViewController.h"
 #import "UIViewController+Gestures.h"
+#import "LoginViewController.h"
 
 static NSString * const YearTimeUnit = @"y";
 static NSString * const MonthTimeUnit = @"n";
@@ -185,6 +186,12 @@ static Settings* settingsCopy;
 - (IBAction)didEndEditing:(id)sender{
     NSLog(@"didEndEditing");
     [self hideKeyBoard];
+}
+
+- (IBAction)onSignUp:(id)sender {
+    LoginViewController *loginviewController = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    
+    [self presentViewController:loginviewController animated:YES completion:nil];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
