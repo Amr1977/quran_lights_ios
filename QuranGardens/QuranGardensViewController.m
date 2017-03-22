@@ -14,6 +14,7 @@
 #import "Settings.h"
 #import "Statistics.h"
 #import "AppDelegate.h"
+#import "AMRTools.h"
 
 CGFloat const CellHeight = 80;
 CGFloat const CellWidth = 140;
@@ -78,8 +79,12 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 - (void)refreshScoreButton{
     NSInteger todayScore =  [self.statistics todayScore];
     NSInteger yesterdayScore = [self.statistics yesterdayScore];
+    NSInteger total = [self.statistics totalScore];
+    
+    NSString *totalString = [AMRTools abbreviateNumber:total withDecimal:1];
+    NSString *todayString = [AMRTools abbreviateNumber:todayScore withDecimal:1];
 
-    self.score.title = [NSString stringWithFormat:@"Score: %ld(%ld)",(long)[self.statistics totalScore], (long)todayScore];
+    self.score.title = [NSString stringWithFormat:@"Score: %@(%@)",totalString, todayString];
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
     [self.score setTintColor:color];
@@ -111,9 +116,16 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 - (void)syncHistory{
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSMutableDictionary<NSString *,NSMutableArray<NSNumber *> *> *fbRefreshHistory = delegate.fbRefreshHistory;
+    NSMutableDictionary<NSString *,NSNumber *> *fbMemoHistory = delegate.fbMemorizationState;
+    
     if (fbRefreshHistory == nil) {
         fbRefreshHistory = @{}.mutableCopy;
-        delegate.fbRefreshHistory = fbRefreshHistory;
+        delegate.fbRefreshHistory = @{}.mutableCopy;
+    }
+    
+    if (fbMemoHistory == nil) {
+        fbMemoHistory = @{}.mutableCopy;
+        delegate.fbMemorizationState = @{}.mutableCopy;
     }
     
     for (NSInteger index = 0; index < 114; index++) {
@@ -123,6 +135,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         }
         NSString *suraName = [Sura suraNames][index];
         NSMutableArray<NSNumber *>* localHistory  = [self mapDatesToNumbers:[self.periodicTaskManager.dataSource loadRefreshHistoryForSuraName:[Sura suraNames][index]].mutableCopy];
+        
         NSMutableArray<NSNumber *>* remoteHistory = fbRefreshHistory[indexStr];
         if (remoteHistory == nil) {
             remoteHistory = @[].mutableCopy;

@@ -51,11 +51,11 @@
     NSString *email = self.emailTextField.text;
     NSString *password = self.passwordTextField.text;
     
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] signInWithEmail:email password:password completion:^(BOOL success) {
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] signInWithEmail:email password:password completion:^(BOOL success, NSString *error) {
         if (success) {
-            [self presentViewController:[AMRTools showMenuWithTitle:@"user signed in" handlers:nil] animated:YES completion: nil];
+            [self presentViewController:[AMRTools showMenuWithTitle:@"user signed in" message:nil  handlers:nil] animated:YES completion: nil];
         } else {
-            [self presentViewController:[AMRTools showMenuWithTitle:@"Error signing in, check credentials" handlers:nil] animated:YES completion: nil];
+            [self presentViewController:[AMRTools showMenuWithTitle:@"Error signing in, check credentials" message:nil  handlers:nil] animated:YES completion: nil];
         }
     }];
 }
@@ -74,12 +74,12 @@
             NSLog(@"Error signing out: %@", signOutError);
             return;
         }
-        [(AppDelegate *)[[UIApplication sharedApplication] delegate] signUpWithEmail:email password:password userName:name completion:^(BOOL success){
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] signUpWithEmail:email password:password userName:name completion:^(BOOL success, NSString *error){
             if (success) {
-               [self presentViewController:[AMRTools showMenuWithTitle:@"Success" handlers:nil] animated:YES completion: nil];
+                [self presentViewController:[AMRTools showMenuWithTitle:@"Success" message:nil handlers:nil] animated:YES completion: nil];
             } else {
                 //TODO check connectivity
-                [self presentViewController:[AMRTools showMenuWithTitle:@"Error signing up, check credentials" handlers:nil] animated:YES completion: nil];
+                [self presentViewController:[AMRTools showMenuWithTitle:@"Error signing up, check credentials" message:nil handlers:nil] animated:YES completion: nil];
             }
         }];
     }

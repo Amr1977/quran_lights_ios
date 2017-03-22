@@ -15,7 +15,7 @@
 
 @interface AppDelegate ()
 
-@property (nonatomic) BOOL isSignedUp;
+
 
 @end
 
@@ -37,34 +37,39 @@ NetworkStatus remoteHostStatus;
 
 - (void)initReachability{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNetworkChange:) name:kReachabilityChangedNotification object:nil];
-    
     reachability = [Reachability reachabilityForInternetConnection];
     [reachability startNotifier];
     
-    NetworkStatus remoteHostStatus = [reachability currentReachabilityStatus];
-    
-    NSLog(@"Reachability:\n");
-    if(remoteHostStatus == NotReachable) {NSLog(@" No connection\n");}
-    else if (remoteHostStatus == ReachableViaWiFi) {NSLog(@"wifi Connection\n"); }
-    else if (remoteHostStatus == ReachableViaWWAN) {NSLog(@"cell Connection\n"); }
+    remoteHostStatus = [reachability currentReachabilityStatus];
+    self.isConnected = !(remoteHostStatus == NotReachable);
+    NSLog(@"Reachability: ");
+    if(self.isConnected) {
+        NSLog(@"Connection established\n");
+    } else {
+        NSLog(@" No connection\n");
+    }
 }
 
 - (void) handleNetworkChange:(NSNotification *)notice
 {
-    remoteHostStatus = [reachability currentReachabilityStatus];
-    
-    NSLog(@"Reachability:");
-    if(remoteHostStatus == NotReachable) {NSLog(@" No connection\n");}
-    else if (remoteHostStatus == ReachableViaWiFi) {NSLog(@"wifi Connection\n"); }
-    else if (remoteHostStatus == ReachableViaWWAN) {NSLog(@"cell Connection\n"); }
-    
-    if(remoteHostStatus != NotReachable) {
+    if(self.isConnected) {
+        NSLog(@"\nConnection established\n");
         if (!self.isSignedIn) {
             [self firebaseSignIn];
         } else {
             [self checkUpdatetimeStamps];
         }
+    } else {
+       NSLog(@" No connection\n");
     }
+}
+
+- (BOOL)isConnected {
+    //TODO handle this!
+    return NO;
+    remoteHostStatus = [reachability currentReachabilityStatus];
+    _isConnected = (remoteHostStatus != NotReachable);
+    return _isConnected;
 }
 
 - (NSString *)suraIndexFromSuraName:(NSString *)suraName{
@@ -104,6 +109,9 @@ NetworkStatus remoteHostStatus;
 //Firebase
 
 - (void)firebaseSignIn{
+    if (!self.isConnected) {
+        return;
+    }
     self.isSignedUp = [[NSUserDefaults standardUserDefaults] boolForKey:@"isSignedUp"];
     NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:@"email"];
     NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
@@ -128,6 +136,8 @@ NetworkStatus remoteHostStatus;
          signInAnonymouslyWithCompletion:^(FIRUser *_Nullable user, NSError *_Nullable error) {
              if (!error) {
                  self.isSignedIn = YES;
+                 self.isSignedUp = NO;
+                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isSignedUp"];
                  NSLog(@"user.uid: %@",user.uid);
                  self.userID = user.uid;
                  [[NSNotificationCenter defaultCenter] postNotificationName:FireBaseSignInNotification object:self];
@@ -143,36 +153,43 @@ NetworkStatus remoteHostStatus;
 }
 
 - (void)signUpWithEmail: (NSString *)email password: (NSString *)password userName: (NSString *)userName
-             completion: (void (^)(BOOL success))completion {
+             completion: (void (^)(BOOL success, NSString *error))completion {
+    if (!self.isConnected) {
+        completion(NO, @"no Internet connection");
+        return;
+    }
     FIRAuthCredential *credential = [FIREmailPasswordAuthProvider credentialWithEmail:email
                                                                              password:password];
     [[FIRAuth auth].currentUser linkWithCredential:credential
                                         completion:^(FIRUser *_Nullable user, NSError *_Nullable error) {
                                             if (error != nil) {
                                                 NSLog(@"Error linking account %@", error.localizedDescription);
-                                                completion(false);
+                                                completion(NO, error.localizedDescription);
                                             } else {
-                                                self.isSignedUp = true;
+                                                self.isSignedUp = YES;
                                                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isSignedUp"];
                                                 [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"email"];
                                                 [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
                                                 [[NSUserDefaults standardUserDefaults] setObject:userName forKey:@"userName"];
                                                 NSLog(@"firebaseSignIn created user %@ ", user);
                                                 [self checkUpdatetimeStamps];
-                                                completion(true);
+                                                completion(YES, nil);
                                             }
                                         }
      ];
 }
 
-- (void)signInWithEmail:(NSString *)email password:(NSString *)password completion:(void (^)(BOOL success))completion {
-    
+- (void)signInWithEmail:(NSString *)email password:(NSString *)password completion:(void (^)(BOOL success, NSString *error))completion {
+    if (!self.isConnected) {
+        completion(NO, @"no Internet connection");
+        return;
+    }
     NSError *signOutError;
     BOOL status = [[FIRAuth auth] signOut:&signOutError];
     if (!status) {
         NSLog(@"Error signing out: %@", signOutError);
     } else {
-        self.isSignedIn = YES;
+        self.isSignedIn = NO;
     }
     
     [[FIRAuth auth]
@@ -182,22 +199,24 @@ NetworkStatus remoteHostStatus;
                   NSError *_Nullable error) {
          if (error != nil) {
              NSLog(@"firebaseSignIn error signin %@ ", error.localizedDescription);
-             completion(NO);
+             self.isSignedUp = YES;
+             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isSignedUp"];
+             completion(NO, error.localizedDescription);
          } else {
-             self.isSignedUp = true;
              self.userID = user.uid;
+             self.isSignedUp = YES;
              [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isSignedUp"];
              [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"email"];
              [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
              NSLog(@"firebaseSignIn signed in user %@ ", user);
              [self checkUpdatetimeStamps];
-             completion(YES);
+             completion(YES, nil);
          }
      }];
 }
 
 - (void)checkUpdatetimeStamps{
-    if (self.userID) {
+    if (self.userID && self.isConnected) {
         [[[[self.firebaseDatabaseReference
             child:@"users"]
            child:self.userID]
@@ -235,12 +254,12 @@ NetworkStatus remoteHostStatus;
 }
 
 - (void)loadHistory{
-    
-    if (!self.userID) {
+    if (!self.userID || !self.isConnected) {
         return;
     }
     
     self.fbRefreshHistory = @{}.mutableCopy;
+    self.fbMemorizationState = @{}.mutableCopy;
     
     FIRDatabaseReference * surasRef = [[[self.firebaseDatabaseReference child:@"users"] child: self.userID] child:@"Suras"];
     FIRDatabaseQuery *query = [surasRef queryOrderedByKey];
@@ -270,6 +289,7 @@ NetworkStatus remoteHostStatus;
                  NSMutableArray *dates = [reviews allValues].mutableCopy;
                  dates = [self sort:dates];
                  self.fbRefreshHistory[indexStr] = dates;
+                 self.fbMemorizationState[indexStr] = (NSNumber *)(((NSDictionary *)(childSnap.value))[@"memorization"]);
              }
          }
          [[NSNotificationCenter defaultCenter] postNotificationName:@"HistoryLoadedFromFireBase" object:self];
@@ -281,7 +301,7 @@ NetworkStatus remoteHostStatus;
 
 - (void)refreshSura:(NSString *)suraName withHistory:(NSArray *)history{
     [self updateTimeStamp];
-    if (!self.userID) {
+    if (!self.userID && self.isConnected) {
         return;
     }
     for (NSDate *date in history) {
@@ -299,7 +319,7 @@ NetworkStatus remoteHostStatus;
 
 - (void)refreshSura:(NSString *)suraName{
     
-    if (self.userID) {
+    if (self.userID && self.isConnected) {
         NSNumber *date =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];
         
         [[[[[[[self.firebaseDatabaseReference
@@ -316,7 +336,7 @@ NetworkStatus remoteHostStatus;
 
 - (void)refreshSura:(NSString *)suraName withMemorization:(NSInteger)memorization{
     
-    if (self.userID) {
+    if (self.userID && self.isConnected) {
         [[[[[[self.firebaseDatabaseReference
                child:@"users"]
               child: self.userID]
@@ -331,7 +351,7 @@ NetworkStatus remoteHostStatus;
 
 
 - (void)refreshSura:(NSString *)suraName withDate:(NSNumber *)date {
-    if (self.userID) {
+    if (self.userID && self.isConnected) {
         [[[[[[[self.firebaseDatabaseReference
                child:@"users"]
               child: self.userID]
@@ -347,7 +367,8 @@ NetworkStatus remoteHostStatus;
 - (void)updateTimeStamp {
     NSNumber *updateDate =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];
     [[NSUserDefaults standardUserDefaults] setObject:updateDate forKey:@"LastUpdateTimeStamp"];
-    if (self.userID) {
+    
+    if (self.userID && self.isConnected) {
         [[[[self.firebaseDatabaseReference
             child:@"users"]
            child: self.userID]

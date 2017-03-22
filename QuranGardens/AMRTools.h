@@ -11,6 +11,7 @@
 
 @interface AMRTools : NSObject
 
-+ (UIAlertController *)showMenuWithTitle:(NSString *)title handlers:(NSDictionary *)handlers;
++ (UIAlertController *)showMenuWithTitle:(NSString *)title message:(NSString *)message handlers:(NSDictionary *)handlers;
++(NSString *)abbreviateNumber:(int)num withDecimal:(int)dec;
 
 @end

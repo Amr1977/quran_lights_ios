@@ -19,8 +19,11 @@
 @property (nonatomic) FIRDatabaseHandle refHandle;
 @property(strong, nonatomic) NSString *userID;
 @property (nonatomic) BOOL isSignedIn;
+@property (nonatomic) BOOL isSignedUp;
+@property (nonatomic) BOOL isConnected;
 
 @property (strong, nonatomic) NSMutableDictionary<NSString *,NSMutableArray<NSNumber *> *> *fbRefreshHistory;
+@property (nonatomic) NSMutableDictionary<NSString *, NSNumber *> *fbMemorizationState;
 
 
 - (void)refreshSura:(NSString *)suraName;
@@ -33,11 +36,11 @@
 - (void)signUpWithEmail: (NSString *)email
                password: (NSString *)password
                userName: (NSString *)userName
-             completion: (void (^)(BOOL success))completion;
+             completion: (void (^)(BOOL success, NSString *error))completion;
 
 - (void)signInWithEmail:(NSString *)email
                password:(NSString *)password
-             completion:(void (^)(BOOL success))completion;
+             completion:(void (^)(BOOL success, NSString *error))completion;
 
 - (void)refreshSura:(NSString *)suraName withMemorization:(NSInteger)memorization;
 
