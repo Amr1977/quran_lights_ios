@@ -65,8 +65,6 @@ NetworkStatus remoteHostStatus;
 }
 
 - (BOOL)isConnected {
-    //TODO handle this!
-    return NO;
     remoteHostStatus = [reachability currentReachabilityStatus];
     _isConnected = (remoteHostStatus != NotReachable);
     return _isConnected;
@@ -137,7 +135,7 @@ NetworkStatus remoteHostStatus;
              if (!error) {
                  self.isSignedIn = YES;
                  self.isSignedUp = NO;
-                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isSignedUp"];
+                 [[NSUserDefaults standardUserDefaults] setBool:self.isSignedUp forKey:@"isSignedUp"];
                  NSLog(@"user.uid: %@",user.uid);
                  self.userID = user.uid;
                  [[NSNotificationCenter defaultCenter] postNotificationName:FireBaseSignInNotification object:self];
@@ -145,9 +143,11 @@ NetworkStatus remoteHostStatus;
                  [self checkUpdatetimeStamps];
                  
              } else {
+                 self.isSignedIn = NO;
+                 self.isSignedUp = NO;
+                 [[NSUserDefaults standardUserDefaults] setBool:self.isSignedUp forKey:@"isSignedUp"];
                  NSLog(@"Error signing in to firebase %@", error);
              }
-             
          }];
     }
 }
@@ -158,6 +158,9 @@ NetworkStatus remoteHostStatus;
         completion(NO, @"no Internet connection");
         return;
     }
+    
+    [self signOut];
+    
     FIRAuthCredential *credential = [FIREmailPasswordAuthProvider credentialWithEmail:email
                                                                              password:password];
     [[FIRAuth auth].currentUser linkWithCredential:credential
@@ -167,7 +170,8 @@ NetworkStatus remoteHostStatus;
                                                 completion(NO, error.localizedDescription);
                                             } else {
                                                 self.isSignedUp = YES;
-                                                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isSignedUp"];
+                                                self.isSignedIn = YES;
+                                                [[NSUserDefaults standardUserDefaults] setBool:self.isSignedUp  forKey:@"isSignedUp"];
                                                 [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"email"];
                                                 [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
                                                 [[NSUserDefaults standardUserDefaults] setObject:userName forKey:@"userName"];
@@ -179,18 +183,24 @@ NetworkStatus remoteHostStatus;
      ];
 }
 
-- (void)signInWithEmail:(NSString *)email password:(NSString *)password completion:(void (^)(BOOL success, NSString *error))completion {
-    if (!self.isConnected) {
-        completion(NO, @"no Internet connection");
-        return;
-    }
+- (void)signOut{
     NSError *signOutError;
     BOOL status = [[FIRAuth auth] signOut:&signOutError];
     if (!status) {
         NSLog(@"Error signing out: %@", signOutError);
     } else {
         self.isSignedIn = NO;
+        self.isSignedUp = NO;
     }
+}
+
+- (void)signInWithEmail:(NSString *)email password:(NSString *)password completion:(void (^)(BOOL success, NSString *error))completion {
+    if (!self.isConnected) {
+        completion(NO, @"no Internet connection");
+        return;
+    }
+    
+    [self signOut];
     
     [[FIRAuth auth]
      createUserWithEmail:email
@@ -199,12 +209,14 @@ NetworkStatus remoteHostStatus;
                   NSError *_Nullable error) {
          if (error != nil) {
              NSLog(@"firebaseSignIn error signin %@ ", error.localizedDescription);
-             self.isSignedUp = YES;
-             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isSignedUp"];
+             self.isSignedUp = NO;
+             self.isSignedIn = NO;
+             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isSignedUp"];
              completion(NO, error.localizedDescription);
          } else {
              self.userID = user.uid;
              self.isSignedUp = YES;
+             self.isSignedIn = YES;
              [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isSignedUp"];
              [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"email"];
              [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
