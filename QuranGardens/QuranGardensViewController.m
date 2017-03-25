@@ -771,6 +771,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         cell.daysElapsed.textColor = [UIColor blackColor];
     }
     
+    cell.score.text = [AMRTools abbreviateNumber:[Statistics suraScore:task.name] withDecimal:1];
     cell.suraName.adjustsFontSizeToFitWidth = YES;
 
     switch (task.memorizedState) {
@@ -822,6 +823,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
     cell.content.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.1) blue:1/255 alpha:1];
     cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, task.name];
+    
+    cell.score.textColor = cell.daysElapsed.textColor;
    
     return cell;
 }

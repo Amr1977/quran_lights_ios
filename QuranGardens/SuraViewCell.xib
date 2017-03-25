@@ -40,9 +40,22 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="h2h-r9-vaj">
-                                <rect key="frame" x="8" y="63" width="132" height="17"/>
+                                <rect key="frame" x="78" y="63" width="62" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="GTl-aS-114"/>
+                                    <constraint firstAttribute="width" constant="62" id="ePx-ke-xEt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="i2N-bH-ALD" userLabel="score">
+                                <rect key="frame" x="8" y="63" width="62" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="62" id="6r2-mZ-QPX"/>
+                                    <constraint firstAttribute="height" constant="17" id="TQA-NY-GQ5"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="VUx-Wf-4Ad"/>
+                                    <constraint firstAttribute="width" constant="62" id="pYi-b7-8RJ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -51,13 +64,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="h2h-r9-vaj" firstAttribute="leading" secondItem="gZe-Hp-tKu" secondAttribute="leading" constant="8" id="9vI-dH-HJC"/>
                             <constraint firstItem="Auy-mw-Mdj" firstAttribute="leading" secondItem="gZe-Hp-tKu" secondAttribute="leading" constant="8" id="GXX-xj-MMp"/>
                             <constraint firstAttribute="bottom" secondItem="h2h-r9-vaj" secondAttribute="bottom" constant="5" id="M1E-Jn-HlZ"/>
                             <constraint firstAttribute="trailing" secondItem="Auy-mw-Mdj" secondAttribute="trailing" constant="16" id="P9X-cP-EKj"/>
                             <constraint firstItem="CrV-tX-pb7" firstAttribute="top" secondItem="gZe-Hp-tKu" secondAttribute="top" constant="8" id="QIh-Ic-noK"/>
                             <constraint firstItem="Auy-mw-Mdj" firstAttribute="centerY" secondItem="gZe-Hp-tKu" secondAttribute="centerY" id="YIM-hQ-dky"/>
+                            <constraint firstAttribute="bottom" secondItem="i2N-bH-ALD" secondAttribute="bottom" constant="5" id="cJL-ql-v0T"/>
                             <constraint firstAttribute="trailing" secondItem="h2h-r9-vaj" secondAttribute="trailing" constant="8" id="sz3-lD-Zf8"/>
+                            <constraint firstItem="i2N-bH-ALD" firstAttribute="leading" secondItem="gZe-Hp-tKu" secondAttribute="leading" constant="8" id="wKW-t4-9eo"/>
                             <constraint firstAttribute="trailing" secondItem="CrV-tX-pb7" secondAttribute="trailing" constant="9" id="yHS-Wc-WWw"/>
                         </constraints>
                     </view>
@@ -74,6 +88,7 @@
                 <outlet property="content" destination="gZe-Hp-tKu" id="UL0-LG-dn2"/>
                 <outlet property="daysElapsed" destination="h2h-r9-vaj" id="joB-UY-1CC"/>
                 <outlet property="memorized" destination="CrV-tX-pb7" id="ruD-vX-8LQ"/>
+                <outlet property="score" destination="i2N-bH-ALD" id="Chc-Qs-noJ"/>
                 <outlet property="suraName" destination="Auy-mw-Mdj" id="RHz-0O-wTi"/>
             </connections>
             <point key="canvasLocation" x="430" y="204.5"/>

@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *memorized;
 @property (weak, nonatomic) IBOutlet UIView *content;
 
+@property (weak, nonatomic) IBOutlet UILabel *score;
 
 
 @end

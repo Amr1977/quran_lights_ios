@@ -40,6 +40,16 @@
     return result;
 }
 
++ (NSInteger)suraScore:(NSString *)suraName {
+    NSInteger suraIndex = [Sura.suraNames indexOfObject:suraName];
+    if (suraIndex != NSNotFound) {
+    NSNumber *charCount = [[Sura suraCharsCount] objectAtIndex:suraIndex];
+        return charCount.integerValue;
+    } else {
+        return 0;
+    }
+}
+
 - (NSInteger)yesterdayScore{
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:[[NSDate alloc] init]];
