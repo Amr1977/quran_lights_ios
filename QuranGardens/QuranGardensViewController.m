@@ -816,7 +816,9 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     }
     
     if (days >= 10 && task.memorizedState == 2 ) {//is memorized
-        cell.memorized.layer.borderColor = [UIColor redColor].CGColor;
+        //cell.memorized.layer.borderColor = [UIColor redColor].CGColor;
+        cell.memorized.image = [cell.memorized.image imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
+        cell.memorized.tintColor = [UIColor redColor];
     } if (days >= 15 && task.memorizedState == 1 ) {//was memorized
         //imageWithRenderingMode
         cell.memorized.image = [cell.memorized.image imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
