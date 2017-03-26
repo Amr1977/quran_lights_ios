@@ -38,6 +38,9 @@
 
 +(NSString *)abbreviateNumber:(NSInteger)num withDecimal:(int)dec {
     
+    if (num < 500) {
+        return [NSString stringWithFormat:@"%d", num];
+    }
     NSString *abbrevNum;
     float number = ((float)num) / 1000.f;
     
