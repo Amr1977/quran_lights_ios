@@ -756,6 +756,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
         cell.memorized.layer.cornerRadius = cell.memorized.frame.size.width / 2.0;
         cell.memorized.layer.borderWidth = 2.0;
         cell.memorized.image = self.sunImage;
+        cell.layer.shouldRasterize = YES;
+        cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     }
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
     
