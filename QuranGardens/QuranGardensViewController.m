@@ -42,14 +42,26 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (strong, nonatomic) Statistics* statistics;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *score;
 
+@property (strong, nonatomic) UIButton *moshafOrderButton;
+@property (strong, nonatomic) UIButton *lightSortButton;
+@property (strong, nonatomic) UIButton *charCountSortButton;
+@property (strong, nonatomic) UIButton *moshafOrderButton4;
+@property (strong, nonatomic) UIButton *moshafOrderButton5;
+
 
 @end
 
 @implementation QuranGardensViewController
 
+UIImage *barButtonImage;
+UIImage *barButtonImageActive;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    barButtonImage = [[UIImage imageNamed:@"sun.jpg"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
+    barButtonImageActive = [[UIImage imageNamed:@"sun.jpg"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncHistory) name:@"HistoryLoadedFromFireBase" object:nil];
     
@@ -188,59 +200,60 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
 }
 
+
 - (void)setMenuButton{
-    UIImage *barButtonImage = [UIImage imageNamed:@"sun.jpg"];
+
     CGRect imageFrame = CGRectMake(0, 0, 40, 40);
     
-    UIButton *someButton = [[UIButton alloc] initWithFrame:imageFrame];
-    [someButton setTitle:@"s" forState:UIControlStateNormal];
-    
-    [someButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
-    [someButton addTarget:self
-                   action:@selector(showActionMenu)
+    UIButton *settingsButton = [[UIButton alloc] initWithFrame:imageFrame];
+    [settingsButton setTitle:@"S" forState:UIControlStateNormal];
+    //settingsButton.tintColor = [UIColor yellowColor];
+    [settingsButton setBackgroundImage:self.sunImage forState:UIControlStateNormal];
+    [settingsButton addTarget:self
+                   action:@selector(settings)
          forControlEvents:UIControlEventTouchUpInside];
     
-    [someButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:someButton];
+    [settingsButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
     
     
     //sort by normal order
-    UIButton *moshafOrderButton = [[UIButton alloc] initWithFrame:imageFrame];
-    [moshafOrderButton setTitle:@"B" forState:UIControlStateNormal];
+    self.moshafOrderButton = [[UIButton alloc] initWithFrame:imageFrame];
+    [self.moshafOrderButton setTitle:@"B" forState:UIControlStateNormal];
     
     
-    [moshafOrderButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
-    [moshafOrderButton addTarget:self
+    [self.moshafOrderButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
+    [self.moshafOrderButton addTarget:self
                    action:@selector(fastAccessNormalSuraOrderSort)
          forControlEvents:UIControlEventTouchUpInside];
     
-    [moshafOrderButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *moshafOrderItem = [[UIBarButtonItem alloc] initWithCustomView:moshafOrderButton];
+    [self.moshafOrderButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *moshafOrderItem = [[UIBarButtonItem alloc] initWithCustomView:self.moshafOrderButton];
     
     
     //sort by light strength
-    UIButton *lightSortButton = [[UIButton alloc] initWithFrame:imageFrame];
-    [lightSortButton setTitle:@"L" forState:UIControlStateNormal];
+    self.lightSortButton = [[UIButton alloc] initWithFrame:imageFrame];
+    [self.lightSortButton setTitle:@"L" forState:UIControlStateNormal];
     
-    [lightSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
-    [lightSortButton addTarget:self
+    [self.lightSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
+    [self.lightSortButton addTarget:self
                           action:@selector(fastAccessWeakerFirstSuraFirstSort)
                 forControlEvents:UIControlEventTouchUpInside];
     
-    [lightSortButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *lightSortItem = [[UIBarButtonItem alloc] initWithCustomView:lightSortButton];
+    [self.lightSortButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *lightSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.lightSortButton];
     
     //sort by character count
-    UIButton *charCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
-    [charCountSortButton setTitle:@"C" forState:UIControlStateNormal];
+    self.charCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
+    [self.charCountSortButton setTitle:@"C" forState:UIControlStateNormal];
     
-    [charCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
-    [charCountSortButton addTarget:self
+    [self.charCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
+    [self.charCountSortButton addTarget:self
                         action:@selector(fastAccessCharCountSuraSort)
               forControlEvents:UIControlEventTouchUpInside];
     
-    [charCountSortButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *charCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:charCountSortButton];
+    [self.charCountSortButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *charCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.charCountSortButton];
 
     [UIView animateWithDuration:1 animations:^{
         //self.navigationItem.rightBarButtonItem = menuButton;
@@ -871,30 +884,68 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
     
 }
 
+//- (UIImage*)menuButtonImageActive:(BOOL)active {
+//    static UIImage *image = [UIImage imageNamed:@"sun.jpg"];
+//    static UIImage *imageActive = [image imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
+//
+//    static BOOL firstTime = YES;
+//
+//    if (firstTime) {
+//        imageActive = imageActive.set
+//    }
+//
+//    if (active) {
+//        return imageActive;
+//    } else {
+//        return image;
+//    }
+//
+//}
+
 - (void)applyCurrentSort{
     
     switch (self.sortType) {
         case NormalSuraOrderSort:
             [self normalSuraOrderSort];
+            self.moshafOrderButton.tintColor = [UIColor yellowColor];
+            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+
             break;
         case LightSort:
             [self weakerFirstSuraFirstSort];
+            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.lightSortButton.tintColor = [UIColor yellowColor];
+            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             break;
             
         case VersesCountSort:
             [self versesCountSuraSort];
+            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             break;
             
         case WordCountSort:
             [self wordCountSuraSort];
+            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             break;
             
         case CharCountSort:
             [self charCountSuraSort];
+            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.charCountSortButton.tintColor = [UIColor yellowColor];
             break;
             
         case RevalationOrderSort:;
             [self revalSuraOrderSort];
+             self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            
             break;
             
         default:
