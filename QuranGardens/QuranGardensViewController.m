@@ -89,6 +89,10 @@ UIImage *barButtonImageActive;
     [self refreshScoreButton];
     
 }
+    
+    - (IBAction)onScoreTabbed:(id)sender {
+        [self showCharts];
+    }
 
 - (void)refreshScoreButton{
     NSInteger todayScore =  [self.statistics todayScore];
@@ -99,6 +103,7 @@ UIImage *barButtonImageActive;
     NSString *todayString = [AMRTools abbreviateNumber:todayScore withDecimal:1];
 
     self.score.title = [NSString stringWithFormat:@"Score: %@(%@)",totalString, todayString];
+    
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
     [self.score setTintColor:color];

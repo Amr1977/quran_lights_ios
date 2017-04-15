@@ -91,6 +91,7 @@ NSString * const SortTypeKey = @"SortTypeKey";
         //last refresh
         //[[NSUserDefaults standardUserDefaults] setObject:task.lastOccurrence forKey:[self lastRefreshKeyForSuraName:task.name]];
     }
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     //TODO: save settings
 }
@@ -171,6 +172,7 @@ NSString * const SortTypeKey = @"SortTypeKey";
 
 - (void)saveSuraCyclePeriod:(NSTimeInterval)period suraName:(NSString *)suraName{
     [[NSUserDefaults standardUserDefaults] setDouble:period forKey:[self cyclePeriodKeyForSuraName:suraName]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     NSLog(@"saved for %@ cycle: %f",suraName,period);
 }
 
@@ -209,6 +211,7 @@ NSString * const SortTypeKey = @"SortTypeKey";
     
     NSNumber *updateDate =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];
     [[NSUserDefaults standardUserDefaults] setObject:updateDate forKey:@"LastUpdateTimeStamp"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     //remote
     NSNumber *dateStamp = [NSNumber numberWithLongLong:[lastRefreshDate timeIntervalSince1970]];
@@ -229,12 +232,14 @@ NSString * const SortTypeKey = @"SortTypeKey";
 
 - (void)setHistory:(NSString *)suraName history:(NSArray<NSDate *> *)history{
     [[NSUserDefaults standardUserDefaults] setObject:history forKey:[self refreshHistoryKeyForSuraName:suraName]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)saveSettings{
     [[NSUserDefaults standardUserDefaults] setBool:self.settings.descendingSort forKey:SortDirectionKey];
     [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime forKey:GlobalRefreshIntervalKey];
     [[NSUserDefaults standardUserDefaults] setInteger:self.settings.sortType forKey:SortTypeKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)loadSettings{
@@ -275,11 +280,13 @@ NSString * const SortTypeKey = @"SortTypeKey";
     PeriodicTask* sura = [self getTaskWithSuraName:suraName];
     [[NSUserDefaults standardUserDefaults] setInteger:sura.memorizedState forKey:[self memorizedKeyForSuraName:suraName]];
     [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:suraName withMemorization:sura.memorizedState];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)saveMemorizedStateForTask:(PeriodicTask *)task{
     if (task) {
         [[NSUserDefaults standardUserDefaults] setInteger:task.memorizedState forKey:[self memorizedKeyForSuraName:task.name]];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:task.name withMemorization:task.memorizedState];
     }
 }

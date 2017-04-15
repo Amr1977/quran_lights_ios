@@ -80,6 +80,10 @@
     
     _chartView.xAxis.enabled = YES;
     
+    _chartView.layer.cornerRadius = 10.0;
+    _chartView.layer.borderColor = [UIColor clearColor].CGColor;
+    _chartView.layer.masksToBounds = YES;
+    
     ChartXAxis *xAxis = _chartView.xAxis;
     xAxis.labelPosition = XAxisLabelPositionTopInside;
     xAxis.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.f];

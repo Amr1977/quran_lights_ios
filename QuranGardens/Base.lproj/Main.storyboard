@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cf0-gY-Sub">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cf0-gY-Sub">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -46,6 +46,9 @@
                     <navigationItem key="navigationItem" id="48c-RC-ZsH">
                         <barButtonItem key="leftBarButtonItem" title="Score" id="4jf-WK-OZw">
                             <color key="tintColor" red="0.64512801170349121" green="0.98709279298782349" blue="0.71397775411605835" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="onScoreTabbed:" destination="tII-DL-flJ" id="mYU-In-rFQ"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
