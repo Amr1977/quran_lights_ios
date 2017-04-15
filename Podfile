@@ -7,5 +7,6 @@ target "QuranGardens" do
     pod 'Firebase/Database'
     pod 'Firebase/Core'
     #pod 'FirebaseUI', '~> 1.0'
+    #pod 'Charts'
 
 end

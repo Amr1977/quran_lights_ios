@@ -40,7 +40,20 @@
 		0A8DAB34FE051E524BD30303 /* Pods_QuranGardens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82855D8766F94B78534A777E /* Pods_QuranGardens.framework */; };
 		C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C5147FCA1E61BB5500DE699E /* Reachability.m */; };
 		C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C566F4571E21143200628A94 /* GoogleService-Info.plist */; };
+		C56B782C1EA23E4200252039 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C56B782B1EA23E4200252039 /* Podfile */; };
 		C59A202F1E8116BD003C0F09 /* AMRTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C59A202E1E8116BD003C0F09 /* AMRTools.m */; };
+		C5A26AE71EA23F5B009135D4 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C5A26AE41EA23EFF009135D4 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C5A26AEB1EA24420009135D4 /* ChartsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AE91EA24420009135D4 /* ChartsViewController.m */; };
+		C5A26AEC1EA24420009135D4 /* ChartsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A26AEA1EA24420009135D4 /* ChartsViewController.xib */; };
+		C5A26AF11EA24CFD009135D4 /* CubicLineChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AEF1EA24CFD009135D4 /* CubicLineChartViewController.m */; };
+		C5A26AF21EA24CFD009135D4 /* CubicLineChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A26AF01EA24CFD009135D4 /* CubicLineChartViewController.xib */; };
+		C5A26AF51EA24D14009135D4 /* DemoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AF41EA24D14009135D4 /* DemoBaseViewController.m */; };
+		C5A26AF91EA26F75009135D4 /* LineChartTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AF71EA26F75009135D4 /* LineChartTimeViewController.m */; };
+		C5A26AFA1EA26F75009135D4 /* LineChartTimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A26AF81EA26F75009135D4 /* LineChartTimeViewController.xib */; };
+		C5A26B041EA27005009135D4 /* DayAxisValueFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AFE1EA27005009135D4 /* DayAxisValueFormatter.m */; };
+		C5A26B051EA27005009135D4 /* IntAxisValueFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26B001EA27005009135D4 /* IntAxisValueFormatter.m */; };
+		C5A26B061EA27005009135D4 /* LargeValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A26B011EA27005009135D4 /* LargeValueFormatter.swift */; };
+		C5A26B071EA27005009135D4 /* DateValueFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26B031EA27005009135D4 /* DateValueFormatter.m */; };
 		C5CC35171E2143A70070D14F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CC35161E2143A70070D14F /* LoginViewController.m */; };
 		C5CC35191E2144580070D14F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5CC35181E2144580070D14F /* Login.storyboard */; };
 		C5F17C491E69BB6B00476CA3 /* UIViewController+Gestures.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */; };
@@ -61,7 +74,35 @@
 			remoteGlobalIDString = 0769659E1C5B5D0700ED2D33;
 			remoteInfo = QuranGardens;
 		};
+		C5A26AE31EA23EFF009135D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C5A26ADE1EA23EFF009135D4 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06165F241D8110E600722320;
+			remoteInfo = Charts;
+		};
+		C5A26AE51EA23EFF009135D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C5A26ADE1EA23EFF009135D4 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06165F2E1D8110E600722320;
+			remoteInfo = ChartsTests;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C57786CF1EA21C48002D8494 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C5A26AE71EA23F5B009135D4 /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		071C17A91D673B5800019CDD /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
@@ -117,8 +158,29 @@
 		C5147FC91E61BB0300DE699E /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C5147FCA1E61BB5500DE699E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C566F4571E21143200628A94 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C56B782B1EA23E4200252039 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C59A202D1E8116BD003C0F09 /* AMRTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMRTools.h; sourceTree = "<group>"; };
 		C59A202E1E8116BD003C0F09 /* AMRTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMRTools.m; sourceTree = "<group>"; };
+		C5A26ADE1EA23EFF009135D4 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = ../Charts/Charts.xcodeproj; sourceTree = "<group>"; };
+		C5A26AE81EA24420009135D4 /* ChartsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartsViewController.h; sourceTree = "<group>"; };
+		C5A26AE91EA24420009135D4 /* ChartsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartsViewController.m; sourceTree = "<group>"; };
+		C5A26AEA1EA24420009135D4 /* ChartsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChartsViewController.xib; sourceTree = "<group>"; };
+		C5A26AEE1EA24CFD009135D4 /* CubicLineChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubicLineChartViewController.h; sourceTree = "<group>"; };
+		C5A26AEF1EA24CFD009135D4 /* CubicLineChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CubicLineChartViewController.m; sourceTree = "<group>"; };
+		C5A26AF01EA24CFD009135D4 /* CubicLineChartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CubicLineChartViewController.xib; sourceTree = "<group>"; };
+		C5A26AF31EA24D14009135D4 /* DemoBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoBaseViewController.h; sourceTree = "<group>"; };
+		C5A26AF41EA24D14009135D4 /* DemoBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoBaseViewController.m; sourceTree = "<group>"; };
+		C5A26AF61EA26F75009135D4 /* LineChartTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineChartTimeViewController.h; sourceTree = "<group>"; };
+		C5A26AF71EA26F75009135D4 /* LineChartTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineChartTimeViewController.m; sourceTree = "<group>"; };
+		C5A26AF81EA26F75009135D4 /* LineChartTimeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LineChartTimeViewController.xib; sourceTree = "<group>"; };
+		C5A26AFC1EA27005009135D4 /* QuranGardens-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuranGardens-Bridging-Header.h"; sourceTree = "<group>"; };
+		C5A26AFD1EA27005009135D4 /* DayAxisValueFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayAxisValueFormatter.h; sourceTree = "<group>"; };
+		C5A26AFE1EA27005009135D4 /* DayAxisValueFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayAxisValueFormatter.m; sourceTree = "<group>"; };
+		C5A26AFF1EA27005009135D4 /* IntAxisValueFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntAxisValueFormatter.h; sourceTree = "<group>"; };
+		C5A26B001EA27005009135D4 /* IntAxisValueFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntAxisValueFormatter.m; sourceTree = "<group>"; };
+		C5A26B011EA27005009135D4 /* LargeValueFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeValueFormatter.swift; sourceTree = "<group>"; };
+		C5A26B021EA27005009135D4 /* DateValueFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateValueFormatter.h; sourceTree = "<group>"; };
+		C5A26B031EA27005009135D4 /* DateValueFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateValueFormatter.m; sourceTree = "<group>"; };
 		C5CC35151E2143A70070D14F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C5CC35161E2143A70070D14F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		C5CC35181E2144580070D14F /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -161,6 +223,8 @@
 		076965961C5B5D0700ED2D33 = {
 			isa = PBXGroup;
 			children = (
+				C5A26ADE1EA23EFF009135D4 /* Charts.xcodeproj */,
+				C56B782B1EA23E4200252039 /* Podfile */,
 				076965A11C5B5D0700ED2D33 /* QuranGardens */,
 				076965BB1C5B5D0700ED2D33 /* QuranGardensTests */,
 				076965C61C5B5D0800ED2D33 /* QuranGardensUITests */,
@@ -195,6 +259,7 @@
 				C5CC35181E2144580070D14F /* Login.storyboard */,
 				07FAC8EA1D66FA0000A18525 /* SettingsViewController.xib */,
 				076965DD1C5B62AE00ED2D33 /* Controller */,
+				C5A26AFB1EA26FD8009135D4 /* Formatters */,
 				076965DC1C5B628F00ED2D33 /* View */,
 				076965D51C5B609100ED2D33 /* Model */,
 				076965B01C5B5D0700ED2D33 /* LaunchScreen.storyboard */,
@@ -277,6 +342,17 @@
 				C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */,
 				C59A202D1E8116BD003C0F09 /* AMRTools.h */,
 				C59A202E1E8116BD003C0F09 /* AMRTools.m */,
+				C5A26AE81EA24420009135D4 /* ChartsViewController.h */,
+				C5A26AE91EA24420009135D4 /* ChartsViewController.m */,
+				C5A26AEA1EA24420009135D4 /* ChartsViewController.xib */,
+				C5A26AEE1EA24CFD009135D4 /* CubicLineChartViewController.h */,
+				C5A26AEF1EA24CFD009135D4 /* CubicLineChartViewController.m */,
+				C5A26AF01EA24CFD009135D4 /* CubicLineChartViewController.xib */,
+				C5A26AF31EA24D14009135D4 /* DemoBaseViewController.h */,
+				C5A26AF41EA24D14009135D4 /* DemoBaseViewController.m */,
+				C5A26AF61EA26F75009135D4 /* LineChartTimeViewController.h */,
+				C5A26AF71EA26F75009135D4 /* LineChartTimeViewController.m */,
+				C5A26AF81EA26F75009135D4 /* LineChartTimeViewController.xib */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -298,6 +374,30 @@
 				076965DA1C5B628200ED2D33 /* SuraViewCell.m */,
 			);
 			name = cell;
+			sourceTree = "<group>";
+		};
+		C5A26ADF1EA23EFF009135D4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C5A26AE41EA23EFF009135D4 /* Charts.framework */,
+				C5A26AE61EA23EFF009135D4 /* ChartsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C5A26AFB1EA26FD8009135D4 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				C5A26AFD1EA27005009135D4 /* DayAxisValueFormatter.h */,
+				C5A26AFE1EA27005009135D4 /* DayAxisValueFormatter.m */,
+				C5A26AFF1EA27005009135D4 /* IntAxisValueFormatter.h */,
+				C5A26B001EA27005009135D4 /* IntAxisValueFormatter.m */,
+				C5A26B011EA27005009135D4 /* LargeValueFormatter.swift */,
+				C5A26B021EA27005009135D4 /* DateValueFormatter.h */,
+				C5A26B031EA27005009135D4 /* DateValueFormatter.m */,
+				C5A26AFC1EA27005009135D4 /* QuranGardens-Bridging-Header.h */,
+			);
+			name = Formatters;
 			sourceTree = "<group>";
 		};
 		E5D1290A52CBC62F69226967 /* Frameworks */ = {
@@ -326,6 +426,7 @@
 				0769659D1C5B5D0700ED2D33 /* Resources */,
 				2B4422EBA3D3BC3B1BD8F997 /* [CP] Embed Pods Frameworks */,
 				4D905F10AED41217FC695C88 /* [CP] Copy Pods Resources */,
+				C57786CF1EA21C48002D8494 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -384,6 +485,7 @@
 					0769659E1C5B5D0700ED2D33 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = Q4635HRLC8;
+						LastSwiftMigration = 0820;
 					};
 					076965B71C5B5D0700ED2D33 = {
 						CreatedOnToolsVersion = 7.1;
@@ -406,6 +508,12 @@
 			mainGroup = 076965961C5B5D0700ED2D33;
 			productRefGroup = 076965A01C5B5D0700ED2D33 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C5A26ADF1EA23EFF009135D4 /* Products */;
+					ProjectRef = C5A26ADE1EA23EFF009135D4 /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				0769659E1C5B5D0700ED2D33 /* QuranGardens */,
@@ -415,23 +523,44 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		C5A26AE41EA23EFF009135D4 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = C5A26AE31EA23EFF009135D4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C5A26AE61EA23EFF009135D4 /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = C5A26AE51EA23EFF009135D4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		0769659D1C5B5D0700ED2D33 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C56B782C1EA23E4200252039 /* Podfile in Resources */,
 				C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */,
+				C5A26AFA1EA26F75009135D4 /* LineChartTimeViewController.xib in Resources */,
 				076965B21C5B5D0700ED2D33 /* LaunchScreen.storyboard in Resources */,
 				C5CC35191E2144580070D14F /* Login.storyboard in Resources */,
 				076965AF1C5B5D0700ED2D33 /* Assets.xcassets in Resources */,
 				07D7D30D1D9E64FE00CF4FE4 /* safe.png in Resources */,
 				076965AD1C5B5D0700ED2D33 /* Main.storyboard in Resources */,
 				072594121D74AEB0009E5F05 /* charcount.txt in Resources */,
+				C5A26AF21EA24CFD009135D4 /* CubicLineChartViewController.xib in Resources */,
 				07D7D30F1D9E885300CF4FE4 /* gold-star.png in Resources */,
 				0750B0CA1D68F51C0081B1C4 /* reval.txt in Resources */,
 				0750B0CC1D68F5FD0081B1C4 /* versecount.txt in Resources */,
 				072594131D74AEB0009E5F05 /* wordcount.txt in Resources */,
 				076965E21C5B6A7A00ED2D33 /* SuraViewCell.xib in Resources */,
+				C5A26AEC1EA24420009135D4 /* ChartsViewController.xib in Resources */,
 				0750B0D21D68F6600081B1C4 /* arabic-sura-names in Resources */,
 				07FAC8EC1D66FA0000A18525 /* SettingsViewController.xib in Resources */,
 			);
@@ -506,11 +635,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5A26B061EA27005009135D4 /* LargeValueFormatter.swift in Sources */,
 				C5F17C491E69BB6B00476CA3 /* UIViewController+Gestures.m in Sources */,
 				C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */,
 				073AA6F21DB89E0300370847 /* Statistics.m in Sources */,
 				076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */,
 				075909F21D631B8900A6B7B1 /* DataSource.m in Sources */,
+				C5A26AEB1EA24420009135D4 /* ChartsViewController.m in Sources */,
+				C5A26AF51EA24D14009135D4 /* DemoBaseViewController.m in Sources */,
 				071C17AB1D673B5800019CDD /* Settings.m in Sources */,
 				07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */,
 				C59A202F1E8116BD003C0F09 /* AMRTools.m in Sources */,
@@ -518,9 +650,14 @@
 				076965E01C5B630E00ED2D33 /* QuranGardensViewController.m in Sources */,
 				076965D81C5B60C600ED2D33 /* Sura.m in Sources */,
 				C5CC35171E2143A70070D14F /* LoginViewController.m in Sources */,
+				C5A26B041EA27005009135D4 /* DayAxisValueFormatter.m in Sources */,
+				C5A26B071EA27005009135D4 /* DateValueFormatter.m in Sources */,
+				C5A26AF11EA24CFD009135D4 /* CubicLineChartViewController.m in Sources */,
 				07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */,
 				076965A71C5B5D0700ED2D33 /* AppDelegate.m in Sources */,
 				076965A41C5B5D0700ED2D33 /* main.m in Sources */,
+				C5A26B051EA27005009135D4 /* IntAxisValueFormatter.m in Sources */,
+				C5A26AF91EA26F75009135D4 /* LineChartTimeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,7 +802,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CC0FB87F801C545BFDDA00FB /* Pods-QuranGardens.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = Q4635HRLC8;
@@ -676,9 +815,12 @@
 				INFOPLIST_FILE = QuranGardens/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.greenlights.quranlightspro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.greenlights.quranlights;
 				PRODUCT_NAME = "Quran Lights";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "QuranGardens/QuranGardens-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -687,7 +829,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AC5A8B9D69C915AD7FE135C0 /* Pods-QuranGardens.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = Q4635HRLC8;
@@ -698,9 +842,11 @@
 				INFOPLIST_FILE = QuranGardens/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.greenlights.quranlightspro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.greenlights.quranlights;
 				PRODUCT_NAME = "Quran Lights";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "QuranGardens/QuranGardens-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -708,6 +854,7 @@
 		076965D01C5B5D0800ED2D33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = QuranGardensTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -720,6 +867,7 @@
 		076965D11C5B5D0800ED2D33 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = QuranGardensTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -732,6 +880,7 @@
 		076965D31C5B5D0800ED2D33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = QuranGardensUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.evaluation.QuranGardensUITests;
@@ -744,6 +893,7 @@
 		076965D41C5B5D0800ED2D33 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = QuranGardensUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.evaluation.QuranGardensUITests;

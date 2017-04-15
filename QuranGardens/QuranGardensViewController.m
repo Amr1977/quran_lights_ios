@@ -15,6 +15,8 @@
 #import "Statistics.h"
 #import "AppDelegate.h"
 #import "AMRTools.h"
+#import "CubicLineChartViewController.h"
+@import Charts;
 
 CGFloat const CellHeight = 80;
 CGFloat const CellWidth = 140;
@@ -749,6 +751,14 @@ UIImage *barButtonImageActive;
 //    self.collectionView.backgroundView.alpha = 0.8;
     self.collectionView.backgroundView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSwipeHandlerToView:self.collectionView direction:@"left" handler:@selector(settings)];
+    [self addSwipeHandlerToView:self.collectionView direction:@"right" handler:@selector(showCharts)];
+}
+
+- (void) showCharts {
+    NSLog(@"Show charts called");
+    CubicLineChartViewController *chartsVC = [[CubicLineChartViewController alloc] init];
+    chartsVC.scores = [self.statistics scores];
+    [self.navigationController pushViewController:chartsVC animated:NO];
 }
 
 

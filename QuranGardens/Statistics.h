@@ -19,6 +19,7 @@
 - (NSInteger)yesterdayScore;
 - (NSInteger)totalScore;
 + (NSInteger)suraScore:(NSString *)suraName;
+- (NSDictionary<NSDate *, NSNumber *> *)scores;
 
 
 @end

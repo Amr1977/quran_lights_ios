@@ -19,6 +19,108 @@
     
     return self;
 }
+    
+- (NSInteger)scoreForDate:(NSDate *)date {
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *components = [cal components:( NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond ) fromDate:[[NSDate alloc] init]];
+    
+    [components setHour:-[components hour]];
+    [components setMinute:-[components minute]];
+    [components setSecond:-[components second]];
+    NSDate *endDay = [[NSCalendar currentCalendar] startOfDayForDate:date];
+    
+    [components setHour:-24];
+    [components setMinute:0];
+    [components setSecond:0];
+    NSDate *startDay = [cal dateByAddingComponents:components toDate: endDay options:0];
+    
+    NSInteger result = 0;
+    
+    for (PeriodicTask *task in self.dataSource.tasks) {
+        NSInteger suraIndex = [Sura.suraNames indexOfObject:task.name];
+        NSNumber *charCount = [[Sura suraCharsCount] objectAtIndex:suraIndex];
+        NSInteger taskScore = [charCount integerValue];
+        
+        for (NSInteger i = 0; i < task.history.count ; i++) {
+            NSDate *date = task.history[i];
+            if ([date compare:endDay] == NSOrderedAscending && [date compare:startDay] == NSOrderedDescending) {
+                result += taskScore;
+            }
+        }
+    }
+    
+    return result;
+}
+    
+- (NSDictionary<NSDate *, NSNumber *> *)scores {
+    NSMutableDictionary<NSDate *, NSNumber *> * result = @{}.mutableCopy;
+    
+    for (PeriodicTask *task in self.dataSource.tasks) {
+        NSInteger suraIndex = [Sura.suraNames indexOfObject:task.name];
+        NSNumber *charCount = [[Sura suraCharsCount] objectAtIndex:suraIndex];
+        NSInteger taskScore = [charCount integerValue];
+        
+        for (NSInteger i = 0; i < task.history.count ; i++) {
+            NSDate *date = [[NSCalendar currentCalendar] startOfDayForDate:task.history[i]];
+            result[date] = result[date] != nil ?
+            [NSNumber numberWithInteger:((result[date]).integerValue + taskScore)] :
+            [NSNumber numberWithInteger:taskScore];
+        }
+    }
+    
+    NSMutableArray<NSDate *> * ordered = result.allKeys.mutableCopy;
+    
+    [ordered sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSDate *d1 = (NSDate *)obj1;
+        NSDate *d2 = (NSDate *)obj2;
+        return [d1 compare:d2];
+    }];
+    
+    NSMutableArray <NSDate *>* allDates = [result allKeys].mutableCopy;
+    
+    NSDate *minDate = [allDates firstObject];
+    NSDate *LastDate = [NSDate new];
+    
+    if (minDate != nil) {
+        NSInteger numberOfDays = [Statistics daysBetweenDate:minDate andDate:LastDate];
+        
+        NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
+        dayComponent.day = 1;
+        NSCalendar *theCalendar = [NSCalendar currentCalendar];
+        
+        NSDate *nextDate = minDate;
+        
+        //fill zeros in dates without score
+        for (NSInteger i = 1; i < numberOfDays; i++) {
+            nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:nextDate options:0];
+            if (![allDates containsObject:nextDate]) {
+                result[nextDate] = [NSNumber numberWithInteger:0];
+                NSLog(@"Added zero scoe for date %@", nextDate);
+            }
+        }
+    }
+    
+    return result;
+}
+    
+    + (NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime
+    {
+        NSDate *fromDate;
+        NSDate *toDate;
+        
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        
+        [calendar rangeOfUnit:NSCalendarUnitDay startDate:&fromDate
+                     interval:NULL forDate:fromDateTime];
+        [calendar rangeOfUnit:NSCalendarUnitDay startDate:&toDate
+                     interval:NULL forDate:toDateTime];
+        
+        NSDateComponents *difference = [calendar components:NSCalendarUnitDay
+                                                   fromDate:fromDate toDate:toDate options:0];
+        
+        return [difference day];
+    }
+    
 
 - (NSInteger)todayScore{
     NSInteger result = 0;
