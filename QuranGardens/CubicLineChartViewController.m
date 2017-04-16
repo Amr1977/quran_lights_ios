@@ -69,7 +69,7 @@
     [_chartView setViewPortOffsetsWithLeft:0.f top:20.f right:0.f bottom:0.f];
     //_chartView.backgroundColor = [UIColor colorWithRed:104/255.f green:241/255.f blue:175/255.f alpha:1.f];
 
-    _chartView.chartDescription.enabled = YES;
+    _chartView.chartDescription.enabled = NO;
     
     _chartView.dragEnabled = YES;
     [_chartView setScaleEnabled:YES];
@@ -149,7 +149,7 @@
     
     for (NSDate *date in ordered) {
        [yVals1 addObject:[[ChartDataEntry alloc] initWithX:date.timeIntervalSince1970 y:self.scores[date].doubleValue]];
-        NSLog(@"date %@ score: %@", date, self.scores[date]);
+        NSLog(@"date %@ score: %f", date, self.scores[date].doubleValue);
     }
     
     LineChartDataSet *set1 = nil;
