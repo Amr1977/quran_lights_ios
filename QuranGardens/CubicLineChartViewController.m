@@ -76,7 +76,7 @@
     _chartView.pinchZoomEnabled = YES;
     _chartView.drawGridBackgroundEnabled = NO;
     _chartView.maxHighlightDistance = 300.0;
-    _chartView.chartDescription.text = @"Daily Score chart";
+    //_chartView.chartDescription.text = @"Daily Score chart";
     
     _chartView.xAxis.enabled = YES;
     
@@ -149,6 +149,7 @@
     
     for (NSDate *date in ordered) {
        [yVals1 addObject:[[ChartDataEntry alloc] initWithX:date.timeIntervalSince1970 y:self.scores[date].doubleValue]];
+        NSLog(@"date %@ score: %@", date, self.scores[date]);
     }
     
     LineChartDataSet *set1 = nil;
