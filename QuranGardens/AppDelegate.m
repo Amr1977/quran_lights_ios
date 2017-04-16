@@ -266,6 +266,7 @@ NetworkStatus remoteHostStatus;
 }
 
 - (void)loadHistory{
+    return;
     if (!self.userID || !self.isConnected) {
         return;
     }
