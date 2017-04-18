@@ -91,7 +91,7 @@
         NSDate *nextDate = minDate;
         
         //fill zeros in dates without score
-        for (NSInteger i = 1; i < numberOfDays; i++) {
+        for (NSInteger i = 1; i <= numberOfDays; i++) {
             nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:nextDate options:0];
             if (![allDates containsObject:nextDate]) {
                 result[nextDate] = [NSNumber numberWithInteger:0];
