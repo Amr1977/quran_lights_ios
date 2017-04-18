@@ -160,6 +160,9 @@ UIImage *barButtonImageActive;
             remoteHistory = @[].mutableCopy;
         }
         
+        [self.periodicTaskManager.dataSource setMemorizedStateForSura:suraName state:[fbMemoHistory[indexStr] integerValue]];
+        NSLog(@"memorization state: %@ for sura %@", fbMemoHistory[indexStr], suraName);
+        
         //update remote
         for (NSNumber *number in localHistory) {
             if ([remoteHistory indexOfObject:number] == NSNotFound) {

@@ -33,6 +33,7 @@
 - (NSInteger)loadMemorizedStateForSura:(NSString *)suraName;
 - (void)saveMemorizedStateForSura:(NSString *)suraName;
 - (void)saveMemorizedStateForTask:(PeriodicTask *)task;
+- (void)setMemorizedStateForSura:(NSString *)suraName state:(NSInteger)state;
 
 - (void)saveSettings;
 

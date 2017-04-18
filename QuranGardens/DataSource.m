@@ -283,6 +283,12 @@ NSString * const SortTypeKey = @"SortTypeKey";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (void)setMemorizedStateForSura:(NSString *)suraName state:(NSInteger)state {
+    [[NSUserDefaults standardUserDefaults] setInteger:state forKey:[self memorizedKeyForSuraName:suraName]];
+    [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:suraName withMemorization:state];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (void)saveMemorizedStateForTask:(PeriodicTask *)task{
     if (task) {
         [[NSUserDefaults standardUserDefaults] setInteger:task.memorizedState forKey:[self memorizedKeyForSuraName:task.name]];
