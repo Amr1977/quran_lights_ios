@@ -801,7 +801,9 @@ UIImage *barButtonImageActive;
         cell.daysElapsed.textColor = [UIColor blackColor];
     }
     
-    cell.score.text = [AMRTools abbreviateNumber:[Statistics suraScore:task.name] withDecimal:1];
+    cell.score.text = [[AMRTools abbreviateNumber:[Statistics suraScore:task.name] withDecimal:1] stringByAppendingString:@"c"];
+    cell.verseCountLabel.text = [[[Sura suraVerseCount][[Sura.suraNames indexOfObject:task.name]] stringValue] stringByAppendingString:@"v"];
+    
     cell.suraName.adjustsFontSizeToFitWidth = YES;
 
     switch (task.memorizedState) {
@@ -833,7 +835,7 @@ UIImage *barButtonImageActive;
     
     NSUInteger days = progress != 0 ? [[NSDate new] timeIntervalSinceDate:[task.history lastObject]] / (60*60*24) : 10000;
     if (days < 1000 && days > 0) {
-        cell.daysElapsed.text = [NSString stringWithFormat:@"%ld", (long)days];
+        cell.daysElapsed.text = [NSString stringWithFormat:@"%ldD", (long)days];
     } else {
         cell.daysElapsed.text = nil;
     }
@@ -864,6 +866,9 @@ UIImage *barButtonImageActive;
     cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, task.name];
     
     cell.score.textColor = cell.daysElapsed.textColor;
+    cell.verseCountLabel.textColor = cell.suraName.textColor;
+    cell.verseCountLabel.adjustsFontSizeToFitWidth = YES;
+    
    
     return cell;
 }

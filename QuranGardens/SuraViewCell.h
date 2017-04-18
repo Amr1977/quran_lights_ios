@@ -17,5 +17,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *score;
 
+@property (weak, nonatomic) IBOutlet UILabel *verseCountLabel;
+
+
 
 @end

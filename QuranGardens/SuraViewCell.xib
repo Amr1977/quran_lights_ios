@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,10 +23,9 @@
                         <rect key="frame" x="5" y="5" width="148" height="85"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun" translatesAutoresizingMaskIntoConstraints="NO" id="CrV-tX-pb7" userLabel="memorized">
-                                <rect key="frame" x="119" y="8" width="20" height="20"/>
+                                <rect key="frame" x="105.5" y="0.0" width="42.5" height="42.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="X7Y-gp-4Cr"/>
-                                    <constraint firstAttribute="height" constant="20" id="zjc-Xe-xML"/>
+                                    <constraint firstAttribute="width" secondItem="CrV-tX-pb7" secondAttribute="height" multiplier="1:1" id="YSN-Cd-jBp"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Auy-mw-Mdj" userLabel="sura name">
@@ -61,18 +62,31 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="eS0-nG-1jL" userLabel="VerseCount">
+                                <rect key="frame" x="8" y="6" width="62" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="62" id="Li3-fg-gXe"/>
+                                    <constraint firstAttribute="height" constant="17" id="SUj-zR-Pjd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="eS0-nG-1jL" firstAttribute="leading" secondItem="gZe-Hp-tKu" secondAttribute="leading" constant="8" id="0vV-mF-cVn"/>
                             <constraint firstItem="Auy-mw-Mdj" firstAttribute="leading" secondItem="gZe-Hp-tKu" secondAttribute="leading" constant="8" id="GXX-xj-MMp"/>
                             <constraint firstAttribute="bottom" secondItem="h2h-r9-vaj" secondAttribute="bottom" constant="5" id="M1E-Jn-HlZ"/>
                             <constraint firstAttribute="trailing" secondItem="Auy-mw-Mdj" secondAttribute="trailing" constant="16" id="P9X-cP-EKj"/>
-                            <constraint firstItem="CrV-tX-pb7" firstAttribute="top" secondItem="gZe-Hp-tKu" secondAttribute="top" constant="8" id="QIh-Ic-noK"/>
+                            <constraint firstItem="CrV-tX-pb7" firstAttribute="top" secondItem="gZe-Hp-tKu" secondAttribute="top" id="QIh-Ic-noK"/>
                             <constraint firstItem="Auy-mw-Mdj" firstAttribute="centerY" secondItem="gZe-Hp-tKu" secondAttribute="centerY" id="YIM-hQ-dky"/>
                             <constraint firstAttribute="bottom" secondItem="i2N-bH-ALD" secondAttribute="bottom" constant="5" id="cJL-ql-v0T"/>
+                            <constraint firstItem="CrV-tX-pb7" firstAttribute="height" secondItem="gZe-Hp-tKu" secondAttribute="height" multiplier="0.5" id="cjt-Il-Or5"/>
+                            <constraint firstItem="eS0-nG-1jL" firstAttribute="top" secondItem="gZe-Hp-tKu" secondAttribute="top" constant="6" id="md6-7E-8rB"/>
                             <constraint firstAttribute="trailing" secondItem="h2h-r9-vaj" secondAttribute="trailing" constant="8" id="sz3-lD-Zf8"/>
                             <constraint firstItem="i2N-bH-ALD" firstAttribute="leading" secondItem="gZe-Hp-tKu" secondAttribute="leading" constant="8" id="wKW-t4-9eo"/>
-                            <constraint firstAttribute="trailing" secondItem="CrV-tX-pb7" secondAttribute="trailing" constant="9" id="yHS-Wc-WWw"/>
+                            <constraint firstAttribute="trailing" secondItem="CrV-tX-pb7" secondAttribute="trailing" id="yHS-Wc-WWw"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -90,6 +104,7 @@
                 <outlet property="memorized" destination="CrV-tX-pb7" id="ruD-vX-8LQ"/>
                 <outlet property="score" destination="i2N-bH-ALD" id="Chc-Qs-noJ"/>
                 <outlet property="suraName" destination="Auy-mw-Mdj" id="RHz-0O-wTi"/>
+                <outlet property="verseCountLabel" destination="eS0-nG-1jL" id="wg8-fM-adg"/>
             </connections>
             <point key="canvasLocation" x="430" y="204.5"/>
         </collectionViewCell>
