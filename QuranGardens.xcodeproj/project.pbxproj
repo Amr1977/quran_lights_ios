@@ -38,6 +38,8 @@
 		07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */; };
 		07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */; };
 		0A8DAB34FE051E524BD30303 /* Pods_QuranGardens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82855D8766F94B78534A777E /* Pods_QuranGardens.framework */; };
+		C50658351EA5D26000330A9B /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50658331EA5D26000330A9B /* FeedBackViewController.m */; };
+		C50658361EA5D26000330A9B /* FeedBackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50658341EA5D26000330A9B /* FeedBackViewController.xib */; };
 		C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C5147FCA1E61BB5500DE699E /* Reachability.m */; };
 		C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C566F4571E21143200628A94 /* GoogleService-Info.plist */; };
 		C56B782C1EA23E4200252039 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C56B782B1EA23E4200252039 /* Podfile */; };
@@ -155,6 +157,9 @@
 		07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodicTask.m; sourceTree = "<group>"; };
 		82855D8766F94B78534A777E /* Pods_QuranGardens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuranGardens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC5A8B9D69C915AD7FE135C0 /* Pods-QuranGardens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranGardens.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens.release.xcconfig"; sourceTree = "<group>"; };
+		C50658321EA5D26000330A9B /* FeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackViewController.h; sourceTree = "<group>"; };
+		C50658331EA5D26000330A9B /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
+		C50658341EA5D26000330A9B /* FeedBackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedBackViewController.xib; sourceTree = "<group>"; };
 		C5147FC91E61BB0300DE699E /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C5147FCA1E61BB5500DE699E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C566F4571E21143200628A94 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -353,6 +358,9 @@
 				C5A26AF61EA26F75009135D4 /* LineChartTimeViewController.h */,
 				C5A26AF71EA26F75009135D4 /* LineChartTimeViewController.m */,
 				C5A26AF81EA26F75009135D4 /* LineChartTimeViewController.xib */,
+				C50658321EA5D26000330A9B /* FeedBackViewController.h */,
+				C50658331EA5D26000330A9B /* FeedBackViewController.m */,
+				C50658341EA5D26000330A9B /* FeedBackViewController.xib */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -561,6 +569,7 @@
 				072594131D74AEB0009E5F05 /* wordcount.txt in Resources */,
 				076965E21C5B6A7A00ED2D33 /* SuraViewCell.xib in Resources */,
 				C5A26AEC1EA24420009135D4 /* ChartsViewController.xib in Resources */,
+				C50658361EA5D26000330A9B /* FeedBackViewController.xib in Resources */,
 				0750B0D21D68F6600081B1C4 /* arabic-sura-names in Resources */,
 				07FAC8EC1D66FA0000A18525 /* SettingsViewController.xib in Resources */,
 			);
@@ -650,6 +659,7 @@
 				076965E01C5B630E00ED2D33 /* QuranGardensViewController.m in Sources */,
 				076965D81C5B60C600ED2D33 /* Sura.m in Sources */,
 				C5CC35171E2143A70070D14F /* LoginViewController.m in Sources */,
+				C50658351EA5D26000330A9B /* FeedBackViewController.m in Sources */,
 				C5A26B041EA27005009135D4 /* DayAxisValueFormatter.m in Sources */,
 				C5A26B071EA27005009135D4 /* DateValueFormatter.m in Sources */,
 				C5A26AF11EA24CFD009135D4 /* CubicLineChartViewController.m in Sources */,
