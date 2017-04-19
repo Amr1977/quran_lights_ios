@@ -23,7 +23,7 @@
                         <rect key="frame" x="5" y="5" width="148" height="85"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun" translatesAutoresizingMaskIntoConstraints="NO" id="CrV-tX-pb7" userLabel="memorized">
-                                <rect key="frame" x="105.5" y="0.0" width="42.5" height="42.5"/>
+                                <rect key="frame" x="117" y="0.0" width="25" height="25.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="CrV-tX-pb7" secondAttribute="height" multiplier="1:1" id="YSN-Cd-jBp"/>
                                 </constraints>
@@ -82,11 +82,11 @@
                             <constraint firstItem="CrV-tX-pb7" firstAttribute="top" secondItem="gZe-Hp-tKu" secondAttribute="top" id="QIh-Ic-noK"/>
                             <constraint firstItem="Auy-mw-Mdj" firstAttribute="centerY" secondItem="gZe-Hp-tKu" secondAttribute="centerY" id="YIM-hQ-dky"/>
                             <constraint firstAttribute="bottom" secondItem="i2N-bH-ALD" secondAttribute="bottom" constant="5" id="cJL-ql-v0T"/>
-                            <constraint firstItem="CrV-tX-pb7" firstAttribute="height" secondItem="gZe-Hp-tKu" secondAttribute="height" multiplier="0.5" id="cjt-Il-Or5"/>
+                            <constraint firstItem="CrV-tX-pb7" firstAttribute="height" secondItem="gZe-Hp-tKu" secondAttribute="height" multiplier="0.3" id="cjt-Il-Or5"/>
                             <constraint firstItem="eS0-nG-1jL" firstAttribute="top" secondItem="gZe-Hp-tKu" secondAttribute="top" constant="6" id="md6-7E-8rB"/>
                             <constraint firstAttribute="trailing" secondItem="h2h-r9-vaj" secondAttribute="trailing" constant="8" id="sz3-lD-Zf8"/>
                             <constraint firstItem="i2N-bH-ALD" firstAttribute="leading" secondItem="gZe-Hp-tKu" secondAttribute="leading" constant="8" id="wKW-t4-9eo"/>
-                            <constraint firstAttribute="trailing" secondItem="CrV-tX-pb7" secondAttribute="trailing" id="yHS-Wc-WWw"/>
+                            <constraint firstAttribute="trailing" secondItem="CrV-tX-pb7" secondAttribute="trailing" constant="6" id="yHS-Wc-WWw"/>
                         </constraints>
                     </view>
                 </subviews>
