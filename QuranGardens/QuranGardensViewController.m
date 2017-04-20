@@ -784,8 +784,8 @@ UIImage *barButtonImageActive;
         cell.content.clipsToBounds = YES;
         cell.content.layer.borderWidth = 2;
         cell.backgroundColor = [UIColor blackColor];
-        cell.memorized.layer.cornerRadius = cell.memorized.frame.size.width / 2.0;
-        cell.memorized.layer.borderWidth = 2.0;
+//        cell.memorized.layer.cornerRadius = cell.memorized.frame.size.width / 2.0;
+//        cell.memorized.layer.borderWidth = 2.0;
         cell.memorized.image = self.sunImage;
         cell.layer.shouldRasterize = YES;
         cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
@@ -796,13 +796,12 @@ UIImage *barButtonImageActive;
     
     CGFloat progress = [task remainingTimeInterval] / self.periodicTaskManager.dataSource.settings.fadeTime;
     
-    if (progress < 0.20) {
-        cell.suraName.textColor = [UIColor colorWithRed:153/255 green:255/255 blue:153/255 alpha:1];
-        cell.daysElapsed.textColor = [UIColor colorWithRed:153/255 green:255/255 blue:153/255 alpha:1];
+    if (progress < 0.3) {
+        cell.suraName.textColor = [UIColor colorWithRed:153/255 green:255/255 blue:153/255 alpha:0.2];
     } else {
         cell.suraName.textColor = [UIColor blackColor];
-        cell.daysElapsed.textColor = [UIColor blackColor];
     }
+    
     
     cell.score.text = [[AMRTools abbreviateNumber:[Statistics suraScore:task.name] withDecimal:1] stringByAppendingString:@"c"];
     cell.verseCountLabel.text = [[[Sura suraVerseCount][[Sura.suraNames indexOfObject:task.name]] stringValue] stringByAppendingString:@"v"];
@@ -868,8 +867,10 @@ UIImage *barButtonImageActive;
     cell.content.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.1) blue:1/255 alpha:1];
     cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, task.name];
     
-    cell.score.textColor = cell.daysElapsed.textColor;
+    cell.score.textColor = cell.suraName.textColor;
     cell.verseCountLabel.textColor = cell.suraName.textColor;
+    cell.daysElapsed.textColor = cell.suraName.textColor;
+    
     cell.verseCountLabel.adjustsFontSizeToFitWidth = YES;
     
    

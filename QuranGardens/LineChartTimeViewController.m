@@ -102,7 +102,7 @@
         return;
     }
     
-    [self setDataCount:_sliderX.value range:30.0];
+    [self setDataCount:_sliderX.value range:[self getStoredDays]];
 }
 
 - (void)setDataCount:(int)count range:(double)range
@@ -219,6 +219,21 @@
     _sliderTextX.text = [@((int)_sliderX.value) stringValue];
     
     [self updateChartData];
+}
+
+- (float)getStoredDays {
+    float result = [[NSUserDefaults standardUserDefaults] floatForKey:@"number_of_days"];
+    if (result < 1.f) {
+        return 7.f;
+    }
+    
+    return result;
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSUserDefaults standardUserDefaults] setFloat:_sliderX.value forKey:@"number_of_days"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - ChartViewDelegate

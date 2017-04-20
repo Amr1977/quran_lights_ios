@@ -11,6 +11,7 @@
 
 #import "CubicLineChartViewController.h"
 #import "DateValueFormatter.h"
+
 @import Charts;
 
 @interface CubicLineSampleFillFormatter : NSObject <IChartFillFormatter>
@@ -105,11 +106,26 @@
     _chartView.rightAxis.enabled = YES;
     _chartView.legend.enabled = NO;
     
-    _sliderX.value = 30.0;
+    _sliderX.value = [self getStoredDays];
     _sliderY.value = 100.0;
     [self slidersValueChanged:nil];
     
     [_chartView animateWithXAxisDuration:2.0 yAxisDuration:2.0];
+}
+
+- (float)getStoredDays {
+    float result = [[NSUserDefaults standardUserDefaults] floatForKey:@"number_of_days"];
+    if (result < 1.f) {
+        return 7.f;
+    }
+    
+    return result;
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSUserDefaults standardUserDefaults] setFloat:_sliderX.value forKey:@"number_of_days"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)didReceiveMemoryWarning
