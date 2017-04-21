@@ -211,6 +211,13 @@ UIImage *barButtonImageActive;
     
 }
 
+- (void)toggleLanguage{
+    //TODO: show alert with choices
+    
+    [AMRTools isRTL] ? [AMRTools setLocaleEnglish] : [AMRTools setLocaleArabic];
+    exit(0);
+}
+
 
 - (void)setMenuButton{
 
@@ -226,6 +233,18 @@ UIImage *barButtonImageActive;
     
     [settingsButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
+    
+    UIButton *languageButton = [[UIButton alloc] initWithFrame:imageFrame];
+    [languageButton setTitle:[AMRTools isRTL] ? @"Ar" : @"En"
+                    forState:UIControlStateNormal];
+    //settingsButton.tintColor = [UIColor yellowColor];
+    //[languageButton setBackgroundImage:self.sunImage forState:UIControlStateNormal];
+    [languageButton addTarget:self
+                       action:@selector(toggleLanguage)
+             forControlEvents:UIControlEventTouchUpInside];
+    
+    [languageButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *languageMenuButton = [[UIBarButtonItem alloc] initWithCustomView:languageButton];
     
     
     //sort by normal order
@@ -268,7 +287,7 @@ UIImage *barButtonImageActive;
 
     [UIView animateWithDuration:1 animations:^{
         //self.navigationItem.rightBarButtonItem = menuButton;
-        self.navigationItem.rightBarButtonItems = @[menuButton, moshafOrderItem, lightSortItem, charCountSortItem];
+        self.navigationItem.rightBarButtonItems = @[languageMenuButton, menuButton, moshafOrderItem, lightSortItem, charCountSortItem];
     }];
 }
 

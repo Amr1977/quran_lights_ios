@@ -53,10 +53,12 @@
 
 +(void)setLocaleArabic{
     [[NSUserDefaults standardUserDefaults] setObject:@[@"ar-SA"] forKey:@"AppleLanguages"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 +(void)setLocaleEnglish{
     [[NSUserDefaults standardUserDefaults] setObject:@[@"en"] forKey:@"AppleLanguages"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 
