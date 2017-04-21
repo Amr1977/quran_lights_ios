@@ -36,6 +36,31 @@
     return menu;
 }
 
+
+
++(Boolean) isRTL {
+    //TODO refine later to be one call only
+    static Boolean result = NO;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSArray<NSString *> *locales = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"];
+        result = locales != nil && locales.count > 0 && [locales[0] isEqualToString:@"ar-SA"];
+        // Do any other initialisation stuff here
+    });
+    
+    return result;
+}
+
++(void)setLocaleArabic{
+    [[NSUserDefaults standardUserDefaults] setObject:@[@"ar-SA"] forKey:@"AppleLanguages"];
+}
+
++(void)setLocaleEnglish{
+    [[NSUserDefaults standardUserDefaults] setObject:@[@"en"] forKey:@"AppleLanguages"];
+}
+
+
+
 +(NSString *)abbreviateNumber:(NSInteger)num withDecimal:(int)dec {
     
     if (num < 500) {

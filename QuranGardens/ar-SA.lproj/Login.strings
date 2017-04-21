@@ -1,0 +1,21 @@
+
+/* Class = "UIButton"; normalTitle = "Exit"; ObjectID = "BlC-Qv-YoK"; */
+"BlC-Qv-YoK.normalTitle" = "Exit";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "EfU-XN-3tu"; */
+"EfU-XN-3tu.placeholder" = "Password";
+
+/* Class = "UITextField"; placeholder = "User Name"; ObjectID = "Pxs-fB-GY1"; */
+"Pxs-fB-GY1.placeholder" = "User Name";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "ds5-PK-UFx"; */
+"ds5-PK-UFx.normalTitle" = "Sign Up";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "qLP-jY-3b8"; */
+"qLP-jY-3b8.placeholder" = "Password";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "uTB-H9-Qj1"; */
+"uTB-H9-Qj1.placeholder" = "Email";
+
+/* Class = "UIButton"; normalTitle = "signin"; ObjectID = "vdp-YC-Z8Q"; */
+"vdp-YC-Z8Q.normalTitle" = "signin";

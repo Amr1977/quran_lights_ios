@@ -1,0 +1,21 @@
+
+/* Class = "UISegmentedControl"; 542-CG-KmS.segmentTitles[0] = "Ascending"; ObjectID = "542-CG-KmS"; */
+"542-CG-KmS.segmentTitles[0]" = "Ascending";
+
+/* Class = "UISegmentedControl"; 542-CG-KmS.segmentTitles[1] = "Descending"; ObjectID = "542-CG-KmS"; */
+"542-CG-KmS.segmentTitles[1]" = "Descending";
+
+/* Class = "UILabel"; text = "Sort Order"; ObjectID = "9Yb-jN-Yrb"; */
+"9Yb-jN-Yrb.text" = "Sort Order";
+
+/* Class = "UILabel"; text = "Sort Type"; ObjectID = "ZiG-Jc-Muc"; */
+"ZiG-Jc-Muc.text" = "Sort Type";
+
+/* Class = "UITextField"; placeholder = "Number of light days"; ObjectID = "gB2-Dt-28v"; */
+"gB2-Dt-28v.placeholder" = "Number of light days";
+
+/* Class = "UILabel"; text = "Light Duration (Days)"; ObjectID = "lqw-lJ-cpp"; */
+"lqw-lJ-cpp.text" = "Light Duration (Days)";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "rIZ-Ti-dXM"; */
+"rIZ-Ti-dXM.normalTitle" = "Sign Up";

@@ -32,6 +32,8 @@ NetworkStatus remoteHostStatus;
     self.firebaseDatabaseReference = [[FIRDatabase database] reference];
     [self firebaseSignIn];
     
+    [[NSUserDefaults standardUserDefaults] setObject:@[@"ar-SA"] forKey:@"AppleLanguages"];
+    
     return YES;
 }
 
@@ -266,7 +268,7 @@ NetworkStatus remoteHostStatus;
 }
 
 - (void)loadHistory{
-    return;
+    //return;
     if (!self.userID || !self.isConnected) {
         return;
     }

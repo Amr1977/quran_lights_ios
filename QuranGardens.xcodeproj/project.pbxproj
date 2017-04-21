@@ -30,34 +30,36 @@
 		076965D81C5B60C600ED2D33 /* Sura.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965D71C5B60C600ED2D33 /* Sura.m */; };
 		076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965DA1C5B628200ED2D33 /* SuraViewCell.m */; };
 		076965E01C5B630E00ED2D33 /* QuranGardensViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */; };
-		076965E21C5B6A7A00ED2D33 /* SuraViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076965E11C5B6A7A00ED2D33 /* SuraViewCell.xib */; };
 		07D7D30D1D9E64FE00CF4FE4 /* safe.png in Resources */ = {isa = PBXBuildFile; fileRef = 07D7D30C1D9E64FE00CF4FE4 /* safe.png */; };
 		07D7D30F1D9E885300CF4FE4 /* gold-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 07D7D30E1D9E885300CF4FE4 /* gold-star.png */; };
 		07FAC8EB1D66FA0000A18525 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FAC8E91D66FA0000A18525 /* SettingsViewController.m */; };
-		07FAC8EC1D66FA0000A18525 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07FAC8EA1D66FA0000A18525 /* SettingsViewController.xib */; };
 		07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */; };
 		07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */; };
 		0A8DAB34FE051E524BD30303 /* Pods_QuranGardens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82855D8766F94B78534A777E /* Pods_QuranGardens.framework */; };
 		C50658351EA5D26000330A9B /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50658331EA5D26000330A9B /* FeedBackViewController.m */; };
-		C50658361EA5D26000330A9B /* FeedBackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50658341EA5D26000330A9B /* FeedBackViewController.xib */; };
 		C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C5147FCA1E61BB5500DE699E /* Reachability.m */; };
 		C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C566F4571E21143200628A94 /* GoogleService-Info.plist */; };
+		C568B1761EAA02E200445642 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C568B1781EAA02E200445642 /* Login.storyboard */; };
+		C568B1791EAA02E900445642 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C568B17B1EAA02E900445642 /* SettingsViewController.xib */; };
+		C568B17C1EAA02FD00445642 /* CubicLineChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C568B17E1EAA02FD00445642 /* CubicLineChartViewController.xib */; };
+		C568B17F1EAA030800445642 /* FeedBackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C568B1811EAA030800445642 /* FeedBackViewController.xib */; };
+		C568B1821EAA032300445642 /* SuraViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C568B1841EAA032300445642 /* SuraViewCell.xib */; };
+		C568B1851EAA032F00445642 /* LineChartTimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C568B1871EAA032F00445642 /* LineChartTimeViewController.xib */; };
+		C568B18A1EAA038100445642 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C568B18C1EAA038100445642 /* Localizable.strings */; };
+		C568B1981EAA27B800445642 /* NSString+Localization.m in Sources */ = {isa = PBXBuildFile; fileRef = C568B1971EAA27B800445642 /* NSString+Localization.m */; };
 		C56B782C1EA23E4200252039 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C56B782B1EA23E4200252039 /* Podfile */; };
 		C59A202F1E8116BD003C0F09 /* AMRTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C59A202E1E8116BD003C0F09 /* AMRTools.m */; };
 		C5A26AE71EA23F5B009135D4 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C5A26AE41EA23EFF009135D4 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C5A26AEB1EA24420009135D4 /* ChartsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AE91EA24420009135D4 /* ChartsViewController.m */; };
 		C5A26AEC1EA24420009135D4 /* ChartsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A26AEA1EA24420009135D4 /* ChartsViewController.xib */; };
 		C5A26AF11EA24CFD009135D4 /* CubicLineChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AEF1EA24CFD009135D4 /* CubicLineChartViewController.m */; };
-		C5A26AF21EA24CFD009135D4 /* CubicLineChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A26AF01EA24CFD009135D4 /* CubicLineChartViewController.xib */; };
 		C5A26AF51EA24D14009135D4 /* DemoBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AF41EA24D14009135D4 /* DemoBaseViewController.m */; };
 		C5A26AF91EA26F75009135D4 /* LineChartTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AF71EA26F75009135D4 /* LineChartTimeViewController.m */; };
-		C5A26AFA1EA26F75009135D4 /* LineChartTimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A26AF81EA26F75009135D4 /* LineChartTimeViewController.xib */; };
 		C5A26B041EA27005009135D4 /* DayAxisValueFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AFE1EA27005009135D4 /* DayAxisValueFormatter.m */; };
 		C5A26B051EA27005009135D4 /* IntAxisValueFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26B001EA27005009135D4 /* IntAxisValueFormatter.m */; };
 		C5A26B061EA27005009135D4 /* LargeValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A26B011EA27005009135D4 /* LargeValueFormatter.swift */; };
 		C5A26B071EA27005009135D4 /* DateValueFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26B031EA27005009135D4 /* DateValueFormatter.m */; };
 		C5CC35171E2143A70070D14F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CC35161E2143A70070D14F /* LoginViewController.m */; };
-		C5CC35191E2144580070D14F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5CC35181E2144580070D14F /* Login.storyboard */; };
 		C5F17C491E69BB6B00476CA3 /* UIViewController+Gestures.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */; };
 /* End PBXBuildFile section */
 
@@ -145,12 +147,10 @@
 		076965DA1C5B628200ED2D33 /* SuraViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuraViewCell.m; sourceTree = "<group>"; };
 		076965DE1C5B630E00ED2D33 /* QuranGardensViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuranGardensViewController.h; sourceTree = "<group>"; };
 		076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuranGardensViewController.m; sourceTree = "<group>"; };
-		076965E11C5B6A7A00ED2D33 /* SuraViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuraViewCell.xib; sourceTree = "<group>"; };
 		07D7D30C1D9E64FE00CF4FE4 /* safe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = safe.png; sourceTree = "<group>"; };
 		07D7D30E1D9E885300CF4FE4 /* gold-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gold-star.png"; sourceTree = "<group>"; };
 		07FAC8E81D66FA0000A18525 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		07FAC8E91D66FA0000A18525 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		07FAC8EA1D66FA0000A18525 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		07FC8BF21C5D05C000695E0A /* PeriodicTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeriodicTaskManager.h; sourceTree = "<group>"; };
 		07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodicTaskManager.m; sourceTree = "<group>"; };
 		07FC8BF51C5D05DC00695E0A /* PeriodicTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeriodicTask.h; sourceTree = "<group>"; };
@@ -159,10 +159,27 @@
 		AC5A8B9D69C915AD7FE135C0 /* Pods-QuranGardens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranGardens.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens.release.xcconfig"; sourceTree = "<group>"; };
 		C50658321EA5D26000330A9B /* FeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackViewController.h; sourceTree = "<group>"; };
 		C50658331EA5D26000330A9B /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
-		C50658341EA5D26000330A9B /* FeedBackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedBackViewController.xib; sourceTree = "<group>"; };
 		C5147FC91E61BB0300DE699E /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C5147FCA1E61BB5500DE699E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C566F4571E21143200628A94 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C568B1771EAA02E200445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
+		C568B17A1EAA02E900445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SettingsViewController.xib; sourceTree = "<group>"; };
+		C568B17D1EAA02FD00445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CubicLineChartViewController.xib; sourceTree = "<group>"; };
+		C568B1801EAA030800445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FeedBackViewController.xib; sourceTree = "<group>"; };
+		C568B1831EAA032300445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SuraViewCell.xib; sourceTree = "<group>"; };
+		C568B1861EAA032F00445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LineChartTimeViewController.xib; sourceTree = "<group>"; };
+		C568B18B1EAA038100445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C568B18D1EAA038E00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		C568B18E1EAA038E00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/Main.strings"; sourceTree = "<group>"; };
+		C568B18F1EAA038E00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/Login.strings"; sourceTree = "<group>"; };
+		C568B1901EAA038E00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/SettingsViewController.strings"; sourceTree = "<group>"; };
+		C568B1911EAA038E00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/CubicLineChartViewController.strings"; sourceTree = "<group>"; };
+		C568B1921EAA038E00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/LineChartTimeViewController.strings"; sourceTree = "<group>"; };
+		C568B1931EAA038E00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/FeedBackViewController.strings"; sourceTree = "<group>"; };
+		C568B1941EAA038F00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/SuraViewCell.strings"; sourceTree = "<group>"; };
+		C568B1951EAA038F00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		C568B1961EAA27B800445642 /* NSString+Localization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Localization.h"; sourceTree = "<group>"; };
+		C568B1971EAA27B800445642 /* NSString+Localization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Localization.m"; sourceTree = "<group>"; };
 		C56B782B1EA23E4200252039 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C59A202D1E8116BD003C0F09 /* AMRTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMRTools.h; sourceTree = "<group>"; };
 		C59A202E1E8116BD003C0F09 /* AMRTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMRTools.m; sourceTree = "<group>"; };
@@ -172,12 +189,10 @@
 		C5A26AEA1EA24420009135D4 /* ChartsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChartsViewController.xib; sourceTree = "<group>"; };
 		C5A26AEE1EA24CFD009135D4 /* CubicLineChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubicLineChartViewController.h; sourceTree = "<group>"; };
 		C5A26AEF1EA24CFD009135D4 /* CubicLineChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CubicLineChartViewController.m; sourceTree = "<group>"; };
-		C5A26AF01EA24CFD009135D4 /* CubicLineChartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CubicLineChartViewController.xib; sourceTree = "<group>"; };
 		C5A26AF31EA24D14009135D4 /* DemoBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoBaseViewController.h; sourceTree = "<group>"; };
 		C5A26AF41EA24D14009135D4 /* DemoBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoBaseViewController.m; sourceTree = "<group>"; };
 		C5A26AF61EA26F75009135D4 /* LineChartTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineChartTimeViewController.h; sourceTree = "<group>"; };
 		C5A26AF71EA26F75009135D4 /* LineChartTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineChartTimeViewController.m; sourceTree = "<group>"; };
-		C5A26AF81EA26F75009135D4 /* LineChartTimeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LineChartTimeViewController.xib; sourceTree = "<group>"; };
 		C5A26AFC1EA27005009135D4 /* QuranGardens-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuranGardens-Bridging-Header.h"; sourceTree = "<group>"; };
 		C5A26AFD1EA27005009135D4 /* DayAxisValueFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayAxisValueFormatter.h; sourceTree = "<group>"; };
 		C5A26AFE1EA27005009135D4 /* DayAxisValueFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayAxisValueFormatter.m; sourceTree = "<group>"; };
@@ -188,7 +203,6 @@
 		C5A26B031EA27005009135D4 /* DateValueFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateValueFormatter.m; sourceTree = "<group>"; };
 		C5CC35151E2143A70070D14F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C5CC35161E2143A70070D14F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		C5CC35181E2144580070D14F /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C5F17C471E69BB6B00476CA3 /* UIViewController+Gestures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Gestures.h"; sourceTree = "<group>"; };
 		C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Gestures.m"; sourceTree = "<group>"; };
 		CC0FB87F801C545BFDDA00FB /* Pods-QuranGardens.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranGardens.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens.debug.xcconfig"; sourceTree = "<group>"; };
@@ -261,8 +275,8 @@
 				076965A51C5B5D0700ED2D33 /* AppDelegate.h */,
 				076965A61C5B5D0700ED2D33 /* AppDelegate.m */,
 				076965AB1C5B5D0700ED2D33 /* Main.storyboard */,
-				C5CC35181E2144580070D14F /* Login.storyboard */,
-				07FAC8EA1D66FA0000A18525 /* SettingsViewController.xib */,
+				C568B1781EAA02E200445642 /* Login.storyboard */,
+				C568B17B1EAA02E900445642 /* SettingsViewController.xib */,
 				076965DD1C5B62AE00ED2D33 /* Controller */,
 				C5A26AFB1EA26FD8009135D4 /* Formatters */,
 				076965DC1C5B628F00ED2D33 /* View */,
@@ -273,6 +287,7 @@
 				0750B0C91D68F51C0081B1C4 /* reval.txt */,
 				C5147FC91E61BB0300DE699E /* Reachability.h */,
 				C5147FCA1E61BB5500DE699E /* Reachability.m */,
+				C568B18C1EAA038100445642 /* Localizable.strings */,
 			);
 			path = QuranGardens;
 			sourceTree = "<group>";
@@ -352,15 +367,17 @@
 				C5A26AEA1EA24420009135D4 /* ChartsViewController.xib */,
 				C5A26AEE1EA24CFD009135D4 /* CubicLineChartViewController.h */,
 				C5A26AEF1EA24CFD009135D4 /* CubicLineChartViewController.m */,
-				C5A26AF01EA24CFD009135D4 /* CubicLineChartViewController.xib */,
+				C568B17E1EAA02FD00445642 /* CubicLineChartViewController.xib */,
 				C5A26AF31EA24D14009135D4 /* DemoBaseViewController.h */,
 				C5A26AF41EA24D14009135D4 /* DemoBaseViewController.m */,
 				C5A26AF61EA26F75009135D4 /* LineChartTimeViewController.h */,
 				C5A26AF71EA26F75009135D4 /* LineChartTimeViewController.m */,
-				C5A26AF81EA26F75009135D4 /* LineChartTimeViewController.xib */,
+				C568B1871EAA032F00445642 /* LineChartTimeViewController.xib */,
 				C50658321EA5D26000330A9B /* FeedBackViewController.h */,
 				C50658331EA5D26000330A9B /* FeedBackViewController.m */,
-				C50658341EA5D26000330A9B /* FeedBackViewController.xib */,
+				C568B1811EAA030800445642 /* FeedBackViewController.xib */,
+				C568B1961EAA27B800445642 /* NSString+Localization.h */,
+				C568B1971EAA27B800445642 /* NSString+Localization.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -377,7 +394,7 @@
 		C51039EB1E791B320076A184 /* cell */ = {
 			isa = PBXGroup;
 			children = (
-				076965E11C5B6A7A00ED2D33 /* SuraViewCell.xib */,
+				C568B1841EAA032300445642 /* SuraViewCell.xib */,
 				076965D91C5B628200ED2D33 /* SuraViewCell.h */,
 				076965DA1C5B628200ED2D33 /* SuraViewCell.m */,
 			);
@@ -512,6 +529,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"ar-SA",
 			);
 			mainGroup = 076965961C5B5D0700ED2D33;
 			productRefGroup = 076965A01C5B5D0700ED2D33 /* Products */;
@@ -555,23 +573,24 @@
 			files = (
 				C56B782C1EA23E4200252039 /* Podfile in Resources */,
 				C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */,
-				C5A26AFA1EA26F75009135D4 /* LineChartTimeViewController.xib in Resources */,
+				C568B1851EAA032F00445642 /* LineChartTimeViewController.xib in Resources */,
 				076965B21C5B5D0700ED2D33 /* LaunchScreen.storyboard in Resources */,
-				C5CC35191E2144580070D14F /* Login.storyboard in Resources */,
+				C568B1761EAA02E200445642 /* Login.storyboard in Resources */,
+				C568B18A1EAA038100445642 /* Localizable.strings in Resources */,
 				076965AF1C5B5D0700ED2D33 /* Assets.xcassets in Resources */,
 				07D7D30D1D9E64FE00CF4FE4 /* safe.png in Resources */,
 				076965AD1C5B5D0700ED2D33 /* Main.storyboard in Resources */,
 				072594121D74AEB0009E5F05 /* charcount.txt in Resources */,
-				C5A26AF21EA24CFD009135D4 /* CubicLineChartViewController.xib in Resources */,
+				C568B17C1EAA02FD00445642 /* CubicLineChartViewController.xib in Resources */,
 				07D7D30F1D9E885300CF4FE4 /* gold-star.png in Resources */,
 				0750B0CA1D68F51C0081B1C4 /* reval.txt in Resources */,
 				0750B0CC1D68F5FD0081B1C4 /* versecount.txt in Resources */,
 				072594131D74AEB0009E5F05 /* wordcount.txt in Resources */,
-				076965E21C5B6A7A00ED2D33 /* SuraViewCell.xib in Resources */,
+				C568B1821EAA032300445642 /* SuraViewCell.xib in Resources */,
 				C5A26AEC1EA24420009135D4 /* ChartsViewController.xib in Resources */,
-				C50658361EA5D26000330A9B /* FeedBackViewController.xib in Resources */,
+				C568B17F1EAA030800445642 /* FeedBackViewController.xib in Resources */,
 				0750B0D21D68F6600081B1C4 /* arabic-sura-names in Resources */,
-				07FAC8EC1D66FA0000A18525 /* SettingsViewController.xib in Resources */,
+				C568B1791EAA02E900445642 /* SettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,6 +680,7 @@
 				C5CC35171E2143A70070D14F /* LoginViewController.m in Sources */,
 				C50658351EA5D26000330A9B /* FeedBackViewController.m in Sources */,
 				C5A26B041EA27005009135D4 /* DayAxisValueFormatter.m in Sources */,
+				C568B1981EAA27B800445642 /* NSString+Localization.m in Sources */,
 				C5A26B071EA27005009135D4 /* DateValueFormatter.m in Sources */,
 				C5A26AF11EA24CFD009135D4 /* CubicLineChartViewController.m in Sources */,
 				07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */,
@@ -707,6 +727,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				076965AC1C5B5D0700ED2D33 /* Base */,
+				C568B18E1EAA038E00445642 /* ar-SA */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -715,8 +736,72 @@
 			isa = PBXVariantGroup;
 			children = (
 				076965B11C5B5D0700ED2D33 /* Base */,
+				C568B1951EAA038F00445642 /* ar-SA */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C568B1781EAA02E200445642 /* Login.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C568B1771EAA02E200445642 /* Base */,
+				C568B18F1EAA038E00445642 /* ar-SA */,
+			);
+			name = Login.storyboard;
+			sourceTree = "<group>";
+		};
+		C568B17B1EAA02E900445642 /* SettingsViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C568B17A1EAA02E900445642 /* Base */,
+				C568B1901EAA038E00445642 /* ar-SA */,
+			);
+			name = SettingsViewController.xib;
+			sourceTree = "<group>";
+		};
+		C568B17E1EAA02FD00445642 /* CubicLineChartViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C568B17D1EAA02FD00445642 /* Base */,
+				C568B1911EAA038E00445642 /* ar-SA */,
+			);
+			name = CubicLineChartViewController.xib;
+			sourceTree = "<group>";
+		};
+		C568B1811EAA030800445642 /* FeedBackViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C568B1801EAA030800445642 /* Base */,
+				C568B1931EAA038E00445642 /* ar-SA */,
+			);
+			name = FeedBackViewController.xib;
+			sourceTree = "<group>";
+		};
+		C568B1841EAA032300445642 /* SuraViewCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C568B1831EAA032300445642 /* Base */,
+				C568B1941EAA038F00445642 /* ar-SA */,
+			);
+			name = SuraViewCell.xib;
+			sourceTree = "<group>";
+		};
+		C568B1871EAA032F00445642 /* LineChartTimeViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C568B1861EAA032F00445642 /* Base */,
+				C568B1921EAA038E00445642 /* ar-SA */,
+			);
+			name = LineChartTimeViewController.xib;
+			sourceTree = "<group>";
+		};
+		C568B18C1EAA038100445642 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C568B18B1EAA038100445642 /* Base */,
+				C568B18D1EAA038E00445642 /* ar-SA */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -726,6 +811,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -772,6 +858,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

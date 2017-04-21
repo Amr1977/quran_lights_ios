@@ -16,6 +16,7 @@
 #import "AppDelegate.h"
 #import "AMRTools.h"
 #import "CubicLineChartViewController.h"
+#import "NSString+Localization.h"
 @import Charts;
 
 CGFloat const CellHeight = 80;
@@ -865,17 +866,24 @@ UIImage *barButtonImageActive;
     }
     
     cell.content.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.1) blue:1/255 alpha:1];
-    cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, task.name];
+    cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, [task.name localize]];
     
     cell.score.textColor = cell.suraName.textColor;
     cell.verseCountLabel.textColor = cell.suraName.textColor;
     cell.daysElapsed.textColor = cell.suraName.textColor;
+    if ([AMRTools isRTL]) {
+        cell.daysElapsed.textAlignment = NSTextAlignmentLeft;
+        cell.score.textAlignment = NSTextAlignmentRight;
+        cell.verseCountLabel.textAlignment = NSTextAlignmentRight;
+    }
     
     cell.verseCountLabel.adjustsFontSizeToFitWidth = YES;
     
    
     return cell;
 }
+
+
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
