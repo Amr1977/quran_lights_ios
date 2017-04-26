@@ -103,7 +103,7 @@ UIImage *barButtonImageActive;
     NSString *totalString = [AMRTools abbreviateNumber:total withDecimal:1];
     NSString *todayString = [AMRTools abbreviateNumber:todayScore withDecimal:1];
 
-    self.score.title = [NSString stringWithFormat:@"%@: %@/%@",[@"Score" localize],totalString, todayString];
+    self.score.title = [NSString stringWithFormat:@"%@/%@",totalString, todayString];
     
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
@@ -402,12 +402,12 @@ UIImage *barButtonImageActive;
 
 
 //handlers keys are used as action titles, values are blocks to be executed on selecting that action
-- (void)showMenuWithTitle:(NSString *)title handlers:(NSDictionary *)handlers{
+- (void)showMenuWithTitle:(NSString *)title handlers:(NSDictionary *)handlers orderedKeys:(NSArray <NSString *>*)orderedKeys {
     UIAlertController *menu = [UIAlertController alertControllerWithTitle:title
                                                                   message:@""
                                                            preferredStyle:UIAlertControllerStyleAlert];
     
-    for (NSString *actionTitle in [handlers allKeys]) {
+    for (NSString *actionTitle in orderedKeys) {
         UIAlertAction* action = [UIAlertAction actionWithTitle:actionTitle
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * action) {
@@ -428,44 +428,62 @@ UIImage *barButtonImageActive;
     [self presentViewController:menu animated:YES completion:nil];
 }
 
+
+
+
+
 //TODO: save/load memorization state
 
 - (void)showSuraMenu{
+    
+    NSMutableArray <NSString *>* orderedKeys = @[].mutableCopy;
+    [orderedKeys addObject:[@"Refresh" localize]];
+    
     NSMutableDictionary *operations = @{}.mutableCopy;
     operations[[@"Refresh" localize]] = ^(){[self refreshTask:self.selectedTask];};
-    if(self.selectedTask.memorizedState != 2){
+    
+    if(self.selectedTask.memorizedState != MEMORIZED){
+        [orderedKeys addObject:[@"Memorized" localize]];
         operations[[@"Memorized" localize]] = ^(){
-            self.selectedTask.memorizedState = 2;
+            self.selectedTask.memorizedState = MEMORIZED;
             NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
             [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
             [self.collectionView reloadData];
         };
     }
     
-    operations[[@"Being Memorized" localize]] = ^(){
-        self.selectedTask.memorizedState = 3;
-        NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
-        [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
-        [self.collectionView reloadData];
-    };
+    if (self.selectedTask.memorizedState != BEING_MEMORIZED) {
+        [orderedKeys addObject:[@"Being Memorized" localize]];
+        operations[[@"Being Memorized" localize]] = ^(){
+            self.selectedTask.memorizedState = BEING_MEMORIZED;
+            NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
+            [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
+            [self.collectionView reloadData];
+        };
+    }
     
-    operations[[@"Not Memorized" localize]] = ^(){
-        self.selectedTask.memorizedState = 0;
-        NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
-        [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
-        [self.collectionView reloadData];
-    };
+    if (self.selectedTask.memorizedState != WAS_MEMORIZED) {
+        [orderedKeys addObject:[@"Was Memorized" localize]];
+        operations[[@"Was Memorized" localize]] = ^(){
+            
+            self.selectedTask.memorizedState = WAS_MEMORIZED;
+            [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
+            NSLog(@"was memorized: %ld",(long)self.selectedTask.memorizedState);
+            [self.collectionView reloadData];
+        };
+    }
     
-//    operations[@"Remove last refresh"] = ^(){NSLog(@"TODO !!");};
+    if (self.selectedTask.memorizedState != NOT_MEMORIZED) {
+        [orderedKeys addObject:[@"Not Memorized" localize]];
+        operations[[@"Not Memorized" localize]] = ^(){
+            self.selectedTask.memorizedState = NOT_MEMORIZED;
+            NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
+            [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
+            [self.collectionView reloadData];
+        };
+    }
     
-    operations[[@"Was Memorized" localize]] = ^(){
-        self.selectedTask.memorizedState = 1;
-        [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
-        NSLog(@"was memorized: %ld",(long)self.selectedTask.memorizedState);
-        [self.collectionView reloadData];
-    };
-    
-    [self showMenuWithTitle:[self.selectedTask.name localize] handlers:operations];
+    [self showMenuWithTitle:[self.selectedTask.name localize] handlers:operations orderedKeys:orderedKeys];
 }
 
 - (void)save{

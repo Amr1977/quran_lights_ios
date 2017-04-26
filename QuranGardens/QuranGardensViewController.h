@@ -11,6 +11,10 @@
 #import "UIViewController+Gestures.h"
 
 #define Demo NO
+#define MEMORIZED 2
+#define BEING_MEMORIZED 3
+#define WAS_MEMORIZED 1
+#define NOT_MEMORIZED 0
 
 extern CGFloat const CellHeight;
 extern CGFloat const CellWidth;
