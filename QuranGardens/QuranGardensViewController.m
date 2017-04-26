@@ -464,7 +464,7 @@ UIImage *barButtonImageActive;
         [self.collectionView reloadData];
     };
     
-    [self showMenuWithTitle:self.selectedTask.name handlers:operations];
+    [self showMenuWithTitle:[self.selectedTask.name localize] handlers:operations];
 }
 
 - (void)save{
