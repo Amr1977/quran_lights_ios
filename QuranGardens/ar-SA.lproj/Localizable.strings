@@ -120,3 +120,15 @@
 "Al-Ikhlas" = "الإخلاص";
 "Al-Falaq" = "الفلق";
 "Al-Nas" = "الناس";
+
+//menu
+
+"Refresh" = "إضاءة";
+"Memorized" = "حفظت";
+"Refresh" = "إضاءة";
+"Being Memorized" = "جاري الحفظ";
+"Not Memorized" = "لم تحفظ";
+"Was Memorized" = "كانت محفوظة";
+
+
+"Cancel" = "إلغاء";

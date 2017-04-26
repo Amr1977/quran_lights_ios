@@ -212,10 +212,25 @@ UIImage *barButtonImageActive;
 }
 
 - (void)toggleLanguage{
-    //TODO: show alert with choices
     
-    [AMRTools isRTL] ? [AMRTools setLocaleEnglish] : [AMRTools setLocaleArabic];
-    exit(0);
+    UIAlertController *confirmation = [UIAlertController alertControllerWithTitle:[@"Language Change" localize]
+                                                                        message:[@"App needs to close to change current app locale, you will need to relaunch app yourself." localize]
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:[@"Ok" localize] style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              [AMRTools isRTL] ? [AMRTools setLocaleEnglish] : [AMRTools setLocaleArabic];
+                                                              exit(0);
+                                                          }
+                                    ];
+    
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:[@"Cancel" localize] style:UIAlertActionStyleDefault
+                                                           handler:nil];
+ 
+    [confirmation addAction:ok];
+    [confirmation addAction:cencal];
+    
+    [self presentViewController:confirmation animated:YES completion:nil];
 }
 
 
@@ -293,14 +308,14 @@ UIImage *barButtonImageActive;
 
 - (void)howItWorks{
     
-   UIAlertController *howItWorks = [UIAlertController alertControllerWithTitle:@"How it works"
-                                          message:@"After you review any Sura remember to tap its cell here to get it refreshed, you have limited days before light goes almost off unless you review it again.\n\nThat will give you an overview of how frequent you review Suras and how fresh are they in your memory.\n\nLet's add more light to our lives !"
+   UIAlertController *howItWorks = [UIAlertController alertControllerWithTitle:[@"How it works" localize]
+                                          message:[@"After you review any Sura remember to tap its cell here to get it refreshed, you have limited days before light goes almost off unless you review it again.\n\nThat will give you an overview of how frequent you review Suras and how fresh are they in your memory.\n\nLet's add more light to our lives !" localize]
                                    preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:[@"Ok" localize] style:UIAlertActionStyleDefault
                                                           handler:nil];
     
-    UIAlertAction* doNotShowAgain = [UIAlertAction actionWithTitle:@"Don't show again" style:UIAlertActionStyleDefault
+    UIAlertAction* doNotShowAgain = [UIAlertAction actionWithTitle:[@"Don't show again" localize] style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action) { [self setShowHelpScreen:NO]; }];
     
     
@@ -332,7 +347,7 @@ UIImage *barButtonImageActive;
 
 - (UIAlertController *)menu{
     if (!_menu) {
-        _menu = [UIAlertController alertControllerWithTitle:@"Select Action"
+        _menu = [UIAlertController alertControllerWithTitle:[@"Select Action" localize]
                                                     message:@""
                                              preferredStyle:UIAlertControllerStyleAlert];
         
@@ -343,14 +358,14 @@ UIImage *barButtonImageActive;
 //                                                                  self.menuOpened = NO;
 //                                                              }];
         
-        UIAlertAction* howItWorksAction = [UIAlertAction actionWithTitle:@"How it works"
+        UIAlertAction* howItWorksAction = [UIAlertAction actionWithTitle:[@"How it works" localize]
                                                                    style:UIAlertActionStyleDefault
                                                                  handler:^(UIAlertAction * action) {
                                                                   [self howItWorks];
                                                                   self.menuOpened = NO;
                                                               }];
         
-        UIAlertAction* settingsAction = [UIAlertAction actionWithTitle:@"Settings"
+        UIAlertAction* settingsAction = [UIAlertAction actionWithTitle:[@"Settings" localize]
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * action) {
                                                                [self settings];
@@ -371,7 +386,7 @@ UIImage *barButtonImageActive;
 //                                                               self.menuOpened = NO;
 //                                                           }];
         
-        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:[@"Cancel" localize]
                                                                style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action) { self.menuOpened = NO; }];
         [_menu addAction:howItWorksAction];
@@ -401,7 +416,7 @@ UIImage *barButtonImageActive;
         [menu addAction:action];
     }
     
-    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:[@"Cancel" localize]
                                                            style:UIAlertActionStyleDefault
                                                          handler:nil];
     
@@ -416,7 +431,7 @@ UIImage *barButtonImageActive;
 
 - (void)showSuraMenu{
     NSMutableDictionary *operations = @{}.mutableCopy;
-    operations[@"Refresh"] = ^(){[self refreshTask:self.selectedTask];};
+    operations[[@"Refresh" localize]] = ^(){[self refreshTask:self.selectedTask];};
     if(self.selectedTask.memorizedState != 2){
         operations[@"Memorized"] = ^(){
             self.selectedTask.memorizedState = 2;
@@ -440,7 +455,7 @@ UIImage *barButtonImageActive;
         [self.collectionView reloadData];
     };
     
-    operations[@"Remove last refresh"] = ^(){NSLog(@"TODO !!");};
+//    operations[@"Remove last refresh"] = ^(){NSLog(@"TODO !!");};
     
     operations[@"Was Memorized"] = ^(){
         self.selectedTask.memorizedState = 1;
