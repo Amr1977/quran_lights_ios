@@ -211,29 +211,6 @@ UIImage *barButtonImageActive;
     
 }
 
-- (void)toggleLanguage{
-    
-    UIAlertController *confirmation = [UIAlertController alertControllerWithTitle:[@"Language Change" localize]
-                                                                        message:[@"App needs to close to change current app locale, you will need to relaunch app yourself." localize]
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction* ok = [UIAlertAction actionWithTitle:[@"Ok" localize] style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {
-                                                              [AMRTools isRTL] ? [AMRTools setLocaleEnglish] : [AMRTools setLocaleArabic];
-                                                              exit(0);
-                                                          }
-                                    ];
-    
-    UIAlertAction* cancel = [UIAlertAction actionWithTitle:[@"Cancel" localize] style:UIAlertActionStyleDefault
-                                                           handler:nil];
- 
-    [confirmation addAction:ok];
-    [confirmation addAction:cancel];
-    
-    [self presentViewController:confirmation animated:YES completion:nil];
-}
-
-
 - (void)setMenuButton{
 
     CGRect imageFrame = CGRectMake(0, 0, 40, 40);
@@ -249,19 +226,6 @@ UIImage *barButtonImageActive;
     
     [settingsButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
-    
-    UIButton *languageButton = [[UIButton alloc] initWithFrame:imageFrame];
-    [languageButton setTitle:[AMRTools isRTL] ? @"عربي" : @"En"
-                    forState:UIControlStateNormal];
-    //settingsButton.tintColor = [UIColor yellowColor];
-    //[languageButton setBackgroundImage:self.sunImage forState:UIControlStateNormal];
-    [languageButton addTarget:self
-                       action:@selector(toggleLanguage)
-             forControlEvents:UIControlEventTouchUpInside];
-    
-    [languageButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *languageMenuButton = [[UIBarButtonItem alloc] initWithCustomView:languageButton];
-    
     
     //sort by normal order
     self.moshafOrderButton = [[UIButton alloc] initWithFrame:imageFrame];
@@ -303,7 +267,7 @@ UIImage *barButtonImageActive;
 
     [UIView animateWithDuration:1 animations:^{
         //self.navigationItem.rightBarButtonItem = menuButton;
-        self.navigationItem.rightBarButtonItems = @[languageMenuButton, menuButton, moshafOrderItem, lightSortItem, charCountSortItem];
+        self.navigationItem.rightBarButtonItems = @[menuButton, moshafOrderItem, lightSortItem, charCountSortItem];
     }];
 }
 

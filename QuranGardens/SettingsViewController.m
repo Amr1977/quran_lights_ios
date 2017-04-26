@@ -10,6 +10,7 @@
 #import "UIViewController+Gestures.h"
 #import "LoginViewController.h"
 #import "NSString+Localization.h"
+#import "AMRTools.h"
 
 static NSString * const YearTimeUnit = @"y";
 static NSString * const MonthTimeUnit = @"n";
@@ -31,6 +32,11 @@ static CGFloat const DefaultCellHeight = 44;
 @property (weak, nonatomic) IBOutlet UITableView *sortTypeTableView;
 @property (nonatomic) BOOL settingsAltered;
 
+@property (weak, nonatomic) IBOutlet UILabel *languageLabel;
+
+@property (weak, nonatomic) IBOutlet UISegmentedControl *languageSelector;
+
+
 /** Either a number of days or in the format [xy][xn][xw][xd][xh][xm][xs], where x is an integer, y: year, n: month, w: week, d: day, h: hour, m: minute, s: second*/
 //@property (strong, nonatomic) NSString *fadeTimeString;
 
@@ -39,6 +45,13 @@ static CGFloat const DefaultCellHeight = 44;
 @implementation SettingsViewController
 
 static Settings* settingsCopy;
+
+- (IBAction)onLanguageSelected:(UISegmentedControl *)sender {
+    NSLog(@"language changed");
+    [self toggleLanguage];
+    
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,6 +69,11 @@ static Settings* settingsCopy;
     self.sortTypeTableView.frame = frame;
 
     [self addSwipeHandlerToView:self.view direction:@"right" handler:@selector(backToCollection)];
+    
+    if ([AMRTools isRTL]) {
+        self.languageLabel.text = [@"Language" localize];
+        self.languageSelector.selectedSegmentIndex = 1;
+    }
     
     //self.refreshPeriodText.keyboardType = UIKeyboardTypeNumberPad;
 }
@@ -140,6 +158,28 @@ static Settings* settingsCopy;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [[Settings sortTypeList] count];
+}
+
+- (void)toggleLanguage{
+    
+    UIAlertController *confirmation = [UIAlertController alertControllerWithTitle:[@"Language Change" localize]
+                                                                          message:[@"App needs to close to change current app locale, you will need to relaunch app yourself." localize]
+                                                                   preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:[@"Ok" localize] style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action) {
+                                                   [AMRTools isRTL] ? [AMRTools setLocaleEnglish] : [AMRTools setLocaleArabic];
+                                                   exit(0);
+                                               }
+                         ];
+    
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:[@"Cancel" localize] style:UIAlertActionStyleDefault
+                                                   handler:nil];
+    
+    [confirmation addAction:ok];
+    [confirmation addAction:cancel];
+    
+    [self presentViewController:confirmation animated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDelegate
