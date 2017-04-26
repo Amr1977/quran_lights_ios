@@ -251,7 +251,7 @@ UIImage *barButtonImageActive;
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
     
     UIButton *languageButton = [[UIButton alloc] initWithFrame:imageFrame];
-    [languageButton setTitle:[AMRTools isRTL] ? @"Ar" : @"En"
+    [languageButton setTitle:[AMRTools isRTL] ? @"عربي" : @"En"
                     forState:UIControlStateNormal];
     //settingsButton.tintColor = [UIColor yellowColor];
     //[languageButton setBackgroundImage:self.sunImage forState:UIControlStateNormal];
