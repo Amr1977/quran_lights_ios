@@ -9,6 +9,7 @@
 #import "SettingsViewController.h"
 #import "UIViewController+Gestures.h"
 #import "LoginViewController.h"
+#import "NSString+Localization.h"
 
 static NSString * const YearTimeUnit = @"y";
 static NSString * const MonthTimeUnit = @"n";
@@ -132,7 +133,7 @@ static Settings* settingsCopy;
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    cell.textLabel.text = [Settings sortTypeList][indexPath.row];
+    cell.textLabel.text = [[Settings sortTypeList][indexPath.row] localize];
     
     return cell;
 }

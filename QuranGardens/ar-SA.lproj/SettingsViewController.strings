@@ -1,21 +1,21 @@
 
 /* Class = "UISegmentedControl"; 542-CG-KmS.segmentTitles[0] = "Ascending"; ObjectID = "542-CG-KmS"; */
-"542-CG-KmS.segmentTitles[0]" = "Ascending";
+"542-CG-KmS.segmentTitles[0]" = "تصاعدي";
 
 /* Class = "UISegmentedControl"; 542-CG-KmS.segmentTitles[1] = "Descending"; ObjectID = "542-CG-KmS"; */
-"542-CG-KmS.segmentTitles[1]" = "Descending";
+"542-CG-KmS.segmentTitles[1]" = "تنازلي";
 
 /* Class = "UILabel"; text = "Sort Order"; ObjectID = "9Yb-jN-Yrb"; */
-"9Yb-jN-Yrb.text" = "Sort Order";
+"9Yb-jN-Yrb.text" = "اتجاه الترتيب";
 
 /* Class = "UILabel"; text = "Sort Type"; ObjectID = "ZiG-Jc-Muc"; */
-"ZiG-Jc-Muc.text" = "Sort Type";
+"ZiG-Jc-Muc.text" = "توع الترتيب";
 
 /* Class = "UITextField"; placeholder = "Number of light days"; ObjectID = "gB2-Dt-28v"; */
-"gB2-Dt-28v.placeholder" = "Number of light days";
+"gB2-Dt-28v.placeholder" = "عدد أيام إضاءة الخلية";
 
 /* Class = "UILabel"; text = "Light Duration (Days)"; ObjectID = "lqw-lJ-cpp"; */
-"lqw-lJ-cpp.text" = "Light Duration (Days)";
+"lqw-lJ-cpp.text" = "مدة الإضاءة بالأيام";
 
 /* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "rIZ-Ti-dXM"; */
 "rIZ-Ti-dXM.normalTitle" = "Sign Up";

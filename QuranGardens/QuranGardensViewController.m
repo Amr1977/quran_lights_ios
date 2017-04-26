@@ -433,7 +433,7 @@ UIImage *barButtonImageActive;
     NSMutableDictionary *operations = @{}.mutableCopy;
     operations[[@"Refresh" localize]] = ^(){[self refreshTask:self.selectedTask];};
     if(self.selectedTask.memorizedState != 2){
-        operations[@"Memorized"] = ^(){
+        operations[[@"Memorized" localize]] = ^(){
             self.selectedTask.memorizedState = 2;
             NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
             [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
@@ -441,14 +441,14 @@ UIImage *barButtonImageActive;
         };
     }
     
-    operations[@"Being Memorized"] = ^(){
+    operations[[@"Being Memorized" localize]] = ^(){
         self.selectedTask.memorizedState = 3;
         NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
         [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
         [self.collectionView reloadData];
     };
     
-    operations[@"Not Memorized"] = ^(){
+    operations[[@"Not Memorized" localize]] = ^(){
         self.selectedTask.memorizedState = 0;
         NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
         [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
@@ -457,7 +457,7 @@ UIImage *barButtonImageActive;
     
 //    operations[@"Remove last refresh"] = ^(){NSLog(@"TODO !!");};
     
-    operations[@"Was Memorized"] = ^(){
+    operations[[@"Was Memorized" localize]] = ^(){
         self.selectedTask.memorizedState = 1;
         [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
         NSLog(@"was memorized: %ld",(long)self.selectedTask.memorizedState);

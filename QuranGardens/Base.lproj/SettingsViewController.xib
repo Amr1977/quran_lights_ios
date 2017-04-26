@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -82,9 +82,12 @@
                                     <color key="separatorColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="sectionIndexBackgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </tableView>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="542-CG-KmS">
-                                    <rect key="frame" x="15" y="122" width="177" height="29"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="542-CG-KmS">
+                                    <rect key="frame" x="18" y="122" width="177" height="29"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="177" id="3g6-4E-pw6"/>
+                                        <constraint firstAttribute="height" constant="28" id="W1l-1a-V6t"/>
+                                    </constraints>
                                     <segments>
                                         <segment title="Ascending"/>
                                         <segment title="Descending"/>
@@ -105,6 +108,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="gB2-Dt-28v" firstAttribute="top" secondItem="lqw-lJ-cpp" secondAttribute="bottom" constant="8" id="Bl7-RE-3AC"/>
+                                <constraint firstItem="542-CG-KmS" firstAttribute="leading" secondItem="9Yb-jN-Yrb" secondAttribute="leading" id="EXa-u3-zNN"/>
                                 <constraint firstItem="9Yb-jN-Yrb" firstAttribute="leading" secondItem="dVV-CQ-If4" secondAttribute="leading" constant="18" id="L5y-tb-8la"/>
                                 <constraint firstItem="gB2-Dt-28v" firstAttribute="leading" secondItem="dVV-CQ-If4" secondAttribute="leading" constant="16" id="NQg-9e-hrQ"/>
                                 <constraint firstItem="9Yb-jN-Yrb" firstAttribute="top" secondItem="gB2-Dt-28v" secondAttribute="bottom" constant="8" id="apP-L1-6Sw"/>
@@ -117,6 +121,7 @@
                                 <constraint firstItem="ZiG-Jc-Muc" firstAttribute="top" secondItem="9Yb-jN-Yrb" secondAttribute="bottom" constant="44" id="vrt-Dz-sWp"/>
                                 <constraint firstItem="7fh-KB-XlF" firstAttribute="top" secondItem="ZiG-Jc-Muc" secondAttribute="bottom" constant="8" id="xVH-dg-h54"/>
                                 <constraint firstItem="rIZ-Ti-dXM" firstAttribute="leading" secondItem="dVV-CQ-If4" secondAttribute="leading" constant="18" id="zXJ-5h-mYJ"/>
+                                <constraint firstItem="542-CG-KmS" firstAttribute="top" secondItem="9Yb-jN-Yrb" secondAttribute="bottom" constant="8" id="znu-Qz-a6c"/>
                             </constraints>
                         </view>
                     </subviews>
