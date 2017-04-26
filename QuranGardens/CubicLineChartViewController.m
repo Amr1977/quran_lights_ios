@@ -11,6 +11,7 @@
 
 #import "CubicLineChartViewController.h"
 #import "DateValueFormatter.h"
+#import "NSString+Localization.h"
 
 @import Charts;
 
@@ -44,7 +45,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Daily Score Chart";
+    self.title = [@"Daily Score Chart" localize];
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     

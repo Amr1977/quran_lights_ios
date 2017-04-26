@@ -132,3 +132,25 @@
 
 
 "Cancel" = "إلغاء";
+"Ok" = "موافق";
+"Score" = "الرصيد";
+"Language Change" = "تغيير اللغة";
+"App needs to close to change current app locale, you will need to relaunch app yourself." = "يتطلب تغيير اللغة غلق التطبيق";
+
+"Don't show again" = " لا تظهر مرة أخرى";
+
+"Select Action" = "";
+
+"Settings" = "الضبط";
+
+"Are You sure ?" = "هل أنت متأكد ؟";
+"Yes" = "نعم";
+"No" = "لا";
+"Info" = "معلومات";
+
+"Daily Score Chart" = "بيان الرصيد اليومى";
+
+
+
+
+

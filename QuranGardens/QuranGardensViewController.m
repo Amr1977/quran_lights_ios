@@ -103,7 +103,7 @@ UIImage *barButtonImageActive;
     NSString *totalString = [AMRTools abbreviateNumber:total withDecimal:1];
     NSString *todayString = [AMRTools abbreviateNumber:todayScore withDecimal:1];
 
-    self.score.title = [NSString stringWithFormat:@"Score: %@(%@)",totalString, todayString];
+    self.score.title = [NSString stringWithFormat:@"%@: %@(%@)",[@"Score" localize],totalString, todayString];
     
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
@@ -228,7 +228,7 @@ UIImage *barButtonImageActive;
                                                            handler:nil];
  
     [confirmation addAction:ok];
-    [confirmation addAction:cencal];
+    [confirmation addAction:cancel];
     
     [self presentViewController:confirmation animated:YES completion:nil];
 }
@@ -735,14 +735,14 @@ UIImage *barButtonImageActive;
 }
 
 - (void)areYouSureDialogWithMessage:(NSString *)message yesBlock:(void(^)(void))yesBlock{
-    UIAlertController *confirmation = [UIAlertController alertControllerWithTitle:@"Are You sure ?"
+    UIAlertController *confirmation = [UIAlertController alertControllerWithTitle:[@"Are You sure ?" localize]
                                                                         message:message
                                                                  preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction* noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault
+    UIAlertAction* noAction = [UIAlertAction actionWithTitle:[@"No" localize] style:UIAlertActionStyleDefault
                                                           handler:nil];
     
-    UIAlertAction* yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault
+    UIAlertAction* yesAction = [UIAlertAction actionWithTitle:[@"Yes" localize] style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * action) { yesBlock(); }];
     
     [confirmation addAction:noAction];
@@ -752,11 +752,11 @@ UIImage *barButtonImageActive;
 }
 
 - (void)infoWithMessage:(NSString *)message {
-    UIAlertController *confirmation = [UIAlertController alertControllerWithTitle:@"Info"
+    UIAlertController *confirmation = [UIAlertController alertControllerWithTitle:[@"Info" localize]
                                                                           message:message
                                                                    preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction* noAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
+    UIAlertAction* noAction = [UIAlertAction actionWithTitle:[@"Ok" localize] style:UIAlertActionStyleDefault
                                                      handler:nil];
     
     [confirmation addAction:noAction];
