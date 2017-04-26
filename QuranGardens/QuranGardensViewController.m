@@ -274,7 +274,7 @@ UIImage *barButtonImageActive;
 - (void)howItWorks{
     
    UIAlertController *howItWorks = [UIAlertController alertControllerWithTitle:[@"How it works" localize]
-                                          message:[@"After you review any Sura remember to tap its cell here to get it refreshed, you have limited days before light goes almost off unless you review it again.\n\nThat will give you an overview of how frequent you review Suras and how fresh are they in your memory.\n\nLet's add more light to our lives !" localize]
+                                          message:[@"After you review any Sura remember to refresh its cell here, you have limited days before light goes almost off unless you refresh it again.\n\nThat will give you an overview of how frequent you review Suras and how fresh are they in your memory.\n\nLet's add more light to our lives !" localize]
                                    preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:[@"Ok" localize] style:UIAlertActionStyleDefault
