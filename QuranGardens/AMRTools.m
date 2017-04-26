@@ -68,11 +68,15 @@
     if (num < 500) {
         return [NSString stringWithFormat:@"%d", num];
     }
-    NSString *abbrevNum;
+    NSString *abbrevNum = @"K";
+    NSString *unit = @"K";
     float number = ((float)num) / 1000.f;
-    
+    if (number > 1000) {
+        number = ((float)num) / 1000000.f;
+        unit = @"M";
+    }
     NSString *numberString = [self floatToString:number];
-    abbrevNum = [NSString stringWithFormat:@"%@K", numberString];
+    abbrevNum = [NSString stringWithFormat:@"%@%@", numberString, unit];
     
     NSLog(@"%@", abbrevNum);
     
@@ -81,7 +85,7 @@
 
 + (NSString *) floatToString:(float) val {
     
-    NSString *ret = [NSString stringWithFormat:@"%.1f", val];
+    NSString *ret = [NSString stringWithFormat:@"%.2f", val];
     
     return ret;
 }

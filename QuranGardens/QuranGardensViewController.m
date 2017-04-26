@@ -103,7 +103,7 @@ UIImage *barButtonImageActive;
     NSString *totalString = [AMRTools abbreviateNumber:total withDecimal:1];
     NSString *todayString = [AMRTools abbreviateNumber:todayScore withDecimal:1];
 
-    self.score.title = [NSString stringWithFormat:@"%@: %@(%@)",[@"Score" localize],totalString, todayString];
+    self.score.title = [NSString stringWithFormat:@"%@: %@/%@",[@"Score" localize],totalString, todayString];
     
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
