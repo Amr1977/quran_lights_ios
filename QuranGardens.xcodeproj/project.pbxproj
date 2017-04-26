@@ -38,6 +38,8 @@
 		0A8DAB34FE051E524BD30303 /* Pods_QuranGardens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82855D8766F94B78534A777E /* Pods_QuranGardens.framework */; };
 		C50658351EA5D26000330A9B /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50658331EA5D26000330A9B /* FeedBackViewController.m */; };
 		C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C5147FCA1E61BB5500DE699E /* Reachability.m */; };
+		C53533431EB14142005846C0 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53533411EB14142005846C0 /* IntroViewController.m */; };
+		C53533441EB14142005846C0 /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53533421EB14142005846C0 /* IntroViewController.xib */; };
 		C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C566F4571E21143200628A94 /* GoogleService-Info.plist */; };
 		C568B1761EAA02E200445642 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C568B1781EAA02E200445642 /* Login.storyboard */; };
 		C568B1791EAA02E900445642 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C568B17B1EAA02E900445642 /* SettingsViewController.xib */; };
@@ -161,6 +163,9 @@
 		C50658331EA5D26000330A9B /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
 		C5147FC91E61BB0300DE699E /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C5147FCA1E61BB5500DE699E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		C53533401EB14142005846C0 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
+		C53533411EB14142005846C0 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
+		C53533421EB14142005846C0 /* IntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroViewController.xib; sourceTree = "<group>"; };
 		C566F4571E21143200628A94 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C568B1771EAA02E200445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		C568B17A1EAA02E900445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SettingsViewController.xib; sourceTree = "<group>"; };
@@ -288,6 +293,9 @@
 				C5147FC91E61BB0300DE699E /* Reachability.h */,
 				C5147FCA1E61BB5500DE699E /* Reachability.m */,
 				C568B18C1EAA038100445642 /* Localizable.strings */,
+				C53533401EB14142005846C0 /* IntroViewController.h */,
+				C53533411EB14142005846C0 /* IntroViewController.m */,
+				C53533421EB14142005846C0 /* IntroViewController.xib */,
 			);
 			path = QuranGardens;
 			sourceTree = "<group>";
@@ -582,6 +590,7 @@
 				076965AD1C5B5D0700ED2D33 /* Main.storyboard in Resources */,
 				072594121D74AEB0009E5F05 /* charcount.txt in Resources */,
 				C568B17C1EAA02FD00445642 /* CubicLineChartViewController.xib in Resources */,
+				C53533441EB14142005846C0 /* IntroViewController.xib in Resources */,
 				07D7D30F1D9E885300CF4FE4 /* gold-star.png in Resources */,
 				0750B0CA1D68F51C0081B1C4 /* reval.txt in Resources */,
 				0750B0CC1D68F5FD0081B1C4 /* versecount.txt in Resources */,
@@ -672,6 +681,7 @@
 				C5A26AEB1EA24420009135D4 /* ChartsViewController.m in Sources */,
 				C5A26AF51EA24D14009135D4 /* DemoBaseViewController.m in Sources */,
 				071C17AB1D673B5800019CDD /* Settings.m in Sources */,
+				C53533431EB14142005846C0 /* IntroViewController.m in Sources */,
 				07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */,
 				C59A202F1E8116BD003C0F09 /* AMRTools.m in Sources */,
 				07FAC8EB1D66FA0000A18525 /* SettingsViewController.m in Sources */,

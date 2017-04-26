@@ -11,6 +11,7 @@
 @import FirebaseDatabase;
 
 #define FireBaseSignInNotification @"FirebaseSignedIn"
+#define AppVersion @"1.4"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
