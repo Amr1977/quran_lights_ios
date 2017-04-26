@@ -241,7 +241,8 @@ UIImage *barButtonImageActive;
     UIButton *settingsButton = [[UIButton alloc] initWithFrame:imageFrame];
     [settingsButton setTitle:@"S" forState:UIControlStateNormal];
     //settingsButton.tintColor = [UIColor yellowColor];
-    [settingsButton setBackgroundImage:self.sunImage forState:UIControlStateNormal];
+    [settingsButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
+    settingsButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
     [settingsButton addTarget:self
                    action:@selector(settings)
          forControlEvents:UIControlEventTouchUpInside];
