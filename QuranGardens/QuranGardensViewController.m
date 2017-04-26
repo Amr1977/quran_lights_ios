@@ -49,8 +49,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (strong, nonatomic) UIButton *lightSortButton;
 @property (strong, nonatomic) UIButton *charCountSortButton;
 @property (strong, nonatomic) UIButton *moshafOrderButton4;
-@property (strong, nonatomic) UIButton *moshafOrderButton5;
-
+@property (strong, nonatomic) UIButton *moshafOrderButton5;//UIButton *scoreButton
 
 @end
 
@@ -58,12 +57,16 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 
 UIImage *barButtonImage;
 UIImage *barButtonImageActive;
+UIImage *chartButtonImage;
+UIButton *scoreButton;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     barButtonImage = [[UIImage imageNamed:@"sun.jpg"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
     barButtonImageActive = [[UIImage imageNamed:@"sun.jpg"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
+    
+    chartButtonImage = [[UIImage imageNamed:@"charts1"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncHistory) name:@"HistoryLoadedFromFireBase" object:nil];
@@ -102,12 +105,34 @@ UIImage *barButtonImageActive;
     
     NSString *totalString = [AMRTools abbreviateNumber:total withDecimal:1];
     NSString *todayString = [AMRTools abbreviateNumber:todayScore withDecimal:1];
-
-    self.score.title = [NSString stringWithFormat:@"%@/%@",totalString, todayString];
+    
+    if (scoreButton == nil) {
+        CGRect imageFrame = CGRectMake(0, 0, 40, 30);
+        
+        scoreButton = [[UIButton alloc] initWithFrame:imageFrame];
+        //[scoreButton setBackgroundImage:chartButtonImage forState:UIControlStateNormal];
+        [scoreButton setImage:chartButtonImage forState:UIControlStateNormal];
+        
+        [scoreButton addTarget:self
+                        action:@selector(showCharts)
+              forControlEvents:UIControlEventTouchUpInside];
+        
+        [scoreButton setShowsTouchWhenHighlighted:YES];
+        
+        UIBarButtonItem *chartsItem = [[UIBarButtonItem alloc] initWithCustomView:scoreButton];
+        
+        self.navigationItem.leftBarButtonItems = @[chartsItem, self.score];
+    }
+    
+//    [scoreButton setTitle:[NSString stringWithFormat:@"%@/%@",totalString, todayString]
+//                 forState:UIControlStateNormal];
+    
+    self.score.title = [NSString stringWithFormat:@"%@(%@)",totalString, todayString];
     
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
-    [self.score setTintColor:color];
+    [scoreButton setTintColor:color];
+    self.score.tintColor = color;
 }
 
 - (void)initTaskManager{
