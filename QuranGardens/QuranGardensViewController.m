@@ -17,6 +17,7 @@
 #import "AMRTools.h"
 #import "CubicLineChartViewController.h"
 #import "NSString+Localization.h"
+@import AVFoundation;
 @import Charts;
 
 CGFloat const CellHeight = 80;
@@ -920,12 +921,31 @@ UIButton *scoreButton;
     }
     
     cell.verseCountLabel.adjustsFontSizeToFitWidth = YES;
-    
    
     return cell;
 }
 
+UIColor *backgroundColorTemp;
 
+#define systemSoundID 1200
+static NSInteger tone = 0;
+
+- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    AudioServicesPlaySystemSound (systemSoundID + (tone++ % 10));
+    SuraViewCell * cell = (SuraViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    backgroundColorTemp = cell.content.backgroundColor;
+    cell.content.backgroundColor = [UIColor greenColor];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    SuraViewCell *cell = (SuraViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        cell.content.backgroundColor = backgroundColorTemp;
+    });
+    
+}
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -938,8 +958,8 @@ UIButton *scoreButton;
     self.selectedTask = task;
     
     [self showSuraMenu];
-    [self applyCurrentSort];
-    [self.collectionView reloadData];
+    //[self applyCurrentSort];
+    //[self.collectionView reloadData];
 }
 
 - (void)refreshTask:(PeriodicTask *)task{
