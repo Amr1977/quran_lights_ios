@@ -926,6 +926,7 @@ UIButton *scoreButton;
 }
 
 UIColor *backgroundColorTemp;
+UIColor *textColorTemp;
 
 #define systemSoundID 1200
 static NSInteger tone = 0;
@@ -935,15 +936,26 @@ static NSInteger tone = 0;
     AudioServicesPlaySystemSound (systemSoundID + (tone++ % 10));
     SuraViewCell * cell = (SuraViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     backgroundColorTemp = cell.content.backgroundColor;
+    textColorTemp = cell.suraName.textColor;
     cell.content.backgroundColor = [UIColor greenColor];
+    cell.suraName.textColor = [UIColor blackColor];
+    cell.verseCountLabel.textColor = [UIColor blackColor];
+    cell.score.textColor = [UIColor blackColor];
+    cell.daysElapsed.textColor = [UIColor blackColor];
+    
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SuraViewCell *cell = (SuraViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        cell.content.backgroundColor = backgroundColorTemp;
-    });
+    cell.content.backgroundColor = backgroundColorTemp;
+    cell.suraName.textColor = textColorTemp;
+    cell.verseCountLabel.textColor = textColorTemp;
+    cell.score.textColor = textColorTemp;
+    cell.daysElapsed.textColor = textColorTemp;
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        
+//    });
     
 }
 
