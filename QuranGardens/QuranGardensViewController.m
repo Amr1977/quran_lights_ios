@@ -907,7 +907,7 @@ UIButton *scoreButton;
         cell.memorized.layer.borderColor = [UIColor clearColor].CGColor;
     }
     
-    cell.content.backgroundColor = [UIColor colorWithRed:1/255 green:MAX(progress,0.1) blue:1/255 alpha:1];
+    cell.content.backgroundColor = [UIColor colorWithRed:0.0/255.0 green:MAX(progress,0) blue:0.0/255.0 alpha:1];
     cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, [task.name localize]];
     
     cell.score.textColor = cell.suraName.textColor;
