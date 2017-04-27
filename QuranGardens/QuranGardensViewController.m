@@ -61,9 +61,12 @@ UIImage *barButtonImageActive;
 UIImage *chartButtonImage;
 UIButton *scoreButton;
 
+static NSMutableDictionary *operations;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    operations = @{}.mutableCopy;
     barButtonImage = [[UIImage imageNamed:@"sun.jpg"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
     barButtonImageActive = [[UIImage imageNamed:@"sun.jpg"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
     
@@ -429,11 +432,14 @@ UIButton *scoreButton;
     NSMutableArray <NSString *>* orderedKeys = @[].mutableCopy;
     [orderedKeys addObject:[@"Refresh" localize]];
     
-    NSMutableDictionary *operations = @{}.mutableCopy;
-    operations[[@"Refresh" localize]] = ^(){[self refreshTask:self.selectedTask];};
+    if (operations[[@"Refresh" localize]] == nil) {
+        operations[[@"Refresh" localize]] = ^(){[self refreshTask:self.selectedTask];};
+    }
     
     if(self.selectedTask.memorizedState != MEMORIZED){
         [orderedKeys addObject:[@"Memorized" localize]];
+    }
+    if (operations[[@"Memorized" localize]] == nil) {
         operations[[@"Memorized" localize]] = ^(){
             self.selectedTask.memorizedState = MEMORIZED;
             NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
@@ -444,6 +450,9 @@ UIButton *scoreButton;
     
     if (self.selectedTask.memorizedState != BEING_MEMORIZED) {
         [orderedKeys addObject:[@"Being Memorized" localize]];
+    }
+    
+    if (operations[[@"Being Memorized" localize]] == nil) {
         operations[[@"Being Memorized" localize]] = ^(){
             self.selectedTask.memorizedState = BEING_MEMORIZED;
             NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
@@ -454,8 +463,9 @@ UIButton *scoreButton;
     
     if (self.selectedTask.memorizedState != WAS_MEMORIZED) {
         [orderedKeys addObject:[@"Was Memorized" localize]];
+    }
+    if (operations[[@"Was Memorized" localize]] == nil) {
         operations[[@"Was Memorized" localize]] = ^(){
-            
             self.selectedTask.memorizedState = WAS_MEMORIZED;
             [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
             NSLog(@"was memorized: %ld",(long)self.selectedTask.memorizedState);
@@ -465,6 +475,9 @@ UIButton *scoreButton;
     
     if (self.selectedTask.memorizedState != NOT_MEMORIZED) {
         [orderedKeys addObject:[@"Not Memorized" localize]];
+     }
+    
+    if (operations[[@"Not Memorized" localize]] == nil) {
         operations[[@"Not Memorized" localize]] = ^(){
             self.selectedTask.memorizedState = NOT_MEMORIZED;
             NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
