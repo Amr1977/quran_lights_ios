@@ -96,6 +96,8 @@ static NSMutableDictionary *operations;
     self.statistics = [[Statistics alloc] initWithDataSource:self.periodicTaskManager.dataSource];
     [self refreshScoreButton];
     
+    NSLog(@"Memorized %ld of total %ld", (long)[self.statistics memorizedScore], (long)[self.statistics allSurasScore]);
+    
 }
     
     - (IBAction)onScoreTabbed:(id)sender {

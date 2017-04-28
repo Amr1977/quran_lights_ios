@@ -19,6 +19,38 @@
     
     return self;
 }
+
+- (NSInteger)memorizedScore {
+    NSInteger result = 0;
+    
+    for (PeriodicTask *task in self.dataSource.tasks) {
+        if (task.memorizedState == MEMORIZED) {
+            NSInteger suraIndex = [Sura.suraNames indexOfObject:task.name];
+            NSNumber *charCount = [[Sura suraCharsCount] objectAtIndex:suraIndex];
+            NSInteger taskScore = [charCount integerValue];
+            
+            result += taskScore;
+        }
+    }
+    
+    return result;
+}
+
+- (NSInteger)allSurasScore {
+    static NSInteger result = 0;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        for (NSInteger i = 0; i < 114; i++) {
+            NSNumber *charCount = [[Sura suraCharsCount] objectAtIndex:i];
+            NSInteger taskScore = [charCount integerValue];
+            result += taskScore;
+        }
+    } );
+    
+    return result;
+}
+
     
 - (NSInteger)scoreForDate:(NSDate *)date {
     NSCalendar *cal = [NSCalendar currentCalendar];
@@ -203,5 +235,7 @@
     //TODO: do it !
     return 0;
 }
+
+
 
 @end

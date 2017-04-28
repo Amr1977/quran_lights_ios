@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+#define Demo NO
+#define MEMORIZED 2
+#define BEING_MEMORIZED 3
+#define WAS_MEMORIZED 1
+#define NOT_MEMORIZED 0
+
 
 /** 
  A task that should occurre at least once within a preset time period, this time period is the maximum allowed time between two occurrences of a periodic task.
