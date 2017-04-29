@@ -108,9 +108,13 @@
         return [d1 compare:d2];
     }];
     
-    NSMutableArray <NSDate *>* allDates = [result allKeys].mutableCopy;
+    for (NSDate *date in ordered) {
+        NSLog(@"date %@", date);
+    }
     
-    NSDate *minDate = [allDates firstObject];
+    //NSMutableArray <NSDate *>* allDates = ordered;//[result allKeys].mutableCopy;
+    
+    NSDate *minDate = [ordered firstObject];
     NSDate *LastDate = [NSDate new];
     
     if (minDate != nil) {
@@ -123,9 +127,9 @@
         NSDate *nextDate = minDate;
         
         //fill zeros in dates without score
-        for (NSInteger i = 1; i <= numberOfDays; i++) {
+        for (NSInteger i = 1; i < numberOfDays; i++) {
             nextDate = [theCalendar dateByAddingComponents:dayComponent toDate:nextDate options:0];
-            if (![allDates containsObject:nextDate]) {
+            if (![ordered containsObject:nextDate]) {
                 result[nextDate] = [NSNumber numberWithInteger:0];
                 NSLog(@"Added zero scoe for date %@", nextDate);
             }
