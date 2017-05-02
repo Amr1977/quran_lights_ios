@@ -115,13 +115,14 @@
     //NSMutableArray <NSDate *>* allDates = ordered;//[result allKeys].mutableCopy;
     
     NSDate *minDate = [ordered firstObject];
-    NSDate *LastDate = [NSDate new];
+    NSDate *LastDate =  [[NSCalendar currentCalendar] startOfDayForDate:[NSDate new]];
     
     if (minDate != nil) {
         NSInteger numberOfDays = [Statistics daysBetweenDate:minDate andDate:LastDate];
         
         NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
         dayComponent.day = 1;
+        dayComponent.hour = 12;
         NSCalendar *theCalendar = [NSCalendar currentCalendar];
         
         NSDate *nextDate = minDate;

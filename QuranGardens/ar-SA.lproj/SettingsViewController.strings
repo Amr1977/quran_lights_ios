@@ -9,7 +9,7 @@
 "9Yb-jN-Yrb.text" = "اتجاه الترتيب";
 
 /* Class = "UILabel"; text = "Sort Type"; ObjectID = "ZiG-Jc-Muc"; */
-"ZiG-Jc-Muc.text" = "توع الترتيب";
+"ZiG-Jc-Muc.text" = "نوع الترتيب";
 
 /* Class = "UITextField"; placeholder = "Number of light days"; ObjectID = "gB2-Dt-28v"; */
 "gB2-Dt-28v.placeholder" = "عدد أيام إضاءة الخلية";
