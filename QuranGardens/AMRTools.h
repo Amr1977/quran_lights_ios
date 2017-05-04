@@ -10,12 +10,13 @@
 @import UIKit;
 
 @interface AMRTools : NSObject
-
+    
 + (UIAlertController *)showMenuWithTitle:(NSString *)title message:(NSString *)message handlers:(NSDictionary *)handlers;
 +(NSString *)abbreviateNumber:(int)num withDecimal:(int)dec;
 
 +(Boolean) isRTL;
 +(void)setLocaleArabic;
 +(void)setLocaleEnglish;
++(void)play:(NSString *)path;
 
 @end

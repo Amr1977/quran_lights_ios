@@ -37,6 +37,7 @@
 		07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */; };
 		0A8DAB34FE051E524BD30303 /* Pods_QuranGardens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82855D8766F94B78534A777E /* Pods_QuranGardens.framework */; };
 		C50658351EA5D26000330A9B /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50658331EA5D26000330A9B /* FeedBackViewController.m */; };
+		C508370E1EBBB20000B54E94 /* rahman.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C508370D1EBBB20000B54E94 /* rahman.mp3 */; };
 		C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C5147FCA1E61BB5500DE699E /* Reachability.m */; };
 		C53533431EB14142005846C0 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53533411EB14142005846C0 /* IntroViewController.m */; };
 		C53533441EB14142005846C0 /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53533421EB14142005846C0 /* IntroViewController.xib */; };
@@ -161,6 +162,7 @@
 		AC5A8B9D69C915AD7FE135C0 /* Pods-QuranGardens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranGardens.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens.release.xcconfig"; sourceTree = "<group>"; };
 		C50658321EA5D26000330A9B /* FeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackViewController.h; sourceTree = "<group>"; };
 		C50658331EA5D26000330A9B /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
+		C508370D1EBBB20000B54E94 /* rahman.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rahman.mp3; sourceTree = "<group>"; };
 		C5147FC91E61BB0300DE699E /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C5147FCA1E61BB5500DE699E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C53533401EB14142005846C0 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 		076965A11C5B5D0700ED2D33 /* QuranGardens */ = {
 			isa = PBXGroup;
 			children = (
+				C508370D1EBBB20000B54E94 /* rahman.mp3 */,
 				C566F4571E21143200628A94 /* GoogleService-Info.plist */,
 				076965AE1C5B5D0700ED2D33 /* Assets.xcassets */,
 				0725940E1D74AEB0009E5F05 /* charcount.txt */,
@@ -592,6 +595,7 @@
 				C568B17C1EAA02FD00445642 /* CubicLineChartViewController.xib in Resources */,
 				C53533441EB14142005846C0 /* IntroViewController.xib in Resources */,
 				07D7D30F1D9E885300CF4FE4 /* gold-star.png in Resources */,
+				C508370E1EBBB20000B54E94 /* rahman.mp3 in Resources */,
 				0750B0CA1D68F51C0081B1C4 /* reval.txt in Resources */,
 				0750B0CC1D68F5FD0081B1C4 /* versecount.txt in Resources */,
 				072594131D74AEB0009E5F05 /* wordcount.txt in Resources */,
@@ -922,7 +926,7 @@
 				INFOPLIST_FILE = QuranGardens/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.greenlights.quranlights;
+				PRODUCT_BUNDLE_IDENTIFIER = com.greenlights.quranlightspro;
 				PRODUCT_NAME = "Quran Lights";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "QuranGardens/QuranGardens-Bridging-Header.h";
@@ -949,7 +953,7 @@
 				INFOPLIST_FILE = QuranGardens/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.greenlights.quranlights;
+				PRODUCT_BUNDLE_IDENTIFIER = com.greenlights.quranlightspro;
 				PRODUCT_NAME = "Quran Lights";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "QuranGardens/QuranGardens-Bridging-Header.h";

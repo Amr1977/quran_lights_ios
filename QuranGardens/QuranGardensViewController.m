@@ -336,6 +336,7 @@ static NSMutableDictionary *operations;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self applyCurrentSort];
     [self refreshScoreButton];
     [self.collectionView reloadData];
@@ -435,7 +436,10 @@ static NSMutableDictionary *operations;
     [orderedKeys addObject:[@"Refresh" localize]];
     
     if (operations[[@"Refresh" localize]] == nil) {
-        operations[[@"Refresh" localize]] = ^(){[self refreshTask:self.selectedTask];};
+        operations[[@"Refresh" localize]] = ^(){
+            [AMRTools play:@"rahman.mp3"];
+            [self refreshTask:self.selectedTask];
+        };
     }
     
     if(self.selectedTask.memorizedState != MEMORIZED){
@@ -443,6 +447,7 @@ static NSMutableDictionary *operations;
     }
     if (operations[[@"Memorized" localize]] == nil) {
         operations[[@"Memorized" localize]] = ^(){
+            [AMRTools play:@"rahman.mp3"];
             self.selectedTask.memorizedState = MEMORIZED;
             NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
             [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
@@ -456,6 +461,7 @@ static NSMutableDictionary *operations;
     
     if (operations[[@"Being Memorized" localize]] == nil) {
         operations[[@"Being Memorized" localize]] = ^(){
+            [AMRTools play:@"rahman.mp3"];
             self.selectedTask.memorizedState = BEING_MEMORIZED;
             NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
             [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
