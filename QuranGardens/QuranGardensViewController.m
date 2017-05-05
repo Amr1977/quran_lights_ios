@@ -828,10 +828,55 @@ static NSMutableDictionary *operations;
 }
 
 - (void) showCharts {
+    UIAlertController *menu = [UIAlertController alertControllerWithTitle:[@"Charts Menu" localize]
+                                                                  message:@""
+                                                           preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* dalyScore = [UIAlertAction actionWithTitle:[@"Daily Score Chart" localize]
+                                                     style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       [self dailyScoreChart];
+                                                   }];
+    [menu addAction:dalyScore];
+    
+    UIAlertAction* memorizedPercentage = [UIAlertAction actionWithTitle:[@"Memorization Pie Chart" localize]
+                                                     style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       [self memorizationChart];
+                                                   }];
+    [menu addAction:memorizedPercentage];
+    
+        UIAlertAction* cancel = [UIAlertAction actionWithTitle:[@"Cancel" localize]
+                                                         style:UIAlertActionStyleCancel
+                                                       handler:^(UIAlertAction * action) {
+                                                           
+                                                       }];
+        [menu addAction:cancel];
+    
+//    UIAlertAction* action = [UIAlertAction actionWithTitle:actionTitle
+//                                                     style:UIAlertActionStyleDefault
+//                                                   handler:^(UIAlertAction * action) {
+//                                                       void (^ block)() = handlers[actionTitle];
+//                                                       block();
+//                                                   }];
+//    [menu addAction:action];
+    
+    
+    
+    [self presentViewController:menu animated:YES completion:nil];
+    
+    
+}
+
+- (void)dailyScoreChart {
     NSLog(@"Show charts called");
     CubicLineChartViewController *chartsVC = [[CubicLineChartViewController alloc] init];
     chartsVC.scores = [self.statistics scores];
     [self.navigationController pushViewController:chartsVC animated:NO];
+}
+
+- (void)memorizationChart {
+    NSLog(@"memorizationChart TODO");
 }
 
 

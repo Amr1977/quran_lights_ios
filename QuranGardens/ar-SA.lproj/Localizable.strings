@@ -161,5 +161,6 @@
 
 "After you review any Sura remember to refresh its cell here, you have limited days before light goes almost off unless you refresh it again.\n\nThat will give you an overview of how frequent you review Suras and how fresh are they in your memory.\n\nLet's add more light to our lives !" = "بعد أن تقرأ أي سورة تذكر أن تضيء الخلية المناظرة لها في التطبيق وسيحاول التطبيق محاكاة قوة حضور كل سورة في ذاكرتك بدرجة إضاءة الخلية المناظرة لها . مع مرور الأيام سيصبح لديك خريطة ضوئية تبين لك بسهولة السور التي تحتاج لإعادة التنشيط في ذاكرتك.";
 
-
+"Daily Score Chart" = "بيان المقدار اليومي";
+"Memorization Pie Chart" = "بيان نسبة المحفوظ";
 
