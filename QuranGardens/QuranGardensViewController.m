@@ -882,9 +882,9 @@ static NSMutableDictionary *operations;
     NSMutableDictionary<NSString *, NSNumber *> *memorizationState = @{}.mutableCopy;
     
     NSInteger memorized = [self.statistics memorizedScore];
-    memorizationState[@"Not Memorized"] = [NSNumber numberWithInteger:[Statistics allSurasScore] - memorized];
+    memorizationState[[@"Not Memorized" localize]] = [NSNumber numberWithInteger:[Statistics allSurasScore] - memorized];
     
-    memorizationState[@"memorized"] = [NSNumber numberWithInteger:memorized];
+    memorizationState[[@"Memorized" localize]] = [NSNumber numberWithInteger:memorized];
     
     vc.scores = memorizationState;
     
