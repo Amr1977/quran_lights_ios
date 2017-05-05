@@ -21,6 +21,6 @@
 + (NSInteger)suraScore:(NSString *)suraName;
 - (NSDictionary<NSDate *, NSNumber *> *)scores;
 - (NSInteger)memorizedScore;
-- (NSInteger)allSurasScore;
++ (NSInteger)allSurasScore;
 
 @end

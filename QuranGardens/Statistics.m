@@ -36,7 +36,7 @@
     return result;
 }
 
-- (NSInteger)allSurasScore {
++ (NSInteger)allSurasScore {
     static NSInteger result = 0;
     
     static dispatch_once_t onceToken;

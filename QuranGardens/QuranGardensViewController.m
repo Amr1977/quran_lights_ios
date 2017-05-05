@@ -17,6 +17,7 @@
 #import "AMRTools.h"
 #import "CubicLineChartViewController.h"
 #import "NSString+Localization.h"
+#import "PiePolylineChartViewController.h"
 @import AVFoundation;
 @import Charts;
 
@@ -96,7 +97,7 @@ static NSMutableDictionary *operations;
     self.statistics = [[Statistics alloc] initWithDataSource:self.periodicTaskManager.dataSource];
     [self refreshScoreButton];
     
-    NSLog(@"Memorized %ld of total %ld", (long)[self.statistics memorizedScore], (long)[self.statistics allSurasScore]);
+    NSLog(@"Memorized %ld of total %ld", (long)[self.statistics memorizedScore], (long)[Statistics allSurasScore]);
     
 }
     
@@ -877,6 +878,18 @@ static NSMutableDictionary *operations;
 
 - (void)memorizationChart {
     NSLog(@"memorizationChart TODO");
+    PiePolylineChartViewController  *vc = [[PiePolylineChartViewController alloc] init];
+    NSMutableDictionary<NSString *, NSNumber *> *memorizationState = @{}.mutableCopy;
+    
+    NSInteger memorized = [self.statistics memorizedScore];
+    memorizationState[@"Not Memorized"] = [NSNumber numberWithInteger:[Statistics allSurasScore] - memorized];
+    
+    memorizationState[@"memorized"] = [NSNumber numberWithInteger:memorized];
+    
+    vc.scores = memorizationState;
+    
+    [self.navigationController pushViewController:vc animated:NO];
+
 }
 
 

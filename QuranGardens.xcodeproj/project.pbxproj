@@ -38,6 +38,10 @@
 		0A8DAB34FE051E524BD30303 /* Pods_QuranGardens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82855D8766F94B78534A777E /* Pods_QuranGardens.framework */; };
 		C50658351EA5D26000330A9B /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50658331EA5D26000330A9B /* FeedBackViewController.m */; };
 		C508370E1EBBB20000B54E94 /* rahman.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C508370D1EBBB20000B54E94 /* rahman.mp3 */; };
+		C50E590F1EBC55080076C3D6 /* PiePolylineChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50E590C1EBC55080076C3D6 /* PiePolylineChartViewController.xib */; };
+		C50E59131EBC553C0076C3D6 /* PiePolylineChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E59121EBC553C0076C3D6 /* PiePolylineChartViewController.m */; };
+		C50E59171EBC55710076C3D6 /* PieChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E59151EBC55710076C3D6 /* PieChartViewController.m */; };
+		C50E59181EBC55710076C3D6 /* PieChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50E59161EBC55710076C3D6 /* PieChartViewController.xib */; };
 		C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C5147FCA1E61BB5500DE699E /* Reachability.m */; };
 		C53533431EB14142005846C0 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53533411EB14142005846C0 /* IntroViewController.m */; };
 		C53533441EB14142005846C0 /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53533421EB14142005846C0 /* IntroViewController.xib */; };
@@ -163,6 +167,12 @@
 		C50658321EA5D26000330A9B /* FeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackViewController.h; sourceTree = "<group>"; };
 		C50658331EA5D26000330A9B /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
 		C508370D1EBBB20000B54E94 /* rahman.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rahman.mp3; sourceTree = "<group>"; };
+		C50E590C1EBC55080076C3D6 /* PiePolylineChartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PiePolylineChartViewController.xib; sourceTree = "<group>"; };
+		C50E59111EBC553C0076C3D6 /* PiePolylineChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PiePolylineChartViewController.h; sourceTree = "<group>"; };
+		C50E59121EBC553C0076C3D6 /* PiePolylineChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PiePolylineChartViewController.m; sourceTree = "<group>"; };
+		C50E59141EBC55710076C3D6 /* PieChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartViewController.h; sourceTree = "<group>"; };
+		C50E59151EBC55710076C3D6 /* PieChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartViewController.m; sourceTree = "<group>"; };
+		C50E59161EBC55710076C3D6 /* PieChartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PieChartViewController.xib; sourceTree = "<group>"; };
 		C5147FC91E61BB0300DE699E /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C5147FCA1E61BB5500DE699E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C53533401EB14142005846C0 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
@@ -286,6 +296,7 @@
 				C568B1781EAA02E200445642 /* Login.storyboard */,
 				C568B17B1EAA02E900445642 /* SettingsViewController.xib */,
 				076965DD1C5B62AE00ED2D33 /* Controller */,
+				C50E590B1EBC54A00076C3D6 /* charts */,
 				C5A26AFB1EA26FD8009135D4 /* Formatters */,
 				076965DC1C5B628F00ED2D33 /* View */,
 				076965D51C5B609100ED2D33 /* Model */,
@@ -373,17 +384,6 @@
 				C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */,
 				C59A202D1E8116BD003C0F09 /* AMRTools.h */,
 				C59A202E1E8116BD003C0F09 /* AMRTools.m */,
-				C5A26AE81EA24420009135D4 /* ChartsViewController.h */,
-				C5A26AE91EA24420009135D4 /* ChartsViewController.m */,
-				C5A26AEA1EA24420009135D4 /* ChartsViewController.xib */,
-				C5A26AEE1EA24CFD009135D4 /* CubicLineChartViewController.h */,
-				C5A26AEF1EA24CFD009135D4 /* CubicLineChartViewController.m */,
-				C568B17E1EAA02FD00445642 /* CubicLineChartViewController.xib */,
-				C5A26AF31EA24D14009135D4 /* DemoBaseViewController.h */,
-				C5A26AF41EA24D14009135D4 /* DemoBaseViewController.m */,
-				C5A26AF61EA26F75009135D4 /* LineChartTimeViewController.h */,
-				C5A26AF71EA26F75009135D4 /* LineChartTimeViewController.m */,
-				C568B1871EAA032F00445642 /* LineChartTimeViewController.xib */,
 				C50658321EA5D26000330A9B /* FeedBackViewController.h */,
 				C50658331EA5D26000330A9B /* FeedBackViewController.m */,
 				C568B1811EAA030800445642 /* FeedBackViewController.xib */,
@@ -400,6 +400,30 @@
 				AC5A8B9D69C915AD7FE135C0 /* Pods-QuranGardens.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		C50E590B1EBC54A00076C3D6 /* charts */ = {
+			isa = PBXGroup;
+			children = (
+				C5A26AEE1EA24CFD009135D4 /* CubicLineChartViewController.h */,
+				C5A26AEF1EA24CFD009135D4 /* CubicLineChartViewController.m */,
+				C568B17E1EAA02FD00445642 /* CubicLineChartViewController.xib */,
+				C50E59111EBC553C0076C3D6 /* PiePolylineChartViewController.h */,
+				C50E59121EBC553C0076C3D6 /* PiePolylineChartViewController.m */,
+				C50E590C1EBC55080076C3D6 /* PiePolylineChartViewController.xib */,
+				C50E59141EBC55710076C3D6 /* PieChartViewController.h */,
+				C50E59151EBC55710076C3D6 /* PieChartViewController.m */,
+				C50E59161EBC55710076C3D6 /* PieChartViewController.xib */,
+				C5A26AE81EA24420009135D4 /* ChartsViewController.h */,
+				C5A26AE91EA24420009135D4 /* ChartsViewController.m */,
+				C5A26AEA1EA24420009135D4 /* ChartsViewController.xib */,
+				C5A26AF31EA24D14009135D4 /* DemoBaseViewController.h */,
+				C5A26AF41EA24D14009135D4 /* DemoBaseViewController.m */,
+				C5A26AF61EA26F75009135D4 /* LineChartTimeViewController.h */,
+				C5A26AF71EA26F75009135D4 /* LineChartTimeViewController.m */,
+				C568B1871EAA032F00445642 /* LineChartTimeViewController.xib */,
+			);
+			name = charts;
 			sourceTree = "<group>";
 		};
 		C51039EB1E791B320076A184 /* cell */ = {
@@ -584,6 +608,7 @@
 			files = (
 				C56B782C1EA23E4200252039 /* Podfile in Resources */,
 				C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */,
+				C50E59181EBC55710076C3D6 /* PieChartViewController.xib in Resources */,
 				C568B1851EAA032F00445642 /* LineChartTimeViewController.xib in Resources */,
 				076965B21C5B5D0700ED2D33 /* LaunchScreen.storyboard in Resources */,
 				C568B1761EAA02E200445642 /* Login.storyboard in Resources */,
@@ -600,6 +625,7 @@
 				0750B0CC1D68F5FD0081B1C4 /* versecount.txt in Resources */,
 				072594131D74AEB0009E5F05 /* wordcount.txt in Resources */,
 				C568B1821EAA032300445642 /* SuraViewCell.xib in Resources */,
+				C50E590F1EBC55080076C3D6 /* PiePolylineChartViewController.xib in Resources */,
 				C5A26AEC1EA24420009135D4 /* ChartsViewController.xib in Resources */,
 				C568B17F1EAA030800445642 /* FeedBackViewController.xib in Resources */,
 				0750B0D21D68F6600081B1C4 /* arabic-sura-names in Resources */,
@@ -682,6 +708,7 @@
 				073AA6F21DB89E0300370847 /* Statistics.m in Sources */,
 				076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */,
 				075909F21D631B8900A6B7B1 /* DataSource.m in Sources */,
+				C50E59171EBC55710076C3D6 /* PieChartViewController.m in Sources */,
 				C5A26AEB1EA24420009135D4 /* ChartsViewController.m in Sources */,
 				C5A26AF51EA24D14009135D4 /* DemoBaseViewController.m in Sources */,
 				071C17AB1D673B5800019CDD /* Settings.m in Sources */,
@@ -696,6 +723,7 @@
 				C5A26B041EA27005009135D4 /* DayAxisValueFormatter.m in Sources */,
 				C568B1981EAA27B800445642 /* NSString+Localization.m in Sources */,
 				C5A26B071EA27005009135D4 /* DateValueFormatter.m in Sources */,
+				C50E59131EBC553C0076C3D6 /* PiePolylineChartViewController.m in Sources */,
 				C5A26AF11EA24CFD009135D4 /* CubicLineChartViewController.m in Sources */,
 				07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */,
 				076965A71C5B5D0700ED2D33 /* AppDelegate.m in Sources */,
