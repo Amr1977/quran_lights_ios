@@ -93,7 +93,7 @@
         NSInteger taskScore = [charCount integerValue];
         
         for (NSInteger i = 0; i < task.history.count ; i++) {
-            NSDate *date = [[NSCalendar currentCalendar] startOfDayForDate:task.history[i]];
+            NSDate *date = [[[NSCalendar currentCalendar] startOfDayForDate:task.history[i]] dateByAddingTimeInterval:12 * 60 * 60];
             result[date] = result[date] != nil ?
             [NSNumber numberWithInteger:((result[date]).integerValue + taskScore)] :
             [NSNumber numberWithInteger:taskScore];
@@ -122,7 +122,7 @@
         
         NSDateComponents *dayComponent = [[NSDateComponents alloc] init];
         dayComponent.day = 1;
-        dayComponent.hour = 12;
+        //dayComponent.hour = 12;
         NSCalendar *theCalendar = [NSCalendar currentCalendar];
         
         NSDate *nextDate = minDate;
@@ -155,7 +155,12 @@
         NSDateComponents *difference = [calendar components:NSCalendarUnitDay
                                                    fromDate:fromDate toDate:toDate options:0];
         
-        return [difference day];
+        
+        NSInteger result = [difference day];
+        
+        NSLog(@"difference %ld", (long)result);
+        
+        return result;
     }
     
 
