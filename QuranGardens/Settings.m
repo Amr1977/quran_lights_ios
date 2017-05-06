@@ -21,7 +21,8 @@ NSInteger const DefaultCycleInterval = 30*24*60*60;
                       @"Revelation Order",
                       @"Verses Count",
                       @"Word Count",
-                      @"Character Count"
+                      @"Character Count",
+                      @"Refresh Count"
                       ];
     });
     

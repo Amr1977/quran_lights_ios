@@ -680,6 +680,41 @@ NSInteger currentKhatma = 0;
     [self.collectionView reloadData];
 }
 
+- (void)refreshCountSuraSort{
+    //TODO: move sorting to a separate class
+    NSMutableArray *sortedArray;
+    sortedArray = [self.periodicTaskManager.dataSource.tasks sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        PeriodicTask *task1 = ((PeriodicTask *)a);
+        PeriodicTask *task2 = ((PeriodicTask *)b);
+        
+        NSUInteger firstSuraOrder = [[Sura suraNames] indexOfObject:task1.name];
+        NSUInteger secondSuraOrder = [[Sura suraNames] indexOfObject:task2.name];
+        NSUInteger firstOrder = task1.history.count;
+        NSUInteger secondOrder = task2.history.count;
+        NSComparisonResult result;
+        if (firstOrder > secondOrder ) {
+            result = NSOrderedDescending;
+        } else if (firstOrder < secondOrder ) {
+            result = NSOrderedAscending;
+        } else if(firstSuraOrder > secondSuraOrder) {
+            result = NSOrderedDescending;
+        } else {
+            result = NSOrderedAscending;
+        }
+        
+        return result;
+    }].mutableCopy;
+    
+    self.periodicTaskManager.dataSource.tasks = sortedArray;
+    
+    self.sortType = RefreshCountSort;
+    self.periodicTaskManager.dataSource.settings.sortType = RefreshCountSort;
+    [self.periodicTaskManager.dataSource saveSettings];
+    
+    [self.collectionView reloadData];
+}
+
+
 - (void)wordCountSuraSort{
     //TODO: move sorting to a separate class
     NSMutableArray *sortedArray;
@@ -1018,7 +1053,7 @@ NSInteger currentKhatma = 0;
     
     cell.content.backgroundColor = [UIColor colorWithRed:0.0/255.0 green:MAX(progress,0) blue:0.0/255.0 alpha:1];
     
-    cell.suraName.text = [NSString stringWithFormat:@"%lu %@ [%lu]", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, [task.name localize], task.history.count];
+    cell.suraName.text = [NSString stringWithFormat:@"%lu %@ [%lu]", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, [task.name localize], (unsigned long)task.history.count];
     
     cell.score.textColor = cell.suraName.textColor;
     cell.verseCountLabel.textColor = cell.suraName.textColor;
@@ -1157,9 +1192,14 @@ static NSInteger tone = 0;
             
         case RevalationOrderSort:;
             [self revalSuraOrderSort];
-             self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            
+            break;
+            
+        case RefreshCountSort:
+            [self refreshCountSuraSort];
             
             break;
             

@@ -24,6 +24,6 @@
 - (void)saveTasks;
 
 - (NSInteger)getCurrentKhatmaNumber;
-- (Boolean)isCoveredInCurrentKhatma:(NSString *)suraName;
+- (Boolean)isCoveredInCurrentKhatma:(NSString *_Nonnull)suraName;
 
 @end

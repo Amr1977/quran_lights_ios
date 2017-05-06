@@ -17,6 +17,7 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
     VersesCountSort = 3,
     WordCountSort = 4,
     CharCountSort = 5,
+    RefreshCountSort = 6
 };
 
 @interface Settings : NSObject <NSCopying>
