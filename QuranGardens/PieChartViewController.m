@@ -10,6 +10,7 @@
 //
 
 #import "PieChartViewController.h"
+#import "NSString+Localization.h"
 //#import "ChartsDemo-Swift.h"
 
 @interface PieChartViewController () <ChartViewDelegate>
@@ -28,7 +29,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Pie Bar Chart";
+    self.title = [@"Pie Chart" localize];
     
     self.options = @[
                      @{@"key": @"toggleValues", @"label": @"Toggle Y-Values"},

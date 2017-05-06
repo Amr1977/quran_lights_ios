@@ -7,6 +7,7 @@
 //
 
 #import "PiePolylineChartViewController.h"
+#import "NSString+Localization.h"
 //#import "ChartsDemo-Swift.h"
 
 @interface PiePolylineChartViewController () <ChartViewDelegate>
@@ -24,7 +25,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Pie Bar Chart";
+    self.title = [@"Memorization Percentage Chart" localize];
     
     self.options = @[
                      @{@"key": @"toggleValues", @"label": @"Toggle Y-Values"},
