@@ -95,6 +95,7 @@ static NSMutableDictionary *operations;
     
     //TODO: make singleton of data source to avoid this
     self.statistics = [[Statistics alloc] initWithDataSource:self.periodicTaskManager.dataSource];
+    currentKhatma = [self.periodicTaskManager getCurrentKhatmaNumber];
     [self refreshScoreButton];
     
     NSLog(@"Memorized %ld of total %ld", (long)[self.statistics memorizedScore], (long)[Statistics allSurasScore]);
@@ -104,6 +105,8 @@ static NSMutableDictionary *operations;
     - (IBAction)onScoreTabbed:(id)sender {
         [self showCharts];
     }
+
+NSInteger currentKhatma = 0;
 
 - (void)refreshScoreButton{
     NSInteger todayScore =  [self.statistics todayScore];
@@ -134,14 +137,38 @@ static NSMutableDictionary *operations;
 //    [scoreButton setTitle:[NSString stringWithFormat:@"%@/%@",totalString, todayString]
 //                 forState:UIControlStateNormal];
     
-    NSInteger currentKhatma = [self.periodicTaskManager getCurrentKhatmaNumber];
     
-    self.score.title = [NSString stringWithFormat:@"%@(%@), KH=%u",totalString, todayString, currentKhatma];
+    
+    NSInteger newKhatma = [self.periodicTaskManager getCurrentKhatmaNumber];
+    
+    if (newKhatma > currentKhatma) {
+        NSLog(@"Congratulations, A Khatma is Completed");
+        [self showMessageAlertViewWithTitle:[@"Congratulations!" localize] message:[@"You have completed a Khatma 🙂" localize]];
+    }
+    
+    
+    self.score.title = [NSString stringWithFormat:@"%@(%@), KH=%u",totalString, todayString, newKhatma];
     
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
     [scoreButton setTintColor:color];
     self.score.tintColor = color;
+}
+
+- (void)showMessageAlertViewWithTitle:(NSString *)title message:(NSString *)message {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                  message:message
+                                                           preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* okAction = [UIAlertAction actionWithTitle:[@"Ok" localize]
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil];
+    
+    
+    
+    [alert addAction:okAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)initTaskManager{
