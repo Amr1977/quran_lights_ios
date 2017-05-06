@@ -134,7 +134,9 @@ static NSMutableDictionary *operations;
 //    [scoreButton setTitle:[NSString stringWithFormat:@"%@/%@",totalString, todayString]
 //                 forState:UIControlStateNormal];
     
-    self.score.title = [NSString stringWithFormat:@"%@(%@)",totalString, todayString];
+    NSInteger currentKhatma = [self.periodicTaskManager getCurrentKhatmaNumber];
+    
+    self.score.title = [NSString stringWithFormat:@"%@(%@), KH=%u",totalString, todayString, currentKhatma];
     
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
@@ -541,7 +543,7 @@ static NSMutableDictionary *operations;
         NSComparisonResult result;
         if (firstOrder > secondOrder ) {
             result = NSOrderedDescending;
-        } else if (firstOrder < secondOrder ) {
+        } else {
             result = NSOrderedAscending;
         }
         
@@ -988,7 +990,8 @@ static NSMutableDictionary *operations;
     }
     
     cell.content.backgroundColor = [UIColor colorWithRed:0.0/255.0 green:MAX(progress,0) blue:0.0/255.0 alpha:1];
-    cell.suraName.text = [NSString stringWithFormat:@"%lu %@ ", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, [task.name localize]];
+    
+    cell.suraName.text = [NSString stringWithFormat:@"%lu %@ [%lu]", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, [task.name localize], task.history.count];
     
     cell.score.textColor = cell.suraName.textColor;
     cell.verseCountLabel.textColor = cell.suraName.textColor;

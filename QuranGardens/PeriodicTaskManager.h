@@ -23,4 +23,7 @@
 - (void)sortWithBlock:(NSComparisonResult(^ _Nullable) (id _Nullable object1, id _Nullable object2))sortBlock;
 - (void)saveTasks;
 
+- (NSInteger)getCurrentKhatmaNumber;
+- (Boolean)isCoveredInCurrentKhatma:(NSString *)suraName;
+
 @end

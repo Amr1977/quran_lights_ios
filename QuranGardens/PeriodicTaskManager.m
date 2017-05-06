@@ -90,4 +90,34 @@
     [self.dataSource save];
 }
 
+- (NSInteger)getCurrentKhatmaNumber {
+    NSInteger minReadCount = self.dataSource.tasks[0].history.count;
+    
+    for (PeriodicTask *task in self.dataSource.tasks) {
+        if (task.history.count < minReadCount) {
+            minReadCount = task.history.count;
+        }
+    }
+    
+    return minReadCount + 1;
+}
+
+- (Boolean)isCoveredInCurrentKhatma:(NSString *)suraName {
+    
+    NSInteger currentKhatma = [self getCurrentKhatmaNumber];
+    
+    NSInteger index = [[Sura suraNames] indexOfObject:suraName];
+    
+    if (index == NSNotFound || index >= self.dataSource.tasks.count) {
+        return NO;
+    }
+    
+    PeriodicTask *task = self.dataSource.tasks[index];
+    
+    Boolean result = task.history.count >= currentKhatma;
+    
+    return result;
+}
+
+
 @end
