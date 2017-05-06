@@ -281,7 +281,7 @@
     paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
     paragraphStyle.alignment = NSTextAlignmentCenter;
     
-    NSMutableAttributedString *centerText = [[NSMutableAttributedString alloc] initWithString:@"Quran Lights"];
+    //NSMutableAttributedString *centerText = [[NSMutableAttributedString alloc] initWithString:@"Quran Lights"];
 //    [centerText setAttributes:@{
 //                                NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:13.f],
 //                                NSParagraphStyleAttributeName: paragraphStyle
@@ -294,7 +294,7 @@
 //                                NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:11.f],
 //                                NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.f green:181/255.f blue:229/255.f alpha:1.f]
 //                                } range:NSMakeRange(centerText.length - 19, 19)];
-    chartView.centerAttributedText = centerText;
+    //chartView.centerAttributedText = centerText;
     
     chartView.drawHoleEnabled = YES;
     chartView.rotationAngle = 0.0;
