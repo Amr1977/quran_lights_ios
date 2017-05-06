@@ -1200,6 +1200,9 @@ static NSInteger tone = 0;
             
         case RefreshCountSort:
             [self refreshCountSuraSort];
+            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             
             break;
             
