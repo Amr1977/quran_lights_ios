@@ -144,6 +144,7 @@ NSInteger currentKhatma = 0;
     if (newKhatma > currentKhatma) {
         NSLog(@"Congratulations, A Khatma is Completed");
         [self showMessageAlertViewWithTitle:[@"Congratulations!" localize] message:[@"You have completed a Khatma 🙂" localize]];
+        currentKhatma = newKhatma;
     }
     
     
