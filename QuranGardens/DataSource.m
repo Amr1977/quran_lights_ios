@@ -20,6 +20,13 @@ NSString * const GlobalRefreshIntervalKey = @"GlobalRefreshIntervalKey";
 NSString * const SortDirectionKey = @"SortDirectionKey";
 NSString * const SortTypeKey = @"SortTypeKey";
 
+NSString * const ShowVerseCountKey = @"ShowVerseCountKey";
+NSString * const ShowMemorizationStateKey = @"ShowMemorizationStateKey";
+NSString * const ShowSuraIndexKey = @"ShowSuraIndexKey";
+NSString * const ShowRefreshCountKey = @"ShowRefreshCountKey";
+NSString * const ShowCharacterCountKey = @"ShowCharacterCountKey";
+NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
+
 @implementation DataSource
 
 - (Settings *)settings {
@@ -28,6 +35,16 @@ NSString * const SortTypeKey = @"SortTypeKey";
         _settings.fadeTime = DefaultCycleInterval;
         _settings.sortType = NormalSuraOrderSort;
         _settings.descendingSort = NO;
+        
+        _settings.showVerseCount = NO;
+        _settings.showMemorizationMark = YES;
+        
+        _settings.showSuraIndex = YES;
+        _settings.showRefreshCount = NO;
+        
+        _settings.showCharacterCount = NO;
+        _settings.showElapsedDaysCount = NO;
+        
     }
     
     return _settings;
@@ -239,6 +256,25 @@ NSString * const SortTypeKey = @"SortTypeKey";
     [[NSUserDefaults standardUserDefaults] setBool:self.settings.descendingSort forKey:SortDirectionKey];
     [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime forKey:GlobalRefreshIntervalKey];
     [[NSUserDefaults standardUserDefaults] setInteger:self.settings.sortType forKey:SortTypeKey];
+    
+    
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showVerseCount forKey:ShowVerseCountKey];
+    
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showMemorizationMark forKey:ShowMemorizationStateKey];
+    
+    
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showSuraIndex forKey:ShowSuraIndexKey];
+    
+    
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showRefreshCount forKey:ShowRefreshCountKey];
+    
+    
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showCharacterCount forKey:ShowCharacterCountKey];
+    
+    
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showElapsedDaysCount forKey:ShowElapsedDaysKey];
+    
+    
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -268,6 +304,20 @@ NSString * const SortTypeKey = @"SortTypeKey";
         self.settings.sortType = NormalSuraOrderSort;
         [[NSUserDefaults standardUserDefaults] setInteger:self.settings.sortType forKey:SortTypeKey];
     }
+    
+    
+    self.settings.showVerseCount = [[NSUserDefaults standardUserDefaults] boolForKey:ShowVerseCountKey];
+    
+    self.settings.showMemorizationMark = [[NSUserDefaults standardUserDefaults] boolForKey:ShowMemorizationStateKey];
+    
+    self.settings.showSuraIndex = [[NSUserDefaults standardUserDefaults] boolForKey:ShowSuraIndexKey];
+    
+    
+    self.settings.showRefreshCount = [[NSUserDefaults standardUserDefaults] boolForKey:ShowRefreshCountKey];
+    
+    self.settings.showCharacterCount = [[NSUserDefaults standardUserDefaults] boolForKey:ShowCharacterCountKey];
+    
+    self.settings.showElapsedDaysCount = [[NSUserDefaults standardUserDefaults] boolForKey:ShowElapsedDaysKey];
     
     NSLog(@"Loaded Settings: %@", self.settings);
 }

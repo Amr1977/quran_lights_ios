@@ -40,12 +40,31 @@ NSInteger const DefaultCycleInterval = 30*24*60*60;
     settingsCopy.descendingSort = self.descendingSort;
     settingsCopy.sortType = self.sortType;
     
+    settingsCopy.showVerseCount = self.showVerseCount;
+    settingsCopy.showMemorizationMark = self.showMemorizationMark;
+    
+    settingsCopy.showSuraIndex = self.showSuraIndex;
+    settingsCopy.showRefreshCount = self.showRefreshCount;
+    
+    settingsCopy.showCharacterCount = self.showCharacterCount;
+    settingsCopy.showElapsedDaysCount = self.showElapsedDaysCount;
+    
     return settingsCopy;
 }
 
 
 - (BOOL)isEqual:(Settings *)settings{
-    return ((self.fadeTime == [settings fadeTime]) && (self.descendingSort == settings.descendingSort) && (self.sortType == settings.sortType));
+    return ((self.fadeTime == [settings fadeTime]) &&
+            (self.descendingSort == settings.descendingSort) &&
+            (self.sortType == settings.sortType) &&
+            
+            (self.showVerseCount == settings.showVerseCount) &&
+            (self.showMemorizationMark == settings.showMemorizationMark) &&
+            (self.showSuraIndex == settings.showSuraIndex) &&
+            (self.showRefreshCount == settings.showRefreshCount) &&
+            (self.showCharacterCount == settings.showCharacterCount) &&
+            (self.showElapsedDaysCount == settings.showElapsedDaysCount)
+            );
 }
 
 @end

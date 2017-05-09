@@ -11,12 +11,22 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingsViewController">
             <connections>
                 <outlet property="VerseCountLabel" destination="rUU-AA-t5a" id="UCF-Sr-wSx"/>
+                <outlet property="characterCountLabel" destination="gNQ-WQ-Oce" id="dzg-00-Fn2"/>
+                <outlet property="characterCountSwitch" destination="V2w-Dj-Tx9" id="ZgH-14-3kd"/>
                 <outlet property="content" destination="dVV-CQ-If4" id="DmR-xb-CGP"/>
+                <outlet property="elapsedDaysLabel" destination="c3J-wj-zze" id="giY-Z1-wvu"/>
+                <outlet property="elapsedDaysSwitch" destination="ggO-Zq-tjf" id="mOZ-hJ-zAS"/>
                 <outlet property="languageLabel" destination="nkE-5X-2GU" id="Sng-Ba-LSQ"/>
                 <outlet property="languageSelector" destination="kYM-X4-7Cf" id="J7x-cO-nAd"/>
+                <outlet property="memorizationMarkSwitch" destination="6JH-0d-9wI" id="IU8-YU-INO"/>
+                <outlet property="memorizsationMarkLabel" destination="NTo-D2-yaH" id="OCq-Wa-UMk"/>
+                <outlet property="refreshCountLabel" destination="Tc3-bw-4Ah" id="aKx-Wn-g33"/>
+                <outlet property="refreshCountSwitch" destination="VNu-SW-Nab" id="84h-Pb-hfI"/>
                 <outlet property="refreshPeriodText" destination="gB2-Dt-28v" id="MlG-wk-x6c"/>
                 <outlet property="sortDirectionSegments" destination="542-CG-KmS" id="nIK-pp-eDP"/>
                 <outlet property="sortTypeTableView" destination="7fh-KB-XlF" id="1On-kc-zQo"/>
+                <outlet property="suraIndexLabel" destination="8Lw-Sd-cqH" id="aY0-fO-EgG"/>
+                <outlet property="suraIndexSwitch" destination="2fc-ec-sHj" id="Ago-BF-kk3"/>
                 <outlet property="verseCountSwitch" destination="v9D-mG-nRN" id="qHh-rc-UTN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -139,12 +149,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v9D-mG-nRN" userLabel="VerseCountSwitch">
-                                <rect key="frame" x="263" y="670" width="51" height="31"/>
+                            <switch opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v9D-mG-nRN" userLabel="VerseCountSwitch">
+                                <rect key="frame" x="274" y="670" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="jFp-F1-OaA"/>
                                     <constraint firstAttribute="height" constant="31" id="o4i-hK-IU9"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="onSwitchTapped:" destination="-1" eventType="valueChanged" id="4mK-Eq-g2H"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Memorization Mark" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTo-D2-yaH">
                                 <rect key="frame" x="18" y="714" width="219" height="21"/>
@@ -156,12 +169,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6JH-0d-9wI" userLabel="VerseCountSwitch">
-                                <rect key="frame" x="263" y="709" width="51" height="31"/>
+                            <switch opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6JH-0d-9wI" userLabel="VerseCountSwitch">
+                                <rect key="frame" x="274" y="709" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="Yzs-uS-MKw"/>
                                     <constraint firstAttribute="height" constant="31" id="o3T-2V-bxt"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="onSwitchTapped:" destination="-1" eventType="valueChanged" id="gzc-vi-Sqf"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sura Index" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lw-Sd-cqH">
                                 <rect key="frame" x="18" y="753" width="104" height="21"/>
@@ -175,12 +191,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2fc-ec-sHj" userLabel="VerseCountSwitch">
-                                <rect key="frame" x="263" y="748" width="51" height="31"/>
+                            <switch opaque="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2fc-ec-sHj" userLabel="VerseCountSwitch">
+                                <rect key="frame" x="274" y="748" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="CGt-3H-e7U"/>
                                     <constraint firstAttribute="width" constant="49" id="TyF-lI-bCU"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="onSwitchTapped:" destination="-1" eventType="valueChanged" id="h9j-cZ-xfZ"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Refresh Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tc3-bw-4Ah">
                                 <rect key="frame" x="18" y="792" width="219" height="21"/>
@@ -192,14 +211,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VNu-SW-Nab" userLabel="VerseCountSwitch">
-                                <rect key="frame" x="263" y="787" width="51" height="31"/>
+                            <switch opaque="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VNu-SW-Nab" userLabel="VerseCountSwitch">
+                                <rect key="frame" x="274" y="787" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="0bW-zc-w9v"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="49" id="7VW-z8-INX"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="31" id="KHE-aB-bfG"/>
                                     <constraint firstAttribute="height" constant="31" id="vVb-AF-ISd"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="onSwitchTapped:" destination="-1" eventType="valueChanged" id="lXU-wc-Yqd"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Character Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNQ-WQ-Oce">
                                 <rect key="frame" x="18" y="831" width="219" height="21"/>
@@ -211,14 +233,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V2w-Dj-Tx9" userLabel="VerseCountSwitch">
-                                <rect key="frame" x="263" y="826" width="51" height="31"/>
+                            <switch opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V2w-Dj-Tx9" userLabel="VerseCountSwitch">
+                                <rect key="frame" x="274" y="826" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="37S-mE-Uze"/>
                                     <constraint firstAttribute="width" constant="49" id="Zgx-vZ-Vwi"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="49" id="csz-Ld-hqx"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="31" id="dYL-PK-ekU"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="onSwitchTapped:" destination="-1" eventType="valueChanged" id="LKL-vv-0PW"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elapsed days since refresh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3J-wj-zze">
                                 <rect key="frame" x="18" y="870" width="219" height="21"/>
@@ -231,12 +256,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ggO-Zq-tjf" userLabel="VerseCountSwitch">
-                                <rect key="frame" x="263" y="865" width="51" height="31"/>
+                            <switch opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ggO-Zq-tjf" userLabel="VerseCountSwitch">
+                                <rect key="frame" x="274" y="865" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="Pox-eF-C0V"/>
                                     <constraint firstAttribute="height" constant="31" id="vM1-mC-bSY"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="onSwitchTapped:" destination="-1" eventType="valueChanged" id="ht0-4N-voK"/>
+                                </connections>
                             </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -1054,7 +1054,13 @@ NSInteger currentKhatma = 0;
     
     cell.content.backgroundColor = [UIColor colorWithRed:0.0/255.0 green:MAX(progress,0) blue:0.0/255.0 alpha:1];
     
-    cell.suraName.text = [NSString stringWithFormat:@"%lu %@ [%lu]", (unsigned long) [Sura.suraNames indexOfObject:task.name] + 1, [task.name localize], (unsigned long)task.history.count];
+    
+    NSString *suraIndex = self.periodicTaskManager.dataSource.settings.showSuraIndex ? [NSString stringWithFormat:@"%lu ",(unsigned long) [Sura.suraNames indexOfObject:task.name] + 1] : @"";
+    
+    NSString *refreshCount = self.periodicTaskManager.dataSource.settings.showRefreshCount ? [NSString stringWithFormat:@" [%lu]", (unsigned long)task.history.count] : @"";
+    
+    
+    cell.suraName.text = [NSString stringWithFormat:@"%@%@%@", suraIndex, [task.name localize], refreshCount];
     
     cell.score.textColor = cell.suraName.textColor;
     cell.verseCountLabel.textColor = cell.suraName.textColor;
@@ -1066,7 +1072,16 @@ NSInteger currentKhatma = 0;
     }
     
     cell.verseCountLabel.adjustsFontSizeToFitWidth = YES;
-   
+    
+    [cell.memorized setHidden:!self.periodicTaskManager.dataSource.settings.showMemorizationMark];
+
+    [cell.verseCountLabel setHidden:!self.periodicTaskManager.dataSource.settings.showVerseCount];
+    
+    [cell.score setHidden:!self.periodicTaskManager.dataSource.settings.showCharacterCount];
+    
+    [cell.daysElapsed setHidden:!self.periodicTaskManager.dataSource.settings.showElapsedDaysCount];
+    
+    
     return cell;
 }
 

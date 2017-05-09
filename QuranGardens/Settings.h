@@ -27,6 +27,13 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
 @property (nonatomic) SorterType sortType;
 @property (nonatomic) BOOL descendingSort;
 
+@property (nonatomic) BOOL showVerseCount;
+@property (nonatomic) BOOL showMemorizationMark;
+@property (nonatomic) BOOL showSuraIndex;
+@property (nonatomic) BOOL showRefreshCount;
+@property (nonatomic) BOOL showCharacterCount;
+@property (nonatomic) BOOL showElapsedDaysCount;
+
 - (BOOL)isEqual:(Settings *)settings;
 
 + (NSArray<NSString *>*)sortTypeList;

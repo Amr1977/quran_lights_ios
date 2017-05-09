@@ -25,7 +25,6 @@ static NSString * const DefaultTimeUnit = @"d";
 static CGFloat const DefaultCellHeight = 44;
 
 @interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate>
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollview;
 
 @property (weak, nonatomic) IBOutlet UITextField *refreshPeriodText;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *sortDirectionSegments;
@@ -44,24 +43,22 @@ static CGFloat const DefaultCellHeight = 44;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *VerseCountLabel;
-
 @property (weak, nonatomic) IBOutlet UISwitch *verseCountSwitch;
 
+@property (weak, nonatomic) IBOutlet UILabel *memorizsationMarkLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *memorizationMarkSwitch;
 
+@property (weak, nonatomic) IBOutlet UILabel *suraIndexLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *suraIndexSwitch;
 
+@property (weak, nonatomic) IBOutlet UILabel *refreshCountLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *refreshCountSwitch;
 
+@property (weak, nonatomic) IBOutlet UILabel *characterCountLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *characterCountSwitch;
 
-
-
-
-
-
-
-
-
-
-
-
+@property (weak, nonatomic) IBOutlet UILabel *elapsedDaysLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *elapsedDaysSwitch;
 
 @end
 
@@ -75,6 +72,36 @@ static Settings* settingsCopy;
     
 }
 
+- (IBAction)onSwitchTapped:(UISwitch *)sender {
+    switch (sender.tag) {
+        case 1:
+            self.settings.showVerseCount = sender.isOn;
+            break;
+            
+        case 2:
+            self.settings.showMemorizationMark = sender.isOn;
+            break;
+        case 3:
+            self.settings.showSuraIndex = sender.isOn;
+            break;
+            
+        case 4:
+            self.settings.showRefreshCount = sender.isOn;
+            break;
+        case 5:
+            self.settings.showCharacterCount = sender.isOn;
+            break;
+            
+        case 6:
+            self.settings.showElapsedDaysCount = sender.isOn;
+            break;
+            
+            
+        default:
+            break;
+    }
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -83,7 +110,7 @@ static Settings* settingsCopy;
     self.sortTypeTableView.dataSource = self;
     self.refreshPeriodText.delegate = self;
     self.view.userInteractionEnabled = YES;
-    self.scrollview.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    
     
     self.sortTypeTableView.layer.borderWidth = 1.0;
     self.sortTypeTableView.layer.borderColor = [UIColor grayColor].CGColor;
@@ -106,13 +133,6 @@ static Settings* settingsCopy;
     
 }
 
-- (void)viewDidLayoutSubviews{
-    self.scrollview.frame = self.view.frame;
-    //self.scrollview.backgroundColor = [UIColor greenColor];
-    self.scrollview.frame = CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height);
-    self.scrollview.contentSize = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height + 10).size;
-}
-
 -(void)hideKeyBoard {
     NSLog(@"Hide KB");
     [self.refreshPeriodText resignFirstResponder];
@@ -120,10 +140,6 @@ static Settings* settingsCopy;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    self.content.backgroundColor = [UIColor greenColor];
-//    self.scrollview.frame = CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height);
-//    self.scrollview.contentSize = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height + 10).size;
-//    self.scrollview.scrollEnabled = YES;
     [self updateUI];
 }
 
@@ -146,6 +162,13 @@ static Settings* settingsCopy;
     //Sort direction
     self.sortDirectionSegments.selectedSegmentIndex = self.settings.descendingSort ? 1 : 0;
     [self.sortDirectionSegments sendActionsForControlEvents:UIControlEventValueChanged];
+    
+    [self.verseCountSwitch setOn:self.settings.showVerseCount];
+    [self.memorizationMarkSwitch setOn:self.settings.showMemorizationMark];
+    [self.suraIndexSwitch setOn:self.settings.showSuraIndex];
+    [self.refreshCountSwitch setOn:self.settings.showRefreshCount];
+    [self.characterCountSwitch setOn:self.settings.showCharacterCount];
+    [self.elapsedDaysSwitch setOn:self.settings.showElapsedDaysCount];
 }
 
 - (void)setSettings:(Settings *)settings{
