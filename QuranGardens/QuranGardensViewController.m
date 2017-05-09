@@ -148,7 +148,7 @@ NSInteger currentKhatma = 0;
     }
     
     
-    self.score.title = [NSString stringWithFormat:@"%@(%@), KH=%u",totalString, todayString, newKhatma];
+    self.score.title = [NSString stringWithFormat:@"%@(%@), KH=%ld",totalString, todayString, (long)newKhatma];
     
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);

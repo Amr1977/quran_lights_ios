@@ -275,7 +275,7 @@ NetworkStatus remoteHostStatus;
     self.fbMemorizationState = @{}.mutableCopy;
     
     FIRDatabaseReference * surasRef = [[[self.firebaseDatabaseReference child:@"users"] child: self.userID] child:@"Suras"];
-    FIRDatabaseQuery *query = [surasRef queryOrderedByKey];
+    //FIRDatabaseQuery *query = [surasRef queryOrderedByKey];
     
     [[[[self.firebaseDatabaseReference
         child:@"users"]

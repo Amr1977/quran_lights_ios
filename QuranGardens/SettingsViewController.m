@@ -40,6 +40,29 @@ static CGFloat const DefaultCellHeight = 44;
 /** Either a number of days or in the format [xy][xn][xw][xd][xh][xm][xs], where x is an integer, y: year, n: month, w: week, d: day, h: hour, m: minute, s: second*/
 //@property (strong, nonatomic) NSString *fadeTimeString;
 
+@property (weak, nonatomic) IBOutlet UIView *content;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *VerseCountLabel;
+
+@property (weak, nonatomic) IBOutlet UISwitch *verseCountSwitch;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end
 
 @implementation SettingsViewController
@@ -97,7 +120,10 @@ static Settings* settingsCopy;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+//    self.content.backgroundColor = [UIColor greenColor];
+//    self.scrollview.frame = CGRectMake(0, 50, self.view.frame.size.width, self.view.frame.size.height);
+//    self.scrollview.contentSize = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height + 10).size;
+//    self.scrollview.scrollEnabled = YES;
     [self updateUI];
 }
 

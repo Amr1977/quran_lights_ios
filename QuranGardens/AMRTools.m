@@ -95,7 +95,7 @@
 +(NSString *)abbreviateNumber:(NSInteger)num withDecimal:(int)dec {
     
     if (num < 500) {
-        return [NSString stringWithFormat:@"%d", num];
+        return [NSString stringWithFormat:@"%ld", (long)num];
     }
     NSString *abbrevNum = @"K";
     NSString *unit = @"K";

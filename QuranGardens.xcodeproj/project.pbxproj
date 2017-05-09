@@ -283,13 +283,8 @@
 		076965A11C5B5D0700ED2D33 /* QuranGardens */ = {
 			isa = PBXGroup;
 			children = (
-				C508370D1EBBB20000B54E94 /* rahman.mp3 */,
+				C5FECDDC1EC2194E0081C89D /* resources */,
 				C566F4571E21143200628A94 /* GoogleService-Info.plist */,
-				076965AE1C5B5D0700ED2D33 /* Assets.xcassets */,
-				0725940E1D74AEB0009E5F05 /* charcount.txt */,
-				0725940F1D74AEB0009E5F05 /* reval.txt */,
-				072594101D74AEB0009E5F05 /* versecount.txt */,
-				072594111D74AEB0009E5F05 /* wordcount.txt */,
 				076965A51C5B5D0700ED2D33 /* AppDelegate.h */,
 				076965A61C5B5D0700ED2D33 /* AppDelegate.m */,
 				076965AB1C5B5D0700ED2D33 /* Main.storyboard */,
@@ -458,6 +453,19 @@
 				C5A26AFC1EA27005009135D4 /* QuranGardens-Bridging-Header.h */,
 			);
 			name = Formatters;
+			sourceTree = "<group>";
+		};
+		C5FECDDC1EC2194E0081C89D /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				076965AE1C5B5D0700ED2D33 /* Assets.xcassets */,
+				0725940E1D74AEB0009E5F05 /* charcount.txt */,
+				0725940F1D74AEB0009E5F05 /* reval.txt */,
+				072594101D74AEB0009E5F05 /* versecount.txt */,
+				072594111D74AEB0009E5F05 /* wordcount.txt */,
+				C508370D1EBBB20000B54E94 /* rahman.mp3 */,
+			);
+			name = resources;
 			sourceTree = "<group>";
 		};
 		E5D1290A52CBC62F69226967 /* Frameworks */ = {
