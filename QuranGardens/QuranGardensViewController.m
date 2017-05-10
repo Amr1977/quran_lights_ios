@@ -148,7 +148,7 @@ NSInteger currentKhatma = 0;
     }
     
     
-    self.score.title = [NSString stringWithFormat:@"%@(%@), KH=%ld",totalString, todayString, (long)newKhatma];
+    self.score.title = [NSString stringWithFormat:@"%@(%@), KH:%ld",totalString, todayString, (long)newKhatma];
     
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
@@ -1073,7 +1073,7 @@ NSInteger currentKhatma = 0;
     
     cell.verseCountLabel.adjustsFontSizeToFitWidth = YES;
     
-    [cell.memorized setHidden:!self.periodicTaskManager.dataSource.settings.showMemorizationMark];
+    [cell.memorized setHidden:!self.periodicTaskManager.dataSource.settings.showMemorizationMark || task.memorizedState == NOT_MEMORIZED];
 
     [cell.verseCountLabel setHidden:!self.periodicTaskManager.dataSource.settings.showVerseCount];
     
