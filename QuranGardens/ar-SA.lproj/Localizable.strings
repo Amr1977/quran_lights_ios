@@ -155,8 +155,15 @@
 "Light Strength" = "ترتيب قوة الإضاءة";
 "Revelation Order" = "ترتيب النزول";
 "Verses Count" = "عدد الآيات";
+"Verse count" = "عدد الآيات";
 "Word Count" = "عدد الكلمات";
 "Character Count" = "عدد الحروف";
+"Refresh Count" = "عدد مرات الانعاش";
+"Sura Index" = "رقم السورة";
+"Elapsed days since refresh" = "عدد الأيام المنقضية منذ آخر إنعاش";
+"Cell Content" = "محتويات الخلية";
+"Memorization Mark" = "علامة حالة الحفظ";
+
 "Language" = "اللغة";
 
 "After you review any Sura remember to refresh its cell here, you have limited days before light goes almost off unless you refresh it again.\n\nThat will give you an overview of how frequent you review Suras and how fresh are they in your memory.\n\nLet's add more light to our lives !" = "بعد أن تقرأ أي سورة تذكر أن تضيء الخلية المناظرة لها في التطبيق وسيحاول التطبيق محاكاة قوة حضور كل سورة في ذاكرتك بدرجة إضاءة الخلية المناظرة لها . مع مرور الأيام سيصبح لديك خريطة ضوئية تبين لك بسهولة السور التي تحتاج لإعادة التنشيط في ذاكرتك.";
@@ -164,7 +171,10 @@
 "Daily Score Chart" = "بيان المقدار اليومي";
 "Memorization Pie Chart" = "بيان نسبة المحفوظ";
 "Not Memorized" = "لم تحفظ بعد";
+"Being Memorized" = "جاري الحفظ";
+"Was Memorized" = "كانت محفوظة";
 "Memorization Percentage Chart" = "بيان نسبة الحفظ";
 "Congratulations!" = "هنيئا لك";
 "You have completed a Khatma 🙂" = "🙂لقد أتممت ختمة كاملة";
 "Refresh Count" = "عدد مرات الإنعاش";
+

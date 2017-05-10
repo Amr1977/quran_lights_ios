@@ -26,6 +26,8 @@
     [super viewDidLoad];
     
     self.title = [@"Memorization Percentage Chart" localize];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     self.options = @[
                      @{@"key": @"toggleValues", @"label": @"Toggle Y-Values"},

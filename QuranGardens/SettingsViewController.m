@@ -170,6 +170,13 @@ static Settings* settingsCopy;
     [self.refreshCountSwitch setOn:self.settings.showRefreshCount];
     [self.characterCountSwitch setOn:self.settings.showCharacterCount];
     [self.elapsedDaysSwitch setOn:self.settings.showElapsedDaysCount];
+    
+    for (UIView *subview in [self.content subviews]) {
+        if ([subview isKindOfClass:[UILabel class]]) {
+            UILabel *label = (UILabel *)subview;
+            label.text = [label.text localize];
+        }
+    }
 }
 
 - (void)setSettings:(Settings *)settings{

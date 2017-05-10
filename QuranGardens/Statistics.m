@@ -8,6 +8,7 @@
 
 #import "Statistics.h"
 #import "Sura.h"
+#import "NSString+Localization.h"
 
 @implementation Statistics
 
@@ -19,7 +20,6 @@
     
     return self;
 }
-
 
 - (NSDictionary<NSString *, NSNumber *> *)getMemorizationStates {
     NSMutableDictionary <NSString *, NSNumber *> *result = @{}.mutableCopy;
@@ -57,23 +57,25 @@
     }
     
     if (memorized != 0) {
-        result[@"Memorized"] = [NSNumber numberWithInteger:memorized];
+        result[[@"Memorized" localize]] = [NSNumber numberWithInteger:memorized];
     }
     
     if (beingMemorized != 0) {
-        result[@"Being Memorized"] = [NSNumber numberWithInteger:beingMemorized];
+        result[[@"Being Memorized" localize]] = [NSNumber numberWithInteger:beingMemorized];
     }
     
     if (wasMemorized != 0) {
-        result[@"Was Memorized"] = [NSNumber numberWithInteger:wasMemorized];
+        result[[@"Was Memorized" localize]] = [NSNumber numberWithInteger:wasMemorized];
     }
     
     if (notMemorized != 0) {
-        result[@"Not Memorized"] = [NSNumber numberWithInteger:notMemorized];
+        result[[@"Not Memorized" localize]] = [NSNumber numberWithInteger:notMemorized];
+
     }
     
     return result;
 }
+
 - (NSInteger)memorizedScore {
     NSInteger result = 0;
     
