@@ -8,6 +8,7 @@
 
 #import "Statistics.h"
 #import "Sura.h"
+#import "NSString+Localization.h"
 
 @implementation Statistics
 
@@ -18,6 +19,60 @@
     }
     
     return self;
+}
+
+- (NSDictionary<NSString *, NSNumber *> *)getMemorizationStates {
+    NSMutableDictionary <NSString *, NSNumber *> *result = @{}.mutableCopy;
+    
+    NSInteger memorized = 0;
+    NSInteger beingMemorized = 0;
+    NSInteger wasMemorized = 0;
+    NSInteger notMemorized = 0;
+    
+    for (PeriodicTask *task in self.dataSource.tasks) {
+        NSInteger suraIndex = [Sura.suraNames indexOfObject:task.name];
+        NSNumber *charCount = [[Sura suraCharsCount] objectAtIndex:suraIndex];
+        NSInteger taskScore = [charCount integerValue];
+        
+        switch (task.memorizedState) {
+            case MEMORIZED:
+                memorized += taskScore;
+                break;
+                
+            case NOT_MEMORIZED:
+                notMemorized += taskScore;
+                break;
+                
+            case BEING_MEMORIZED:
+                beingMemorized += taskScore;
+                break;
+                
+            case WAS_MEMORIZED:
+                wasMemorized += taskScore;
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    if (memorized != 0) {
+        result[[@"Memorized" localize]] = [NSNumber numberWithInteger:memorized];
+    }
+    
+    if (beingMemorized != 0) {
+        result[[@"Being Memorized" localize]] = [NSNumber numberWithInteger:beingMemorized];
+    }
+    
+    if (wasMemorized != 0) {
+        result[[@"Was Memorized" localize]] = [NSNumber numberWithInteger:wasMemorized];
+    }
+    
+    if (notMemorized != 0) {
+        result[[@"Not Memorized" localize]] = [NSNumber numberWithInteger:notMemorized];
+    }
+    
+    return result;
 }
 
 - (NSInteger)memorizedScore {

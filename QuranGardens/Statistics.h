@@ -15,6 +15,7 @@
 
 - (instancetype)initWithDataSource:(DataSource *)dataSource;
 
+- (NSDictionary<NSString *, NSNumber *> *)getMemorizationStates;
 - (NSInteger)todayScore;
 - (NSInteger)yesterdayScore;
 - (NSInteger)totalScore;
