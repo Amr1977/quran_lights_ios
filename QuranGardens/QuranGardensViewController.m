@@ -1045,14 +1045,8 @@ NSInteger currentKhatma = 0;
 - (void)memorizationChart {
     NSLog(@"memorizationChart TODO");
     PiePolylineChartViewController  *vc = [[PiePolylineChartViewController alloc] init];
-    NSMutableDictionary<NSString *, NSNumber *> *memorizationState = @{}.mutableCopy;
     
-    NSInteger memorized = [self.statistics memorizedScore];
-    memorizationState[[@"Not Memorized" localize]] = [NSNumber numberWithInteger:[Statistics allSurasScore] - memorized];
-    
-    memorizationState[[@"Memorized" localize]] = [NSNumber numberWithInteger:memorized];
-    
-    vc.scores = memorizationState;
+    vc.scores = [self.statistics getMemorizationStates];
     
     [self.navigationController pushViewController:vc animated:NO];
 
