@@ -1073,7 +1073,7 @@ NSInteger currentKhatma = 0;
     
     cell.verseCountLabel.adjustsFontSizeToFitWidth = YES;
     
-    [cell.memorized setHidden:!self.periodicTaskManager.dataSource.settings.showMemorizationMark];
+    [cell.memorized setHidden:!self.periodicTaskManager.dataSource.settings.showMemorizationMark || task.memorizedState == NOT_MEMORIZED];
 
     [cell.verseCountLabel setHidden:!self.periodicTaskManager.dataSource.settings.showVerseCount];
     
