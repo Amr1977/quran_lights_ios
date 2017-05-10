@@ -72,6 +72,7 @@ static Settings* settingsCopy;
     
 }
 
+//cell content
 - (IBAction)onSwitchTapped:(UISwitch *)sender {
     switch (sender.tag) {
         case 1:
