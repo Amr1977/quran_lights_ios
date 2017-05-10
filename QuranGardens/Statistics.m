@@ -21,6 +21,36 @@
     return self;
 }
 
+- (NSDictionary<NSString *, NSNumber *> *)getKhatmaProgress:(NSInteger)khatmaIndex {
+    NSMutableDictionary <NSString *, NSNumber *> *result = @{}.mutableCopy;
+    NSInteger completed = 0;
+    NSInteger remaining = 0;
+    
+    
+    
+    for (PeriodicTask *task in self.dataSource.tasks) {
+        NSInteger suraIndex = [Sura.suraNames indexOfObject:task.name];
+        NSNumber *charCount = [[Sura suraCharsCount] objectAtIndex:suraIndex];
+        NSInteger taskScore = [charCount integerValue];
+        
+        if (task.history.count >= khatmaIndex) {
+            completed += taskScore;
+        } else {
+            remaining += taskScore;
+        }
+    }
+    
+    if (completed != 0) {
+        result[[@"Completed" localize]] = [NSNumber numberWithInteger:completed];
+    }
+    
+    if (remaining != 0) {
+        result[[@"Remaining" localize]] = [NSNumber numberWithInteger:remaining];
+    }
+    
+    return result;
+}
+
 - (NSDictionary<NSString *, NSNumber *> *)getMemorizationStates {
     NSMutableDictionary <NSString *, NSNumber *> *result = @{}.mutableCopy;
     

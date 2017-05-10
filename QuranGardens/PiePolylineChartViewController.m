@@ -25,7 +25,7 @@
 {
     [super viewDidLoad];
     
-    self.title = [@"Memorization Percentage Chart" localize];
+    self.title = self.chartTitle;//[@"Memorization Percentage Chart" localize];
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     

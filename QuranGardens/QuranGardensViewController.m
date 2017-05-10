@@ -912,6 +912,15 @@ NSInteger currentKhatma = 0;
                                                    }];
     [menu addAction:memorizedPercentage];
     
+    //khatmaChart
+    
+    UIAlertAction* khatmaProgress = [UIAlertAction actionWithTitle:[@"Khatma Progress Chart" localize]
+                                                                  style:UIAlertActionStyleDefault
+                                                                handler:^(UIAlertAction * action) {
+                                                                    [self khatmaChart];
+                                                                }];
+    [menu addAction:khatmaProgress];
+    
         UIAlertAction* cancel = [UIAlertAction actionWithTitle:[@"Cancel" localize]
                                                          style:UIAlertActionStyleCancel
                                                        handler:^(UIAlertAction * action) {
@@ -946,9 +955,21 @@ NSInteger currentKhatma = 0;
     PiePolylineChartViewController  *vc = [[PiePolylineChartViewController alloc] init];
     
     vc.scores = [self.statistics getMemorizationStates];
+    vc.chartTitle = [@"Memorization Percentage Chart" localize];
     
     [self.navigationController pushViewController:vc animated:NO];
 
+}
+
+- (void)khatmaChart {
+    PiePolylineChartViewController  *vc = [[PiePolylineChartViewController alloc] init];
+
+    vc.scores = [self.statistics getKhatmaProgress: currentKhatma];
+    vc.chartTitle = [@"Khatma Progress Chart" localize];
+    
+    [self.navigationController pushViewController:vc animated:NO];
+
+    
 }
 
 
