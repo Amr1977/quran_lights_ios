@@ -11,5 +11,6 @@
 @interface PiePolylineChartViewController : DemoBaseViewController
 
 @property (strong, nonatomic) NSDictionary<NSString *, NSNumber *> *scores;
+@property (strong, nonatomic) NSString *chartTitle;
 
 @end

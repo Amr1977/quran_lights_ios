@@ -16,6 +16,7 @@
 - (instancetype)initWithDataSource:(DataSource *)dataSource;
 
 - (NSDictionary<NSString *, NSNumber *> *)getMemorizationStates;
+- (NSDictionary<NSString *, NSNumber *> *)getKhatmaProgress:(NSInteger)khatmaIndex;
 - (NSInteger)todayScore;
 - (NSInteger)yesterdayScore;
 - (NSInteger)totalScore;
