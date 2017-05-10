@@ -50,8 +50,10 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (strong, nonatomic) UIButton *moshafOrderButton;
 @property (strong, nonatomic) UIButton *lightSortButton;
 @property (strong, nonatomic) UIButton *charCountSortButton;
-@property (strong, nonatomic) UIButton *moshafOrderButton4;
-@property (strong, nonatomic) UIButton *moshafOrderButton5;//UIButton *scoreButton
+@property (strong, nonatomic) UIButton *wordCountSortButton;
+@property (strong, nonatomic) UIButton *verseCountSortButton;
+@property (strong, nonatomic) UIButton *refreshCountSortButton;//UIButton *scoreButton
+@property (strong, nonatomic) UIButton *revalationOrderSortButton;
 
 @end
 
@@ -326,10 +328,61 @@ NSInteger currentKhatma = 0;
     
     [self.charCountSortButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *charCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.charCountSortButton];
+    
+    
+    //sort by word count
+    self.wordCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
+    [self.wordCountSortButton setTitle:@"W" forState:UIControlStateNormal];
+    
+    [self.wordCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
+    [self.wordCountSortButton addTarget:self
+                                 action:@selector(fastAccessWordCountSuraSort)
+                       forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.wordCountSortButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *wordCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.wordCountSortButton];
+    
+    
+    //sort by refresh count
+    self.refreshCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
+    [self.refreshCountSortButton setTitle:@"F" forState:UIControlStateNormal];
+    
+    [self.refreshCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
+    [self.refreshCountSortButton addTarget:self
+                                 action:@selector(fastAccessRefreshCountSuraSort)
+                       forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.refreshCountSortButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *refreshCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.refreshCountSortButton];
+    
+    
+    //sort by revalation order
+    self.revalationOrderSortButton = [[UIButton alloc] initWithFrame:imageFrame];
+    [self.revalationOrderSortButton setTitle:@"R" forState:UIControlStateNormal];
+    
+    [self.revalationOrderSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
+    [self.revalationOrderSortButton addTarget:self
+                                 action:@selector(fastAccessRevalationOrderSuraSort)
+                       forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.revalationOrderSortButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *revalationSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.revalationOrderSortButton];
+    
+    //sort by verse count
+    self.verseCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
+    [self.verseCountSortButton setTitle:@"V" forState:UIControlStateNormal];
+    
+    [self.verseCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
+    [self.verseCountSortButton addTarget:self
+                                       action:@selector(fastAccessVerseCountSuraSort)
+                             forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.verseCountSortButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *verseCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.verseCountSortButton];
 
     [UIView animateWithDuration:1 animations:^{
         //self.navigationItem.rightBarButtonItem = menuButton;
-        self.navigationItem.rightBarButtonItems = @[menuButton, moshafOrderItem, lightSortItem, charCountSortItem];
+        self.navigationItem.rightBarButtonItems = @[menuButton, moshafOrderItem, lightSortItem, charCountSortItem, wordCountSortItem, verseCountSortItem, revalationSortItem, refreshCountSortItem];
     }];
 }
 
@@ -627,6 +680,54 @@ NSInteger currentKhatma = 0;
     [self charCountSuraSort];
     [self applyCurrentSort];
 }
+
+- (void)fastAccessRevalationOrderSuraSort{
+    if (self.periodicTaskManager.dataSource.settings.sortType == RevalationOrderSort) {
+        self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
+        [self.periodicTaskManager.dataSource saveSettings];
+        [self.collectionView reloadData];
+    }
+    
+    [self revalSuraOrderSort];
+    [self applyCurrentSort];
+}
+
+
+- (void)fastAccessWordCountSuraSort{
+    if (self.periodicTaskManager.dataSource.settings.sortType == WordCountSort) {
+        self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
+        [self.periodicTaskManager.dataSource saveSettings];
+        [self.collectionView reloadData];
+    }
+    
+    [self wordCountSuraSort];
+    [self applyCurrentSort];
+}
+
+- (void)fastAccessVerseCountSuraSort{
+    if (self.periodicTaskManager.dataSource.settings.sortType == VersesCountSort) {
+        self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
+        [self.periodicTaskManager.dataSource saveSettings];
+        [self.collectionView reloadData];
+    }
+    
+    [self versesCountSuraSort];
+    [self applyCurrentSort];
+}
+
+
+
+- (void)fastAccessRefreshCountSuraSort{
+    if (self.periodicTaskManager.dataSource.settings.sortType == RefreshCountSort) {
+        self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
+        [self.periodicTaskManager.dataSource saveSettings];
+        [self.collectionView reloadData];
+    }
+    
+    [self refreshCountSuraSort];
+    [self applyCurrentSort];
+}
+
 
 - (void)fastAccessNormalSuraOrderSort{
     if (self.periodicTaskManager.dataSource.settings.sortType == NormalSuraOrderSort) {
@@ -1075,7 +1176,7 @@ NSInteger currentKhatma = 0;
     
     [cell.memorized setHidden:!self.periodicTaskManager.dataSource.settings.showMemorizationMark];
 
-    [cell.verseCountLabel setHidden:!self.periodicTaskManager.dataSource.settings.showVerseCount];
+    [cell.verseCountLabel setHidden:!self.periodicTaskManager.dataSource.settings.showVerseCount || task.memorizedState == NOT_MEMORIZED];
     
     [cell.score setHidden:!self.periodicTaskManager.dataSource.settings.showCharacterCount];
     
@@ -1173,16 +1274,25 @@ static NSInteger tone = 0;
     switch (self.sortType) {
         case NormalSuraOrderSort:
             [self normalSuraOrderSort];
-            self.moshafOrderButton.tintColor = [UIColor yellowColor];
+            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:1.0];
             self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
 
             break;
         case LightSort:
             [self weakerFirstSuraFirstSort];
             self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.lightSortButton.tintColor = [UIColor yellowColor];
+            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:1.0];
             self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+
             break;
             
         case VersesCountSort:
@@ -1190,6 +1300,11 @@ static NSInteger tone = 0;
             self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:1.0];
+            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+
             break;
             
         case WordCountSort:
@@ -1197,13 +1312,21 @@ static NSInteger tone = 0;
             self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:1.0];
+            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             break;
             
         case CharCountSort:
             [self charCountSuraSort];
             self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.charCountSortButton.tintColor = [UIColor yellowColor];
+            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:1.0];
+            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             break;
             
         case RevalationOrderSort:;
@@ -1211,6 +1334,10 @@ static NSInteger tone = 0;
             self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:1.0];
             
             break;
             
@@ -1219,6 +1346,10 @@ static NSInteger tone = 0;
             self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:1.0];
+            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             
             break;
             
