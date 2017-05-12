@@ -17,6 +17,7 @@
 
 - (NSDictionary<NSString *, NSNumber *> *)getMemorizationStates;
 - (NSDictionary<NSString *, NSNumber *> *)getKhatmaProgress:(NSInteger)khatmaIndex;
+- (NSDictionary<NSString *, NSNumber *> *)getTodayReviewReadScores;
 - (NSInteger)todayScore;
 - (NSInteger)yesterdayScore;
 - (NSInteger)totalScore;

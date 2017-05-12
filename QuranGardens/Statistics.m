@@ -51,6 +51,49 @@
     return result;
 }
 
+- (NSDictionary<NSString *, NSNumber *> *)getTodayReviewReadScores {
+    NSMutableDictionary <NSString *, NSNumber *> *result = @{}.mutableCopy;
+    
+    NSInteger memorized = 0;
+    NSInteger other = 0;
+    
+    for (PeriodicTask *task in self.dataSource.tasks) {
+        NSDate *lastRefresh = [task.history lastObject];
+        if (lastRefresh != nil) {
+            NSTimeInterval todayStart = [[[NSCalendar currentCalendar] startOfDayForDate:[NSDate new]] timeIntervalSinceReferenceDate];
+            NSTimeInterval lastRefreshInterval = [lastRefresh timeIntervalSinceReferenceDate];
+            
+            if (lastRefreshInterval >= todayStart) {
+                NSInteger score = [self scoreForSura:task.name];
+                if(task.memorizedState == MEMORIZED) {
+                    memorized += score;
+                } else {
+                    other += score;
+                }
+            }
+        }
+    }
+    
+    if (memorized != 0) {
+        result[[@"Memorized" localize]] = [NSNumber numberWithInteger:memorized];
+    }
+    
+    if (memorized != 0) {
+        result[[@"Other" localize]] = [NSNumber numberWithInteger:other];
+    }
+    
+    
+    return result;
+}
+
+- (NSInteger)scoreForSura:(NSString *)suraName {
+    NSInteger suraIndex = [Sura.suraNames indexOfObject:suraName];
+    NSNumber *charCount = [[Sura suraCharsCount] objectAtIndex:suraIndex];
+    NSInteger taskScore = [charCount integerValue];
+    
+    return taskScore;
+}
+
 - (NSDictionary<NSString *, NSNumber *> *)getMemorizationStates {
     NSMutableDictionary <NSString *, NSNumber *> *result = @{}.mutableCopy;
     
