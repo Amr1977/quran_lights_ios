@@ -1013,6 +1013,16 @@ NSInteger currentKhatma = 0;
                                                    }];
     [menu addAction:memorizedPercentage];
     
+    
+    //khatmaChart
+    
+    UIAlertAction* todayReviewReadRatio = [UIAlertAction actionWithTitle:[@"Review-Read Ratio" localize]
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * action) {
+                                                               [self reviewReadRatioChart];
+                                                           }];
+    [menu addAction:todayReviewReadRatio];
+    
     //khatmaChart
     
     UIAlertAction* khatmaProgress = [UIAlertAction actionWithTitle:[@"Khatma Progress Chart" localize]
@@ -1061,6 +1071,17 @@ NSInteger currentKhatma = 0;
     [self.navigationController pushViewController:vc animated:NO];
 
 }
+
+//reviewReadChart
+- (void)reviewReadRatioChart {
+    PiePolylineChartViewController  *vc = [[PiePolylineChartViewController alloc] init];
+    
+    vc.scores = [self.statistics getTodayReviewReadScores];
+    vc.chartTitle = [@"Review Read Ratio Chart (Today)" localize];
+    
+    [self.navigationController pushViewController:vc animated:NO];
+}
+
 
 - (void)khatmaChart {
     PiePolylineChartViewController  *vc = [[PiePolylineChartViewController alloc] init];
