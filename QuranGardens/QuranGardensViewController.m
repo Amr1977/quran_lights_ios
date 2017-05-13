@@ -73,7 +73,7 @@ static NSMutableDictionary *operations;
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.bottomBar.backgroundColor = [[UIColor clearColor] colorWithAlphaComponent:0.5];
+    self.bottomBar.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8];
     [self.view addSubview:self.bottomBar];
     [self showSortBar];
     
@@ -118,20 +118,27 @@ static NSMutableDictionary *operations;
 }
 
 - (void)hideSortBar {
-    
-    [UIView animateWithDuration:1 animations:^{
-        self.bottomBar.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0);
-    } completion:^(BOOL finished) {
-        if (finished) {
-            [self.moshafOrderButton setHidden:YES];
-            [self.charCountSortButton setHidden:YES];
-            [self.lightSortButton setHidden:YES];
-            [self.wordCountSortButton setHidden:YES];
-            [self.revalationOrderSortButton setHidden:YES];
-            [self.refreshCountSortButton setHidden:YES];
-            [self.verseCountSortButton setHidden:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        hideCounter -= 1;
+        if (hideCounter <= 0) {
+            hideCounter = 0;
+            [UIView animateWithDuration:1 animations:^{
+                self.bottomBar.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0);
+            } completion:^(BOOL finished) {
+                if (finished) {
+                    [self.moshafOrderButton setHidden:YES];
+                    [self.charCountSortButton setHidden:YES];
+                    [self.lightSortButton setHidden:YES];
+                    [self.wordCountSortButton setHidden:YES];
+                    [self.revalationOrderSortButton setHidden:YES];
+                    [self.refreshCountSortButton setHidden:YES];
+                    [self.verseCountSortButton setHidden:YES];
+                }
+            }];
+        } else {
+            [self hideSortBar];
         }
-    }];
+    });
 }
 
 - (void)showSortBar {
@@ -347,6 +354,7 @@ NSInteger currentKhatma = 0;
          forControlEvents:UIControlEventTouchUpInside];
     
     [self.moshafOrderButton setShowsTouchWhenHighlighted:YES];
+    [self.moshafOrderButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
     //UIBarButtonItem *moshafOrderItem = [[UIBarButtonItem alloc] initWithCustomView:self.moshafOrderButton];
     
     
@@ -360,6 +368,7 @@ NSInteger currentKhatma = 0;
                 forControlEvents:UIControlEventTouchUpInside];
     
     [self.lightSortButton setShowsTouchWhenHighlighted:YES];
+    [self.lightSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
     //UIBarButtonItem *lightSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.lightSortButton];
     
     //sort by character count
@@ -372,6 +381,7 @@ NSInteger currentKhatma = 0;
               forControlEvents:UIControlEventTouchUpInside];
     
     [self.charCountSortButton setShowsTouchWhenHighlighted:YES];
+    [self.charCountSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
     //UIBarButtonItem *charCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.charCountSortButton];
     
     
@@ -385,6 +395,7 @@ NSInteger currentKhatma = 0;
                        forControlEvents:UIControlEventTouchUpInside];
     
     [self.wordCountSortButton setShowsTouchWhenHighlighted:YES];
+    [self.wordCountSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
     //UIBarButtonItem *wordCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.wordCountSortButton];
     
     
@@ -398,6 +409,7 @@ NSInteger currentKhatma = 0;
                        forControlEvents:UIControlEventTouchUpInside];
     
     [self.refreshCountSortButton setShowsTouchWhenHighlighted:YES];
+    [self.refreshCountSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
     //UIBarButtonItem *refreshCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.refreshCountSortButton];
     
     
@@ -411,10 +423,9 @@ NSInteger currentKhatma = 0;
                        forControlEvents:UIControlEventTouchUpInside];
     
     [self.revalationOrderSortButton setShowsTouchWhenHighlighted:YES];
-    //UIBarButtonItem *revalationSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.revalationOrderSortButton];
+    [self.revalationOrderSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
     
     //sort by verse count
-    //self.verseCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
     [self.verseCountSortButton setTitle:@"V" forState:UIControlStateNormal];
     
     [self.verseCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
@@ -423,7 +434,7 @@ NSInteger currentKhatma = 0;
                              forControlEvents:UIControlEventTouchUpInside];
     
     [self.verseCountSortButton setShowsTouchWhenHighlighted:YES];
-    //UIBarButtonItem *verseCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.verseCountSortButton];
+    [self.verseCountSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
 
     [UIView animateWithDuration:1 animations:^{
         //self.navigationItem.rightBarButtonItem = menuButton;
@@ -480,13 +491,12 @@ NSInteger currentKhatma = 0;
     [self.collectionView reloadData];
 }
 
+NSInteger hideCounter = 0;
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self hideSortBar];
-        
-    });
+    [self hideSortBar];
 }
 
 - (UIAlertController *)menu{
@@ -734,6 +744,7 @@ NSInteger currentKhatma = 0;
 }
 
 - (void)fastAccessCharCountSuraSort{
+    hideCounter += 1;
     if (self.periodicTaskManager.dataSource.settings.sortType == CharCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -745,6 +756,7 @@ NSInteger currentKhatma = 0;
 }
 
 - (void)fastAccessRevalationOrderSuraSort{
+    hideCounter += 1;
     if (self.periodicTaskManager.dataSource.settings.sortType == RevalationOrderSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -757,6 +769,7 @@ NSInteger currentKhatma = 0;
 
 
 - (void)fastAccessWordCountSuraSort{
+    hideCounter += 1;
     if (self.periodicTaskManager.dataSource.settings.sortType == WordCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -768,6 +781,7 @@ NSInteger currentKhatma = 0;
 }
 
 - (void)fastAccessVerseCountSuraSort{
+    hideCounter += 1;
     if (self.periodicTaskManager.dataSource.settings.sortType == VersesCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -781,6 +795,7 @@ NSInteger currentKhatma = 0;
 
 
 - (void)fastAccessRefreshCountSuraSort{
+    hideCounter += 1;
     if (self.periodicTaskManager.dataSource.settings.sortType == RefreshCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -793,6 +808,7 @@ NSInteger currentKhatma = 0;
 
 
 - (void)fastAccessNormalSuraOrderSort{
+    hideCounter += 1;
     if (self.periodicTaskManager.dataSource.settings.sortType == NormalSuraOrderSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -803,6 +819,7 @@ NSInteger currentKhatma = 0;
 }
 
 - (void)fastAccessWeakerFirstSuraFirstSort{
+    hideCounter += 1;
     if (self.periodicTaskManager.dataSource.settings.sortType == LightSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -1373,7 +1390,7 @@ static NSInteger tone = 0;
     switch (self.sortType) {
         case NormalSuraOrderSort:
             [self normalSuraOrderSort];
-            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:1.0];
+            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.8];
             self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
@@ -1385,7 +1402,7 @@ static NSInteger tone = 0;
         case LightSort:
             [self weakerFirstSuraFirstSort];
             self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:1.0];
+            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.8];
             self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
@@ -1400,7 +1417,7 @@ static NSInteger tone = 0;
             self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:1.0];
+            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.8];
             self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
 
@@ -1411,7 +1428,7 @@ static NSInteger tone = 0;
             self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:1.0];
+            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.8];
             self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
@@ -1421,7 +1438,7 @@ static NSInteger tone = 0;
             [self charCountSuraSort];
             self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:1.0];
+            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.8];
             self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
@@ -1436,7 +1453,7 @@ static NSInteger tone = 0;
             self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:1.0];
+            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.8];
             
             break;
             
@@ -1447,7 +1464,7 @@ static NSInteger tone = 0;
             self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:1.0];
+            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.8];
             self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             
             break;
@@ -1487,16 +1504,14 @@ static NSInteger tone = 0;
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     NSLog(@"scrollViewWillBeginDragging");
-    
+    hideCounter += 1;
     [self showSortBar];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     NSLog(@"scrollViewDidEndDragging");
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self hideSortBar];
-    });
+    [self hideSortBar];
 }
 
 
