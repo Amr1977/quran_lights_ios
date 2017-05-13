@@ -132,8 +132,6 @@ static NSMutableDictionary *operations;
             NSLog(@"hiding sort bar");
             [self.bottomBar setHidden:YES];
             self.bottomBar.frame =  CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0);
-        } else {
-            [self hideSortBar];
         }
     });
 }
@@ -760,6 +758,7 @@ NSInteger currentKhatma = 0;
 
 - (void)fastAccessCharCountSuraSort{
     self.hideCounter += 1;
+    [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == CharCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -772,6 +771,7 @@ NSInteger currentKhatma = 0;
 
 - (void)fastAccessRevalationOrderSuraSort{
     self.hideCounter += 1;
+    [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == RevalationOrderSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -785,6 +785,7 @@ NSInteger currentKhatma = 0;
 
 - (void)fastAccessWordCountSuraSort{
     self.hideCounter += 1;
+    [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == WordCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -797,6 +798,7 @@ NSInteger currentKhatma = 0;
 
 - (void)fastAccessVerseCountSuraSort{
     self.hideCounter += 1;
+    [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == VersesCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -811,6 +813,7 @@ NSInteger currentKhatma = 0;
 
 - (void)fastAccessRefreshCountSuraSort{
     self.hideCounter += 1;
+    [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == RefreshCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -824,6 +827,7 @@ NSInteger currentKhatma = 0;
 
 - (void)fastAccessNormalSuraOrderSort{
     self.hideCounter += 1;
+    [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == NormalSuraOrderSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -835,6 +839,7 @@ NSInteger currentKhatma = 0;
 
 - (void)fastAccessWeakerFirstSuraFirstSort{
     self.hideCounter += 1;
+    [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == LightSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
