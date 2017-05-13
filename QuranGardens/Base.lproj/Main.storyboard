@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cf0-gY-Sub">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cf0-gY-Sub">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -52,10 +52,97 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bottomBar" destination="5KM-hm-oo1" id="hhj-dz-WpB"/>
+                        <outlet property="charCountSortButton" destination="JgX-gc-613" id="GEi-IV-MhJ"/>
+                        <outlet property="lightSortButton" destination="F2r-ac-ydF" id="QNr-vs-Mu7"/>
+                        <outlet property="moshafOrderButton" destination="YoJ-kX-hky" id="Jcq-4q-Uno"/>
+                        <outlet property="refreshCountSortButton" destination="RDY-js-0gf" id="rQo-bQ-fvS"/>
+                        <outlet property="revalationOrderSortButton" destination="Lrq-9a-5EU" id="ytv-Dc-jSi"/>
                         <outlet property="score" destination="4jf-WK-OZw" id="uhN-Ui-05f"/>
+                        <outlet property="verseCountSortButton" destination="KIN-rb-EDs" id="mwA-02-f4c"/>
+                        <outlet property="wordCountSortButton" destination="QjM-Rq-h0Q" id="foS-13-pOx"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dzs-Tt-XOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="5KM-hm-oo1" userLabel="bottomBar">
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KIN-rb-EDs" userLabel="Button1">
+                            <rect key="frame" x="364" y="10" width="40" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="3we-8V-yI5"/>
+                                <constraint firstAttribute="width" constant="40" id="pI4-Ge-Ll5"/>
+                            </constraints>
+                            <state key="normal" title="V"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QjM-Rq-h0Q" userLabel="Button5">
+                            <rect key="frame" x="304" y="10" width="40" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="Z9j-cO-2rf"/>
+                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="zxU-Go-z4O"/>
+                            </constraints>
+                            <state key="normal" title="W"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lrq-9a-5EU" userLabel="Button6">
+                            <rect key="frame" x="244" y="5" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="JjU-EW-kmu"/>
+                                <constraint firstAttribute="width" constant="40" id="RvC-Ns-B1L"/>
+                            </constraints>
+                            <state key="normal" title="R"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JgX-gc-613" userLabel="Button2">
+                            <rect key="frame" x="424" y="5" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="aXM-KA-Sit"/>
+                                <constraint firstAttribute="width" constant="40" id="snV-hu-Udg"/>
+                            </constraints>
+                            <state key="normal" title="C"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2r-ac-ydF" userLabel="Button3">
+                            <rect key="frame" x="484" y="5" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="Le6-YF-dyV"/>
+                                <constraint firstAttribute="height" constant="40" id="fvS-KH-17k"/>
+                            </constraints>
+                            <state key="normal" title="L"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YoJ-kX-hky" userLabel="Button4">
+                            <rect key="frame" x="544" y="5" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="LeE-Ql-Rs7"/>
+                                <constraint firstAttribute="height" constant="40" id="iKg-cS-mEV"/>
+                            </constraints>
+                            <state key="normal" title="B"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RDY-js-0gf" userLabel="Button7">
+                            <rect key="frame" x="184" y="5" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="ZYV-vM-jo9"/>
+                                <constraint firstAttribute="width" constant="40" id="hdu-75-SZ8"/>
+                            </constraints>
+                            <state key="normal" title="F"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="F2r-ac-ydF" firstAttribute="leading" secondItem="JgX-gc-613" secondAttribute="trailing" constant="20" id="0XR-d5-rTm"/>
+                        <constraint firstItem="Lrq-9a-5EU" firstAttribute="centerY" secondItem="5KM-hm-oo1" secondAttribute="centerY" id="7bM-Qo-UXg"/>
+                        <constraint firstItem="JgX-gc-613" firstAttribute="leading" secondItem="KIN-rb-EDs" secondAttribute="trailing" constant="20" id="7fC-nQ-OYI"/>
+                        <constraint firstItem="KIN-rb-EDs" firstAttribute="centerX" secondItem="5KM-hm-oo1" secondAttribute="centerX" id="RIB-4P-Mfh"/>
+                        <constraint firstItem="Lrq-9a-5EU" firstAttribute="leading" secondItem="RDY-js-0gf" secondAttribute="trailing" constant="20" id="URi-2f-Q5w"/>
+                        <constraint firstItem="KIN-rb-EDs" firstAttribute="centerY" secondItem="5KM-hm-oo1" secondAttribute="centerY" id="W93-ao-KQW"/>
+                        <constraint firstItem="QjM-Rq-h0Q" firstAttribute="leading" secondItem="Lrq-9a-5EU" secondAttribute="trailing" constant="20" id="WTm-g7-FtI"/>
+                        <constraint firstItem="RDY-js-0gf" firstAttribute="centerY" secondItem="5KM-hm-oo1" secondAttribute="centerY" id="Wae-YU-gIY"/>
+                        <constraint firstItem="YoJ-kX-hky" firstAttribute="centerY" secondItem="5KM-hm-oo1" secondAttribute="centerY" id="Yhy-Le-ahn"/>
+                        <constraint firstItem="QjM-Rq-h0Q" firstAttribute="centerY" secondItem="5KM-hm-oo1" secondAttribute="centerY" id="ZXd-tk-Gst"/>
+                        <constraint firstItem="KIN-rb-EDs" firstAttribute="leading" secondItem="QjM-Rq-h0Q" secondAttribute="trailing" constant="20" id="fNf-fd-T7Y"/>
+                        <constraint firstItem="YoJ-kX-hky" firstAttribute="leading" secondItem="F2r-ac-ydF" secondAttribute="trailing" constant="20" id="lhY-Ai-QnR"/>
+                        <constraint firstItem="F2r-ac-ydF" firstAttribute="centerY" secondItem="5KM-hm-oo1" secondAttribute="centerY" id="tBN-1S-1rS"/>
+                        <constraint firstItem="JgX-gc-613" firstAttribute="centerY" secondItem="5KM-hm-oo1" secondAttribute="centerY" id="xMC-hI-pgP"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="827" y="513"/>
         </scene>

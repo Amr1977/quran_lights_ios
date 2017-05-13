@@ -31,6 +31,11 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 
 @interface QuranGardensViewController ()
 
+
+@property (strong, nonatomic) IBOutlet UIView *bottomBar;
+
+
+
 @property (strong, nonatomic) PeriodicTaskManager *periodicTaskManager;
 @property (strong, nonatomic) UIAlertController *menu;
 @property (strong, nonatomic) UIAlertController *suraMenu;
@@ -47,13 +52,13 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (strong, nonatomic) Statistics* statistics;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *score;
 
-@property (strong, nonatomic) UIButton *moshafOrderButton;
-@property (strong, nonatomic) UIButton *lightSortButton;
-@property (strong, nonatomic) UIButton *charCountSortButton;
-@property (strong, nonatomic) UIButton *wordCountSortButton;
-@property (strong, nonatomic) UIButton *verseCountSortButton;
-@property (strong, nonatomic) UIButton *refreshCountSortButton;//UIButton *scoreButton
-@property (strong, nonatomic) UIButton *revalationOrderSortButton;
+@property (strong, nonatomic) IBOutlet UIButton *moshafOrderButton;
+@property (strong, nonatomic) IBOutlet UIButton *lightSortButton;
+@property (strong, nonatomic) IBOutlet UIButton *charCountSortButton;
+@property (strong, nonatomic) IBOutlet UIButton *wordCountSortButton;
+@property (strong, nonatomic) IBOutlet UIButton *verseCountSortButton;
+@property (strong, nonatomic) IBOutlet UIButton *refreshCountSortButton;//UIButton *scoreButton
+@property (strong, nonatomic) IBOutlet UIButton *revalationOrderSortButton;
 
 @end
 
@@ -65,6 +70,15 @@ UIImage *chartButtonImage;
 UIButton *scoreButton;
 
 static NSMutableDictionary *operations;
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.bottomBar.backgroundColor = [[UIColor clearColor] colorWithAlphaComponent:0.5];
+    [self.view addSubview:self.bottomBar];
+    [self showSortBar];
+    
+    
+}
 
 - (void)viewDidLoad
 {
@@ -101,7 +115,38 @@ static NSMutableDictionary *operations;
     [self refreshScoreButton];
     
     NSLog(@"Memorized %ld of total %ld", (long)[self.statistics memorizedScore], (long)[Statistics allSurasScore]);
+}
+
+- (void)hideSortBar {
     
+    [UIView animateWithDuration:1 animations:^{
+        self.bottomBar.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0);
+    } completion:^(BOOL finished) {
+        if (finished) {
+            [self.moshafOrderButton setHidden:YES];
+            [self.charCountSortButton setHidden:YES];
+            [self.lightSortButton setHidden:YES];
+            [self.wordCountSortButton setHidden:YES];
+            [self.revalationOrderSortButton setHidden:YES];
+            [self.refreshCountSortButton setHidden:YES];
+            [self.verseCountSortButton setHidden:YES];
+        }
+    }];
+}
+
+- (void)showSortBar {
+    
+    [self.moshafOrderButton setHidden:NO];
+    [self.charCountSortButton setHidden:NO];
+    [self.lightSortButton setHidden:NO];
+    [self.wordCountSortButton setHidden:NO];
+    [self.revalationOrderSortButton setHidden:NO];
+    [self.refreshCountSortButton setHidden:NO];
+    [self.verseCountSortButton setHidden:NO];
+    
+    [UIView animateWithDuration:1 animations:^{
+        self.bottomBar.frame =  CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50);
+    }];
 }
     
     - (IBAction)onScoreTabbed:(id)sender {
@@ -292,7 +337,7 @@ NSInteger currentKhatma = 0;
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
     
     //sort by normal order
-    self.moshafOrderButton = [[UIButton alloc] initWithFrame:imageFrame];
+    //self.moshafOrderButton = [[UIButton alloc] initWithFrame:imageFrame];
     [self.moshafOrderButton setTitle:@"B" forState:UIControlStateNormal];
     
     
@@ -302,11 +347,11 @@ NSInteger currentKhatma = 0;
          forControlEvents:UIControlEventTouchUpInside];
     
     [self.moshafOrderButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *moshafOrderItem = [[UIBarButtonItem alloc] initWithCustomView:self.moshafOrderButton];
+    //UIBarButtonItem *moshafOrderItem = [[UIBarButtonItem alloc] initWithCustomView:self.moshafOrderButton];
     
     
     //sort by light strength
-    self.lightSortButton = [[UIButton alloc] initWithFrame:imageFrame];
+    //self.lightSortButton = [[UIButton alloc] initWithFrame:imageFrame];
     [self.lightSortButton setTitle:@"L" forState:UIControlStateNormal];
     
     [self.lightSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
@@ -315,10 +360,10 @@ NSInteger currentKhatma = 0;
                 forControlEvents:UIControlEventTouchUpInside];
     
     [self.lightSortButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *lightSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.lightSortButton];
+    //UIBarButtonItem *lightSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.lightSortButton];
     
     //sort by character count
-    self.charCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
+    //self.charCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
     [self.charCountSortButton setTitle:@"C" forState:UIControlStateNormal];
     
     [self.charCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
@@ -327,11 +372,11 @@ NSInteger currentKhatma = 0;
               forControlEvents:UIControlEventTouchUpInside];
     
     [self.charCountSortButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *charCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.charCountSortButton];
+    //UIBarButtonItem *charCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.charCountSortButton];
     
     
     //sort by word count
-    self.wordCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
+    //self.wordCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
     [self.wordCountSortButton setTitle:@"W" forState:UIControlStateNormal];
     
     [self.wordCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
@@ -340,11 +385,11 @@ NSInteger currentKhatma = 0;
                        forControlEvents:UIControlEventTouchUpInside];
     
     [self.wordCountSortButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *wordCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.wordCountSortButton];
+    //UIBarButtonItem *wordCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.wordCountSortButton];
     
     
     //sort by refresh count
-    self.refreshCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
+    //self.refreshCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
     [self.refreshCountSortButton setTitle:@"F" forState:UIControlStateNormal];
     
     [self.refreshCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
@@ -353,11 +398,11 @@ NSInteger currentKhatma = 0;
                        forControlEvents:UIControlEventTouchUpInside];
     
     [self.refreshCountSortButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *refreshCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.refreshCountSortButton];
+    //UIBarButtonItem *refreshCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.refreshCountSortButton];
     
     
     //sort by revalation order
-    self.revalationOrderSortButton = [[UIButton alloc] initWithFrame:imageFrame];
+    //self.revalationOrderSortButton = [[UIButton alloc] initWithFrame:imageFrame];
     [self.revalationOrderSortButton setTitle:@"R" forState:UIControlStateNormal];
     
     [self.revalationOrderSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
@@ -366,10 +411,10 @@ NSInteger currentKhatma = 0;
                        forControlEvents:UIControlEventTouchUpInside];
     
     [self.revalationOrderSortButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *revalationSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.revalationOrderSortButton];
+    //UIBarButtonItem *revalationSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.revalationOrderSortButton];
     
     //sort by verse count
-    self.verseCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
+    //self.verseCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
     [self.verseCountSortButton setTitle:@"V" forState:UIControlStateNormal];
     
     [self.verseCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
@@ -378,11 +423,20 @@ NSInteger currentKhatma = 0;
                              forControlEvents:UIControlEventTouchUpInside];
     
     [self.verseCountSortButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *verseCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.verseCountSortButton];
+    //UIBarButtonItem *verseCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.verseCountSortButton];
 
     [UIView animateWithDuration:1 animations:^{
         //self.navigationItem.rightBarButtonItem = menuButton;
-        self.navigationItem.rightBarButtonItems = @[menuButton, moshafOrderItem, lightSortItem, charCountSortItem, wordCountSortItem, verseCountSortItem, revalationSortItem, refreshCountSortItem];
+        self.navigationItem.rightBarButtonItems = @[menuButton];
+        
+        [self.bottomBar addSubview:self.moshafOrderButton];
+        [self.bottomBar addSubview:self.lightSortButton];
+        [self.bottomBar addSubview:self.charCountSortButton];
+        [self.bottomBar addSubview:self.wordCountSortButton];
+        [self.bottomBar addSubview:self.verseCountSortButton];
+        [self.bottomBar addSubview:self.revalationOrderSortButton];
+        [self.bottomBar addSubview:self.refreshCountSortButton];
+        
     }];
 }
 
@@ -424,6 +478,15 @@ NSInteger currentKhatma = 0;
     [self applyCurrentSort];
     [self refreshScoreButton];
     [self.collectionView reloadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self hideSortBar];
+        
+    });
 }
 
 - (UIAlertController *)menu{
@@ -1419,5 +1482,22 @@ static NSInteger tone = 0;
     [self refresh];
     //TODO: Apply new settings
 }
+
+#pragma mark - Collection View
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    NSLog(@"scrollViewWillBeginDragging");
+    
+    [self showSortBar];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    NSLog(@"scrollViewDidEndDragging");
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self hideSortBar];
+    });
+}
+
 
 @end
