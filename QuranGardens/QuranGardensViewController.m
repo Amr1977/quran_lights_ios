@@ -85,7 +85,7 @@ static NSMutableDictionary *operations;
     barButtonImage = [[UIImage imageNamed:@"sun.jpg"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
     barButtonImageActive = [[UIImage imageNamed:@"sun.jpg"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
     
-    chartButtonImage = [[UIImage imageNamed:@"charts1"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
+    chartButtonImage = [[UIImage imageNamed:@"charts3"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncHistory) name:@"HistoryLoadedFromFireBase" object:nil];
