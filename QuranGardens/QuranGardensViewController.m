@@ -60,6 +60,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (strong, nonatomic) IBOutlet UIButton *refreshCountSortButton;//UIButton *scoreButton
 @property (strong, nonatomic) IBOutlet UIButton *revalationOrderSortButton;
 
+@property (nonatomic) __block NSInteger hideCounter;
+
 @end
 
 @implementation QuranGardensViewController
@@ -73,11 +75,7 @@ static NSMutableDictionary *operations;
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.bottomBar.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8];
-    [self.view addSubview:self.bottomBar];
-    [self showSortBar];
-    
-    
+    self.bottomBar.frame =  CGRectMake(0, self.view.frame.size.height - self.bottomBar.frame.size.height, self.view.frame.size.width, self.bottomBar.frame.size.height);
 }
 
 - (void)viewDidLoad
@@ -115,26 +113,25 @@ static NSMutableDictionary *operations;
     [self refreshScoreButton];
     
     NSLog(@"Memorized %ld of total %ld", (long)[self.statistics memorizedScore], (long)[Statistics allSurasScore]);
+    
+    self.bottomBar.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8];
+    [self.view addSubview:self.bottomBar];
+    
 }
 
 - (void)hideSortBar {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        hideCounter -= 1;
-        if (hideCounter <= 0) {
-            hideCounter = 0;
-            [UIView animateWithDuration:1 animations:^{
-                self.bottomBar.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0);
-            } completion:^(BOOL finished) {
-                if (finished) {
-                    [self.moshafOrderButton setHidden:YES];
-                    [self.charCountSortButton setHidden:YES];
-                    [self.lightSortButton setHidden:YES];
-                    [self.wordCountSortButton setHidden:YES];
-                    [self.revalationOrderSortButton setHidden:YES];
-                    [self.refreshCountSortButton setHidden:YES];
-                    [self.verseCountSortButton setHidden:YES];
-                }
-            }];
+    
+//    if (self.hideCounter <= 0) {
+//        return;
+//    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.hideCounter -= 1;
+        NSLog(@"hide sort bar called, hide counter %ld", (long)self.hideCounter);
+        if (self.hideCounter <= 0) {
+            self.hideCounter = 0;
+            NSLog(@"hiding sort bar");
+            [self.bottomBar setHidden:YES];
+            self.bottomBar.frame =  CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0);
         } else {
             [self hideSortBar];
         }
@@ -143,17 +140,17 @@ static NSMutableDictionary *operations;
 
 - (void)showSortBar {
     
-    [self.moshafOrderButton setHidden:NO];
-    [self.charCountSortButton setHidden:NO];
-    [self.lightSortButton setHidden:NO];
-    [self.wordCountSortButton setHidden:NO];
-    [self.revalationOrderSortButton setHidden:NO];
-    [self.refreshCountSortButton setHidden:NO];
-    [self.verseCountSortButton setHidden:NO];
-    
+    self.hideCounter += 1;
+    NSLog(@"show sort bar called, hide counter %ld", (long)self.hideCounter);
+    [self.bottomBar setHidden:NO];
     [UIView animateWithDuration:1 animations:^{
         self.bottomBar.frame =  CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50);
+    } completion:^(BOOL finished) {
+        [self hideSortBar];
     }];
+    
+    
+    
 }
     
     - (IBAction)onScoreTabbed:(id)sender {
@@ -491,12 +488,12 @@ NSInteger currentKhatma = 0;
     [self.collectionView reloadData];
 }
 
-NSInteger hideCounter = 0;
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self hideSortBar];
+    [self showSortBar];
 }
 
 - (UIAlertController *)menu{
@@ -744,7 +741,7 @@ NSInteger hideCounter = 0;
 }
 
 - (void)fastAccessCharCountSuraSort{
-    hideCounter += 1;
+    self.hideCounter += 1;
     if (self.periodicTaskManager.dataSource.settings.sortType == CharCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -756,7 +753,7 @@ NSInteger hideCounter = 0;
 }
 
 - (void)fastAccessRevalationOrderSuraSort{
-    hideCounter += 1;
+    self.hideCounter += 1;
     if (self.periodicTaskManager.dataSource.settings.sortType == RevalationOrderSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -769,7 +766,7 @@ NSInteger hideCounter = 0;
 
 
 - (void)fastAccessWordCountSuraSort{
-    hideCounter += 1;
+    self.hideCounter += 1;
     if (self.periodicTaskManager.dataSource.settings.sortType == WordCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -781,7 +778,7 @@ NSInteger hideCounter = 0;
 }
 
 - (void)fastAccessVerseCountSuraSort{
-    hideCounter += 1;
+    self.hideCounter += 1;
     if (self.periodicTaskManager.dataSource.settings.sortType == VersesCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -795,7 +792,7 @@ NSInteger hideCounter = 0;
 
 
 - (void)fastAccessRefreshCountSuraSort{
-    hideCounter += 1;
+    self.hideCounter += 1;
     if (self.periodicTaskManager.dataSource.settings.sortType == RefreshCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -808,7 +805,7 @@ NSInteger hideCounter = 0;
 
 
 - (void)fastAccessNormalSuraOrderSort{
-    hideCounter += 1;
+    self.hideCounter += 1;
     if (self.periodicTaskManager.dataSource.settings.sortType == NormalSuraOrderSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -819,7 +816,7 @@ NSInteger hideCounter = 0;
 }
 
 - (void)fastAccessWeakerFirstSuraFirstSort{
-    hideCounter += 1;
+    self.hideCounter += 1;
     if (self.periodicTaskManager.dataSource.settings.sortType == LightSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -1504,15 +1501,18 @@ static NSInteger tone = 0;
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     NSLog(@"scrollViewWillBeginDragging");
-    hideCounter += 1;
     [self showSortBar];
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    NSLog(@"scrollViewDidEndDragging");
-    
-    [self hideSortBar];
-}
+//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+//    NSLog(@"scrollViewDidEndDragging");
+//
+//}
+//
+//- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+//    NSLog(@"scrollViewDidEndDecelerating");
+//
+//}
 
 
 @end
