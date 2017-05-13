@@ -152,6 +152,10 @@ static NSMutableDictionary *operations;
     
     
 }
+
+- (void)openFacePage {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/QuranicLights/"]];
+}
     
     - (IBAction)onScoreTabbed:(id)sender {
         [self showCharts];
@@ -339,6 +343,20 @@ NSInteger currentKhatma = 0;
     
     [settingsButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
+
+    
+    UIButton *fbButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    //[settingsButton setTitle:@"S" forState:UIControlStateNormal];
+    //settingsButton.tintColor = [UIColor yellowColor];
+    [fbButton setBackgroundImage:[UIImage imageNamed:@"fb"] forState:UIControlStateNormal];
+    //fbButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+    [fbButton addTarget:self
+                       action:@selector(openFacePage)
+             forControlEvents:UIControlEventTouchUpInside];
+    
+    [fbButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *fbItem = [[UIBarButtonItem alloc] initWithCustomView:fbButton];
+   
     
     //sort by normal order
     //self.moshafOrderButton = [[UIButton alloc] initWithFrame:imageFrame];
@@ -435,7 +453,7 @@ NSInteger currentKhatma = 0;
 
     [UIView animateWithDuration:1 animations:^{
         //self.navigationItem.rightBarButtonItem = menuButton;
-        self.navigationItem.rightBarButtonItems = @[menuButton];
+        self.navigationItem.rightBarButtonItems = @[menuButton,fbItem];
         
         [self.bottomBar addSubview:self.moshafOrderButton];
         [self.bottomBar addSubview:self.lightSortButton];
