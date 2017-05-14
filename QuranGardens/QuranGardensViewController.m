@@ -73,11 +73,6 @@ UIButton *scoreButton;
 
 static NSMutableDictionary *operations;
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    self.bottomBar.frame =  CGRectMake(0, self.view.frame.size.height - self.bottomBar.frame.size.height, self.view.frame.size.width, self.bottomBar.frame.size.height);
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -114,16 +109,11 @@ static NSMutableDictionary *operations;
     
     NSLog(@"Memorized %ld of total %ld", (long)[self.statistics memorizedScore], (long)[Statistics allSurasScore]);
     
-    self.bottomBar.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8];
+    self.bottomBar.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:1.0];
     [self.view addSubview:self.bottomBar];
-    
 }
 
 - (void)hideSortBar {
-    
-//    if (self.hideCounter <= 0) {
-//        return;
-//    }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.hideCounter -= 1;
         NSLog(@"hide sort bar called, hide counter %ld", (long)self.hideCounter);
@@ -137,7 +127,6 @@ static NSMutableDictionary *operations;
 }
 
 - (void)showSortBar {
-    
     self.hideCounter += 1;
     NSLog(@"show sort bar called, hide counter %ld", (long)self.hideCounter);
     [self.bottomBar setHidden:NO];
@@ -499,6 +488,8 @@ NSInteger currentKhatma = 0;
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.bottomBar.frame =  CGRectMake(0, self.view.frame.size.height - self.bottomBar.frame.size.height, self.view.frame.size.width, self.bottomBar.frame.size.height);
+
     [self applyCurrentSort];
     [self refreshScoreButton];
     [self.collectionView reloadData];
@@ -1503,6 +1494,7 @@ static NSInteger tone = 0;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    self.bottomBar.frame = CGRectMake(0, size.height - self.bottomBar.frame.size.height, size.width, self.bottomBar.frame.size.height);
     [self.collectionView reloadData];
 }
 
