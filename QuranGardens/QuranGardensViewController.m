@@ -111,10 +111,13 @@ static NSMutableDictionary *operations;
     
     self.bottomBar.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:1.0];
     [self.view addSubview:self.bottomBar];
+    
+    self.collectionView.layer.shouldRasterize = YES;
+    self.bottomBar.layer.shouldRasterize = YES;
 }
 
 - (void)hideSortBar {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.hideCounter -= 1;
         NSLog(@"hide sort bar called, hide counter %ld", (long)self.hideCounter);
         if (self.hideCounter <= 0) {
