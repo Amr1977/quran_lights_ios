@@ -22,10 +22,8 @@
 @import Charts;
 
 CGFloat const CellHeight = 80;
-CGFloat const CellSmallHeight = 40;
-
 CGFloat const CellWidth = 140;
-CGFloat const CellSmallWidth = 40;
+
 
 NSInteger const RefreshPeriod = 300; // refresh each 5 minutes;
 
@@ -76,6 +74,8 @@ UIImage *barButtonImage;
 UIImage *barButtonImageActive;
 UIImage *chartButtonImage;
 UIButton *scoreButton;
+CGFloat CellSmallHeight = 40;
+CGFloat CellSmallWidth = 40;
 
 static NSMutableDictionary *operations;
 
@@ -129,9 +129,9 @@ static NSMutableDictionary *operations;
         NSLog(@"hide sort bar called, hide counter %ld", (long)self.hideCounter);
         if (self.hideCounter <= 0) {
             self.hideCounter = 0;
-            if (self.overviewMode) {
-                return;
-            }
+//            if (self.overviewMode) {
+//                return;
+//            }
             NSLog(@"hiding sort bar");
             [self.bottomBar setHidden:YES];
             self.bottomBar.frame =  CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0);
@@ -512,6 +512,10 @@ NSInteger currentKhatma = 0;
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    CGFloat sideLength = sqrt(self.view.frame.size.height * self.view.frame.size.width * 0.9 / 114.0);
+    CellSmallWidth = sideLength;
+    CellSmallHeight = sideLength;
+
     self.bottomBar.frame =  CGRectMake(0, self.view.frame.size.height - self.bottomBar.frame.size.height, self.view.frame.size.width, self.bottomBar.frame.size.height);
 
     [self applyCurrentSort];
@@ -1540,6 +1544,10 @@ static NSInteger tone = 0;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    CGFloat sideLength = sqrt(size.height * size.width * 0.9 / 114.0);
+    CellSmallWidth = sideLength;
+    CellSmallHeight = sideLength;
     self.bottomBar.frame = CGRectMake(0, size.height - self.bottomBar.frame.size.height, size.width, self.bottomBar.frame.size.height);
     [self.collectionView reloadData];
 }
