@@ -65,7 +65,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (strong, nonatomic) IBOutlet UIButton *revalationOrderSortButton;
 
 @property (nonatomic) __block NSInteger hideCounter;
-@property (nonatomic) Boolean overviewMode;
+@property (nonatomic) __block Boolean overviewMode;
 @property (nonatomic) NSIndexPath* selectedCell;
 
 @end
@@ -129,6 +129,9 @@ static NSMutableDictionary *operations;
         NSLog(@"hide sort bar called, hide counter %ld", (long)self.hideCounter);
         if (self.hideCounter <= 0) {
             self.hideCounter = 0;
+            if (self.overviewMode) {
+                return;
+            }
             NSLog(@"hiding sort bar");
             [self.bottomBar setHidden:YES];
             self.bottomBar.frame =  CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0);
