@@ -83,7 +83,6 @@ static NSMutableDictionary *operations;
 {
     [super viewDidLoad];
     
-    //self.overviewMode = YES;
     operations = @{}.mutableCopy;
     barButtonImage = [[UIImage imageNamed:@"sun.jpg"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
     barButtonImageActive = [[UIImage imageNamed:@"sun.jpg"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
@@ -358,10 +357,7 @@ NSInteger currentKhatma = 0;
     
     //overview mode
     UIButton *overviewButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-    [overviewButton setTitle:@"Oo" forState:UIControlStateNormal];
-    //settingsButton.tintColor = [UIColor yellowColor];
-    //[overviewButton setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-    //fbButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+    [overviewButton setTitle:@"🔍" forState:UIControlStateNormal];
     [overviewButton addTarget:self
                  action:@selector(toggleOverView)
        forControlEvents:UIControlEventTouchUpInside];
@@ -1342,7 +1338,7 @@ NSInteger currentKhatma = 0;
     
     cell.verseCountLabel.adjustsFontSizeToFitWidth = YES;
     
-    [cell.memorized setHidden:self.overviewMode || !self.periodicTaskManager.dataSource.settings.showMemorizationMark || task.memorizedState == NOT_MEMORIZED];
+    [cell.memorized setHidden: !self.periodicTaskManager.dataSource.settings.showMemorizationMark || task.memorizedState == NOT_MEMORIZED];
 
     [cell.verseCountLabel setHidden:self.overviewMode || !self.periodicTaskManager.dataSource.settings.showVerseCount];
     
