@@ -83,7 +83,7 @@ static NSMutableDictionary *operations;
 {
     [super viewDidLoad];
     
-    self.overviewMode = YES;
+    //self.overviewMode = YES;
     operations = @{}.mutableCopy;
     barButtonImage = [[UIImage imageNamed:@"sun.jpg"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
     barButtonImageActive = [[UIImage imageNamed:@"sun.jpg"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
@@ -356,6 +356,20 @@ NSInteger currentKhatma = 0;
     UIBarButtonItem *fbItem = [[UIBarButtonItem alloc] initWithCustomView:fbButton];
    
     
+    //overview mode
+    UIButton *overviewButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    [overviewButton setTitle:@"Oo" forState:UIControlStateNormal];
+    //settingsButton.tintColor = [UIColor yellowColor];
+    //[overviewButton setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    //fbButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+    [overviewButton addTarget:self
+                 action:@selector(toggleOverView)
+       forControlEvents:UIControlEventTouchUpInside];
+    
+    [overviewButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *overviewItem = [[UIBarButtonItem alloc] initWithCustomView:overviewButton];
+    
+    
     //sort by normal order
     //self.moshafOrderButton = [[UIButton alloc] initWithFrame:imageFrame];
     [self.moshafOrderButton setTitle:@"B" forState:UIControlStateNormal];
@@ -451,7 +465,7 @@ NSInteger currentKhatma = 0;
 
     [UIView animateWithDuration:1 animations:^{
         //self.navigationItem.rightBarButtonItem = menuButton;
-        self.navigationItem.rightBarButtonItems = @[menuButton,fbItem];
+        self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, overviewItem];
         
         [self.bottomBar addSubview:self.moshafOrderButton];
         [self.bottomBar addSubview:self.lightSortButton];
@@ -665,8 +679,8 @@ NSInteger currentKhatma = 0;
             [self.collectionView reloadData];
         };
     }
-    
-    [self showMenuWithTitle:[self.selectedTask.name localize] handlers:operations orderedKeys:orderedKeys];
+    NSString *title = [NSString stringWithFormat:@"%lu %@",(unsigned long) [Sura.suraNames indexOfObject:self.selectedTask.name] + 1, [self.selectedTask.name localize]];
+    [self showMenuWithTitle:title handlers:operations orderedKeys:orderedKeys];
 }
 
 - (void)save{
@@ -1297,7 +1311,7 @@ NSInteger currentKhatma = 0;
     NSString *suraIndex = self.overviewMode || self.periodicTaskManager.dataSource.settings.showSuraIndex ?
     [NSString stringWithFormat:@"%lu ",(unsigned long) [Sura.suraNames indexOfObject:task.name] + 1] : @"";
     
-    NSString *refreshCount = (self.periodicTaskManager.dataSource.settings.showRefreshCount ? [NSString stringWithFormat:@" [%lu]", (unsigned long)task.history.count] : @"");
+    NSString *refreshCount = (self.periodicTaskManager.dataSource.settings.showRefreshCount && !self.overviewMode ? [NSString stringWithFormat:@" [%lu]", (unsigned long)task.history.count] : @"");
     
     
     cell.suraName.text = [NSString stringWithFormat:@"%@%@%@", suraIndex, self.overviewMode ? @"" : [task.name localize], refreshCount];
@@ -1308,6 +1322,12 @@ NSInteger currentKhatma = 0;
         cell.suraNameTrailingConstraint.constant = 3;
         cell.suraNameTopSpace.constant = 3;
         cell.suraNameBottomSpace.constant = 3;
+    } else {
+        cell.suraName.textAlignment = [AMRTools isRTL] ? NSTextAlignmentRight : NSTextAlignmentLeft;
+        cell.suraNameLeadingConstraint.constant = 8;
+        cell.suraNameTrailingConstraint.constant = 8;
+        cell.suraNameTopSpace.constant = 25;
+        cell.suraNameBottomSpace.constant = 25;
     }
     
     cell.suraName.adjustsFontSizeToFitWidth = YES;
@@ -1332,6 +1352,12 @@ NSInteger currentKhatma = 0;
     
     
     return cell;
+}
+
+- (void)toggleOverView {
+    self.overviewMode = !self.overviewMode;
+    [self.collectionView reloadData];
+    [self showSortBar];
 }
 
 UIColor *backgroundColorTemp;
