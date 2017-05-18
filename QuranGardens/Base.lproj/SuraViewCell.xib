@@ -29,7 +29,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Auy-mw-Mdj" userLabel="sura name">
-                                <rect key="frame" x="8" y="31" width="124" height="23"/>
+                                <rect key="frame" x="8" y="31" width="132" height="23"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Label">
                                         <attributes>
@@ -76,9 +76,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="eS0-nG-1jL" firstAttribute="leading" secondItem="gZe-Hp-tKu" secondAttribute="leading" constant="8" id="0vV-mF-cVn"/>
+                            <constraint firstItem="Auy-mw-Mdj" firstAttribute="top" secondItem="gZe-Hp-tKu" secondAttribute="top" constant="31" id="BrD-ws-1K6"/>
                             <constraint firstItem="Auy-mw-Mdj" firstAttribute="leading" secondItem="gZe-Hp-tKu" secondAttribute="leading" constant="8" id="GXX-xj-MMp"/>
+                            <constraint firstAttribute="bottom" secondItem="Auy-mw-Mdj" secondAttribute="bottom" constant="31" id="Loz-Vk-xWK"/>
                             <constraint firstAttribute="bottom" secondItem="h2h-r9-vaj" secondAttribute="bottom" constant="5" id="M1E-Jn-HlZ"/>
-                            <constraint firstAttribute="trailing" secondItem="Auy-mw-Mdj" secondAttribute="trailing" constant="16" id="P9X-cP-EKj"/>
+                            <constraint firstAttribute="trailing" secondItem="Auy-mw-Mdj" secondAttribute="trailing" constant="8" id="P9X-cP-EKj"/>
                             <constraint firstItem="CrV-tX-pb7" firstAttribute="top" secondItem="gZe-Hp-tKu" secondAttribute="top" id="QIh-Ic-noK"/>
                             <constraint firstItem="Auy-mw-Mdj" firstAttribute="centerY" secondItem="gZe-Hp-tKu" secondAttribute="centerY" id="YIM-hQ-dky"/>
                             <constraint firstAttribute="bottom" secondItem="i2N-bH-ALD" secondAttribute="bottom" constant="5" id="cJL-ql-v0T"/>
@@ -104,6 +106,10 @@
                 <outlet property="memorized" destination="CrV-tX-pb7" id="ruD-vX-8LQ"/>
                 <outlet property="score" destination="i2N-bH-ALD" id="Chc-Qs-noJ"/>
                 <outlet property="suraName" destination="Auy-mw-Mdj" id="RHz-0O-wTi"/>
+                <outlet property="suraNameBottomSpace" destination="Loz-Vk-xWK" id="2Q8-T7-Emi"/>
+                <outlet property="suraNameLeadingConstraint" destination="GXX-xj-MMp" id="3I7-xw-2VW"/>
+                <outlet property="suraNameTopSpace" destination="BrD-ws-1K6" id="FhH-hX-IQn"/>
+                <outlet property="suraNameTrailingConstraint" destination="P9X-cP-EKj" id="ys3-Nk-eUt"/>
                 <outlet property="verseCountLabel" destination="eS0-nG-1jL" id="wg8-fM-adg"/>
             </connections>
             <point key="canvasLocation" x="430" y="204.5"/>

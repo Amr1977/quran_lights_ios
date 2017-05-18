@@ -22,7 +22,11 @@
 @import Charts;
 
 CGFloat const CellHeight = 80;
+CGFloat const CellSmallHeight = 40;
+
 CGFloat const CellWidth = 140;
+CGFloat const CellSmallWidth = 40;
+
 NSInteger const RefreshPeriod = 300; // refresh each 5 minutes;
 
 static NSString *const ShowHelpScreenKey = @"Show_help_screen";
@@ -61,6 +65,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (strong, nonatomic) IBOutlet UIButton *revalationOrderSortButton;
 
 @property (nonatomic) __block NSInteger hideCounter;
+@property (nonatomic) Boolean overviewMode;
+@property (nonatomic) NSIndexPath* selectedCell;
 
 @end
 
@@ -76,6 +82,8 @@ static NSMutableDictionary *operations;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.overviewMode = YES;
     operations = @{}.mutableCopy;
     barButtonImage = [[UIImage imageNamed:@"sun.jpg"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
     barButtonImageActive = [[UIImage imageNamed:@"sun.jpg"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
@@ -1286,13 +1294,23 @@ NSInteger currentKhatma = 0;
     cell.content.backgroundColor = [UIColor colorWithRed:0.0/255.0 green:MAX(progress,0) blue:0.0/255.0 alpha:1];
     
     
-    NSString *suraIndex = self.periodicTaskManager.dataSource.settings.showSuraIndex ? [NSString stringWithFormat:@"%lu ",(unsigned long) [Sura.suraNames indexOfObject:task.name] + 1] : @"";
+    NSString *suraIndex = self.overviewMode || self.periodicTaskManager.dataSource.settings.showSuraIndex ?
+    [NSString stringWithFormat:@"%lu ",(unsigned long) [Sura.suraNames indexOfObject:task.name] + 1] : @"";
     
-    NSString *refreshCount = self.periodicTaskManager.dataSource.settings.showRefreshCount ? [NSString stringWithFormat:@" [%lu]", (unsigned long)task.history.count] : @"";
+    NSString *refreshCount = (self.periodicTaskManager.dataSource.settings.showRefreshCount ? [NSString stringWithFormat:@" [%lu]", (unsigned long)task.history.count] : @"");
     
     
-    cell.suraName.text = [NSString stringWithFormat:@"%@%@%@", suraIndex, [task.name localize], refreshCount];
+    cell.suraName.text = [NSString stringWithFormat:@"%@%@%@", suraIndex, self.overviewMode ? @"" : [task.name localize], refreshCount];
     
+    if (self.overviewMode) {
+        cell.suraName.textAlignment = NSTextAlignmentCenter;
+        cell.suraNameLeadingConstraint.constant = 3;
+        cell.suraNameTrailingConstraint.constant = 3;
+        cell.suraNameTopSpace.constant = 3;
+        cell.suraNameBottomSpace.constant = 3;
+    }
+    
+    cell.suraName.adjustsFontSizeToFitWidth = YES;
     cell.score.textColor = cell.suraName.textColor;
     cell.verseCountLabel.textColor = cell.suraName.textColor;
     cell.daysElapsed.textColor = cell.suraName.textColor;
@@ -1304,13 +1322,13 @@ NSInteger currentKhatma = 0;
     
     cell.verseCountLabel.adjustsFontSizeToFitWidth = YES;
     
-    [cell.memorized setHidden:!self.periodicTaskManager.dataSource.settings.showMemorizationMark || task.memorizedState == NOT_MEMORIZED];
+    [cell.memorized setHidden:self.overviewMode || !self.periodicTaskManager.dataSource.settings.showMemorizationMark || task.memorizedState == NOT_MEMORIZED];
 
-    [cell.verseCountLabel setHidden:!self.periodicTaskManager.dataSource.settings.showVerseCount];
+    [cell.verseCountLabel setHidden:self.overviewMode || !self.periodicTaskManager.dataSource.settings.showVerseCount];
     
-    [cell.score setHidden:!self.periodicTaskManager.dataSource.settings.showCharacterCount];
+    [cell.score setHidden:self.overviewMode || !self.periodicTaskManager.dataSource.settings.showCharacterCount];
     
-    [cell.daysElapsed setHidden:!self.periodicTaskManager.dataSource.settings.showElapsedDaysCount];
+    [cell.daysElapsed setHidden:self.overviewMode || !self.periodicTaskManager.dataSource.settings.showElapsedDaysCount];
     
     
     return cell;
@@ -1352,7 +1370,7 @@ static NSInteger tone = 0;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(CellWidth, CellHeight);
+    return self.overviewMode ? CGSizeMake(CellSmallWidth, CellSmallHeight) : CGSizeMake(CellWidth, CellHeight);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView  didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath{

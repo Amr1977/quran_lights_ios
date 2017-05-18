@@ -20,5 +20,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *verseCountLabel;
 
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *suraNameTrailingConstraint;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *suraNameLeadingConstraint;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *suraNameBottomSpace;
+
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *suraNameTopSpace;
+
+
+
 
 @end
