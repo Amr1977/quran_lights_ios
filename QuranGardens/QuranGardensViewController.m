@@ -360,7 +360,7 @@ NSInteger currentKhatma = 0;
     
     //overview mode
     UIButton *overviewButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-    [overviewButton setTitle:@"🔍" forState:UIControlStateNormal];
+    [overviewButton setTitle:@"↕️" forState:UIControlStateNormal];//🔍🔇🔈
     [overviewButton addTarget:self
                  action:@selector(toggleOverView)
        forControlEvents:UIControlEventTouchUpInside];
