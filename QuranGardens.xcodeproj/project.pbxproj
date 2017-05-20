@@ -45,6 +45,7 @@
 		C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C5147FCA1E61BB5500DE699E /* Reachability.m */; };
 		C53533431EB14142005846C0 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53533411EB14142005846C0 /* IntroViewController.m */; };
 		C53533441EB14142005846C0 /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53533421EB14142005846C0 /* IntroViewController.xib */; };
+		C55B81D61ECEEB1E003A2523 /* PrayTime.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B81D51ECEEB1E003A2523 /* PrayTime.m */; };
 		C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C566F4571E21143200628A94 /* GoogleService-Info.plist */; };
 		C568B1761EAA02E200445642 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C568B1781EAA02E200445642 /* Login.storyboard */; };
 		C568B1791EAA02E900445642 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C568B17B1EAA02E900445642 /* SettingsViewController.xib */; };
@@ -56,7 +57,6 @@
 		C568B1981EAA27B800445642 /* NSString+Localization.m in Sources */ = {isa = PBXBuildFile; fileRef = C568B1971EAA27B800445642 /* NSString+Localization.m */; };
 		C56B782C1EA23E4200252039 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C56B782B1EA23E4200252039 /* Podfile */; };
 		C59A202F1E8116BD003C0F09 /* AMRTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C59A202E1E8116BD003C0F09 /* AMRTools.m */; };
-		C5A26AE71EA23F5B009135D4 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C5A26AE41EA23EFF009135D4 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C5A26AEB1EA24420009135D4 /* ChartsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AE91EA24420009135D4 /* ChartsViewController.m */; };
 		C5A26AEC1EA24420009135D4 /* ChartsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A26AEA1EA24420009135D4 /* ChartsViewController.xib */; };
 		C5A26AF11EA24CFD009135D4 /* CubicLineChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AEF1EA24CFD009135D4 /* CubicLineChartViewController.m */; };
@@ -85,20 +85,6 @@
 			remoteGlobalIDString = 0769659E1C5B5D0700ED2D33;
 			remoteInfo = QuranGardens;
 		};
-		C5A26AE31EA23EFF009135D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C5A26ADE1EA23EFF009135D4 /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 06165F241D8110E600722320;
-			remoteInfo = Charts;
-		};
-		C5A26AE51EA23EFF009135D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C5A26ADE1EA23EFF009135D4 /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 06165F2E1D8110E600722320;
-			remoteInfo = ChartsTests;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -108,7 +94,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C5A26AE71EA23F5B009135D4 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,6 +163,8 @@
 		C53533401EB14142005846C0 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		C53533411EB14142005846C0 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		C53533421EB14142005846C0 /* IntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroViewController.xib; sourceTree = "<group>"; };
+		C55B81D41ECEEB1E003A2523 /* PrayTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrayTime.h; sourceTree = "<group>"; };
+		C55B81D51ECEEB1E003A2523 /* PrayTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrayTime.m; sourceTree = "<group>"; };
 		C566F4571E21143200628A94 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C568B1771EAA02E200445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		C568B17A1EAA02E900445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SettingsViewController.xib; sourceTree = "<group>"; };
@@ -200,7 +187,6 @@
 		C56B782B1EA23E4200252039 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C59A202D1E8116BD003C0F09 /* AMRTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMRTools.h; sourceTree = "<group>"; };
 		C59A202E1E8116BD003C0F09 /* AMRTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMRTools.m; sourceTree = "<group>"; };
-		C5A26ADE1EA23EFF009135D4 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = ../Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		C5A26AE81EA24420009135D4 /* ChartsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartsViewController.h; sourceTree = "<group>"; };
 		C5A26AE91EA24420009135D4 /* ChartsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartsViewController.m; sourceTree = "<group>"; };
 		C5A26AEA1EA24420009135D4 /* ChartsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChartsViewController.xib; sourceTree = "<group>"; };
@@ -259,7 +245,6 @@
 		076965961C5B5D0700ED2D33 = {
 			isa = PBXGroup;
 			children = (
-				C5A26ADE1EA23EFF009135D4 /* Charts.xcodeproj */,
 				C56B782B1EA23E4200252039 /* Podfile */,
 				076965A11C5B5D0700ED2D33 /* QuranGardens */,
 				076965BB1C5B5D0700ED2D33 /* QuranGardensTests */,
@@ -342,6 +327,8 @@
 		076965D51C5B609100ED2D33 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C55B81D41ECEEB1E003A2523 /* PrayTime.h */,
+				C55B81D51ECEEB1E003A2523 /* PrayTime.m */,
 				075909F01D631B8900A6B7B1 /* DataSource.h */,
 				075909F11D631B8900A6B7B1 /* DataSource.m */,
 				076965D61C5B60C600ED2D33 /* Sura.h */,
@@ -429,15 +416,6 @@
 				076965DA1C5B628200ED2D33 /* SuraViewCell.m */,
 			);
 			name = cell;
-			sourceTree = "<group>";
-		};
-		C5A26ADF1EA23EFF009135D4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C5A26AE41EA23EFF009135D4 /* Charts.framework */,
-				C5A26AE61EA23EFF009135D4 /* ChartsTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		C5A26AFB1EA26FD8009135D4 /* Formatters */ = {
@@ -577,12 +555,6 @@
 			mainGroup = 076965961C5B5D0700ED2D33;
 			productRefGroup = 076965A01C5B5D0700ED2D33 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = C5A26ADF1EA23EFF009135D4 /* Products */;
-					ProjectRef = C5A26ADE1EA23EFF009135D4 /* Charts.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				0769659E1C5B5D0700ED2D33 /* QuranGardens */,
@@ -591,23 +563,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		C5A26AE41EA23EFF009135D4 /* Charts.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Charts.framework;
-			remoteRef = C5A26AE31EA23EFF009135D4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C5A26AE61EA23EFF009135D4 /* ChartsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ChartsTests.xctest;
-			remoteRef = C5A26AE51EA23EFF009135D4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0769659D1C5B5D0700ED2D33 /* Resources */ = {
@@ -711,6 +666,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5A26B061EA27005009135D4 /* LargeValueFormatter.swift in Sources */,
+				C55B81D61ECEEB1E003A2523 /* PrayTime.m in Sources */,
 				C5F17C491E69BB6B00476CA3 /* UIViewController+Gestures.m in Sources */,
 				C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */,
 				073AA6F21DB89E0300370847 /* Statistics.m in Sources */,

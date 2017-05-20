@@ -18,6 +18,7 @@
 #import "CubicLineChartViewController.h"
 #import "NSString+Localization.h"
 #import "PiePolylineChartViewController.h"
+#import "PrayTime.h"
 @import AVFoundation;
 @import Charts;
 
@@ -116,7 +117,7 @@ static NSMutableDictionary *operations;
     
     NSLog(@"Memorized %ld of total %ld", (long)[self.statistics memorizedScore], (long)[Statistics allSurasScore]);
     
-    self.bottomBar.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:1.0];
+    self.bottomBar.backgroundColor = [UIColor blackColor];// colorWithAlphaComponent:1.0];
     [self.view addSubview:self.bottomBar];
     
     self.collectionView.layer.shouldRasterize = YES;

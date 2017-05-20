@@ -8,6 +8,7 @@ target "QuranGardens" do
     pod 'Firebase/Core'
     #pod 'FirebaseUI', '~> 1.0'
     #pod 'Charts'
+    pod ‘Charts’, :path => 'DevPods/Charts’
     #pod 'Realm'
 
 end
