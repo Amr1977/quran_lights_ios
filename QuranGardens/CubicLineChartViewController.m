@@ -119,7 +119,7 @@
         if (self.scores != nil && self.scores.count > 0) {
             return (float) self.scores.count;
         } else {
-            return 7.f;
+            return 0.f;
         }
     }
     
@@ -153,7 +153,7 @@
         return;
     }
     
-    [self setDataCount:_sliderX.value + 1 range:_sliderY.value];
+    [self setDataCount:_sliderX.value range:_sliderY.value];
 }
 
 - (void)setDataCount:(int)count range:(double)range
@@ -170,7 +170,7 @@
         NSDate *d2 = (NSDate *)obj2;
         return [d1 compare:d2];
     }];
-    if (count <= ordered.count) {
+    if (count < ordered.count) {
         ordered = [ordered subarrayWithRange:NSMakeRange(ordered.count - count, count)].mutableCopy;
     }
     
