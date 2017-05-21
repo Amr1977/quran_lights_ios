@@ -1126,6 +1126,13 @@ NSInteger currentKhatma = 0;
                                                    }];
     [menu addAction:dalyScore];
     
+    UIAlertAction* monthlyScore = [UIAlertAction actionWithTitle: [@"Monthly Score Sum Chart" localize]
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * action) {
+                                                          [self monthlyScoreChart];
+                                                      }];
+    [menu addAction:monthlyScore];
+    
     UIAlertAction* memorizedPercentage = [UIAlertAction actionWithTitle:[@"Memorization Pie Chart" localize]
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction * action) {
@@ -1178,6 +1185,15 @@ NSInteger currentKhatma = 0;
     NSLog(@"Show charts called");
     CubicLineChartViewController *chartsVC = [[CubicLineChartViewController alloc] init];
     chartsVC.scores = [self.statistics scores];
+    chartsVC.chartTitle = @"Daily Score Chart";
+    [self.navigationController pushViewController:chartsVC animated:NO];
+}
+
+- (void)monthlyScoreChart {
+    NSLog(@"Show monthly scores chart called");
+    CubicLineChartViewController *chartsVC = [[CubicLineChartViewController alloc] init];
+    chartsVC.scores = [self.statistics getMonthlySumScores];
+    chartsVC.chartTitle = @"Monthly Score Sum Chart";
     [self.navigationController pushViewController:chartsVC animated:NO];
 }
 
@@ -1428,24 +1444,6 @@ static NSInteger tone = 0;
     
     
 }
-
-//- (UIImage*)menuButtonImageActive:(BOOL)active {
-//    static UIImage *image = [UIImage imageNamed:@"sun.jpg"];
-//    static UIImage *imageActive = [image imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
-//
-//    static BOOL firstTime = YES;
-//
-//    if (firstTime) {
-//        imageActive = imageActive.set
-//    }
-//
-//    if (active) {
-//        return imageActive;
-//    } else {
-//        return image;
-//    }
-//
-//}
 
 - (void)applyCurrentSort{
     

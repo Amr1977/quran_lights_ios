@@ -16,5 +16,6 @@
 @interface CubicLineChartViewController : DemoBaseViewController
     
     @property (strong, nonatomic) NSDictionary<NSDate *, NSNumber *> *scores;
+    @property (strong, nonatomic) NSString *chartTitle;
 
 @end

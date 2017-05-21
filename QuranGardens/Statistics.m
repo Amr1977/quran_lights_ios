@@ -212,6 +212,36 @@
     
     return result;
 }
+
+- (NSDictionary<NSDate *, NSNumber *> *)getMonthlySumScores{
+    
+    NSMutableDictionary<NSDate *, NSNumber *> * result = @{}.mutableCopy;
+    
+    NSDictionary<NSDate *, NSNumber *> * dailyScores = [self scores];
+    
+    NSArray<NSDate *> * days = [[dailyScores allKeys] sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSDate *d1 = (NSDate *)obj1;
+        NSDate *d2 = (NSDate *)obj2;
+        return [d1 compare:d2];
+    }];
+    NSString *currentMonth = [[[NSString stringWithFormat:@"%@",days[0]] substringToIndex:7] substringFromIndex:5];
+    
+    NSDate *currentDate = days[0];
+    
+    for (NSDate *date in days) {
+        //NSLog(@"%@, month %@",date, [[[NSString stringWithFormat:@"%@",date] substringToIndex:7] substringFromIndex:5]);
+        NSString *month = [[NSString stringWithFormat:@"%@",date] substringToIndex:7];
+        if (![month isEqualToString:currentMonth]) {
+            currentDate = date;
+            currentMonth = month;
+        }
+        result[currentDate] = result[currentDate] != nil ? [NSNumber numberWithInteger:result[currentDate].integerValue + dailyScores[date].integerValue] : dailyScores[date];
+    }
+    
+    return result;
+}
+
+
     
 - (NSDictionary<NSDate *, NSNumber *> *)scores {
     NSMutableDictionary<NSDate *, NSNumber *> * result = @{}.mutableCopy;
@@ -374,7 +404,5 @@
     //TODO: do it !
     return 0;
 }
-
-
 
 @end

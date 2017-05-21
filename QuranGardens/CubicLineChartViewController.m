@@ -45,7 +45,6 @@
 {
     [super viewDidLoad];
     
-    self.title = [@"Daily Score Chart" localize];
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
@@ -115,9 +114,13 @@
 }
 
 - (float)getStoredDays {
-    float result = [[NSUserDefaults standardUserDefaults] floatForKey:@"number_of_days"];
+    float result = [[NSUserDefaults standardUserDefaults] floatForKey:self.chartTitle];
     if (result < 1.f) {
-        return 7.f;
+        if (self.scores != nil && self.scores.count > 0) {
+            return (float) self.scores.count;
+        } else {
+            return 7.f;
+        }
     }
     
     return result;
@@ -125,8 +128,15 @@
 
 - (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[NSUserDefaults standardUserDefaults] setFloat:_sliderX.value forKey:@"number_of_days"];
+    [[NSUserDefaults standardUserDefaults] setFloat:_sliderX.value forKey:self.chartTitle];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.title = [self.chartTitle localize];//[@"Daily Score Chart" localize];
 }
 
 - (void)didReceiveMemoryWarning
