@@ -119,4 +119,10 @@
     return ret;
 }
 
++(NSString *)uniqueID {
+    NSNumber *updateDate =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];
+    
+    return updateDate.stringValue;
+}
+
 @end

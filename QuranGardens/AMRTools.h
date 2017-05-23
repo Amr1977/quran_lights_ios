@@ -18,5 +18,6 @@
 +(void)setLocaleArabic;
 +(void)setLocaleEnglish;
 +(void)play:(NSString *)path;
++(NSString *)uniqueID;
 
 @end

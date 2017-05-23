@@ -10,6 +10,7 @@
 #import "Sura.h"
 #import "Statistics.h"
 #import "AppDelegate.h"
+#import "AMRTools.h"
 
 NSString * const IntervalKeySuffix = @"interval";
 NSString * const LastRefreshKeySuffix = @"lastRefresh";
@@ -109,8 +110,6 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
         //[[NSUserDefaults standardUserDefaults] setObject:task.lastOccurrence forKey:[self lastRefreshKeyForSuraName:task.name]];
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    //TODO: save settings
 }
 
 
@@ -160,24 +159,24 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 }
 
 - (NSString *)cyclePeriodKeyForSuraName:(NSString *)suraName{
-    return [NSString stringWithFormat:@"%@_%@",suraName,IntervalKeySuffix];
+    return [NSString stringWithFormat:@"%@_%@",suraName,[self userKey:IntervalKeySuffix]];
 }
 
 - (NSString *)memorizedKeyForSuraName:(NSString *)suraName{
-    return [NSString stringWithFormat:@"%@_%@",suraName,MemorizedKeySuffix];
+    return [NSString stringWithFormat:@"%@_%@",suraName,[self userKey:MemorizedKeySuffix]];
 }
 
 - (NSString *)lastRefreshKeyForSuraName:(NSString *)suraName{
-    return [NSString stringWithFormat:@"%@_%@",suraName,LastRefreshKeySuffix];
+    return [NSString stringWithFormat:@"%@_%@",suraName,[self userKey:LastRefreshKeySuffix]];
 }
 
 - (NSString *)refreshHistoryKeyForSuraName:(NSString *)suraName{
-    return [NSString stringWithFormat:@"%@_%@",suraName,RefreshHistoryKeySuffix];
+    return [NSString stringWithFormat:@"%@_%@",suraName,[self userKey:RefreshHistoryKeySuffix]];
 }
 
 - (NSTimeInterval)loadSuraCyclePeriod:(NSString *)suraName{
     NSTimeInterval result = DefaultCycleInterval;
-    NSString *suraIntervalKey = [NSString stringWithFormat:@"%@_%@",suraName,IntervalKeySuffix];
+    NSString *suraIntervalKey = [NSString stringWithFormat:@"%@_%@",suraName,[self userKey:IntervalKeySuffix]];
     NSNumber *intervalObject = [[NSUserDefaults standardUserDefaults] objectForKey:suraIntervalKey];
     
     if (intervalObject) {
@@ -195,7 +194,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 
 - (NSDate *)loadSuraLastRefresh:(NSString *)suraName{
     NSDate *result = [NSDate dateWithTimeIntervalSince1970:0];
-    NSString *suraLastRefreshKey = [NSString stringWithFormat:@"%@_%@",suraName,LastRefreshKeySuffix];
+    NSString *suraLastRefreshKey = [NSString stringWithFormat:@"%@_%@",suraName,[self userKey:[self userKey:LastRefreshKeySuffix]]];
     NSDate *lastRefresh = [[NSUserDefaults standardUserDefaults] objectForKey:suraLastRefreshKey];
     
     if (lastRefresh) {
@@ -253,26 +252,34 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 }
 
 - (void)saveSettings{
-    [[NSUserDefaults standardUserDefaults] setBool:self.settings.descendingSort forKey:SortDirectionKey];
-    [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime forKey:GlobalRefreshIntervalKey];
-    [[NSUserDefaults standardUserDefaults] setInteger:self.settings.sortType forKey:SortTypeKey];
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.descendingSort
+                                            forKey:[self userKey: SortDirectionKey]];
+    
+    [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime
+                                              forKey:[self userKey:GlobalRefreshIntervalKey]];
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:self.settings.sortType
+                                               forKey:[self userKey: SortTypeKey]];
+    
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showVerseCount
+                                            forKey:[self userKey:ShowVerseCountKey]];
+    
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showMemorizationMark
+                                            forKey:[self userKey:ShowMemorizationStateKey]];
     
     
-    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showVerseCount forKey:ShowVerseCountKey];
-    
-    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showMemorizationMark forKey:ShowMemorizationStateKey];
-    
-    
-    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showSuraIndex forKey:ShowSuraIndexKey];
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showSuraIndex
+                                            forKey:[self userKey:ShowSuraIndexKey]];
     
     
-    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showRefreshCount forKey:ShowRefreshCountKey];
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showRefreshCount
+                                            forKey:[self userKey:ShowRefreshCountKey]];
     
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showCharacterCount
+                                            forKey:[self userKey:ShowCharacterCountKey]];
     
-    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showCharacterCount forKey:ShowCharacterCountKey];
-    
-    
-    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showElapsedDaysCount forKey:ShowElapsedDaysKey];
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showElapsedDaysCount
+                                            forKey:[self userKey:ShowElapsedDaysKey]];
     
     
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -280,44 +287,47 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 
 - (void)loadSettings{
     NSLog(@"Loading Settings...");
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:SortDirectionKey]) {
-        self.settings.descendingSort = [[NSUserDefaults standardUserDefaults] boolForKey:SortDirectionKey];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:[self userKey:SortDirectionKey]]) {
+        self.settings.descendingSort = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:SortDirectionKey]];
     } else {
         self.settings.descendingSort = NO;
-        [[NSUserDefaults standardUserDefaults] setBool:self.settings.descendingSort forKey:SortDirectionKey];
+        [[NSUserDefaults standardUserDefaults] setBool:self.settings.descendingSort forKey:[self userKey:SortDirectionKey]];
     }
     
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:GlobalRefreshIntervalKey]) {
-        self.settings.fadeTime = [[NSUserDefaults standardUserDefaults] doubleForKey:GlobalRefreshIntervalKey];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:[self userKey:GlobalRefreshIntervalKey]]) {
+        self.settings.fadeTime = [[NSUserDefaults standardUserDefaults] doubleForKey:[self userKey:GlobalRefreshIntervalKey]];
         if (!self.settings.fadeTime) {
             self.settings.fadeTime = DefaultCycleInterval;
-            [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime forKey:GlobalRefreshIntervalKey];
+            [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime
+                                                      forKey:[self userKey:GlobalRefreshIntervalKey]];
         }
     } else {
         self.settings.fadeTime = DefaultCycleInterval;
-        [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime forKey:GlobalRefreshIntervalKey];
+        [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime
+                                                  forKey:[self userKey:GlobalRefreshIntervalKey]];
     }
     
     if ([[NSUserDefaults standardUserDefaults] objectForKey:SortTypeKey]) {
-        self.settings.sortType = (SorterType) [[NSUserDefaults standardUserDefaults] integerForKey:SortTypeKey];
+        self.settings.sortType = (SorterType) [[NSUserDefaults standardUserDefaults] integerForKey:[self userKey:SortTypeKey]];
     } else {
         self.settings.sortType = NormalSuraOrderSort;
-        [[NSUserDefaults standardUserDefaults] setInteger:self.settings.sortType forKey:SortTypeKey];
+        [[NSUserDefaults standardUserDefaults] setInteger:self.settings.sortType
+                                                   forKey:[self userKey:SortTypeKey]];
     }
     
     
-    self.settings.showVerseCount = [[NSUserDefaults standardUserDefaults] boolForKey:ShowVerseCountKey];
+    self.settings.showVerseCount = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:ShowVerseCountKey]];
     
-    self.settings.showMemorizationMark = [[NSUserDefaults standardUserDefaults] boolForKey:ShowMemorizationStateKey];
+    self.settings.showMemorizationMark = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:ShowMemorizationStateKey]];
     
-    self.settings.showSuraIndex = [[NSUserDefaults standardUserDefaults] boolForKey:ShowSuraIndexKey];
+    self.settings.showSuraIndex = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:ShowSuraIndexKey]];
     
     
-    self.settings.showRefreshCount = [[NSUserDefaults standardUserDefaults] boolForKey:ShowRefreshCountKey];
+    self.settings.showRefreshCount = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:ShowRefreshCountKey]];
     
-    self.settings.showCharacterCount = [[NSUserDefaults standardUserDefaults] boolForKey:ShowCharacterCountKey];
+    self.settings.showCharacterCount = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:ShowCharacterCountKey]];
     
-    self.settings.showElapsedDaysCount = [[NSUserDefaults standardUserDefaults] boolForKey:ShowElapsedDaysKey];
+    self.settings.showElapsedDaysCount = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:ShowElapsedDaysKey]];
     
     NSLog(@"Loaded Settings: %@", self.settings);
 }
@@ -349,16 +359,76 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 
 #pragma mark - Users
 
+- (NSString *)userKey:(NSString *)key {
+    return [NSString stringWithFormat:@"%@%@",self.currentUser.userId,key];
+}
+
 - (void)addUser:(NSString *)userName {
+    User *user = [[User alloc] init];
+    user.userId = [AMRTools uniqueID];
+    user.name = userName;
+    [self.users addObject:user];
+}
+
+#define UsersHashKey @"UsersHashKey"
+
+- (void)saveUsers {
+    NSMutableDictionary <NSString *, NSString *> *usersHash = @{}.mutableCopy;
     
+    for (User *user in self.users) {
+        usersHash[user.userId] = user.name;
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:usersHash forKey:UsersHashKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)loadUsers {
+    NSDictionary *usersHash = [[NSUserDefaults standardUserDefaults] objectForKey:UsersHashKey];
+    self.users = @{}.mutableCopy;
+    for (NSString *userId in usersHash.allKeys) {
+        User *user = [User new];
+        user.userId = userId;
+        user.name = usersHash[userId];
+        [self.users addObject:user];
+    }
 }
 
 - (void)removeUser:(NSString *)userName {
-    
+    //TODO !!
 }
 
 - (void)renameUserOldName:(NSString *)oldName newName:(NSString *)newName {
+    //TODO !!
+}
+
+#define CurrentUserID @"CurrentUserID"
+
+- (User *)getCurrentUser {
+    if (_currentUser == nil) {
+        NSString *currentUserId = [[NSUserDefaults standardUserDefaults] stringForKey:CurrentUserID];
+        if (currentUserId != nil) {
+            for (User *user in self.users) {
+                if ([currentUserId isEqualToString:user.userId]) {
+                    return user;
+                }
+            }
+            
+        }
+        _currentUser = [[User alloc] init];
+        _currentUser.userId = @"";//[AMRTools uniqueID];
+        _currentUser.name = @"Master";
+        _users = @[_currentUser].mutableCopy;
+        [self saveUsers];
+    }
     
+    return _currentUser;
+}
+
+- (void)setCurrentUser:(User *)currentUser {
+    _currentUser = currentUser;
+    [[NSUserDefaults standardUserDefaults] setObject:_currentUser.userId forKey:CurrentUserID];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end
