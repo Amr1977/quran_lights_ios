@@ -8,6 +8,7 @@
 
 #import "UsersViewController.h"
 #import "DataSource.h"
+#import "NSString+Localization.h"
 
 @interface UsersViewController ()
 
@@ -25,6 +26,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self setTitle:[@"Profiles" localize]];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -48,29 +52,49 @@
     }
     cell.textLabel.text = ((User *) [[DataSource shared] getUsers][indexPath.row]).name;
     
+    
     return cell;
 }
 
+NSInteger currentUserIndex = 0;
+
 - (void)updateUI {
     
-    NSInteger currentUserIndex = 0;
+    currentUserIndex = [self currentUser];
+    
+    NSIndexPath* selectedCellIndexPath = [NSIndexPath indexPathForRow:currentUserIndex inSection:0];
+    [self.tableView selectRowAtIndexPath:selectedCellIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+}
+
+- (NSInteger)currentUser{
+    NSInteger index = 0;
     User *currentUser = [[DataSource shared] getCurrentUser];
-    for (User *user in [[DataSource shared] getUsers]) {
+    NSArray *users = [[DataSource shared] getUsers];
+    for (User *user in users) {
         if (user == currentUser) {
             break;
         }
-        currentUserIndex++;
+        index++;
     }
     
-    NSIndexPath* selectedCellIndexPath = [NSIndexPath indexPathForRow:currentUserIndex inSection:0];
-    [self.tableView selectRowAtIndexPath:selectedCellIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    return index;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    User *user =[[DataSource shared] getUsers][indexPath.row];
+    
+    NSArray *users = [[DataSource shared] getUsers];
+    if (indexPath.row >= users.count) {
+        return;
+    }
+    User *user =users[indexPath.row];
     [[DataSource shared] setCurrentUser:user];
     [self.tableView reloadData];
-    //[self updateUI];
+    [self updateUI];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [cell setSelected:indexPath.row == [self currentUser] animated:YES];
 }
 
 

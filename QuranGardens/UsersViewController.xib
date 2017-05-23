@@ -19,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ciw-5t-qHn">
+                <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profiles" translatesAutoresizingMaskIntoConstraints="NO" id="ciw-5t-qHn">
                     <rect key="frame" x="-0.5" y="-0.5" width="375" height="667"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                 </imageView>
@@ -36,7 +36,7 @@
                     </connections>
                 </tableView>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="ciw-5t-qHn" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="5ZC-zg-PgN"/>
                 <constraint firstItem="ciw-5t-qHn" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="5dZ-4m-nNj"/>
@@ -48,4 +48,7 @@
             <point key="canvasLocation" x="24.5" y="52.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="profiles" width="201" height="201"/>
+    </resources>
 </document>
