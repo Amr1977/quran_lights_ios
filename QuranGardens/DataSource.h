@@ -50,4 +50,10 @@
 - (void)addUser:(NSString *)userName;
 - (void)removeUser:(NSString *)userName;
 - (void)renameUserOldName:(NSString *)oldName newName:(NSString *)newName;
+
+- (void)setCurrentUser:(User *)currentUser;
+- (User *)getCurrentUser;
+- (NSMutableArray *)getUsers;
+
++(DataSource *)shared;
 @end

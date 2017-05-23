@@ -18,7 +18,7 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-        _dataSource = [[DataSource alloc] init];
+        _dataSource = [DataSource shared];
         [_dataSource load];
     }
     return self;

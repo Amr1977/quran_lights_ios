@@ -127,6 +127,10 @@ static NSMutableDictionary *operations;
     self.bottomBar.layer.shouldRasterize = YES;
 }
 
+- (void)usersMenu{
+    [self.navigationController pushViewController:[[UsersViewController alloc] init] animated:YES];
+}
+
 - (void)hideSortBar {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.hideCounter -= 1;
@@ -162,7 +166,7 @@ static NSMutableDictionary *operations;
 }
     
     - (IBAction)onScoreTabbed:(id)sender {
-        [self showCharts];
+        [self usersMenu];
     }
 
 NSInteger currentKhatma = 0;
@@ -207,7 +211,7 @@ NSInteger currentKhatma = 0;
     }
     
     
-    self.score.title = [NSString stringWithFormat:@"%@(%@), KH:%ld",totalString, todayString, (long)newKhatma];
+    self.score.title = [NSString stringWithFormat:@"%@ %@(%@), KH:%ld",[[DataSource shared] getCurrentUser].name , totalString, todayString, (long)newKhatma];
     
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
@@ -332,11 +336,6 @@ NSInteger currentKhatma = 0;
     
 }
 
-- (void)usersMenu{
-    [self.navigationController pushViewController:[[UsersViewController alloc] init] animated:YES];
-    //[self presentViewController:[[UsersViewController alloc] init]  animated:YES completion:nil];
-}
-
 - (void)setMenuButton{
 
     CGRect imageFrame = CGRectMake(0, 0, 40, 40);
@@ -378,19 +377,9 @@ NSInteger currentKhatma = 0;
     UIBarButtonItem *overviewItem = [[UIBarButtonItem alloc] initWithCustomView:overviewButton];
     
     
-    //overview mode
-    UIButton *usersButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [usersButton setTitle:@"👥" forState:UIControlStateNormal];
-    [usersButton addTarget:self
-                       action:@selector(usersMenu)
-             forControlEvents:UIControlEventTouchUpInside];
-    
-    [usersButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *usersItem = [[UIBarButtonItem alloc] initWithCustomView:usersButton];
-    
     [UIView animateWithDuration:1 animations:^{
         //self.navigationItem.rightBarButtonItem = menuButton;
-        self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, overviewItem, usersItem];
+        self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, overviewItem];
     }];
     
     [self setSortButtons];
@@ -540,6 +529,8 @@ NSInteger currentKhatma = 0;
 
     self.bottomBar.frame =  CGRectMake(0, self.view.frame.size.height - self.bottomBar.frame.size.height, self.view.frame.size.width, self.bottomBar.frame.size.height);
 
+    
+    
     [self applyCurrentSort];
     [self refreshScoreButton];
     [self.collectionView reloadData];

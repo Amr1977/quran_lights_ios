@@ -229,9 +229,10 @@ NetworkStatus remoteHostStatus;
 
 - (void)checkUpdatetimeStamps{
     if (self.userID && self.isConnected) {
-        [[[[self.firebaseDatabaseReference
+        [[[[[self.firebaseDatabaseReference
             child:@"users"]
            child:self.userID]
+          child:[[DataSource shared] getCurrentUser].userId]
           child:@"update"]
          observeSingleEventOfType:FIRDataEventTypeValue
          withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
@@ -277,9 +278,10 @@ NetworkStatus remoteHostStatus;
     FIRDatabaseReference * surasRef = [[[self.firebaseDatabaseReference child:@"users"] child: self.userID] child:@"Suras"];
     //FIRDatabaseQuery *query = [surasRef queryOrderedByKey];
     
-    [[[[self.firebaseDatabaseReference
+    [[[[[self.firebaseDatabaseReference
         child:@"users"]
         child: self.userID]
+      child:[[DataSource shared] getCurrentUser].userId]
         child:@"Suras"]
      observeSingleEventOfType:FIRDataEventTypeValue
      withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
@@ -320,9 +322,10 @@ NetworkStatus remoteHostStatus;
     for (NSDate *date in history) {
         NSNumber *dateNumber =  [NSNumber numberWithLongLong:[date timeIntervalSince1970]];
         NSLog(@"attempting to send %@",dateNumber);
-        [[[[[[[self.firebaseDatabaseReference
+        [[[[[[[[self.firebaseDatabaseReference
                child:@"users"]
               child: self.userID]
+             child:[[DataSource shared] getCurrentUser].userId]
              child:@"Suras"]
             child:[self suraIndexFromSuraName:suraName]]
            child:@"reviews"] childByAutoId]
@@ -335,9 +338,10 @@ NetworkStatus remoteHostStatus;
     if (self.userID && self.isConnected) {
         NSNumber *date =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];
         
-        [[[[[[[self.firebaseDatabaseReference
+        [[[[[[[[self.firebaseDatabaseReference
                child:@"users"]
               child: self.userID]
+             child:[[DataSource shared] getCurrentUser].userId]
              child:@"Suras"]
             child:[self suraIndexFromSuraName:suraName]]
            child:@"reviews"]
@@ -350,9 +354,10 @@ NetworkStatus remoteHostStatus;
 - (void)refreshSura:(NSString *)suraName withMemorization:(NSInteger)memorization{
     
     if (self.userID && self.isConnected) {
-        [[[[[[self.firebaseDatabaseReference
+        [[[[[[[self.firebaseDatabaseReference
                child:@"users"]
               child: self.userID]
+            child:[[DataSource shared] getCurrentUser].userId]
              child:@"Suras"]
             child:[self suraIndexFromSuraName:suraName]]
            child:@"memorization"]
@@ -365,9 +370,10 @@ NetworkStatus remoteHostStatus;
 
 - (void)refreshSura:(NSString *)suraName withDate:(NSNumber *)date {
     if (self.userID && self.isConnected) {
-        [[[[[[[self.firebaseDatabaseReference
+        [[[[[[[[self.firebaseDatabaseReference
                child:@"users"]
               child: self.userID]
+             child:[[DataSource shared] getCurrentUser].userId]
              child:@"Suras"]
             child:[self suraIndexFromSuraName:suraName]]
            child:@"reviews"]
@@ -382,9 +388,10 @@ NetworkStatus remoteHostStatus;
     [[NSUserDefaults standardUserDefaults] setObject:updateDate forKey:@"LastUpdateTimeStamp"];
     
     if (self.userID && self.isConnected) {
-        [[[[self.firebaseDatabaseReference
+        [[[[[self.firebaseDatabaseReference
             child:@"users"]
            child: self.userID]
+          child:[[DataSource shared] getCurrentUser].userId]
           child:@"update"]
          setValue:updateDate];
     }

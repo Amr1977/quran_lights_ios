@@ -30,6 +30,8 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 
 @implementation DataSource
 
+@synthesize currentUser = _currentUser;
+
 - (Settings *)settings {
     if (!_settings) {
         _settings = [[Settings alloc] init];
@@ -52,9 +54,9 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 }
 
 - (void)listTasksData{
-//    for (PeriodicTask *sura in self.tasks) {
-//        NSLog(@"%@, CycleInterval: %f , last Refresh: %@",sura.name, sura.cycleInterval, sura.lastOccurrence);
-//    }
+    for (PeriodicTask *sura in self.tasks) {
+        NSLog(@"%@, CycleInterval: %f , last Refresh: %@",sura.name, sura.cycleInterval, [sura.history lastObject]);
+    }
 }
 
 - (void)dealloc{
@@ -73,7 +75,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 
 - (void)load{
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFirebaseSignIn) name:FireBaseSignInNotification object:nil];
-    
+    [self loadUsers];
     self.tasks = @[].mutableCopy;
     for (NSString *suraName in [Sura suraNames]) {
         NSTimeInterval interval = [[[NSUserDefaults standardUserDefaults] objectForKey:[self cyclePeriodKeyForSuraName:suraName]] doubleValue];
@@ -94,9 +96,9 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     NSLog(@"Load completed.");
     [self listTasksData];
     [self loadSettings];
-    [Sura readNumbersFromFile:@"versecount"];
-    [Sura readNumbersFromFile:@"charcount"];
-    [Sura readNumbersFromFile:@"wordcount"];
+//    [Sura readNumbersFromFile:@"versecount"];
+//    [Sura readNumbersFromFile:@"charcount"];
+//    [Sura readNumbersFromFile:@"wordcount"];
 }
 
 - (void)save{
@@ -109,6 +111,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
         //last refresh
         //[[NSUserDefaults standardUserDefaults] setObject:task.lastOccurrence forKey:[self lastRefreshKeyForSuraName:task.name]];
     }
+    [self saveUsers];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -360,7 +363,9 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 #pragma mark - Users
 
 - (NSString *)userKey:(NSString *)key {
-    return [NSString stringWithFormat:@"%@%@",self.currentUser.userId,key];
+    NSString *result = [NSString stringWithFormat:@"%@%@",[self getCurrentUser].userId,key];
+    NSLog(@"converted key: [%@] to: [%@]", key, result);
+    return result;
 }
 
 - (void)addUser:(NSString *)userName {
@@ -385,12 +390,19 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 
 - (void)loadUsers {
     NSDictionary *usersHash = [[NSUserDefaults standardUserDefaults] objectForKey:UsersHashKey];
-    self.users = @{}.mutableCopy;
-    for (NSString *userId in usersHash.allKeys) {
-        User *user = [User new];
-        user.userId = userId;
-        user.name = usersHash[userId];
-        [self.users addObject:user];
+    self.users = @[].mutableCopy;
+    if (usersHash != nil) {
+        for (NSString *userId in usersHash.allKeys) {
+            User *user = [User new];
+            user.userId = userId;
+            user.name = usersHash[userId];
+            [self.users addObject:user];
+        }
+    }
+    
+    if (self.users.count == 1) {
+        [self addUser:@"Secondary"];
+        [self saveUsers];
     }
 }
 
@@ -413,12 +425,12 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
                     return user;
                 }
             }
-            
         }
         _currentUser = [[User alloc] init];
         _currentUser.userId = @"";//[AMRTools uniqueID];
         _currentUser.name = @"Master";
         _users = @[_currentUser].mutableCopy;
+        [self addUser:@"Secondary"];
         [self saveUsers];
     }
     
@@ -429,6 +441,28 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     _currentUser = currentUser;
     [[NSUserDefaults standardUserDefaults] setObject:_currentUser.userId forKey:CurrentUserID];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [self load];
+}
+
++(DataSource *)shared {
+    static DataSource *dataSource;
+    static dispatch_once_t once;
+    
+    dispatch_once(&once, ^
+                  {
+                      dataSource = [DataSource new];
+                  });
+    
+    return dataSource;
+}
+
+- (NSMutableArray *)getUsers {
+    if (_users == nil) {
+        _users = @[[self getCurrentUser]].mutableCopy;
+        [self saveUsers];
+    }
+    
+    return _users;
 }
 
 @end

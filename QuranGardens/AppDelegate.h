@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DataSource.h"
 @import Firebase;
 @import FirebaseDatabase;
 
@@ -44,6 +45,8 @@
              completion:(void (^)(BOOL success, NSString *error))completion;
 
 - (void)refreshSura:(NSString *)suraName withMemorization:(NSInteger)memorization;
+
+@property (weak,nonatomic) DataSource *dataSource;
 
 @end
 

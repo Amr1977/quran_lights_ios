@@ -125,13 +125,10 @@ static Settings* settingsCopy;
         self.languageLabel.text = [@"Language" localize];
         self.languageSelector.selectedSegmentIndex = 1;
     }
-    
-    //self.refreshPeriodText.keyboardType = UIKeyboardTypeNumberPad;
 }
 
 - (void)backToCollection{
     [self.navigationController popViewControllerAnimated: YES];
-    
 }
 
 -(void)hideKeyBoard {
