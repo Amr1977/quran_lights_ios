@@ -19,6 +19,7 @@
 #import "NSString+Localization.h"
 #import "PiePolylineChartViewController.h"
 #import "PrayTime.h"
+#import "UsersViewController.h"
 @import AVFoundation;
 @import Charts;
 
@@ -83,6 +84,8 @@ static NSMutableDictionary *operations;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self setModalPresentationStyle:UIModalPresentationCurrentContext];
     
     operations = @{}.mutableCopy;
     barButtonImage = [[UIImage imageNamed:@"sun.jpg"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
@@ -329,6 +332,11 @@ NSInteger currentKhatma = 0;
     
 }
 
+- (void)usersMenu{
+    [self.navigationController pushViewController:[[UsersViewController alloc] init] animated:YES];
+    //[self presentViewController:[[UsersViewController alloc] init]  animated:YES completion:nil];
+}
+
 - (void)setMenuButton{
 
     CGRect imageFrame = CGRectMake(0, 0, 40, 40);
@@ -346,7 +354,7 @@ NSInteger currentKhatma = 0;
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
 
     
-    UIButton *fbButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    UIButton *fbButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 27, 27)];
     //[settingsButton setTitle:@"S" forState:UIControlStateNormal];
     //settingsButton.tintColor = [UIColor yellowColor];
     [fbButton setBackgroundImage:[UIImage imageNamed:@"fb"] forState:UIControlStateNormal];
@@ -360,7 +368,7 @@ NSInteger currentKhatma = 0;
    
     
     //overview mode
-    UIButton *overviewButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    UIButton *overviewButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     [overviewButton setTitle:@"↕️" forState:UIControlStateNormal];//🔍🔇🔈
     [overviewButton addTarget:self
                  action:@selector(toggleOverView)
@@ -370,6 +378,25 @@ NSInteger currentKhatma = 0;
     UIBarButtonItem *overviewItem = [[UIBarButtonItem alloc] initWithCustomView:overviewButton];
     
     
+    //overview mode
+    UIButton *usersButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [usersButton setTitle:@"👥" forState:UIControlStateNormal];
+    [usersButton addTarget:self
+                       action:@selector(usersMenu)
+             forControlEvents:UIControlEventTouchUpInside];
+    
+    [usersButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *usersItem = [[UIBarButtonItem alloc] initWithCustomView:usersButton];
+    
+    [UIView animateWithDuration:1 animations:^{
+        //self.navigationItem.rightBarButtonItem = menuButton;
+        self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, overviewItem, usersItem];
+    }];
+    
+    [self setSortButtons];
+}
+
+- (void)setSortButtons{
     //sort by normal order
     //self.moshafOrderButton = [[UIButton alloc] initWithFrame:imageFrame];
     [self.moshafOrderButton setTitle:@"B" forState:UIControlStateNormal];
@@ -377,8 +404,8 @@ NSInteger currentKhatma = 0;
     
     [self.moshafOrderButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
     [self.moshafOrderButton addTarget:self
-                   action:@selector(fastAccessNormalSuraOrderSort)
-         forControlEvents:UIControlEventTouchUpInside];
+                               action:@selector(fastAccessNormalSuraOrderSort)
+                     forControlEvents:UIControlEventTouchUpInside];
     
     [self.moshafOrderButton setShowsTouchWhenHighlighted:YES];
     [self.moshafOrderButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
@@ -391,8 +418,8 @@ NSInteger currentKhatma = 0;
     
     [self.lightSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
     [self.lightSortButton addTarget:self
-                          action:@selector(fastAccessWeakerFirstSuraFirstSort)
-                forControlEvents:UIControlEventTouchUpInside];
+                             action:@selector(fastAccessWeakerFirstSuraFirstSort)
+                   forControlEvents:UIControlEventTouchUpInside];
     
     [self.lightSortButton setShowsTouchWhenHighlighted:YES];
     [self.lightSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
@@ -404,8 +431,8 @@ NSInteger currentKhatma = 0;
     
     [self.charCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
     [self.charCountSortButton addTarget:self
-                        action:@selector(fastAccessCharCountSuraSort)
-              forControlEvents:UIControlEventTouchUpInside];
+                                 action:@selector(fastAccessCharCountSuraSort)
+                       forControlEvents:UIControlEventTouchUpInside];
     
     [self.charCountSortButton setShowsTouchWhenHighlighted:YES];
     [self.charCountSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
@@ -432,8 +459,8 @@ NSInteger currentKhatma = 0;
     
     [self.refreshCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
     [self.refreshCountSortButton addTarget:self
-                                 action:@selector(fastAccessRefreshCountSuraSort)
-                       forControlEvents:UIControlEventTouchUpInside];
+                                    action:@selector(fastAccessRefreshCountSuraSort)
+                          forControlEvents:UIControlEventTouchUpInside];
     
     [self.refreshCountSortButton setShowsTouchWhenHighlighted:YES];
     [self.refreshCountSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
@@ -446,8 +473,8 @@ NSInteger currentKhatma = 0;
     
     [self.revalationOrderSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
     [self.revalationOrderSortButton addTarget:self
-                                 action:@selector(fastAccessRevalationOrderSuraSort)
-                       forControlEvents:UIControlEventTouchUpInside];
+                                       action:@selector(fastAccessRevalationOrderSuraSort)
+                             forControlEvents:UIControlEventTouchUpInside];
     
     [self.revalationOrderSortButton setShowsTouchWhenHighlighted:YES];
     [self.revalationOrderSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
@@ -457,25 +484,19 @@ NSInteger currentKhatma = 0;
     
     [self.verseCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
     [self.verseCountSortButton addTarget:self
-                                       action:@selector(fastAccessVerseCountSuraSort)
-                             forControlEvents:UIControlEventTouchUpInside];
+                                  action:@selector(fastAccessVerseCountSuraSort)
+                        forControlEvents:UIControlEventTouchUpInside];
     
     [self.verseCountSortButton setShowsTouchWhenHighlighted:YES];
     [self.verseCountSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
 
-    [UIView animateWithDuration:1 animations:^{
-        //self.navigationItem.rightBarButtonItem = menuButton;
-        self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, overviewItem];
-        
-        [self.bottomBar addSubview:self.moshafOrderButton];
-        [self.bottomBar addSubview:self.lightSortButton];
-        [self.bottomBar addSubview:self.charCountSortButton];
-        [self.bottomBar addSubview:self.wordCountSortButton];
-        [self.bottomBar addSubview:self.verseCountSortButton];
-        [self.bottomBar addSubview:self.revalationOrderSortButton];
-        [self.bottomBar addSubview:self.refreshCountSortButton];
-        
-    }];
+    [self.bottomBar addSubview:self.moshafOrderButton];
+    [self.bottomBar addSubview:self.lightSortButton];
+    [self.bottomBar addSubview:self.charCountSortButton];
+    [self.bottomBar addSubview:self.wordCountSortButton];
+    [self.bottomBar addSubview:self.verseCountSortButton];
+    [self.bottomBar addSubview:self.revalationOrderSortButton];
+    [self.bottomBar addSubview:self.refreshCountSortButton];
 }
 
 - (void)howItWorks{

@@ -347,4 +347,18 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     }
 }
 
+#pragma mark - Users
+
+- (void)addUser:(NSString *)userName {
+    
+}
+
+- (void)removeUser:(NSString *)userName {
+    
+}
+
+- (void)renameUserOldName:(NSString *)oldName newName:(NSString *)newName {
+    
+}
+
 @end

@@ -36,6 +36,9 @@
 		07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */; };
 		07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */; };
 		0A8DAB34FE051E524BD30303 /* Pods_QuranGardens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82855D8766F94B78534A777E /* Pods_QuranGardens.framework */; };
+		C502D5501ED486C500A7267F /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C502D54E1ED486C500A7267F /* UsersViewController.m */; };
+		C502D5511ED486C500A7267F /* UsersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C502D54F1ED486C500A7267F /* UsersViewController.xib */; };
+		C502D5541ED48D0B00A7267F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C502D5531ED48D0B00A7267F /* User.m */; };
 		C50658351EA5D26000330A9B /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50658331EA5D26000330A9B /* FeedBackViewController.m */; };
 		C508370E1EBBB20000B54E94 /* rahman.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C508370D1EBBB20000B54E94 /* rahman.mp3 */; };
 		C50E590F1EBC55080076C3D6 /* PiePolylineChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50E590C1EBC55080076C3D6 /* PiePolylineChartViewController.xib */; };
@@ -149,6 +152,11 @@
 		07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodicTask.m; sourceTree = "<group>"; };
 		82855D8766F94B78534A777E /* Pods_QuranGardens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuranGardens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC5A8B9D69C915AD7FE135C0 /* Pods-QuranGardens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranGardens.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens.release.xcconfig"; sourceTree = "<group>"; };
+		C502D54D1ED486C500A7267F /* UsersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersViewController.h; sourceTree = "<group>"; };
+		C502D54E1ED486C500A7267F /* UsersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersViewController.m; sourceTree = "<group>"; };
+		C502D54F1ED486C500A7267F /* UsersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UsersViewController.xib; sourceTree = "<group>"; };
+		C502D5521ED48D0B00A7267F /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		C502D5531ED48D0B00A7267F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		C50658321EA5D26000330A9B /* FeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackViewController.h; sourceTree = "<group>"; };
 		C50658331EA5D26000330A9B /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
 		C508370D1EBBB20000B54E94 /* rahman.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rahman.mp3; sourceTree = "<group>"; };
@@ -341,6 +349,8 @@
 				071C17AA1D673B5800019CDD /* Settings.m */,
 				073AA6F01DB89E0300370847 /* Statistics.h */,
 				073AA6F11DB89E0300370847 /* Statistics.m */,
+				C502D5521ED48D0B00A7267F /* User.h */,
+				C502D5531ED48D0B00A7267F /* User.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -371,6 +381,9 @@
 				C568B1811EAA030800445642 /* FeedBackViewController.xib */,
 				C568B1961EAA27B800445642 /* NSString+Localization.h */,
 				C568B1971EAA27B800445642 /* NSString+Localization.m */,
+				C502D54D1ED486C500A7267F /* UsersViewController.h */,
+				C502D54E1ED486C500A7267F /* UsersViewController.m */,
+				C502D54F1ED486C500A7267F /* UsersViewController.xib */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -569,6 +582,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C502D5511ED486C500A7267F /* UsersViewController.xib in Resources */,
 				C56B782C1EA23E4200252039 /* Podfile in Resources */,
 				C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */,
 				C50E59181EBC55710076C3D6 /* PieChartViewController.xib in Resources */,
@@ -676,6 +690,7 @@
 				C5A26AEB1EA24420009135D4 /* ChartsViewController.m in Sources */,
 				C5A26AF51EA24D14009135D4 /* DemoBaseViewController.m in Sources */,
 				071C17AB1D673B5800019CDD /* Settings.m in Sources */,
+				C502D5541ED48D0B00A7267F /* User.m in Sources */,
 				C53533431EB14142005846C0 /* IntroViewController.m in Sources */,
 				07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */,
 				C59A202F1E8116BD003C0F09 /* AMRTools.m in Sources */,
@@ -686,6 +701,7 @@
 				C50658351EA5D26000330A9B /* FeedBackViewController.m in Sources */,
 				C5A26B041EA27005009135D4 /* DayAxisValueFormatter.m in Sources */,
 				C568B1981EAA27B800445642 /* NSString+Localization.m in Sources */,
+				C502D5501ED486C500A7267F /* UsersViewController.m in Sources */,
 				C5A26B071EA27005009135D4 /* DateValueFormatter.m in Sources */,
 				C50E59131EBC553C0076C3D6 /* PiePolylineChartViewController.m in Sources */,
 				C5A26AF11EA24CFD009135D4 /* CubicLineChartViewController.m in Sources */,

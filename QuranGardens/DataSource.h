@@ -9,11 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "PeriodicTask.h"
 #import "Settings.h"
+#import "User.h"
 
 @interface DataSource : NSObject
 
 @property (strong, nonatomic) NSMutableArray<PeriodicTask *> *tasks;
 @property (strong, nonatomic) Settings *settings;
+@property (strong, nonatomic) NSMutableArray<User *> *users;
 
 @property (strong, nonatomic) NSArray<NSNumber *> *suraCharsCount;
 @property (strong, nonatomic) NSArray<NSNumber *> *suraWordCount;
@@ -43,4 +45,9 @@
 - (NSDate *)loadSuraLastRefresh:(NSString *)suraName;
 - (void)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName;
 
+@property (strong, nonatomic) User *currentUser;
+
+- (void)addUser:(NSString *)userName;
+- (void)removeUser:(NSString *)userName;
+- (void)renameUserOldName:(NSString *)oldName newName:(NSString *)newName;
 @end
