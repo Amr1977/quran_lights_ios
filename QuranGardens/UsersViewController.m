@@ -29,6 +29,9 @@
     [self setTitle:[@"Profiles" localize]];
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.tableView.layer.cornerRadius = 10.0;
+    self.tableView.layer.masksToBounds = YES;
+
     [self setAddUser];
 }
 
