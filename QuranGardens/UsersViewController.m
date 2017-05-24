@@ -29,6 +29,7 @@
     [self setTitle:[@"Profiles" localize]];
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [self setAddUser];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -98,7 +99,49 @@ NSInteger currentUserIndex = 0;
 }
 
 
+- (void)setAddUser {
+    //overview mode
+    UIButton *addUserButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+    [addUserButton setTitle:@"Add User" forState:UIControlStateNormal];//🔍🔇🔈
+    [addUserButton addTarget:self
+                       action:@selector(addUser)
+             forControlEvents:UIControlEventTouchUpInside];
+    
+    [addUserButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *adduserItem = [[UIBarButtonItem alloc] initWithCustomView:addUserButton];
+    self.navigationItem.rightBarButtonItems = @[adduserItem];
+}
 
+- (void)addUser {
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle: [@"Add Profile" localize]
+                                                                              message: [@"Enter Profile Name" localize]
+                                                                       preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = [@"name" localize];
+        textField.textColor = [UIColor blueColor];
+        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        textField.borderStyle = UITextBorderStyleRoundedRect;
+    }];
+//    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+//        textField.placeholder = @"password";
+//        textField.textColor = [UIColor blueColor];
+//        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+//        textField.borderStyle = UITextBorderStyleRoundedRect;
+//        textField.secureTextEntry = YES;
+//    }];
+    [alertController addAction:[UIAlertAction actionWithTitle:[@"OK" localize] style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        NSArray * textfields = alertController.textFields;
+        UITextField * namefield = textfields[0];
+        //UITextField * passwordfiled = textfields[1];
+        NSLog(@"name: %@",namefield.text);//,passwordfiled.text);
+        [[DataSource shared] addUser:namefield.text];
+        [self.tableView reloadData];
+        
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:[@"Cancel" localize] style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
 
 @end

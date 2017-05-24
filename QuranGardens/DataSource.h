@@ -54,6 +54,7 @@
 - (void)setCurrentUser:(User *)currentUser;
 - (User *)getCurrentUser;
 - (NSMutableArray *)getUsers;
+- (NSString *)userKey:(NSString *)key;
 
 +(DataSource *)shared;
 @end

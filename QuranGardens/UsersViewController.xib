@@ -23,7 +23,7 @@
                     <rect key="frame" x="-0.5" y="-0.5" width="375" height="667"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                 </imageView>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="T6c-vw-gPj">
+                <tableView clipsSubviews="YES" alpha="0.69999999999999996" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="T6c-vw-gPj">
                     <rect key="frame" x="67" y="233.5" width="240" height="200"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>

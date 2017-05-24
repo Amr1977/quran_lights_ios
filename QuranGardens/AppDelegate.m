@@ -241,7 +241,7 @@ NetworkStatus remoteHostStatus;
              if (snapshot.value == [NSNull null]) {
                  [self loadHistory];
              } else {
-                 NSNumber *localUpdateTimeStamp = [[NSUserDefaults standardUserDefaults] valueForKey:@"LastUpdateTimeStamp"];
+                 NSNumber *localUpdateTimeStamp = [[NSUserDefaults standardUserDefaults] valueForKey:[[DataSource shared] userKey:@"LastUpdateTimeStamp"]];
                  NSNumber *remoteUpdateTimeStamp = snapshot.value;
                  NSLog(@"Update stamp on Firebase %@", remoteUpdateTimeStamp);
                  
@@ -386,7 +386,7 @@ NetworkStatus remoteHostStatus;
 
 - (void)updateTimeStamp {
     NSNumber *updateDate =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];
-    [[NSUserDefaults standardUserDefaults] setObject:updateDate forKey:@"LastUpdateTimeStamp"];
+    [[NSUserDefaults standardUserDefaults] setObject:updateDate forKey:[[DataSource shared] userKey:@"LastUpdateTimeStamp"]];
     
     if (self.userID && self.isConnected) {
         [[[[[self.firebaseDatabaseReference

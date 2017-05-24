@@ -229,7 +229,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     [[NSUserDefaults standardUserDefaults] setObject:task.history forKey:[self refreshHistoryKeyForSuraName:suraName]];
     
     NSNumber *updateDate =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];
-    [[NSUserDefaults standardUserDefaults] setObject:updateDate forKey:@"LastUpdateTimeStamp"];
+    [[NSUserDefaults standardUserDefaults] setObject:updateDate forKey:[[DataSource shared] userKey:@"LastUpdateTimeStamp"]];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     //remote
@@ -369,10 +369,25 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 }
 
 - (void)addUser:(NSString *)userName {
+    if (userName == nil || [self userExists:userName]) {
+        return;
+    }
+    
     User *user = [[User alloc] init];
     user.userId = [AMRTools uniqueID];
     user.name = userName;
     [self.users addObject:user];
+    [self saveUsers];
+}
+
+- (Boolean)userExists:(NSString *)name {
+    for (User *user in self.users) {
+        if ([[user.name lowercaseString] isEqualToString:[name lowercaseString]]) {
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 #define UsersHashKey @"UsersHashKey"
