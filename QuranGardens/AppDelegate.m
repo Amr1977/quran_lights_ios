@@ -228,11 +228,12 @@ NetworkStatus remoteHostStatus;
 }
 
 - (void)checkUpdatetimeStamps{
+    
     if (self.userID && self.isConnected) {
         [[[[[self.firebaseDatabaseReference
             child:@"users"]
            child:self.userID]
-          child:[[DataSource shared] getCurrentUser].userId]
+          child:[[[DataSource shared] getCurrentUser] nonEmptyId] ]
           child:@"update"]
          observeSingleEventOfType:FIRDataEventTypeValue
          withBlock:^(FIRDataSnapshot * _Nonnull snapshot){
@@ -281,7 +282,7 @@ NetworkStatus remoteHostStatus;
     [[[[[self.firebaseDatabaseReference
         child:@"users"]
         child: self.userID]
-      child:[[DataSource shared] getCurrentUser].userId]
+      child:[[[DataSource shared] getCurrentUser] nonEmptyId] ]
         child:@"Suras"]
      observeSingleEventOfType:FIRDataEventTypeValue
      withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
@@ -325,7 +326,7 @@ NetworkStatus remoteHostStatus;
         [[[[[[[[self.firebaseDatabaseReference
                child:@"users"]
               child: self.userID]
-             child:[[DataSource shared] getCurrentUser].userId]
+             child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
              child:@"Suras"]
             child:[self suraIndexFromSuraName:suraName]]
            child:@"reviews"] childByAutoId]
@@ -341,7 +342,7 @@ NetworkStatus remoteHostStatus;
         [[[[[[[[self.firebaseDatabaseReference
                child:@"users"]
               child: self.userID]
-             child:[[DataSource shared] getCurrentUser].userId]
+             child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
              child:@"Suras"]
             child:[self suraIndexFromSuraName:suraName]]
            child:@"reviews"]
@@ -357,7 +358,7 @@ NetworkStatus remoteHostStatus;
         [[[[[[[self.firebaseDatabaseReference
                child:@"users"]
               child: self.userID]
-            child:[[DataSource shared] getCurrentUser].userId]
+            child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
              child:@"Suras"]
             child:[self suraIndexFromSuraName:suraName]]
            child:@"memorization"]
@@ -373,7 +374,7 @@ NetworkStatus remoteHostStatus;
         [[[[[[[[self.firebaseDatabaseReference
                child:@"users"]
               child: self.userID]
-             child:[[DataSource shared] getCurrentUser].userId]
+             child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
              child:@"Suras"]
             child:[self suraIndexFromSuraName:suraName]]
            child:@"reviews"]
@@ -391,7 +392,7 @@ NetworkStatus remoteHostStatus;
         [[[[[self.firebaseDatabaseReference
             child:@"users"]
            child: self.userID]
-          child:[[DataSource shared] getCurrentUser].userId]
+          child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
           child:@"update"]
          setValue:updateDate];
     }

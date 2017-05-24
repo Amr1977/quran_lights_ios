@@ -10,6 +10,15 @@
 
 @implementation User
 
+- (NSString *)nonEmptyId {
+    NSString *userIdChild = self.userId;
+    
+    if ([userIdChild isEqualToString:@""]) {
+        userIdChild = @"Master";
+    }
+    
+    return userIdChild;
 
+}
 
 @end
