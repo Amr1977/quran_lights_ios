@@ -445,7 +445,6 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
         _currentUser.userId = @"";//[AMRTools uniqueID];
         _currentUser.name = @"Master";
         _users = @[_currentUser].mutableCopy;
-        [self addUser:@"Secondary"];
         [self saveUsers];
     }
     
