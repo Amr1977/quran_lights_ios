@@ -241,7 +241,7 @@ NetworkStatus remoteHostStatus;
              if (snapshot.value == [NSNull null]) {
                  [self loadHistory];
              } else {
-                 NSNumber *localUpdateTimeStamp = [[NSUserDefaults standardUserDefaults] valueForKey:[[DataSource shared] userKey:@"LastUpdateTimeStamp"]];
+                 NSNumber *localUpdateTimeStamp = [[NSUserDefaults standardUserDefaults] valueForKey:[[DataSource shared] userKey: @"LastUpdateTimeStamp"]];
                  NSNumber *remoteUpdateTimeStamp = snapshot.value;
                  NSLog(@"Update stamp on Firebase %@", remoteUpdateTimeStamp);
                  
@@ -276,7 +276,7 @@ NetworkStatus remoteHostStatus;
     self.fbRefreshHistory = @{}.mutableCopy;
     self.fbMemorizationState = @{}.mutableCopy;
     
-    FIRDatabaseReference * surasRef = [[[self.firebaseDatabaseReference child:@"users"] child: self.userID] child:@"Suras"];
+    FIRDatabaseReference * surasRef = [[[[self.firebaseDatabaseReference child:@"users"] child: self.userID] child:[[[DataSource shared] getCurrentUser] nonEmptyId]] child:@"Suras"];
     //FIRDatabaseQuery *query = [surasRef queryOrderedByKey];
     
     [[[[[self.firebaseDatabaseReference
