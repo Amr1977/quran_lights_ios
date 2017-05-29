@@ -12,6 +12,7 @@
 #import "CubicLineChartViewController.h"
 #import "DateValueFormatter.h"
 #import "NSString+Localization.h"
+#import "DataSource.h"
 
 @import Charts;
 
@@ -114,7 +115,7 @@
 }
 
 - (float)getStoredDays {
-    float result = [[NSUserDefaults standardUserDefaults] floatForKey:self.chartTitle];
+    float result = [[NSUserDefaults standardUserDefaults] floatForKey:[[DataSource shared] userKey:self.chartTitle]];
     if (result < 1.f) {
         if (self.scores != nil && self.scores.count > 0) {
             return (float) self.scores.count;
@@ -128,7 +129,7 @@
 
 - (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[NSUserDefaults standardUserDefaults] setFloat:_sliderX.value forKey:self.chartTitle];
+    [[NSUserDefaults standardUserDefaults] setFloat:_sliderX.value forKey:[[DataSource shared] userKey:self.chartTitle]];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
 }
