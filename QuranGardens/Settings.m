@@ -8,7 +8,7 @@
 
 #import "Settings.h"
 
-NSInteger const DefaultCycleInterval = 30*24*60*60;
+NSInteger const DefaultCycleInterval = 10*24*60*60;
 
 @implementation Settings
 
