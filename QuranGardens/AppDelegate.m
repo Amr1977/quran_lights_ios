@@ -268,7 +268,7 @@ NetworkStatus remoteHostStatus;
 }
 
 - (void)loadHistory{
-    return;
+    //return;
     if (!self.userID || !self.isConnected) {
         return;
     }
@@ -276,43 +276,46 @@ NetworkStatus remoteHostStatus;
     self.fbRefreshHistory = @{}.mutableCopy;
     self.fbMemorizationState = @{}.mutableCopy;
     
-    FIRDatabaseReference * surasRef = [[[[self.firebaseDatabaseReference child:@"users"] child: self.userID] child:[[[DataSource shared] getCurrentUser] nonEmptyId]] child:@"Suras"];
+//    FIRDatabaseReference * surasRef = [[[[self.firebaseDatabaseReference child:@"users"] child: self.userID] child:[[[DataSource shared] getCurrentUser] nonEmptyId]] child:@"Suras"];
     //FIRDatabaseQuery *query = [surasRef queryOrderedByKey];
     
-    [[[[[self.firebaseDatabaseReference
-        child:@"users"]
-        child: self.userID]
-      child:[[[DataSource shared] getCurrentUser] nonEmptyId] ]
-        child:@"Suras"]
-     observeSingleEventOfType:FIRDataEventTypeValue
-     withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-         if (!(snapshot.value == [NSNull null])) {
-             NSLog(@"########## FIRDataSnapshot snapshot: %@",snapshot);
-             NSLog(@"########## FIRDataSnapshot snapshot.value: %@",snapshot.value);
-             NSMutableArray *suras = ((NSArray *)snapshot.value).mutableCopy;
-             NSLog(@"########## FIRDataSnapshot [snapshot key]: %@",[snapshot key]);
-             NSLog(@"########## FIRDataSnapshot [snapshot value]: %@",[snapshot value]);
-
-             NSLog(@"########## suras: %@",suras);
-             
-             for (FIRDataSnapshot *childSnap in snapshot.children) {
-                 NSLog(@"key: %@", childSnap.key);
-                 NSLog(@"value: %@", childSnap.value);
-                 NSString *indexStr = [NSString stringWithFormat:@"%@", childSnap.key];
-                 NSInteger index = indexStr.integerValue;
-                 NSDictionary *reviews = ((NSDictionary *)(childSnap.value))[@"reviews"];
-                 NSLog(@"Sura %ld %@", (long)index, reviews );
-                 NSMutableArray *dates = [reviews allValues].mutableCopy;
-                 dates = [self sort:dates];
-                 self.fbRefreshHistory[indexStr] = dates;
-                 self.fbMemorizationState[indexStr] = (NSNumber *)(((NSDictionary *)(childSnap.value))[@"memorization"]);
-             }
-         }
-         [[NSNotificationCenter defaultCenter] postNotificationName:@"HistoryLoadedFromFireBase" object:self];
-     }
-     withCancelBlock:^(NSError * _Nonnull error) {
-         NSLog(@"%@", error.localizedDescription);
-     }];
+//    [[[[[self.firebaseDatabaseReference
+//        child:@"users"]
+//        child: self.userID]
+//      child:[[[DataSource shared] getCurrentUser] nonEmptyId] ]
+//        child:@"Suras"]
+//     observeSingleEventOfType:FIRDataEventTypeValue
+//     withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+//         if (!(snapshot.value == [NSNull null])) {
+//             NSLog(@"########## FIRDataSnapshot snapshot: %@",snapshot);
+//             NSLog(@"########## FIRDataSnapshot snapshot.value: %@",snapshot.value);
+//             NSMutableArray *suras = ((NSArray *)snapshot.value).mutableCopy;
+//             NSLog(@"########## FIRDataSnapshot [snapshot key]: %@",[snapshot key]);
+//             NSLog(@"########## FIRDataSnapshot [snapshot value]: %@",[snapshot value]);
+//
+//             NSLog(@"########## suras: %@",suras);
+//             
+//             for (FIRDataSnapshot *childSnap in snapshot.children) {
+//                 NSLog(@"key: %@", childSnap.key);
+//                 NSLog(@"value: %@", childSnap.value);
+//                 NSString *indexStr = [NSString stringWithFormat:@"%@", childSnap.key];
+//                 NSInteger index = indexStr.integerValue;
+//                 NSDictionary *reviews = ((NSDictionary *)(childSnap.value))[@"reviews"];
+//                 NSLog(@"Sura %ld %@", (long)index, reviews );
+//                 NSMutableArray *dates = [reviews allValues].mutableCopy;
+//                 dates = [self sort:dates];
+//                 self.fbRefreshHistory[indexStr] = dates;
+//                 self.fbMemorizationState[indexStr] = (NSNumber *)(((NSDictionary *)(childSnap.value))[@"memorization"]);
+//             }
+//         }
+//         [[NSNotificationCenter defaultCenter] postNotificationName:@"HistoryLoadedFromFireBase" object:self];
+//     }
+//     withCancelBlock:^(NSError * _Nonnull error) {
+//         NSLog(@"%@", error.localizedDescription);
+//     }];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"HistoryLoadedFromFireBase"
+                                                        object:self];
 }
 
 - (void)refreshSura:(NSString *)suraName withHistory:(NSArray *)history{

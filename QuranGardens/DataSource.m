@@ -437,6 +437,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
         if (currentUserId != nil) {
             for (User *user in self.users) {
                 if ([currentUserId isEqualToString:user.userId]) {
+                    _currentUser = user;
                     return user;
                 }
             }

@@ -260,51 +260,59 @@ NSInteger currentKhatma = 0;
 
 - (void)syncHistory{
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSMutableDictionary<NSString *,NSMutableArray<NSNumber *> *> *fbRefreshHistory = delegate.fbRefreshHistory;
-    NSMutableDictionary<NSString *,NSNumber *> *fbMemoHistory = delegate.fbMemorizationState;
+//    NSMutableDictionary<NSString *,NSMutableArray<NSNumber *> *> *fbRefreshHistory = delegate.fbRefreshHistory;
+//    NSMutableDictionary<NSString *,NSNumber *> *fbMemoHistory = delegate.fbMemorizationState;
     
-    if (fbRefreshHistory == nil) {
-        fbRefreshHistory = @{}.mutableCopy;
-        delegate.fbRefreshHistory = @{}.mutableCopy;
-    }
+//    if (fbRefreshHistory == nil) {
+//        fbRefreshHistory = @{}.mutableCopy;
+//        delegate.fbRefreshHistory = @{}.mutableCopy;
+//    }
     
-    if (fbMemoHistory == nil) {
-        fbMemoHistory = @{}.mutableCopy;
-        delegate.fbMemorizationState = @{}.mutableCopy;
-    }
+//    if (fbMemoHistory == nil) {
+//        fbMemoHistory = @{}.mutableCopy;
+//        delegate.fbMemorizationState = @{}.mutableCopy;
+//    }
     
     for (NSInteger index = 0; index < 114; index++) {
         NSString *indexStr = [NSString stringWithFormat:@"%ld", (long)(index + 1)];
-        if (fbRefreshHistory[indexStr] == nil) {
-            fbRefreshHistory[indexStr] = @[].mutableCopy;
-        }
+//        if (fbRefreshHistory[indexStr] == nil) {
+//            fbRefreshHistory[indexStr] = @[].mutableCopy;
+//        }
         NSString *suraName = [Sura suraNames][index];
         NSMutableArray<NSNumber *>* localHistory  = [self mapDatesToNumbers:[self.periodicTaskManager.dataSource loadRefreshHistoryForSuraName:[Sura suraNames][index]].mutableCopy];
         
-        NSMutableArray<NSNumber *>* remoteHistory = fbRefreshHistory[indexStr];
-        if (remoteHistory == nil) {
-            remoteHistory = @[].mutableCopy;
-        }
+        NSLog(@"local history for %@ \n %@", suraName, localHistory);
         
-        [self.periodicTaskManager.dataSource setMemorizedStateForSura:suraName state:[fbMemoHistory[indexStr] integerValue]];
-        NSLog(@"memorization state: %@ for sura %@", fbMemoHistory[indexStr], suraName);
+//        NSMutableArray<NSNumber *>* remoteHistory = fbRefreshHistory[indexStr];
+//        if (remoteHistory == nil) {
+//            remoteHistory = @[].mutableCopy;
+//        }
+        
+//        [self.periodicTaskManager.dataSource setMemorizedStateForSura:suraName state:[fbMemoHistory[indexStr] integerValue]];
+//        NSLog(@"memorization state: %@ for sura %@", fbMemoHistory[indexStr], suraName);
         
         //update remote
+        NSInteger count = 0;
+        NSLog(@"\n\n");
         for (NSNumber *number in localHistory) {
-            if ([remoteHistory indexOfObject:number] == NSNotFound) {
-                [delegate refreshSura:suraName withDate:number];
-                [remoteHistory addObject:number];
-            }
+            count++;
+            [delegate refreshSura:suraName withDate:number];
+            NSLog(@"Uploaded %d refresh for %@",count , suraName);
+            
+//            if ([remoteHistory indexOfObject:number] == NSNotFound) {
+//                
+//                [remoteHistory addObject:number];
+//            }
         }
         
-        delegate.fbRefreshHistory[indexStr] = [delegate sort:remoteHistory];
-        NSMutableArray *datesArray = [self mapNumbersToDates: delegate.fbRefreshHistory[indexStr]];
-        [self.periodicTaskManager.dataSource setHistory:suraName history:datesArray];
+        //delegate.fbRefreshHistory[indexStr] = [delegate sort:remoteHistory];
+        //NSMutableArray *datesArray = [self mapNumbersToDates: delegate.fbRefreshHistory[indexStr]];
+        //[self.periodicTaskManager.dataSource setHistory:suraName history:datesArray];
     }
     
     [delegate updateTimeStamp];
     
-    [self.collectionView reloadData];
+//    [self.collectionView reloadData];
 }
 
 
@@ -1593,6 +1601,18 @@ static NSInteger tone = 0;
 //    NSLog(@"scrollViewDidEndDecelerating");
 //
 //}
+
+- (void)sendMail {
+    NSString *recipients = @"mailto:amr.lotfy.othman@gmail.com?subject=Hello from California!";
+    
+    //NSString *body = @"&body=It is raining in sunny California!";
+    
+    NSString *email = [NSString stringWithFormat:@"%@", recipients];
+    
+    email = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
+}
 
 
 @end
