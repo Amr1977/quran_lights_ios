@@ -28,6 +28,7 @@ CGFloat const CellWidth = 140;
 
 
 NSInteger const RefreshPeriod = 300; // refresh each 5 minutes;
+NSInteger const RecentMemorizedMarkDays = 10;
 
 static NSString *const ShowHelpScreenKey = @"Show_help_screen";
 static NSString *const ReversedSortOrderOptionKey = @"reversed_sort_order";
@@ -658,6 +659,11 @@ NSInteger currentKhatma = 0;
     if (operations[[@"Memorized" localize]] == nil) {
         operations[[@"Memorized" localize]] = ^(){
             [AMRTools play:@"rahman.mp3"];
+            if (self.selectedTask.memorizedState == BEING_MEMORIZED) {
+                self.selectedTask.memorizeDate = [NSDate new];
+                [[DataSource shared] saveSuraMemorizationDate:self.selectedTask.memorizeDate suraName:self.selectedTask.name];
+            }
+            
             self.selectedTask.memorizedState = MEMORIZED;
             NSLog(@"memorized: %ld",(long)self.selectedTask.memorizedState);
             [self.periodicTaskManager.dataSource saveMemorizedStateForTask:self.selectedTask];
@@ -1330,11 +1336,17 @@ NSInteger currentKhatma = 0;
         cell.content.layer.borderColor = [UIColor clearColor].CGColor;
     }
     
-    if (days >= 10 && task.memorizedState == 2 ) {//is memorized
+    NSInteger memoDays = task.memorizedState == 2 && task.memorizeDate != nil ?
+    ([[NSDate new] timeIntervalSinceDate:task.memorizeDate] / (60*60*24))
+    : 1000;
+    
+    if ((days >= 10 || (memoDays <= RecentMemorizedMarkDays && days >= 1)) && task.memorizedState == 2 ) {//is memorized
         //cell.memorized.layer.borderColor = [UIColor redColor].CGColor;
         cell.memorized.image = [cell.memorized.image imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
-        cell.memorized.tintColor = [UIColor redColor];
-    } if (days >= 15 && task.memorizedState == 1 ) {//was memorized
+        cell.memorized.tintColor = (memoDays <= RecentMemorizedMarkDays && days >= 1) ? [UIColor orangeColor] : [UIColor redColor];
+    }
+    
+    if (days >= 15 && task.memorizedState == 1 ) {//was memorized
         //imageWithRenderingMode
         cell.memorized.image = [cell.memorized.image imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
         cell.memorized.tintColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
