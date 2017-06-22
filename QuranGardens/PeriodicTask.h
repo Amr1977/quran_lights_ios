@@ -44,6 +44,8 @@
 // 0: not memorized, 1: was memorized, 2: is memorized 3: being memorized
 @property (nonatomic) NSInteger memorizedState;
 
+@property (nonatomic) NSDate *memorizeDate;
+
 /** Calculates time interval remaining to reach maximum allowed time period between two task occurrences*/
 - (NSTimeInterval)remainingTimeInterval;
 

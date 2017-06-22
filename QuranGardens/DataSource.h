@@ -37,6 +37,9 @@
 - (void)saveMemorizedStateForTask:(PeriodicTask *)task;
 - (void)setMemorizedStateForSura:(NSString *)suraName state:(NSInteger)state;
 
+- (void)saveSuraMemorizationDate:(NSDate *)date suraName:(NSString *)suraName;
+- (NSDate *)getSuraMemorizationDate:(NSString *)suraName;
+
 - (void)saveSettings;
 
 - (NSTimeInterval)loadSuraCyclePeriod:(NSString *)suraName;

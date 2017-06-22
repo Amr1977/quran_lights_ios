@@ -16,6 +16,7 @@ NSString * const IntervalKeySuffix = @"interval";
 NSString * const LastRefreshKeySuffix = @"lastRefresh";
 NSString * const MemorizedKeySuffix = @"memorized";
 NSString * const RefreshHistoryKeySuffix = @"RefreshHistory";
+NSString * const MemoDateKeySuffix = @"MemoDateKeySuffix";
 
 NSString * const GlobalRefreshIntervalKey = @"GlobalRefreshIntervalKey";
 NSString * const SortDirectionKey = @"SortDirectionKey";
@@ -89,6 +90,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
         task.cycleInterval = interval;
         
         task.history = [self loadRefreshHistoryForSuraName:suraName];
+        task.memorizeDate = [self getSuraMemorizationDate:suraName];
         
         [self.tasks addObject:task];
     }
@@ -177,6 +179,11 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     return [NSString stringWithFormat:@"%@_%@",suraName,[self userKey:RefreshHistoryKeySuffix]];
 }
 
+- (NSString *)memoDateKeyForSuraName:(NSString *)suraName{
+    return [NSString stringWithFormat:@"%@_%@",suraName,[self userKey:MemoDateKeySuffix]];
+}
+
+
 - (NSTimeInterval)loadSuraCyclePeriod:(NSString *)suraName{
     NSTimeInterval result = DefaultCycleInterval;
     NSString *suraIntervalKey = [NSString stringWithFormat:@"%@_%@",suraName,[self userKey:IntervalKeySuffix]];
@@ -206,6 +213,21 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     
     return result;
 }
+
+//memo date
+- (void)saveSuraMemorizationDate:(NSDate *)date suraName:(NSString *)suraName{
+    [[NSUserDefaults standardUserDefaults] setObject:date forKey:[self memoDateKeyForSuraName:suraName]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"saved for %@ memo date: %@",suraName,date);
+}
+
+- (NSDate *)getSuraMemorizationDate:(NSString *)suraName {
+    NSDate *memoDate = [[NSUserDefaults standardUserDefaults] objectForKey:[self memoDateKeyForSuraName:suraName]];
+    
+    return memoDate;
+}
+
+
 
 - (PeriodicTask *)getTaskWithSuraName:(NSString *)suraName{
     for (PeriodicTask *task in self.tasks) {
