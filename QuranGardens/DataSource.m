@@ -77,9 +77,10 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 - (void)load{
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFirebaseSignIn) name:FireBaseSignInNotification object:nil];
     [self loadUsers];
+    [self loadSettings];
     self.tasks = @[].mutableCopy;
     for (NSString *suraName in [Sura suraNames]) {
-        NSTimeInterval interval = [[[NSUserDefaults standardUserDefaults] objectForKey:[self cyclePeriodKeyForSuraName:suraName]] doubleValue];
+        NSTimeInterval interval = self.settings.fadeTime;//[[[NSUserDefaults standardUserDefaults] objectForKey:[self cyclePeriodKeyForSuraName:suraName]] doubleValue];
 
         PeriodicTask *task = [[PeriodicTask alloc] init];
         task.name = suraName;
@@ -97,7 +98,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     
     NSLog(@"Load completed.");
     [self listTasksData];
-    [self loadSettings];
+    
 //    [Sura readNumbersFromFile:@"versecount"];
 //    [Sura readNumbersFromFile:@"charcount"];
 //    [Sura readNumbersFromFile:@"wordcount"];

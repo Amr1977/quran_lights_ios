@@ -405,4 +405,22 @@
     return 0;
 }
 
+- (float)lightRatio {
+    float result = 0.0f;
+    
+    NSMutableArray<PeriodicTask *> *tasks = self.dataSource.tasks;
+    
+    for (PeriodicTask *task in tasks) {
+        
+        float term = [task remainingTimeInterval] / self.dataSource.settings.fadeTime;
+        result = result +  term * (float)[Statistics suraScore:task.name];
+        
+        NSLog(@"light ratio term %@ %f", task.name, term);
+    }
+    
+    result = result / (float)[Statistics allSurasScore];
+    
+    return result;
+}
+
 @end

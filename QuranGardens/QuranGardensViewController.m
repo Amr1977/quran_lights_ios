@@ -117,7 +117,6 @@ static NSMutableDictionary *operations;
     //TODO: make singleton of data source to avoid this
     self.statistics = [[Statistics alloc] initWithDataSource:self.periodicTaskManager.dataSource];
     currentKhatma = [self.periodicTaskManager getCurrentKhatmaNumber];
-    [self refreshScoreButton];
     
     NSLog(@"Memorized %ld of total %ld", (long)[self.statistics memorizedScore], (long)[Statistics allSurasScore]);
     
@@ -212,7 +211,7 @@ NSInteger currentKhatma = 0;
     }
     
     
-    self.score.title = [NSString stringWithFormat:@"%@ %@(%@), KH:%ld",[[DataSource shared] getCurrentUser].name , totalString, todayString, (long)newKhatma];
+    self.score.title = [NSString stringWithFormat:@"%@ %@(%@), KH:%ld, Light: %.2f%%",[[DataSource shared] getCurrentUser].name , totalString, todayString, (long)newKhatma, [self.statistics lightRatio] * 100];
     
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);

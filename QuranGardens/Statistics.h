@@ -26,5 +26,6 @@
 - (NSDictionary<NSDate *, NSNumber *> *)scores;
 - (NSInteger)memorizedScore;
 + (NSInteger)allSurasScore;
+- (float)lightRatio;
 
 @end
