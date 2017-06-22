@@ -7,6 +7,7 @@
 //
 
 #import "PeriodicTask.h"
+#import "DataSource.h"
 
 static NSString * const PeriodicTaskNameKey = @"name";
 static NSString * const PeriodicTaskLastOccurrenceKey = @"lastOccurrence";
@@ -53,7 +54,7 @@ static NSString * const PeriodicTaskCycleIntervalKey = @"cycleInterval";
         return 0;
     }
     NSTimeInterval ellapsedInterval = [[[NSDate alloc] init] timeIntervalSinceDate:[self.history lastObject]];
-    result = self.cycleInterval - ellapsedInterval;
+    result = [DataSource shared].settings.fadeTime  - ellapsedInterval;
     return result;
 }
 
