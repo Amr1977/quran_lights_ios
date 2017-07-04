@@ -91,6 +91,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
         task.cycleInterval = interval;
         
         task.history = [self loadRefreshHistoryForSuraName:suraName];
+        task.averageRefreshInterval = [AMRTools averageIntervalBetweenDatesInArray:task.history];
         task.memorizeDate = [self getSuraMemorizationDate:suraName];
         
         [self.tasks addObject:task];
@@ -258,6 +259,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     //remote
     NSNumber *dateStamp = [NSNumber numberWithLongLong:[lastRefreshDate timeIntervalSince1970]];
     [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:suraName withDate:dateStamp];
+    task.averageRefreshInterval = [AMRTools averageIntervalBetweenDatesInArray:task.history];
 }
 
 - (NSString *)suraIndexFromSuraName:(NSString *)suraName{

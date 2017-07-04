@@ -37,6 +37,9 @@
 
 @property(strong, nonatomic) NSArray<NSDate *> *history;
 
+/** Average time elapsed between refreshes of this task/sura */
+@property (nonatomic) NSTimeInterval averageRefreshInterval;
+
 //@property (nonatomic) BOOL memorized;
 //@property (nonatomic) BOOL wasMemorized;
 //@property (nonatomic) BOOL beingMemorized;
@@ -65,4 +68,5 @@
 - (NSDictionary *)toPList;
 - (void)fromPList:(NSDictionary *)plist;
 
+- (NSTimeInterval)calculateAverageRefresh;
 @end

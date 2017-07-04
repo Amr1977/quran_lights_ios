@@ -19,5 +19,6 @@
 +(void)setLocaleEnglish;
 +(void)play:(NSString *)path;
 +(NSString *)uniqueID;
++(NSTimeInterval)averageIntervalBetweenDatesInArray:(NSArray<NSDate *> *)datesArray;
 
 @end

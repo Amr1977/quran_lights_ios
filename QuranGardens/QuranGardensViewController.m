@@ -69,6 +69,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (nonatomic) __block Boolean overviewMode;
 @property (nonatomic) NSIndexPath* selectedCell;
 
+@property (nonatomic) BOOL isLightCalculationBasedOnAverage;
+
 @end
 
 @implementation QuranGardensViewController
@@ -344,14 +346,19 @@ NSInteger currentKhatma = 0;
     
 }
 
+UIButton *settingsButton;
+UIButton *fbButton;
+UIButton *overviewButton;
+UIButton *lightCalculationMethodButton;
+
 - (void)setMenuButton{
 
     CGRect imageFrame = CGRectMake(0, 0, 40, 40);
     
-    UIButton *settingsButton = [[UIButton alloc] initWithFrame:imageFrame];
-    [settingsButton setTitle:@"S" forState:UIControlStateNormal];
+    settingsButton = [[UIButton alloc] initWithFrame:imageFrame];
+    [settingsButton setTitle:@"⚙️" forState:UIControlStateNormal];
     //settingsButton.tintColor = [UIColor yellowColor];
-    [settingsButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
+    //[settingsButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
     settingsButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
     [settingsButton addTarget:self
                    action:@selector(settings)
@@ -361,7 +368,7 @@ NSInteger currentKhatma = 0;
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
 
     
-    UIButton *fbButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 27, 27)];
+    fbButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 27, 27)];
     //[settingsButton setTitle:@"S" forState:UIControlStateNormal];
     //settingsButton.tintColor = [UIColor yellowColor];
     [fbButton setBackgroundImage:[UIImage imageNamed:@"fb"] forState:UIControlStateNormal];
@@ -375,7 +382,7 @@ NSInteger currentKhatma = 0;
    
     
     //overview mode
-    UIButton *overviewButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    overviewButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     [overviewButton setTitle:@"↕️" forState:UIControlStateNormal];//🔍🔇🔈
     [overviewButton addTarget:self
                  action:@selector(toggleOverView)
@@ -385,12 +392,34 @@ NSInteger currentKhatma = 0;
     UIBarButtonItem *overviewItem = [[UIBarButtonItem alloc] initWithCustomView:overviewButton];
     
     
+    //overview mode
+    lightCalculationMethodButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    lightCalculationMethodButton.layer.cornerRadius = 10.0;
+    [lightCalculationMethodButton setTitle:@"🔆" forState:UIControlStateNormal];//🔍🔇🔈
+    [lightCalculationMethodButton addTarget:self
+                       action:@selector(toggleLightCalculationMethod)
+             forControlEvents:UIControlEventTouchUpInside];
+    
+    [lightCalculationMethodButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *lightCalculationMethodItem = [[UIBarButtonItem alloc] initWithCustomView:lightCalculationMethodButton];
+    
     [UIView animateWithDuration:1 animations:^{
         //self.navigationItem.rightBarButtonItem = menuButton;
-        self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, overviewItem];
+        self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, overviewItem, lightCalculationMethodItem];
     }];
     
     [self setSortButtons];
+}
+
+- (void)toggleLightCalculationMethod {
+    self.isLightCalculationBasedOnAverage = !self.isLightCalculationBasedOnAverage;
+    if (self.isLightCalculationBasedOnAverage) {
+        [lightCalculationMethodButton setBackgroundColor:[[UIColor greenColor] colorWithAlphaComponent:0.5]];
+    } else {
+        [lightCalculationMethodButton setBackgroundColor:[UIColor clearColor]];
+    }
+    
+    [[self collectionView] reloadData];
 }
 
 - (void)setSortButtons{
@@ -1280,7 +1309,8 @@ NSInteger currentKhatma = 0;
     
     task.cycleInterval = self.periodicTaskManager.dataSource.settings.fadeTime;
     
-    CGFloat progress = [task remainingTimeInterval] / self.periodicTaskManager.dataSource.settings.fadeTime;
+    //remainingTimeInterval
+    CGFloat progress = (self.isLightCalculationBasedOnAverage ? (self.periodicTaskManager.dataSource.settings.fadeTime - [task averageRefreshInterval]) : [task remainingTimeInterval]) / self.periodicTaskManager.dataSource.settings.fadeTime;
     
     if (progress < 0.3) {
         cell.suraName.textColor = [UIColor colorWithRed:153/255 green:255/255 blue:153/255 alpha:0.2];
@@ -1322,10 +1352,15 @@ NSInteger currentKhatma = 0;
     }
     
     NSUInteger days = progress != 0 ? [[NSDate new] timeIntervalSinceDate:[task.history lastObject]] / (60*60*24) : 10000;
+    NSUInteger avgDays = task.averageRefreshInterval / (60*60*24);
     if (days < 1000 && days > 0) {
-        cell.daysElapsed.text = [NSString stringWithFormat:@"%ldD", (long)days];
+        cell.daysElapsed.text = [NSString stringWithFormat:@"%ldD", self.isLightCalculationBasedOnAverage ? (long)avgDays : (long)days];
     } else {
-        cell.daysElapsed.text = nil;
+        if(self.isLightCalculationBasedOnAverage && avgDays > 0) {
+            cell.daysElapsed.text = [NSString stringWithFormat:@"%ldD", (long)avgDays];
+        } else {
+            cell.daysElapsed.text = nil;
+        }
     }
     
     if (days >= 30) {

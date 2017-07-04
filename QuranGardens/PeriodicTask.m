@@ -8,6 +8,7 @@
 
 #import "PeriodicTask.h"
 #import "DataSource.h"
+#import "AMRTools.h"
 
 static NSString * const PeriodicTaskNameKey = @"name";
 static NSString * const PeriodicTaskLastOccurrenceKey = @"lastOccurrence";
@@ -92,6 +93,12 @@ static NSString * const PeriodicTaskCycleIntervalKey = @"cycleInterval";
     _taskDescription = nil;
     _cycleInterval = [(NSNumber *)[plist objectForKey:PeriodicTaskCycleIntervalKey] doubleValue];
     //_lastOccurrence = (NSDate *)[plist objectForKey:PeriodicTaskLastOccurrenceKey];
+}
+
+- (NSTimeInterval)calculateAverageRefresh {
+    self.averageRefreshInterval = [AMRTools averageIntervalBetweenDatesInArray:self.history];
+    
+    return self.averageRefreshInterval;
 }
 
 @end

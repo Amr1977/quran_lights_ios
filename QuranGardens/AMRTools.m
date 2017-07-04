@@ -125,4 +125,22 @@
     return updateDate.stringValue;
 }
 
++(NSTimeInterval)averageIntervalBetweenDatesInArray:(NSArray<NSDate *> *)datesArray {
+    NSMutableArray<NSNumber *> *timeIntervalNumbers = @[].mutableCopy;
+    NSTimeInterval result = 0;
+    
+    for (NSInteger i = 1; i < datesArray.count; i = i + 1) {
+        NSTimeInterval interval = [datesArray[i] timeIntervalSinceDate:datesArray[i - 1]];
+        [timeIntervalNumbers addObject:[NSNumber numberWithInteger:interval]];
+    }
+    
+    for (NSNumber *intervalNumber in timeIntervalNumbers) {
+        result = result + [intervalNumber integerValue];
+    }
+    
+    result = result / timeIntervalNumbers.count;
+    
+    return result;
+}
+
 @end
