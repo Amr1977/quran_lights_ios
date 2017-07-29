@@ -602,12 +602,17 @@ UIButton *soundToggle;
 
 Boolean hasAppearedBefore;
 
+- (Boolean)hasCredentials{
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"email"] != nil &&
+    [[NSUserDefaults standardUserDefaults] stringForKey:@"password"] != nil;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [self showSortBar];
     
-    if (!hasAppearedBefore && !delegate.isSignedUp) {
+    if (!hasAppearedBefore && ![self hasCredentials]) {
         hasAppearedBefore = YES;
         [self showLoginView];
     }

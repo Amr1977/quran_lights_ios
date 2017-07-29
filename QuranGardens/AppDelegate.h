@@ -21,7 +21,6 @@
 @property (nonatomic) FIRDatabaseHandle refHandle;
 @property(strong, nonatomic) NSString *userID;
 @property (nonatomic) BOOL isSignedIn;
-@property (nonatomic) BOOL isSignedUp;
 @property (nonatomic) BOOL isConnected;
 
 @property (strong, nonatomic) NSMutableDictionary<NSString *,NSMutableArray<NSNumber *> *> *fbRefreshHistory;

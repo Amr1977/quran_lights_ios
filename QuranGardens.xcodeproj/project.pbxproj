@@ -274,7 +274,6 @@
 		076965A11C5B5D0700ED2D33 /* QuranGardens */ = {
 			isa = PBXGroup;
 			children = (
-				C53A358A1F2C958B00CCA831 /* SignUp */,
 				C5D5C3EE1F27ED060006FBB4 /* Quran Lights.entitlements */,
 				C5FECDDC1EC2194E0081C89D /* resources */,
 				C566F4571E21143200628A94 /* GoogleService-Info.plist */,
@@ -282,6 +281,7 @@
 				076965A61C5B5D0700ED2D33 /* AppDelegate.m */,
 				076965AB1C5B5D0700ED2D33 /* Main.storyboard */,
 				C568B17B1EAA02E900445642 /* SettingsViewController.xib */,
+				C53A358A1F2C958B00CCA831 /* SignUp */,
 				076965DD1C5B62AE00ED2D33 /* Controller */,
 				C50E590B1EBC54A00076C3D6 /* charts */,
 				C5A26AFB1EA26FD8009135D4 /* Formatters */,
