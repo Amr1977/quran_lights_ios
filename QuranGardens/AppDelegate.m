@@ -130,6 +130,7 @@ NetworkStatus remoteHostStatus;
                                  }
         }];
     } else {
+        //TODO: handle sign up
         [[FIRAuth auth]
          signInAnonymouslyWithCompletion:^(FIRUser *_Nullable user, NSError *_Nullable error) {
              if (!error) {

@@ -8,7 +8,6 @@
 
 #import "AMRTools.h"
 #import <AudioToolbox/AudioToolbox.h>
-#import <AVFoundation/AVFoundation.h>
 
 @implementation AMRTools
     
@@ -27,6 +26,9 @@
 }
     
 + (void)play:(NSString *)path {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SoundOffFlag"]) {
+        return;
+    }
     NSString *fullPath =[NSString stringWithFormat:@"%@/%@",[[NSBundle mainBundle] resourcePath], path];
         
     NSURL *soundUrl= [NSURL fileURLWithPath:fullPath];

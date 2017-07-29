@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @import UIKit;
+#import <AVFoundation/AVFoundation.h>
 
 @interface AMRTools : NSObject
     
@@ -17,6 +18,7 @@
 +(Boolean) isRTL;
 +(void)setLocaleArabic;
 +(void)setLocaleEnglish;
++ (AVAudioPlayer *)getPlayer;
 +(void)play:(NSString *)path;
 +(NSString *)uniqueID;
 +(NSTimeInterval)averageIntervalBetweenDatesInArray:(NSArray<NSDate *> *)datesArray;

@@ -350,10 +350,11 @@ UIButton *settingsButton;
 UIButton *fbButton;
 UIButton *overviewButton;
 UIButton *lightCalculationMethodButton;
+UIButton *soundToggle;
 
 - (void)setMenuButton{
 
-    CGRect imageFrame = CGRectMake(0, 0, 40, 40);
+    CGRect imageFrame = CGRectMake(0, 0, 30, 30);
     
     settingsButton = [[UIButton alloc] initWithFrame:imageFrame];
     [settingsButton setTitle:@"⚙️" forState:UIControlStateNormal];
@@ -382,7 +383,7 @@ UIButton *lightCalculationMethodButton;
    
     
     //overview mode
-    overviewButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    overviewButton = [[UIButton alloc] initWithFrame:imageFrame];
     [overviewButton setTitle:@"↕️" forState:UIControlStateNormal];//🔍🔇🔈
     [overviewButton addTarget:self
                  action:@selector(toggleOverView)
@@ -403,12 +404,35 @@ UIButton *lightCalculationMethodButton;
     [lightCalculationMethodButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *lightCalculationMethodItem = [[UIBarButtonItem alloc] initWithCustomView:lightCalculationMethodButton];
     
-    [UIView animateWithDuration:1 animations:^{
-        //self.navigationItem.rightBarButtonItem = menuButton;
-        self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, overviewItem, lightCalculationMethodItem];
-    }];
+    
+    //sound on/off
+    //overview mode
+    soundToggle = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    soundToggle.layer.cornerRadius = 10.0;
+    BOOL soundOffFlag = [[NSUserDefaults standardUserDefaults] boolForKey:@"SoundOffFlag"];
+    [soundToggle setTitle:soundOffFlag ? @"🔇" : @"🔈" forState:UIControlStateNormal];//🔍🔇🔈
+    [soundToggle addTarget:self
+                                     action:@selector(toggleSound)
+                           forControlEvents:UIControlEventTouchUpInside];
+    
+    [soundToggle setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *soundToggleItem = [[UIBarButtonItem alloc] initWithCustomView:soundToggle];
+    
+    self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, overviewItem, lightCalculationMethodItem, soundToggleItem];
     
     [self setSortButtons];
+}
+
+- (void)toggleSound{
+    BOOL soundON = ![[NSUserDefaults standardUserDefaults] boolForKey:@"SoundOffFlag"];
+    [[NSUserDefaults standardUserDefaults] setBool:soundON forKey:@"SoundOffFlag"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    if (!soundON) {
+        if ([AMRTools getPlayer] && [[AMRTools getPlayer] isPlaying]) {
+            [[AMRTools getPlayer] stop];
+        }
+    }
+    [soundToggle setTitle:soundON ? @"🔇" : @"🔈" forState:UIControlStateNormal];
 }
 
 - (void)toggleLightCalculationMethod {

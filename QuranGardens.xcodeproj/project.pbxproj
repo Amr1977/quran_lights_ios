@@ -47,7 +47,6 @@
 		C50E59181EBC55710076C3D6 /* PieChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50E59161EBC55710076C3D6 /* PieChartViewController.xib */; };
 		C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C5147FCA1E61BB5500DE699E /* Reachability.m */; };
 		C53533431EB14142005846C0 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53533411EB14142005846C0 /* IntroViewController.m */; };
-		C53533441EB14142005846C0 /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53533421EB14142005846C0 /* IntroViewController.xib */; };
 		C55B81D61ECEEB1E003A2523 /* PrayTime.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B81D51ECEEB1E003A2523 /* PrayTime.m */; };
 		C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C566F4571E21143200628A94 /* GoogleService-Info.plist */; };
 		C568B1761EAA02E200445642 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C568B1781EAA02E200445642 /* Login.storyboard */; };
@@ -59,6 +58,7 @@
 		C568B18A1EAA038100445642 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C568B18C1EAA038100445642 /* Localizable.strings */; };
 		C568B1981EAA27B800445642 /* NSString+Localization.m in Sources */ = {isa = PBXBuildFile; fileRef = C568B1971EAA27B800445642 /* NSString+Localization.m */; };
 		C56B782C1EA23E4200252039 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C56B782B1EA23E4200252039 /* Podfile */; };
+		C58BD3B21F29E0C2000BC3D7 /* QLUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C58BD3B11F29E0C2000BC3D7 /* QLUserManager.m */; };
 		C59A202F1E8116BD003C0F09 /* AMRTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C59A202E1E8116BD003C0F09 /* AMRTools.m */; };
 		C5A26AEB1EA24420009135D4 /* ChartsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AE91EA24420009135D4 /* ChartsViewController.m */; };
 		C5A26AEC1EA24420009135D4 /* ChartsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A26AEA1EA24420009135D4 /* ChartsViewController.xib */; };
@@ -170,7 +170,6 @@
 		C5147FCA1E61BB5500DE699E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C53533401EB14142005846C0 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		C53533411EB14142005846C0 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
-		C53533421EB14142005846C0 /* IntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroViewController.xib; sourceTree = "<group>"; };
 		C55B81D41ECEEB1E003A2523 /* PrayTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrayTime.h; sourceTree = "<group>"; };
 		C55B81D51ECEEB1E003A2523 /* PrayTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrayTime.m; sourceTree = "<group>"; };
 		C566F4571E21143200628A94 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -193,6 +192,8 @@
 		C568B1961EAA27B800445642 /* NSString+Localization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Localization.h"; sourceTree = "<group>"; };
 		C568B1971EAA27B800445642 /* NSString+Localization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Localization.m"; sourceTree = "<group>"; };
 		C56B782B1EA23E4200252039 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C58BD3B01F29E0C2000BC3D7 /* QLUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QLUserManager.h; sourceTree = "<group>"; };
+		C58BD3B11F29E0C2000BC3D7 /* QLUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QLUserManager.m; sourceTree = "<group>"; };
 		C59A202D1E8116BD003C0F09 /* AMRTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMRTools.h; sourceTree = "<group>"; };
 		C59A202E1E8116BD003C0F09 /* AMRTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMRTools.m; sourceTree = "<group>"; };
 		C5A26AE81EA24420009135D4 /* ChartsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartsViewController.h; sourceTree = "<group>"; };
@@ -214,6 +215,7 @@
 		C5A26B031EA27005009135D4 /* DateValueFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateValueFormatter.m; sourceTree = "<group>"; };
 		C5CC35151E2143A70070D14F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C5CC35161E2143A70070D14F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		C5D5C3EE1F27ED060006FBB4 /* Quran Lights.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Quran Lights.entitlements"; sourceTree = "<group>"; };
 		C5F17C471E69BB6B00476CA3 /* UIViewController+Gestures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Gestures.h"; sourceTree = "<group>"; };
 		C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Gestures.m"; sourceTree = "<group>"; };
 		CC0FB87F801C545BFDDA00FB /* Pods-QuranGardens.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranGardens.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens.debug.xcconfig"; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 		076965A11C5B5D0700ED2D33 /* QuranGardens */ = {
 			isa = PBXGroup;
 			children = (
+				C5D5C3EE1F27ED060006FBB4 /* Quran Lights.entitlements */,
 				C5FECDDC1EC2194E0081C89D /* resources */,
 				C566F4571E21143200628A94 /* GoogleService-Info.plist */,
 				076965A51C5B5D0700ED2D33 /* AppDelegate.h */,
@@ -297,7 +300,6 @@
 				C568B18C1EAA038100445642 /* Localizable.strings */,
 				C53533401EB14142005846C0 /* IntroViewController.h */,
 				C53533411EB14142005846C0 /* IntroViewController.m */,
-				C53533421EB14142005846C0 /* IntroViewController.xib */,
 			);
 			path = QuranGardens;
 			sourceTree = "<group>";
@@ -351,6 +353,8 @@
 				073AA6F11DB89E0300370847 /* Statistics.m */,
 				C502D5521ED48D0B00A7267F /* User.h */,
 				C502D5531ED48D0B00A7267F /* User.m */,
+				C58BD3B01F29E0C2000BC3D7 /* QLUserManager.h */,
+				C58BD3B11F29E0C2000BC3D7 /* QLUserManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -545,6 +549,11 @@
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = Q4635HRLC8;
 						LastSwiftMigration = 0820;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					076965B71C5B5D0700ED2D33 = {
 						CreatedOnToolsVersion = 7.1;
@@ -595,7 +604,6 @@
 				076965AD1C5B5D0700ED2D33 /* Main.storyboard in Resources */,
 				072594121D74AEB0009E5F05 /* charcount.txt in Resources */,
 				C568B17C1EAA02FD00445642 /* CubicLineChartViewController.xib in Resources */,
-				C53533441EB14142005846C0 /* IntroViewController.xib in Resources */,
 				07D7D30F1D9E885300CF4FE4 /* gold-star.png in Resources */,
 				C508370E1EBBB20000B54E94 /* rahman.mp3 in Resources */,
 				0750B0CA1D68F51C0081B1C4 /* reval.txt in Resources */,
@@ -680,6 +688,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5A26B061EA27005009135D4 /* LargeValueFormatter.swift in Sources */,
+				C58BD3B21F29E0C2000BC3D7 /* QLUserManager.m in Sources */,
 				C55B81D61ECEEB1E003A2523 /* PrayTime.m in Sources */,
 				C5F17C491E69BB6B00476CA3 /* UIViewController+Gestures.m in Sources */,
 				C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */,
@@ -924,6 +933,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "QuranGardens/Quran Lights.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = Q4635HRLC8;
@@ -951,6 +961,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "QuranGardens/Quran Lights.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = Q4635HRLC8;
