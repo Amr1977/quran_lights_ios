@@ -19,7 +19,7 @@
     self = [super init];
     if (self) {
         _dataSource = [DataSource shared];
-        [_dataSource load];
+        [_dataSource load:nil];
     }
     return self;
 }

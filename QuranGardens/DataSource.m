@@ -74,7 +74,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     
 }
 
-- (void)load{
+- (void)load:(void(^)(void))completion{
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFirebaseSignIn) name:FireBaseSignInNotification object:nil];
     [self loadUsers];
     [self loadSettings];
@@ -99,10 +99,9 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     
     NSLog(@"Load completed.");
     [self listTasksData];
-    
-//    [Sura readNumbersFromFile:@"versecount"];
-//    [Sura readNumbersFromFile:@"charcount"];
-//    [Sura readNumbersFromFile:@"wordcount"];
+    if(completion != nil){
+        completion();
+    }
 }
 
 - (void)save{
@@ -241,13 +240,20 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     return nil;
 }
 
-- (void)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName{
+- (void)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName {
+    [self saveSuraLastRefresh:lastRefreshDate suraName:suraName upload:YES];
+}
+
+- (void)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName upload:(Boolean)upload{
 
     //local
     [[NSUserDefaults standardUserDefaults] setObject:lastRefreshDate forKey:[self lastRefreshKeyForSuraName:suraName]];
     NSLog(@"saved for %@ refreshed at: %@",suraName,lastRefreshDate);
     PeriodicTask *task = [self getTaskWithSuraName:suraName];
     NSMutableArray<NSDate *> * oldHistory = task.history.mutableCopy;
+    if (!([oldHistory indexOfObject:lastRefreshDate] == NSNotFound)) {
+        return;
+    }
     [oldHistory addObject:lastRefreshDate];
     task.history = oldHistory;
     [[NSUserDefaults standardUserDefaults] setObject:task.history forKey:[self refreshHistoryKeyForSuraName:suraName]];
@@ -257,8 +263,11 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     //remote
-    NSNumber *dateStamp = [NSNumber numberWithLongLong:[lastRefreshDate timeIntervalSince1970]];
-    [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:suraName withDate:dateStamp];
+    if(upload) {
+        NSNumber *dateStamp = [NSNumber numberWithLongLong:[lastRefreshDate timeIntervalSince1970]];
+        [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:suraName withDate:dateStamp];
+    }
+    
     task.averageRefreshInterval = [AMRTools averageIntervalBetweenDatesInArray:task.history];
 }
 
@@ -371,10 +380,17 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)setMemorizedStateForSura:(NSString *)suraName state:(NSInteger)state {
+- (void)setMemorizedStateForSura:(NSString *)suraName state:(NSInteger)state upload:(Boolean)upload{
     [[NSUserDefaults standardUserDefaults] setInteger:state forKey:[self memorizedKeyForSuraName:suraName]];
-    [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:suraName withMemorization:state];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    if (upload) {
+        [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:suraName withMemorization:state];
+    }
+}
+
+- (void)setMemorizedStateForSura:(NSString *)suraName state:(NSInteger)state {
+    [self setMemorizedStateForSura:suraName state:state upload:YES];
 }
 
 - (void)saveMemorizedStateForTask:(PeriodicTask *)task{
@@ -481,7 +497,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     _currentUser = currentUser;
     [[NSUserDefaults standardUserDefaults] setObject:_currentUser.userId forKey:CurrentUserID];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [self load];
+    [self load:nil];
 }
 
 +(DataSource *)shared {

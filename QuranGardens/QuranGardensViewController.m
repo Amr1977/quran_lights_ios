@@ -104,6 +104,8 @@ AppDelegate *delegate;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncHistory) name:@"HistoryLoadedFromFireBase" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViews) name:@"UpdatedFromFireBase" object:nil];
+    
     self.sunImage = [UIImage imageNamed:@"sun.jpg"];
     self.recordImage = [UIImage imageNamed:@"record.png"];
     
@@ -1533,24 +1535,21 @@ static NSInteger tone = 0;
     self.selectedTask = task;
     
     [self showSuraMenu];
-    //[self applyCurrentSort];
-    //[self.collectionView reloadData];
 }
 
 - (void)refreshTask:(PeriodicTask *)task{
-    NSMutableArray<NSDate *>* history = [self.periodicTaskManager.dataSource loadRefreshHistoryForSuraName:task.name].mutableCopy;
-    if(!history){
-        history = @[].mutableCopy;
-    }
-    
-    //task.lastOccurrence = [[NSDate alloc] init];
-    
     [self.periodicTaskManager.dataSource saveSuraLastRefresh:[[NSDate alloc] init] suraName:task.name];
-    [self applyCurrentSort];
-    [self refreshScoreButton];
-    [self.collectionView reloadData];
-    
-    
+    [self refreshViews];
+}
+
+- (void)refreshViews{
+    [[DataSource shared] load: ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self applyCurrentSort];
+            [self refreshScoreButton];
+            [self.collectionView reloadData];
+        });
+    }];
 }
 
 - (void)applyCurrentSort{

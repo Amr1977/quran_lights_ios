@@ -22,7 +22,7 @@
 @property (strong, nonatomic) NSArray<NSNumber *> *suraVerseCount;
 @property (strong, nonatomic) NSArray<NSNumber *> *suraRevalOrder;
 
-- (void)load;
+- (void)load:(void(^)(void))completion;
 - (void)save;
 - (void)listTasksData;
 
@@ -35,6 +35,7 @@
 - (NSInteger)loadMemorizedStateForSura:(NSString *)suraName;
 - (void)saveMemorizedStateForSura:(NSString *)suraName;
 - (void)saveMemorizedStateForTask:(PeriodicTask *)task;
+- (void)setMemorizedStateForSura:(NSString *)suraName state:(NSInteger)state upload:(Boolean)upload;
 - (void)setMemorizedStateForSura:(NSString *)suraName state:(NSInteger)state;
 
 - (void)saveSuraMemorizationDate:(NSDate *)date suraName:(NSString *)suraName;
@@ -46,6 +47,7 @@
 - (void)saveSuraCyclePeriod:(NSTimeInterval)period suraName:(NSString *)suraName;
 
 - (NSDate *)loadSuraLastRefresh:(NSString *)suraName;
+- (void)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName upload:(Boolean)upload;
 - (void)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName;
 
 @property (strong, nonatomic) User *currentUser;
