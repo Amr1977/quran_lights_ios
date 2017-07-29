@@ -47,9 +47,10 @@
 		C50E59181EBC55710076C3D6 /* PieChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50E59161EBC55710076C3D6 /* PieChartViewController.xib */; };
 		C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C5147FCA1E61BB5500DE699E /* Reachability.m */; };
 		C53533431EB14142005846C0 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53533411EB14142005846C0 /* IntroViewController.m */; };
+		C53A35901F2CA6CC00CCA831 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53A358E1F2CA6CC00CCA831 /* SignupViewController.m */; };
+		C53A35911F2CA6CC00CCA831 /* SignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53A358F1F2CA6CC00CCA831 /* SignupViewController.xib */; };
 		C55B81D61ECEEB1E003A2523 /* PrayTime.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B81D51ECEEB1E003A2523 /* PrayTime.m */; };
 		C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C566F4571E21143200628A94 /* GoogleService-Info.plist */; };
-		C568B1761EAA02E200445642 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C568B1781EAA02E200445642 /* Login.storyboard */; };
 		C568B1791EAA02E900445642 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C568B17B1EAA02E900445642 /* SettingsViewController.xib */; };
 		C568B17C1EAA02FD00445642 /* CubicLineChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C568B17E1EAA02FD00445642 /* CubicLineChartViewController.xib */; };
 		C568B17F1EAA030800445642 /* FeedBackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C568B1811EAA030800445642 /* FeedBackViewController.xib */; };
@@ -69,7 +70,6 @@
 		C5A26B051EA27005009135D4 /* IntAxisValueFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26B001EA27005009135D4 /* IntAxisValueFormatter.m */; };
 		C5A26B061EA27005009135D4 /* LargeValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A26B011EA27005009135D4 /* LargeValueFormatter.swift */; };
 		C5A26B071EA27005009135D4 /* DateValueFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26B031EA27005009135D4 /* DateValueFormatter.m */; };
-		C5CC35171E2143A70070D14F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CC35161E2143A70070D14F /* LoginViewController.m */; };
 		C5F17C491E69BB6B00476CA3 /* UIViewController+Gestures.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */; };
 /* End PBXBuildFile section */
 
@@ -170,10 +170,12 @@
 		C5147FCA1E61BB5500DE699E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C53533401EB14142005846C0 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		C53533411EB14142005846C0 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
+		C53A358D1F2CA6CC00CCA831 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
+		C53A358E1F2CA6CC00CCA831 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
+		C53A358F1F2CA6CC00CCA831 /* SignupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignupViewController.xib; sourceTree = "<group>"; };
 		C55B81D41ECEEB1E003A2523 /* PrayTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrayTime.h; sourceTree = "<group>"; };
 		C55B81D51ECEEB1E003A2523 /* PrayTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrayTime.m; sourceTree = "<group>"; };
 		C566F4571E21143200628A94 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C568B1771EAA02E200445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		C568B17A1EAA02E900445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SettingsViewController.xib; sourceTree = "<group>"; };
 		C568B17D1EAA02FD00445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CubicLineChartViewController.xib; sourceTree = "<group>"; };
 		C568B1801EAA030800445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FeedBackViewController.xib; sourceTree = "<group>"; };
@@ -181,12 +183,8 @@
 		C568B1861EAA032F00445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LineChartTimeViewController.xib; sourceTree = "<group>"; };
 		C568B18B1EAA038100445642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C568B18D1EAA038E00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		C568B18E1EAA038E00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/Main.strings"; sourceTree = "<group>"; };
-		C568B18F1EAA038E00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/Login.strings"; sourceTree = "<group>"; };
-		C568B1901EAA038E00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/SettingsViewController.strings"; sourceTree = "<group>"; };
 		C568B1911EAA038E00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/CubicLineChartViewController.strings"; sourceTree = "<group>"; };
 		C568B1921EAA038E00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/LineChartTimeViewController.strings"; sourceTree = "<group>"; };
-		C568B1931EAA038E00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/FeedBackViewController.strings"; sourceTree = "<group>"; };
 		C568B1941EAA038F00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/SuraViewCell.strings"; sourceTree = "<group>"; };
 		C568B1951EAA038F00445642 /* ar-SA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-SA"; path = "ar-SA.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C568B1961EAA27B800445642 /* NSString+Localization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Localization.h"; sourceTree = "<group>"; };
@@ -213,8 +211,6 @@
 		C5A26B011EA27005009135D4 /* LargeValueFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeValueFormatter.swift; sourceTree = "<group>"; };
 		C5A26B021EA27005009135D4 /* DateValueFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateValueFormatter.h; sourceTree = "<group>"; };
 		C5A26B031EA27005009135D4 /* DateValueFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateValueFormatter.m; sourceTree = "<group>"; };
-		C5CC35151E2143A70070D14F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		C5CC35161E2143A70070D14F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		C5D5C3EE1F27ED060006FBB4 /* Quran Lights.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Quran Lights.entitlements"; sourceTree = "<group>"; };
 		C5F17C471E69BB6B00476CA3 /* UIViewController+Gestures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Gestures.h"; sourceTree = "<group>"; };
 		C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Gestures.m"; sourceTree = "<group>"; };
@@ -278,13 +274,13 @@
 		076965A11C5B5D0700ED2D33 /* QuranGardens */ = {
 			isa = PBXGroup;
 			children = (
+				C53A358A1F2C958B00CCA831 /* SignUp */,
 				C5D5C3EE1F27ED060006FBB4 /* Quran Lights.entitlements */,
 				C5FECDDC1EC2194E0081C89D /* resources */,
 				C566F4571E21143200628A94 /* GoogleService-Info.plist */,
 				076965A51C5B5D0700ED2D33 /* AppDelegate.h */,
 				076965A61C5B5D0700ED2D33 /* AppDelegate.m */,
 				076965AB1C5B5D0700ED2D33 /* Main.storyboard */,
-				C568B1781EAA02E200445642 /* Login.storyboard */,
 				C568B17B1EAA02E900445642 /* SettingsViewController.xib */,
 				076965DD1C5B62AE00ED2D33 /* Controller */,
 				C50E590B1EBC54A00076C3D6 /* charts */,
@@ -374,8 +370,6 @@
 				076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */,
 				07FAC8E81D66FA0000A18525 /* SettingsViewController.h */,
 				07FAC8E91D66FA0000A18525 /* SettingsViewController.m */,
-				C5CC35151E2143A70070D14F /* LoginViewController.h */,
-				C5CC35161E2143A70070D14F /* LoginViewController.m */,
 				C5F17C471E69BB6B00476CA3 /* UIViewController+Gestures.h */,
 				C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */,
 				C59A202D1E8116BD003C0F09 /* AMRTools.h */,
@@ -433,6 +427,16 @@
 				076965DA1C5B628200ED2D33 /* SuraViewCell.m */,
 			);
 			name = cell;
+			sourceTree = "<group>";
+		};
+		C53A358A1F2C958B00CCA831 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				C53A358D1F2CA6CC00CCA831 /* SignupViewController.h */,
+				C53A358E1F2CA6CC00CCA831 /* SignupViewController.m */,
+				C53A358F1F2CA6CC00CCA831 /* SignupViewController.xib */,
+			);
+			name = SignUp;
 			sourceTree = "<group>";
 		};
 		C5A26AFB1EA26FD8009135D4 /* Formatters */ = {
@@ -597,7 +601,6 @@
 				C50E59181EBC55710076C3D6 /* PieChartViewController.xib in Resources */,
 				C568B1851EAA032F00445642 /* LineChartTimeViewController.xib in Resources */,
 				076965B21C5B5D0700ED2D33 /* LaunchScreen.storyboard in Resources */,
-				C568B1761EAA02E200445642 /* Login.storyboard in Resources */,
 				C568B18A1EAA038100445642 /* Localizable.strings in Resources */,
 				076965AF1C5B5D0700ED2D33 /* Assets.xcassets in Resources */,
 				07D7D30D1D9E64FE00CF4FE4 /* safe.png in Resources */,
@@ -612,6 +615,7 @@
 				C568B1821EAA032300445642 /* SuraViewCell.xib in Resources */,
 				C50E590F1EBC55080076C3D6 /* PiePolylineChartViewController.xib in Resources */,
 				C5A26AEC1EA24420009135D4 /* ChartsViewController.xib in Resources */,
+				C53A35911F2CA6CC00CCA831 /* SignupViewController.xib in Resources */,
 				C568B17F1EAA030800445642 /* FeedBackViewController.xib in Resources */,
 				0750B0D21D68F6600081B1C4 /* arabic-sura-names in Resources */,
 				C568B1791EAA02E900445642 /* SettingsViewController.xib in Resources */,
@@ -702,11 +706,11 @@
 				C502D5541ED48D0B00A7267F /* User.m in Sources */,
 				C53533431EB14142005846C0 /* IntroViewController.m in Sources */,
 				07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */,
+				C53A35901F2CA6CC00CCA831 /* SignupViewController.m in Sources */,
 				C59A202F1E8116BD003C0F09 /* AMRTools.m in Sources */,
 				07FAC8EB1D66FA0000A18525 /* SettingsViewController.m in Sources */,
 				076965E01C5B630E00ED2D33 /* QuranGardensViewController.m in Sources */,
 				076965D81C5B60C600ED2D33 /* Sura.m in Sources */,
-				C5CC35171E2143A70070D14F /* LoginViewController.m in Sources */,
 				C50658351EA5D26000330A9B /* FeedBackViewController.m in Sources */,
 				C5A26B041EA27005009135D4 /* DayAxisValueFormatter.m in Sources */,
 				C568B1981EAA27B800445642 /* NSString+Localization.m in Sources */,
@@ -758,7 +762,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				076965AC1C5B5D0700ED2D33 /* Base */,
-				C568B18E1EAA038E00445642 /* ar-SA */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -772,20 +775,10 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		C568B1781EAA02E200445642 /* Login.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C568B1771EAA02E200445642 /* Base */,
-				C568B18F1EAA038E00445642 /* ar-SA */,
-			);
-			name = Login.storyboard;
-			sourceTree = "<group>";
-		};
 		C568B17B1EAA02E900445642 /* SettingsViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C568B17A1EAA02E900445642 /* Base */,
-				C568B1901EAA038E00445642 /* ar-SA */,
 			);
 			name = SettingsViewController.xib;
 			sourceTree = "<group>";
@@ -803,7 +796,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				C568B1801EAA030800445642 /* Base */,
-				C568B1931EAA038E00445642 /* ar-SA */,
 			);
 			name = FeedBackViewController.xib;
 			sourceTree = "<group>";

@@ -20,6 +20,7 @@
 #import "PiePolylineChartViewController.h"
 #import "PrayTime.h"
 #import "UsersViewController.h"
+#import "SignupViewController.h"
 @import AVFoundation;
 @import Charts;
 
@@ -84,9 +85,13 @@ CGFloat CellSmallWidth = 40;
 
 static NSMutableDictionary *operations;
 
+AppDelegate *delegate;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     [self setModalPresentationStyle:UIModalPresentationCurrentContext];
     
@@ -264,7 +269,7 @@ NSInteger currentKhatma = 0;
 }
 
 - (void)syncHistory{
-    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
 //    NSMutableDictionary<NSString *,NSMutableArray<NSNumber *> *> *fbRefreshHistory = delegate.fbRefreshHistory;
 //    NSMutableDictionary<NSString *,NSNumber *> *fbMemoHistory = delegate.fbMemorizationState;
     
@@ -431,11 +436,6 @@ UIButton *soundToggle;
     BOOL soundON = ![[NSUserDefaults standardUserDefaults] boolForKey:@"SoundOffFlag"];
     [[NSUserDefaults standardUserDefaults] setBool:soundON forKey:@"SoundOffFlag"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    if (!soundON) {
-        if ([AMRTools getPlayer] && [[AMRTools getPlayer] isPlaying]) {
-            [[AMRTools getPlayer] stop];
-        }
-    }
     [soundToggle setTitle:soundON ? @"🔇" : @"🔈" forState:UIControlStateNormal];
 }
 
@@ -593,7 +593,6 @@ UIButton *soundToggle;
     CellSmallHeight = sideLength;
 
     self.bottomBar.frame =  CGRectMake(0, self.view.frame.size.height - self.bottomBar.frame.size.height, self.view.frame.size.width, self.bottomBar.frame.size.height);
-
     
     
     [self applyCurrentSort];
@@ -601,12 +600,22 @@ UIButton *soundToggle;
     [self.collectionView reloadData];
 }
 
-
+Boolean hasAppearedBefore;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [self showSortBar];
+    
+    if (!hasAppearedBefore && !delegate.isSignedUp) {
+        hasAppearedBefore = YES;
+        [self showLoginView];
+    }
+}
+
+- (void)showLoginView{
+    SignupViewController *signupViewController = [[SignupViewController alloc] init];
+    [self.navigationController pushViewController:signupViewController animated:YES];
 }
 
 - (UIAlertController *)menu{

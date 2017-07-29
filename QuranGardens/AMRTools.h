@@ -23,4 +23,6 @@
 +(NSString *)uniqueID;
 +(NSTimeInterval)averageIntervalBetweenDatesInArray:(NSArray<NSDate *> *)datesArray;
 
++(BOOL)isValidEmail:(NSString *)checkString;
+
 @end

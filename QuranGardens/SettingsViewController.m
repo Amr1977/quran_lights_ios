@@ -8,9 +8,9 @@
 
 #import "SettingsViewController.h"
 #import "UIViewController+Gestures.h"
-#import "LoginViewController.h"
 #import "NSString+Localization.h"
 #import "AMRTools.h"
+#import "SignupViewController.h"
 
 static NSString * const YearTimeUnit = @"y";
 static NSString * const MonthTimeUnit = @"n";
@@ -284,9 +284,8 @@ static Settings* settingsCopy;
 }
 
 - (IBAction)onSignUp:(id)sender {
-    LoginViewController *loginviewController = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    
-    [self presentViewController:loginviewController animated:YES completion:nil];
+    SignupViewController *signupViewController = [[SignupViewController alloc] init];
+    [self.navigationController pushViewController:signupViewController animated:YES];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{

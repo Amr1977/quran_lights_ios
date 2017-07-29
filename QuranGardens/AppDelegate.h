@@ -37,7 +37,6 @@
 
 - (void)signUpWithEmail: (NSString *)email
                password: (NSString *)password
-               userName: (NSString *)userName
              completion: (void (^)(BOOL success, NSString *error))completion;
 
 - (void)signInWithEmail:(NSString *)email
