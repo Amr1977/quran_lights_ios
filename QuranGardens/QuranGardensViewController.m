@@ -173,6 +173,9 @@ static NSMutableDictionary *operations;
 
 NSInteger currentKhatma = 0;
 
+
+#pragma mark - Navigation items, score
+
 - (void)refreshScoreButton{
     NSInteger todayScore =  [self.statistics todayScore];
     NSInteger yesterdayScore = [self.statistics yesterdayScore];
@@ -213,7 +216,7 @@ NSInteger currentKhatma = 0;
     }
     
     
-    self.score.title = [NSString stringWithFormat:@"%@ %@(%@), KH:%ld, Light: %.2f%%",[[DataSource shared] getCurrentUser].name , totalString, todayString, (long)newKhatma, [self.statistics lightRatio] * 100];
+    self.score.title = [NSString stringWithFormat:@"%@ %@(%@), KH:%ld",[[DataSource shared] getCurrentUser].name, totalString, todayString, (long)newKhatma];
     
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
@@ -352,6 +355,7 @@ UIButton *overviewButton;
 UIButton *lightCalculationMethodButton;
 UIButton *soundToggle;
 
+#pragma mark - Navigation bar items
 - (void)setMenuButton{
 
     CGRect imageFrame = CGRectMake(0, 0, 30, 30);
