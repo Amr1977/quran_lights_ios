@@ -179,9 +179,9 @@ NSInteger currentKhatma = 0;
 - (void)refreshScoreButton{
     NSInteger todayScore =  [self.statistics todayScore];
     NSInteger yesterdayScore = [self.statistics yesterdayScore];
-    NSInteger total = [self.statistics totalScore];
+    //NSInteger total = [self.statistics totalScore];
     
-    NSString *totalString = [AMRTools abbreviateNumber:total withDecimal:1];
+    //NSString *totalString = [AMRTools abbreviateNumber:total withDecimal:1];
     NSString *todayString = [AMRTools abbreviateNumber:todayScore withDecimal:1];
     
     if (scoreButton == nil) {
@@ -216,7 +216,7 @@ NSInteger currentKhatma = 0;
     }
     
     
-    self.score.title = [NSString stringWithFormat:@"%@ %@(%@), KH:%ld",[[DataSource shared] getCurrentUser].name, totalString, todayString, (long)newKhatma];
+    self.score.title = [NSString stringWithFormat:@"%@", todayString];
     
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
