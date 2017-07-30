@@ -104,7 +104,7 @@ AppDelegate *delegate;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncHistory) name:@"HistoryLoadedFromFireBase" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshViews) name:@"UpdatedFromFireBase" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"UpdatedFromFireBase" object:nil];
     
     self.sunImage = [UIImage imageNamed:@"sun.jpg"];
     self.recordImage = [UIImage imageNamed:@"record.png"];
@@ -614,8 +614,7 @@ Boolean hasAppearedBefore;
     
     [self showSortBar];
     
-    if (!hasAppearedBefore && ![self hasCredentials]) {
-        hasAppearedBefore = YES;
+    if (![self hasCredentials]) {
         [self showLoginView];
     }
 }
@@ -1543,12 +1542,16 @@ static NSInteger tone = 0;
 }
 
 - (void)refreshViews{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self applyCurrentSort];
+        [self refreshScoreButton];
+        [self.collectionView reloadData];
+    });
+}
+
+- (void)reload{
     [[DataSource shared] load: ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self applyCurrentSort];
-            [self refreshScoreButton];
-            [self.collectionView reloadData];
-        });
+        [self refreshViews];
     }];
 }
 

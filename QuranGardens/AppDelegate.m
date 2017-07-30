@@ -15,7 +15,7 @@
 
 @interface AppDelegate ()
 
-
+@property (nonatomic) int updateCounter;
 
 @end
 
@@ -171,11 +171,18 @@ NetworkStatus remoteHostStatus;
 }
 
 //Only once per app install
+
+- (void)setUpdateCounter:(int)updateCounter{
+    _updateCounter = updateCounter;
+    [self updateSensor];
+}
+
 - (void)loadHistory{
     if (!self.userID || [[NSUserDefaults standardUserDefaults] boolForKey:@"didSyncBefore"]) {
         return;
     }
    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"didSyncBefore"];
+   
     
     //download all
     
@@ -197,9 +204,8 @@ NetworkStatus remoteHostStatus;
             }
             NSString *suraName = [Sura suraNames][index - 1];
             [[DataSource shared] saveSuraLastRefresh:date suraName:suraName upload:NO];
+            self.updateCounter++;
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase"
-                                                            object:self];
     }];
     
     FIRDatabaseReference *memoRef = [[[[self.firebaseDatabaseReference
@@ -219,9 +225,10 @@ NetworkStatus remoteHostStatus;
             }
             NSString *suraName = [Sura suraNames][index - 1];
             [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
+            self.updateCounter++;
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase"
-                                                            object:self];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase"
+//                                                            object:self];
     }];
     
     //upload all
@@ -244,12 +251,6 @@ NetworkStatus remoteHostStatus;
                                          child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
                                         child:@"memorization"];
     
-    FIRDatabaseReference *settingsRef = [[[[self.firebaseDatabaseReference
-                                           child:@"users"]
-                                          child: self.userID]
-                                         child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
-                                        child:@"settings"];
-    
     [reviewsRef observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSString *timeStamp = snapshot.key;
         NSString *suraIndex = snapshot.value;
@@ -261,8 +262,9 @@ NetworkStatus remoteHostStatus;
         }
         NSString *suraName = [Sura suraNames][index - 1];
         [[DataSource shared] saveSuraLastRefresh:date suraName:suraName upload:NO];
+        self.updateCounter++;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase" object:self];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase" object:self];
     }];
     
     [memoRef observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
@@ -274,8 +276,7 @@ NetworkStatus remoteHostStatus;
         }
         NSString *suraName = [Sura suraNames][index - 1];
         [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase" object:self];
+        self.updateCounter++;
     }];
     
     [memoRef observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
@@ -287,13 +288,25 @@ NetworkStatus remoteHostStatus;
         }
         NSString *suraName = [Sura suraNames][index - 1];
         [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase" object:self];
+        self.updateCounter++;
     }];
     
 //    [settingsRef observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
 //        
 //    }];
+}
+
+- (void)updateSensor{
+    int __block counter = self.updateCounter;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (counter == self.updateCounter && counter != 0) {
+            counter = 0;
+            self.updateCounter = 0;
+            NSLog(@"updateSensor: threshold elapsed, posting update notification");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase" object:self];
+        }
+    });
 }
 
 - (void)refreshSura:(NSString *)suraName withHistory:(NSArray *)history{
