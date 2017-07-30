@@ -177,6 +177,9 @@ NetworkStatus remoteHostStatus;
     [self updateSensor];
 }
 
+BOOL memorizationDownloaded;
+BOOL historyDownloaded;
+
 - (void)loadHistory{
     if (!self.userID || [[NSUserDefaults standardUserDefaults] boolForKey:@"didSyncBefore"]) {
         return;
@@ -193,6 +196,7 @@ NetworkStatus remoteHostStatus;
                                         child:@"reviews"];
     
     [reviewsRef observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSLog(@"reviewsRef observeSingleEventOfType:FIRDataEventTypeValue");
         for (FIRDataSnapshot *entry in snapshot.children) {
             NSString *timeStamp = entry.key;
             NSString *suraIndex = entry.value;
@@ -206,6 +210,10 @@ NetworkStatus remoteHostStatus;
             [[DataSource shared] saveSuraLastRefresh:date suraName:suraName upload:NO];
             self.updateCounter++;
         }
+        
+        historyDownloaded = YES;
+        [self uploadHistory];
+
     }];
     
     FIRDatabaseReference *memoRef = [[[[self.firebaseDatabaseReference
@@ -215,7 +223,7 @@ NetworkStatus remoteHostStatus;
                                      child:@"memorization"];
     
     [memoRef observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
+        NSLog(@"memoRef observeSingleEventOfType:FIRDataEventTypeValue");
         for (FIRDataSnapshot *entry in snapshot.children) {
             NSString *suraIndex = entry.key;
             NSInteger state = [entry.value integerValue];
@@ -227,25 +235,22 @@ NetworkStatus remoteHostStatus;
             [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
             self.updateCounter++;
         }
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase"
-//                                                            object:self];
+        memorizationDownloaded = YES;
+        [self uploadHistory];
     }];
-    
-    //upload all
-    for (PeriodicTask *task in [[DataSource shared] tasks]) {
-        [self refreshSura:task.name withHistory:task.history];
-        [self refreshSura:task.name withMemorization:task.memorizedState];
-    }
 }
 
+FIRDatabaseReference *reviewsRef;
+FIRDatabaseReference *memoRef;
+
 - (void)addFirObservers {
-    FIRDatabaseReference *reviewsRef = [[[[self.firebaseDatabaseReference
+    reviewsRef = [[[[self.firebaseDatabaseReference
                                               child:@"users"]
                                              child: self.userID]
                                             child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
                                            child:@"reviews"];
     
-    FIRDatabaseReference *memoRef = [[[[self.firebaseDatabaseReference
+    memoRef = [[[[self.firebaseDatabaseReference
                                            child:@"users"]
                                           child: self.userID]
                                          child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
@@ -257,10 +262,14 @@ NetworkStatus remoteHostStatus;
         NSTimeInterval interval = [timeStamp doubleValue];
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
         NSInteger index = [suraIndex integerValue];
+        
+        NSLog(@"reviewsRef FIRDataEventTypeChildAdded sura: %@, state: %@", timeStamp, suraIndex);
         if (index == 0) {
             return;
         }
         NSString *suraName = [Sura suraNames][index - 1];
+        
+        
         [[DataSource shared] saveSuraLastRefresh:date suraName:suraName upload:NO];
         self.updateCounter++;
         
@@ -271,24 +280,32 @@ NetworkStatus remoteHostStatus;
         NSString *suraIndex = snapshot.key;
         NSInteger state = [snapshot.value integerValue];
         NSInteger index = [suraIndex integerValue];
+        NSLog(@"memoRef FIRDataEventTypeChildAdded sura: %@, state: %ld", suraIndex, state);
         if (index == 0) {
             return;
         }
         NSString *suraName = [Sura suraNames][index - 1];
-        [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
-        self.updateCounter++;
+        if ([[DataSource shared] loadMemorizedStateForSura:suraName] != state) {
+            [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
+            self.updateCounter++;
+        }
     }];
     
     [memoRef observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        
         NSString *suraIndex = snapshot.key;
         NSInteger state = [snapshot.value integerValue];
         NSInteger index = [suraIndex integerValue];
+        NSLog(@"memoRef FIRDataEventTypeChildChanged sura: %@, state: %ld", suraIndex, state);
         if (index == 0) {
             return;
         }
         NSString *suraName = [Sura suraNames][index - 1];
-        [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
-        self.updateCounter++;
+        if ([[DataSource shared] loadMemorizedStateForSura:suraName] != state) {
+            [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
+            self.updateCounter++;
+        }
     }];
     
 //    [settingsRef observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
@@ -306,6 +323,34 @@ NetworkStatus remoteHostStatus;
             NSLog(@"updateSensor: threshold elapsed, posting update notification");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase" object:self];
         }
+    });
+}
+
+- (void)removeObservers{
+    [reviewsRef removeAllObservers];
+    [memoRef removeAllObservers];
+}
+
+- (void)uploadHistory{
+    if (!(memorizationDownloaded && historyDownloaded)) {
+        return;
+    }
+    
+    dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
+    
+    dispatch_async(myQueue, ^{
+        [self removeObservers];
+        [[DataSource shared] load:^{
+            
+            for (PeriodicTask *task in [[DataSource shared] tasks]) {
+                [self refreshSura:task.name withHistory:task.history];
+                if (task.memorizedState != 0) {
+                    [self refreshSura:task.name withMemorization:task.memorizedState];
+                }
+            }
+            [self addFirObservers];
+        }];
+        
     });
 }
 

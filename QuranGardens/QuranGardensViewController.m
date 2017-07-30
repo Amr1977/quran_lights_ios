@@ -121,8 +121,6 @@ AppDelegate *delegate;
     
     [self AddPeriodicRefresh];
     
-    [self startupHelpAlert];
-    
     //TODO: make singleton of data source to avoid this
     self.statistics = [[Statistics alloc] initWithDataSource:self.periodicTaskManager.dataSource];
     currentKhatma = [self.periodicTaskManager getCurrentKhatmaNumber];
@@ -616,6 +614,8 @@ Boolean hasAppearedBefore;
     
     if (![self hasCredentials]) {
         [self showLoginView];
+    } else {
+        [self startupHelpAlert];
     }
 }
 

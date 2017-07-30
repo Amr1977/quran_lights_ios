@@ -98,7 +98,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     }
     
     NSLog(@"Load completed.");
-    [self listTasksData];
+    //[self listTasksData];
     if(completion != nil){
         completion();
     }
