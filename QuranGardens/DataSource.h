@@ -47,8 +47,8 @@
 - (void)saveSuraCyclePeriod:(NSTimeInterval)period suraName:(NSString *)suraName;
 
 - (NSDate *)loadSuraLastRefresh:(NSString *)suraName;
-- (void)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName upload:(Boolean)upload;
-- (void)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName;
+- (BOOL)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName upload:(Boolean)upload;
+- (BOOL)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName;
 
 @property (strong, nonatomic) User *currentUser;
 

@@ -240,20 +240,27 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     return nil;
 }
 
-- (void)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName {
-    [self saveSuraLastRefresh:lastRefreshDate suraName:suraName upload:YES];
+- (BOOL)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName {
+    return [self saveSuraLastRefresh:lastRefreshDate suraName:suraName upload:YES];
 }
 
-- (void)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName upload:(Boolean)upload{
+- (BOOL)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName upload:(Boolean)upload{
 
-    //local
-    [[NSUserDefaults standardUserDefaults] setObject:lastRefreshDate forKey:[self lastRefreshKeyForSuraName:suraName]];
-    NSLog(@"saved for %@ refreshed at: %@",suraName,lastRefreshDate);
+    NSLog(@"saving for %@ refreshed at: %@",suraName,lastRefreshDate);
     PeriodicTask *task = [self getTaskWithSuraName:suraName];
     NSMutableArray<NSDate *> * oldHistory = task.history.mutableCopy;
-    if (!([oldHistory indexOfObject:lastRefreshDate] == NSNotFound)) {
-        return;
+    for (NSDate *date in oldHistory) {
+        double diff = [lastRefreshDate timeIntervalSince1970] - [date timeIntervalSince1970];
+        if (diff * diff < 9) {
+            //duplicate drop
+            NSLog(@"timestamp diff: %f dropped", diff);
+            return NO;
+        }
     }
+    
+    //local
+    [[NSUserDefaults standardUserDefaults] setObject:lastRefreshDate forKey:[self lastRefreshKeyForSuraName:suraName]];
+    
     [oldHistory addObject:lastRefreshDate];
     task.history = oldHistory;
     [[NSUserDefaults standardUserDefaults] setObject:task.history forKey:[self refreshHistoryKeyForSuraName:suraName]];
@@ -269,6 +276,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     }
     
     task.averageRefreshInterval = [AMRTools averageIntervalBetweenDatesInArray:task.history];
+    return YES;
 }
 
 - (NSString *)suraIndexFromSuraName:(NSString *)suraName{
@@ -405,7 +413,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 
 - (NSString *)userKey:(NSString *)key {
     NSString *result = [NSString stringWithFormat:@"%@%@",[self getCurrentUser].userId,key];
-    NSLog(@"converted key: [%@] to: [%@]", key, result);
+    //NSLog(@"converted key: [%@] to: [%@]", key, result);
     return result;
 }
 

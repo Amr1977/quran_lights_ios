@@ -101,9 +101,6 @@ AppDelegate *delegate;
     
     chartButtonImage = [[UIImage imageNamed:@"charts3"] imageWithRenderingMode: UIImageRenderingModeAlwaysTemplate];
     
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncHistory) name:@"HistoryLoadedFromFireBase" object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"UpdatedFromFireBase" object:nil];
     
     self.sunImage = [UIImage imageNamed:@"sun.jpg"];
@@ -267,65 +264,6 @@ NSInteger currentKhatma = 0;
         [self howItWorks];
     }
 }
-
-- (void)syncHistory{
-    
-//    NSMutableDictionary<NSString *,NSMutableArray<NSNumber *> *> *fbRefreshHistory = delegate.fbRefreshHistory;
-//    NSMutableDictionary<NSString *,NSNumber *> *fbMemoHistory = delegate.fbMemorizationState;
-    
-//    if (fbRefreshHistory == nil) {
-//        fbRefreshHistory = @{}.mutableCopy;
-//        delegate.fbRefreshHistory = @{}.mutableCopy;
-//    }
-    
-//    if (fbMemoHistory == nil) {
-//        fbMemoHistory = @{}.mutableCopy;
-//        delegate.fbMemorizationState = @{}.mutableCopy;
-//    }
-    
-    for (NSInteger index = 0; index < 114; index++) {
-        NSString *indexStr = [NSString stringWithFormat:@"%ld", (long)(index + 1)];
-//        if (fbRefreshHistory[indexStr] == nil) {
-//            fbRefreshHistory[indexStr] = @[].mutableCopy;
-//        }
-        NSString *suraName = [Sura suraNames][index];
-        NSMutableArray<NSNumber *>* localHistory  = [self mapDatesToNumbers:[self.periodicTaskManager.dataSource loadRefreshHistoryForSuraName:[Sura suraNames][index]].mutableCopy];
-        
-        NSLog(@"local history for %@ \n %@", suraName, localHistory);
-        
-//        NSMutableArray<NSNumber *>* remoteHistory = fbRefreshHistory[indexStr];
-//        if (remoteHistory == nil) {
-//            remoteHistory = @[].mutableCopy;
-//        }
-        
-//        [self.periodicTaskManager.dataSource setMemorizedStateForSura:suraName state:[fbMemoHistory[indexStr] integerValue]];
-//        NSLog(@"memorization state: %@ for sura %@", fbMemoHistory[indexStr], suraName);
-        
-        //update remote
-        NSInteger count = 0;
-        NSLog(@"\n\n");
-        for (NSNumber *number in localHistory) {
-            count++;
-            [delegate refreshSura:suraName withDate:number];
-            NSLog(@"Uploaded %d refresh for %@",count , suraName);
-            
-//            if ([remoteHistory indexOfObject:number] == NSNotFound) {
-//                
-//                [remoteHistory addObject:number];
-//            }
-        }
-        
-        //delegate.fbRefreshHistory[indexStr] = [delegate sort:remoteHistory];
-        //NSMutableArray *datesArray = [self mapNumbersToDates: delegate.fbRefreshHistory[indexStr]];
-        //[self.periodicTaskManager.dataSource setHistory:suraName history:datesArray];
-    }
-    
-    [delegate updateTimeStamp];
-    
-//    [self.collectionView reloadData];
-}
-
-
 
 - (NSMutableArray<NSNumber *> *)mapDatesToNumbers:(NSArray<NSDate *>*)source{
     NSMutableArray<NSNumber *> *result = @[].mutableCopy;
