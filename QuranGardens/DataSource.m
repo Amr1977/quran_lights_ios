@@ -90,7 +90,17 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
         }
         task.cycleInterval = interval;
         
-        task.history = [self loadRefreshHistoryForSuraName:suraName];
+        NSMutableArray<NSDate *> *history = [self loadRefreshHistoryForSuraName:suraName];
+        
+        [history sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            NSDate *date1 = (NSDate *)obj1;
+            NSDate *date2 = (NSDate *)obj2;
+            
+            return [date1 compare: date2];
+        }];
+        
+        task.history = history;
+        
         task.averageRefreshInterval = [AMRTools averageIntervalBetweenDatesInArray:task.history];
         task.memorizeDate = [self getSuraMemorizationDate:suraName];
         
@@ -284,7 +294,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 }
 
 - (NSMutableArray<NSDate *>*)loadRefreshHistoryForSuraName:(NSString *)suraName{
-    NSMutableArray<NSDate *>* history = [[NSUserDefaults standardUserDefaults] objectForKey:[self refreshHistoryKeyForSuraName:suraName]];
+    NSMutableArray<NSDate *>* history = ((NSArray<NSDate *>*)[[NSUserDefaults standardUserDefaults] objectForKey:[self refreshHistoryKeyForSuraName:suraName]]).mutableCopy;
     if(!history){
         history = @[].mutableCopy;
     }

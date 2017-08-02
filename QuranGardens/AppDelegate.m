@@ -295,57 +295,60 @@ FIRDatabaseReference *memoRef;
     //download all
     
     [reviewsRef observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        NSLog(@"reviewsRef observeSingleEventOfType:FIRDataEventTypeValue");
-        NSDictionary<NSString *, NSString *> *reviews = snapshot.value;
-        for (NSString *key in reviews.allKeys) {
-            NSString *timeStamp = key;
-            NSString *suraIndex = reviews[key];
-            NSTimeInterval interval = [timeStamp doubleValue];
-            NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
-            NSInteger index = [suraIndex integerValue];
-            if (index == 0) {
-                return;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSLog(@"reviewsRef observeSingleEventOfType:FIRDataEventTypeValue");
+            NSDictionary<NSString *, NSString *> *reviews = snapshot.value;
+            for (NSString *key in reviews.allKeys) {
+                NSString *timeStamp = key;
+                NSString *suraIndex = reviews[key];
+                NSTimeInterval interval = [timeStamp doubleValue];
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
+                NSInteger index = [suraIndex integerValue];
+                if (index == 0) {
+                    return;
+                }
+                NSString *suraName = [Sura suraNames][index - 1];
+                [[DataSource shared] saveSuraLastRefresh:date suraName:suraName upload:NO];
             }
-            NSString *suraName = [Sura suraNames][index - 1];
-            [[DataSource shared] saveSuraLastRefresh:date suraName:suraName upload:NO];
-        }
-        if (completion != nil) {
-            completion();
-        }
+            if (completion != nil) {
+                completion();
+            }
+        });
     }];
 }
 
 - (void)downloadMemoHistory:(void(^)(void))completion {
     [memoRef observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        NSLog(@"memoRef observeSingleEventOfType:FIRDataEventTypeValue");
-        for (FIRDataSnapshot *entry in snapshot.children) {
-            NSString *suraIndex = entry.key;
-            NSInteger state = [entry.value integerValue];
-            NSInteger index = [suraIndex integerValue];
-            if (index == 0) {
-                return;
-            }
-            NSString *suraName = [Sura suraNames][index - 1];
-            [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
-        }
-        if (completion != nil) {
-            completion();
-        }
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSLog(@"memoRef observeSingleEventOfType:FIRDataEventTypeValue");
+                for (FIRDataSnapshot *entry in snapshot.children) {
+                    NSString *suraIndex = entry.key;
+                    NSInteger state = [entry.value integerValue];
+                    NSInteger index = [suraIndex integerValue];
+                    if (index == 0) {
+                        return;
+                    }
+                    NSString *suraName = [Sura suraNames][index - 1];
+                    [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
+                }
+                if (completion != nil) {
+                    completion();
+                }
+            });
     }];
 
 }
 
 - (void)uploadHistory{
     
-    dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
-    
-    dispatch_async(myQueue, ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         for (PeriodicTask *task in [[DataSource shared] tasks]) {
             [self refreshSura:task.name withHistory:task.history];
             if (task.memorizedState != 0) {
                 [self refreshSura:task.name withMemorization:task.memorizedState];
             }
         }
+
     });
 }
 
