@@ -33,6 +33,7 @@ FIRDatabaseReference *memoRef;
     [self initReachability];
     [FIRApp configure];
     //[FIRDatabase database].persistenceEnabled = YES;
+    
     self.firebaseDatabaseReference = [[FIRDatabase database] reference];
     
     [self firebaseSignIn:^(BOOL success, NSString *error){
@@ -78,6 +79,8 @@ FIRDatabaseReference *memoRef;
                     [self syncHistory];
                 }
             }];
+        } else {
+           [self syncHistory];
         }
     } else {
        NSLog(@" No connection\n");
@@ -114,6 +117,7 @@ FIRDatabaseReference *memoRef;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [self syncHistory];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

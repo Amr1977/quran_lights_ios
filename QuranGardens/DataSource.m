@@ -272,7 +272,12 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     [[NSUserDefaults standardUserDefaults] setObject:lastRefreshDate forKey:[self lastRefreshKeyForSuraName:suraName]];
     
     [oldHistory addObject:lastRefreshDate];
-    task.history = oldHistory;
+    task.history = [oldHistory sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSDate *date1 = (NSDate *)obj1;
+        NSDate *date2 = (NSDate *)obj2;
+        return [date1 compare:date2];
+    }];
+    
     [[NSUserDefaults standardUserDefaults] setObject:task.history forKey:[self refreshHistoryKeyForSuraName:suraName]];
     
     NSNumber *updateDate =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];

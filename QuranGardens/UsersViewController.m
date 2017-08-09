@@ -9,6 +9,7 @@
 #import "UsersViewController.h"
 #import "DataSource.h"
 #import "NSString+Localization.h"
+#import "AppDelegate.h"
 
 @interface UsersViewController ()
 
@@ -94,6 +95,7 @@ NSInteger currentUserIndex = 0;
     [[DataSource shared] setCurrentUser:user];
     [self.tableView reloadData];
     [self updateUI];
+    [((AppDelegate *)[[UIApplication sharedApplication] delegate]) syncHistory];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

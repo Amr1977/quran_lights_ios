@@ -36,12 +36,14 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.9)
+  - MBProgressHUD (1.0.0)
 
 DEPENDENCIES:
   - Charts (from `DevPods/Charts`)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
+  - MBProgressHUD (~> 1.0.0)
 
 EXTERNAL SOURCES:
   Charts:
@@ -57,7 +59,8 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
 
-PODFILE CHECKSUM: eae7e460b9916998e92f6de3c08da01b14133fa5
+PODFILE CHECKSUM: 1cbe55f486df1c5be82d41a2a13607d94547b1e3
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.1

@@ -157,4 +157,36 @@
     return [emailTest evaluateWithObject:checkString];
 }
 
+#pragma mark - alert message
+
++ (void)showMenuWithTitle:(NSString *)title
+                  message:(NSString *)message
+           viewController:(UIViewController *)viewController
+                okHandler:(void(^)(UIAlertAction * action))okBlock
+            cancelHandler:(void(^)(UIAlertAction * action))cancelBlock
+{
+    UIAlertController *menu = [UIAlertController alertControllerWithTitle:title
+                                                                  message:message
+                                                           preferredStyle:UIAlertControllerStyleAlert];
+    
+    
+    UIAlertAction* okAction = [UIAlertAction actionWithTitle: @"OK"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:okBlock];
+    
+    [menu addAction:okAction];
+    
+    
+    if (cancelBlock != nil) {
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle: @"Cancel"
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:cancelBlock];
+        
+        [menu addAction:cancelAction];
+    }
+    
+    
+    [viewController presentViewController:menu animated:YES completion:nil];
+}
+
 @end

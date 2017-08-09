@@ -42,6 +42,8 @@
 
 - (void)refreshSura:(NSString *)suraName withMemorization:(NSInteger)memorization;
 
+- (void)syncHistory;
+
 @property (weak,nonatomic) DataSource *dataSource;
 
 @end

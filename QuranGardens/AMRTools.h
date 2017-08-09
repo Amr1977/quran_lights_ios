@@ -25,4 +25,10 @@
 
 +(BOOL)isValidEmail:(NSString *)checkString;
 
++ (void)showMenuWithTitle:(NSString *)title
+                  message:(NSString *)message
+           viewController:(UIViewController *)viewController
+                okHandler:(void(^)(UIAlertAction * action))okBlock
+            cancelHandler:(void(^)(UIAlertAction * action))cancelBlock;
+
 @end

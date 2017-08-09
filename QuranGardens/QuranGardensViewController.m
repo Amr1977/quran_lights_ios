@@ -25,7 +25,7 @@
 @import Charts;
 
 CGFloat const CellHeight = 80;
-CGFloat const CellWidth = 140;
+CGFloat const CellWidth = 125;
 
 
 NSInteger const RefreshPeriod = 300; // refresh each 5 minutes;
@@ -169,9 +169,9 @@ AppDelegate *delegate;
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/QuranicLights/"]];
 }
     
-    - (IBAction)onScoreTabbed:(id)sender {
-        [self usersMenu];
-    }
+- (IBAction)onScoreTabbed:(id)sender {
+    [self usersMenu];
+}
 
 NSInteger currentKhatma = 0;
 
@@ -197,7 +197,7 @@ NSInteger currentKhatma = 0;
                         action:@selector(showCharts)
               forControlEvents:UIControlEventTouchUpInside];
         
-        [scoreButton setShowsTouchWhenHighlighted:YES];
+        [scoreButton setShowsTouchWhenHighlighted:YES];//👤
         
         UIBarButtonItem *chartsItem = [[UIBarButtonItem alloc] initWithCustomView:scoreButton];
         

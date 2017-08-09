@@ -10,5 +10,6 @@ target "QuranGardens" do
     #pod 'Charts'
     pod ‘Charts’, :path => 'DevPods/Charts’
     #pod 'Realm'
+    pod 'MBProgressHUD', '~> 1.0.0'
 
 end
