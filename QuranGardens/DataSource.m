@@ -75,22 +75,30 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 }
 
 - (void)load:(void(^)(void))completion{
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFirebaseSignIn) name:FireBaseSignInNotification object:nil];
+    
     [self loadUsers];
     [self loadSettings];
-    self.tasks = @[].mutableCopy;
-    for (NSString *suraName in [Sura suraNames]) {
-        NSTimeInterval interval = self.settings.fadeTime;//[[[NSUserDefaults standardUserDefaults] objectForKey:[self cyclePeriodKeyForSuraName:suraName]] doubleValue];
+    
+    //Tasks are constructed only once and modified many times to avoid mutated while being enumerated exception
+    if (self.tasks == nil) {
+        self.tasks = @[].mutableCopy;
+        for (NSString *suraName in [Sura suraNames]) {
+            PeriodicTask *task = [[PeriodicTask alloc] init];
+            task.name = suraName;
+            [self.tasks addObject:task];
+        }
+    }
+    
+    for (PeriodicTask *task in self.tasks) {
+        NSTimeInterval interval = self.settings.fadeTime;
 
-        PeriodicTask *task = [[PeriodicTask alloc] init];
-        task.name = suraName;
-        task.memorizedState = [self loadMemorizedStateForSura:suraName];
+        task.memorizedState = [self loadMemorizedStateForSura:task.name];
         if (!interval) {
             interval = DefaultCycleInterval;
         }
         task.cycleInterval = interval;
         
-        NSMutableArray<NSDate *> *history = [self loadRefreshHistoryForSuraName:suraName];
+        NSMutableArray<NSDate *> *history = [self loadRefreshHistoryForSuraName:task.name];
         
         [history sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             NSDate *date1 = (NSDate *)obj1;
@@ -102,13 +110,11 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
         task.history = history;
         
         task.averageRefreshInterval = [AMRTools averageIntervalBetweenDatesInArray:task.history];
-        task.memorizeDate = [self getSuraMemorizationDate:suraName];
-        
-        [self.tasks addObject:task];
+        task.memorizeDate = [self getSuraMemorizationDate:task.name];
     }
     
     NSLog(@"Load completed.");
-    //[self listTasksData];
+    
     if(completion != nil){
         completion();
     }
