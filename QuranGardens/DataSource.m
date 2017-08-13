@@ -261,7 +261,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     NSMutableArray<NSDate *> * oldHistory = task.history.mutableCopy;
     for (NSDate *date in oldHistory) {
         double diff = [lastRefreshDate timeIntervalSince1970] - [date timeIntervalSince1970];
-        if (diff * diff < 9) {
+        if (diff * diff < 1) {
             //duplicate drop
             NSLog(@"timestamp diff: %f dropped", diff);
             return NO;

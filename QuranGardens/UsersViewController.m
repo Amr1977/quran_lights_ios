@@ -95,7 +95,6 @@ NSInteger currentUserIndex = 0;
     [[DataSource shared] setCurrentUser:user];
     [self.tableView reloadData];
     [self updateUI];
-    [((AppDelegate *)[[UIApplication sharedApplication] delegate]) syncHistory];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

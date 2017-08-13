@@ -91,6 +91,8 @@ AppDelegate *delegate;
 {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFirebaseInvalidCredentials) name:@"FirebaseInvalidCredentials" object:nil];
+    
     delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     [self setModalPresentationStyle:UIModalPresentationCurrentContext];
@@ -129,6 +131,11 @@ AppDelegate *delegate;
     
     self.collectionView.layer.shouldRasterize = YES;
     self.bottomBar.layer.shouldRasterize = YES;
+}
+
+- (void) onFirebaseInvalidCredentials {
+    
+    [self showLoginView];
 }
 
 - (void)usersMenu{
@@ -550,7 +557,7 @@ Boolean hasAppearedBefore;
     
     [self showSortBar];
     
-    if (![self hasCredentials]) {
+    if (![self hasCredentials] && delegate.isConnected) {
         [self showLoginView];
     } else {
         [self startupHelpAlert];

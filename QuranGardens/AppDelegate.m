@@ -24,9 +24,6 @@
 Reachability* reachability;
 NetworkStatus remoteHostStatus;
 
-FIRDatabaseReference *reviewsRef;
-FIRDatabaseReference *memoRef;
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [BuddyBuildSDK setup];
@@ -45,12 +42,17 @@ FIRDatabaseReference *memoRef;
     return YES;
 }
 
+//TODO sync all members, not just current member !!!
 - (void)syncHistory {
-    [self createFirebaseDBRefs];
-    [self downloadReviewsHistory: ^{
-        [self downloadMemoHistory: ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase" object:self];
-            [self uploadHistory];
+    [self onTimeStampAltered:^{
+        [self downloadReviewsHistory: ^{
+            [self downloadMemoHistory: ^{
+                [self uploadHistory:^{
+                    [self updateTimeStamp];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase"
+                                                                        object:self];
+                }];
+            }];
         }];
     }];
 }
@@ -117,7 +119,7 @@ FIRDatabaseReference *memoRef;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    [self syncHistory];
+    //[self syncHistory];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -166,7 +168,13 @@ FIRDatabaseReference *memoRef;
             
         } else {
             self.isSignedIn = NO;
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"email"];
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"password"];
             NSLog(@"Error signing in to firebase %@", error);
+            if (self.isConnected) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"FirebaseInvalidCredentials" object:self];
+            }
+            
             if (completion != nil) {
                 completion(NO, error.localizedDescription);
             }
@@ -190,7 +198,6 @@ FIRDatabaseReference *memoRef;
             [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"email"];
             [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
             NSLog(@"firebaseSignIn created user %@ ", user);
-            [self createFirebaseDBRefs];
             [self syncHistory];
             completion(YES, nil);
         }
@@ -204,92 +211,78 @@ FIRDatabaseReference *memoRef;
 //    [self updateSensor];
 //}
 
-- (void)createFirebaseDBRefs {
-    reviewsRef = [[[[self.firebaseDatabaseReference
-                     child:@"users"]
-                    child: self.userID]
-                   child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
-                  child:@"reviews"];
-    
-    memoRef = [[[[self.firebaseDatabaseReference
-                  child:@"users"]
-                 child: self.userID]
-                child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
-               child:@"memorization"];
-    
+- (FIRDatabaseReference *)reviewsRef {
+    return [[[[self.firebaseDatabaseReference
+               child:@"users"]
+              child: self.userID]
+             child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
+            child:@"reviews"];
 }
 
-//- (void)addFirObservers {
-//    
-//    [self removeObservers];
-//    
-//    [reviewsRef observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-//        NSString *timeStamp = snapshot.key;
-//        NSString *suraIndex = snapshot.value;
-//        NSTimeInterval interval = [timeStamp doubleValue];
-//        NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
-//        NSInteger index = [suraIndex integerValue];
-//        
-//        NSLog(@"reviewsRef FIRDataEventTypeChildAdded timestamp: %@, sura index: %@", timeStamp, suraIndex);
-//        if (index == 0) {
-//            return;
-//        }
-//        NSString *suraName = [Sura suraNames][index - 1];
-//        
-//        if ([[DataSource shared] saveSuraLastRefresh:date suraName:suraName upload:NO]) {
-//            self.updateCounter++;
-//        }
-//    }];
-//    
-//    [memoRef observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-//        NSString *suraIndex = snapshot.key;
-//        NSInteger state = [snapshot.value integerValue];
-//        NSInteger index = [suraIndex integerValue];
-//        NSLog(@"memoRef FIRDataEventTypeChildAdded sura: %@, state: %ld", suraIndex, state);
-//        if (index == 0) {
-//            return;
-//        }
-//        NSString *suraName = [Sura suraNames][index - 1];
-//        if ([[DataSource shared] loadMemorizedStateForSura:suraName] != state) {
-//            [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
-//            self.updateCounter++;
-//        }
-//    }];
-//    
-//    [memoRef observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-//        
-//        NSString *suraIndex = snapshot.key;
-//        NSInteger state = [snapshot.value integerValue];
-//        NSInteger index = [suraIndex integerValue];
-//        NSLog(@"memoRef FIRDataEventTypeChildChanged sura: %@, state: %ld", suraIndex, state);
-//        if (index == 0) {
-//            return;
-//        }
-//        NSString *suraName = [Sura suraNames][index - 1];
-//        if ([[DataSource shared] loadMemorizedStateForSura:suraName] != state) {
-//            [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
-//            self.updateCounter++;
-//        }
-//    }];
-//    
-//}
-
-//- (void)updateSensor{
-//    int __block counter = self.updateCounter;
-//    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        if (counter == self.updateCounter && counter != 0) {
-//            counter = 0;
-//            self.updateCounter = 0;
-//            NSLog(@"updateSensor: threshold elapsed, posting update notification");
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase" object:self];
-//        }
-//    });
-//}
+- (FIRDatabaseReference *)memoRef {
+    return [[[[self.firebaseDatabaseReference
+               child:@"users"]
+              child: self.userID]
+             child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
+            child:@"memorization"];
+}
 
 - (void)removeObservers{
-    [reviewsRef removeAllObservers];
-    [memoRef removeAllObservers];
+    [[self reviewsRef] removeAllObservers];
+    [[self memoRef] removeAllObservers];
+}
+
+- (NSNumber *)currentLocalTimeStamp {
+    NSString *userTimeStamp = [[DataSource shared] userKey:@"UpdateTimeStamp"];
+    return (NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:userTimeStamp];
+}
+
+- (void)updateLocalTimeStamp {
+    NSNumber *date = [NSNumber numberWithDouble: [[NSDate new] timeIntervalSince1970]];
+    NSString *userTimeStamp = [[DataSource shared] userKey:@"UpdateTimeStamp"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:date
+                                              forKey:userTimeStamp];
+}
+
+- (void)updateTimeStamp {
+    NSNumber *date = [NSNumber numberWithDouble: [[NSDate new] timeIntervalSince1970]];
+    NSString *userTimeStamp = [[DataSource shared] userKey:@"UpdateTimeStamp"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:date
+                                              forKey:userTimeStamp];
+    [[[[[self.firebaseDatabaseReference
+       child:@"users"]
+       child: self.userID]
+      child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
+      child:@"update_stamp"] setValue:date];
+}
+
+- (void)remoteTimeStamp:(void(^)(NSNumber *timestamp))completion {
+    [[[[[self.firebaseDatabaseReference
+        child:@"users"]
+       child: self.userID]
+      child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
+      child:@"update_stamp"] observeSingleEventOfType: FIRDataEventTypeValue
+     withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSLog(@"timestamp snapshot %@", snapshot);
+        if (completion == nil) return;
+        if([snapshot exists]) {
+             NSNumber *timestamp = (NSNumber *)[snapshot value];
+             completion(timestamp);
+         } else {
+             completion(nil);
+         }
+     }];
+}
+
+- (void)onTimeStampAltered:(void(^)(void))completion{
+    __block NSNumber *localTimeStamp = [self currentLocalTimeStamp];
+    [self remoteTimeStamp:^(NSNumber *timestamp) {
+        if ((timestamp == nil || [timestamp integerValue] != [localTimeStamp integerValue]) && completion != nil ) {
+            completion();
+        }
+    }];
 }
 
 - (void)downloadReviewsHistory:(void(^)(void))completion {
@@ -298,7 +291,7 @@ FIRDatabaseReference *memoRef;
     }
     //download all
     
-    [reviewsRef observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [[self reviewsRef] observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSLog(@"reviewsRef observeSingleEventOfType:FIRDataEventTypeValue");
             NSDictionary<NSString *, NSString *> *reviews = snapshot.value;
@@ -322,7 +315,8 @@ FIRDatabaseReference *memoRef;
 }
 
 - (void)downloadMemoHistory:(void(^)(void))completion {
-    [memoRef observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+//TODO: if user switched while downloading data will be saved in other user history!!!!!
+    [[self memoRef] observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSLog(@"memoRef observeSingleEventOfType:FIRDataEventTypeValue");
                 for (FIRDataSnapshot *entry in snapshot.children) {
@@ -343,24 +337,32 @@ FIRDatabaseReference *memoRef;
 
 }
 
-- (void)uploadHistory{
-    
+- (void)uploadHistory:(void(^)(void))completion{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        for (PeriodicTask *task in [[DataSource shared] tasks]) {
-            [self refreshSura:task.name withHistory:task.history];
-            if (task.memorizedState != 0) {
-                [self refreshSura:task.name withMemorization:task.memorizedState];
+        for (NSString *suraName in [Sura suraNames]) {
+            NSMutableArray<NSDate *> *history = [[DataSource shared] loadRefreshHistoryForSuraName:suraName];
+            NSInteger memoState = [[DataSource shared] loadMemorizedStateForSura:suraName];
+            if (history != nil && history.count > 0){
+                [self refreshSura:suraName withHistory:history];
+            }
+            
+            if (memoState != 0) {
+                [self refreshSura:suraName withMemorization:memoState];
             }
         }
-
+        
+        if(completion != nil){
+            completion();
+        }
     });
 }
 
 - (NSString *)suraNameToIndexString:(NSString *)suraName {
-    return [NSString stringWithFormat:@"%ld", [[Sura suraNames] indexOfObject:suraName] + 1];
+    return [NSString stringWithFormat:@"%u", [[Sura suraNames] indexOfObject:suraName] + 1];
 }
 
 - (void)refreshSura:(NSString *)suraName withHistory:(NSArray *)history{
+    [self updateTimeStamp];
     if (!self.userID) {
         return;
     }
@@ -379,7 +381,7 @@ FIRDatabaseReference *memoRef;
 }
 
 - (void)refreshSura:(NSString *)suraName{
-    
+    [self updateTimeStamp];
     if (self.userID) {
         [self removeObservers];
 
@@ -397,6 +399,7 @@ FIRDatabaseReference *memoRef;
 }
 
 - (void)refreshSura:(NSString *)suraName withMemorization:(NSInteger)memorization{
+    [self updateTimeStamp];
     
     if (self.userID) {
         [self removeObservers];
@@ -412,6 +415,8 @@ FIRDatabaseReference *memoRef;
 }
 
 - (void)refreshSura:(NSString *)suraName withDate:(NSNumber *)date {
+    [self updateTimeStamp];
+    
     if (self.userID) {
         [self removeObservers];
 

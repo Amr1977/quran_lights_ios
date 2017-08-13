@@ -109,7 +109,7 @@
     NSString *numberString = [self floatToString:number];
     abbrevNum = [NSString stringWithFormat:@"%@%@", numberString, unit];
     
-    NSLog(@"%@", abbrevNum);
+    //NSLog(@"%@", abbrevNum);
     
     return abbrevNum;
 }

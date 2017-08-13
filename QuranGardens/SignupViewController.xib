@@ -78,9 +78,8 @@
                         <action selector="resetPassword" destination="-1" eventType="touchUpInside" id="z4X-YM-Su3"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lOZ-ha-uVa" userLabel="show_password">
-                    <rect key="frame" x="291" y="229" width="46" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lOZ-ha-uVa" userLabel="show_password">
+                    <rect key="frame" x="291" y="229" width="30" height="30"/>
                     <state key="normal" title="👁"/>
                     <connections>
                         <action selector="toggleShowPassword:" destination="-1" eventType="touchUpInside" id="rFQ-aJ-dXe"/>
@@ -94,8 +93,10 @@
                 <constraint firstItem="w73-yO-myb" firstAttribute="width" secondItem="9vM-Bz-Ahy" secondAttribute="width" id="KTU-us-18E"/>
                 <constraint firstItem="Nhx-8a-7nT" firstAttribute="height" secondItem="Ay0-NO-kfb" secondAttribute="height" id="LzA-QM-MWQ"/>
                 <constraint firstItem="Ay0-NO-kfb" firstAttribute="top" secondItem="w73-yO-myb" secondAttribute="bottom" constant="27" id="S2v-Ln-bIl"/>
+                <constraint firstItem="lOZ-ha-uVa" firstAttribute="leading" secondItem="w73-yO-myb" secondAttribute="trailing" constant="13.5" id="Tb5-Hb-XeO"/>
                 <constraint firstItem="Nhx-8a-7nT" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Wff-fm-vhe"/>
                 <constraint firstItem="w73-yO-myb" firstAttribute="top" secondItem="9vM-Bz-Ahy" secondAttribute="bottom" constant="31" id="Wkg-1K-K2s"/>
+                <constraint firstItem="lOZ-ha-uVa" firstAttribute="centerY" secondItem="w73-yO-myb" secondAttribute="centerY" id="dNb-bK-8yp"/>
                 <constraint firstItem="9vM-Bz-Ahy" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="dvP-Ek-UGx"/>
                 <constraint firstItem="w73-yO-myb" firstAttribute="height" secondItem="9vM-Bz-Ahy" secondAttribute="height" id="gGx-NQ-uxZ"/>
                 <constraint firstItem="9vM-Bz-Ahy" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-150" id="ggw-Qt-Bg4"/>
