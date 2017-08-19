@@ -44,16 +44,45 @@ NetworkStatus remoteHostStatus;
 
 //TODO sync all members, not just current member !!!
 - (void)syncHistory {
-    [self onTimeStampAltered:^{
-        [self downloadReviewsHistory: ^{
-            [self downloadMemoHistory: ^{
-                [self uploadHistory:^{
-                    [self updateTimeStamp];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase"
-                                                                        object:self];
+    [self syncMembers:^{
+        NSLog(@"Members synced.");
+        [self onTimeStampAltered:^{
+            [self downloadReviewsHistory: ^{
+                [self downloadMemoHistory: ^{
+                    [self uploadHistory:^{
+                        [self updateTimeStamp];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase"
+                                                                            object:self];
+                    }];
                 }];
             }];
         }];
+    }];
+}
+
+- (void)syncMembers:(void(^)(void))completion{
+    //members node children
+    [[self membersRef] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        if (snapshot.value != [NSNull null]) {
+            NSDictionary<NSString *, NSString *> *members = snapshot.value;
+            
+            for (NSString *key in [members allKeys]) {
+                [[DataSource shared] addUser:members[key] userId:key];
+            }
+        }
+        
+        NSMutableArray<User *> *localMembers = [[DataSource shared] getUsers];
+        for (User *member in localMembers) {
+            if ([member.name isEqualToString:@"Master"]) {
+                continue;
+            }
+            [self addMemberWithId:[member userId] name:[member name]];
+        }
+        
+        if(completion != nil) {
+            completion();
+        }
     }];
 }
 
@@ -225,6 +254,17 @@ NetworkStatus remoteHostStatus;
               child: self.userID]
              child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
             child:@"memorization"];
+}
+
+- (FIRDatabaseReference *)membersRef {
+    return [[[self.firebaseDatabaseReference
+               child:@"users"]
+              child: self.userID]
+             child:@"members"];
+}
+
+- (void)addMemberWithId:(NSString *)memberId name:(NSString *)name {
+    [[[self membersRef] child:memberId] setValue:name];
 }
 
 - (void)removeObservers{

@@ -53,6 +53,7 @@
 @property (strong, nonatomic) User *currentUser;
 
 - (void)addUser:(NSString *)userName;
+- (void)addUser:(NSString *)userName userId:(NSString *)userId;
 - (void)removeUser:(NSString *)userName;
 - (void)renameUserOldName:(NSString *)oldName newName:(NSString *)newName;
 

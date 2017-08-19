@@ -450,6 +450,18 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     [self saveUsers];
 }
 
+- (void)addUser:(NSString *)userName userId:(NSString *)userId {
+    if (userName == nil || [self userExists:userName]) {
+        return;
+    }
+    
+    User *user = [[User alloc] init];
+    user.userId = userId;
+    user.name = userName;
+    [self.users addObject:user];
+    [self saveUsers];
+}
+
 - (Boolean)userExists:(NSString *)name {
     for (User *user in self.users) {
         if ([[user.name lowercaseString] isEqualToString:[name lowercaseString]]) {

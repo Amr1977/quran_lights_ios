@@ -45,6 +45,8 @@
 - (void)syncHistory;
 - (void)updateTimeStamp;
 
+- (void)addMemberWithId:(NSString *)memberId name:(NSString *)name;
+
 @property (weak,nonatomic) DataSource *dataSource;
 
 @end
