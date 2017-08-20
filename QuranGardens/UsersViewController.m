@@ -56,7 +56,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     }
     cell.textLabel.text = ((User *) [[DataSource shared] getUsers][indexPath.row]).name;
-    
+    if ([cell isSelected]) {
+        cell.contentView.backgroundColor = [UIColor blueColor];
+    } else {
+        cell.contentView.backgroundColor = [UIColor clearColor];
+    }
     
     return cell;
 }

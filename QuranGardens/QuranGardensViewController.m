@@ -21,8 +21,10 @@
 #import "PrayTime.h"
 #import "UsersViewController.h"
 #import "SignupViewController.h"
+#import "MBProgressHUD.h"
 @import AVFoundation;
 @import Charts;
+
 
 CGFloat const CellHeight = 80;
 CGFloat const CellWidth = 125;
@@ -92,6 +94,7 @@ AppDelegate *delegate;
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFirebaseInvalidCredentials) name:@"FirebaseInvalidCredentials" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFirebaseWillStartSync) name:@"WillStartUpdatedFromFireBase" object:nil];
     
     delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
@@ -131,6 +134,12 @@ AppDelegate *delegate;
     
     self.collectionView.layer.shouldRasterize = YES;
     self.bottomBar.layer.shouldRasterize = YES;
+}
+
+- (void)onFirebaseWillStartSync {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    });
 }
 
 - (void) onFirebaseInvalidCredentials {
@@ -1497,6 +1506,9 @@ static NSInteger tone = 0;
 - (void)reload{
     [[DataSource shared] load: ^{
         [self refreshViews];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
     }];
 }
 

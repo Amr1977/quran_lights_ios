@@ -47,6 +47,8 @@ NetworkStatus remoteHostStatus;
     [self syncMembers:^{
         NSLog(@"Members synced.");
         [self onTimeStampAltered:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"WillStartUpdatedFromFireBase"
+                                                                object:self];
             [self downloadReviewsHistory: ^{
                 [self downloadMemoHistory: ^{
                     [self uploadHistory:^{
@@ -264,7 +266,10 @@ NetworkStatus remoteHostStatus;
 }
 
 - (void)addMemberWithId:(NSString *)memberId name:(NSString *)name {
-    [[[self membersRef] child:memberId] setValue:name];
+    if (![name isEqualToString:@"Master"]) {
+        [[[self membersRef] child:memberId] setValue:name];
+    }
+    
 }
 
 - (void)removeObservers{
@@ -307,7 +312,7 @@ NetworkStatus remoteHostStatus;
      withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSLog(@"timestamp snapshot %@", snapshot);
         if (completion == nil) return;
-        if([snapshot exists]) {
+        if (snapshot.value != [NSNull null]) {
              NSNumber *timestamp = (NSNumber *)[snapshot value];
              completion(timestamp);
          } else {
@@ -335,18 +340,21 @@ NetworkStatus remoteHostStatus;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSLog(@"reviewsRef observeSingleEventOfType:FIRDataEventTypeValue");
             NSDictionary<NSString *, NSString *> *reviews = snapshot.value;
-            for (NSString *key in reviews.allKeys) {
-                NSString *timeStamp = key;
-                NSString *suraIndex = reviews[key];
-                NSTimeInterval interval = [timeStamp doubleValue];
-                NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
-                NSInteger index = [suraIndex integerValue];
-                if (index == 0) {
-                    return;
+            if (snapshot.value != [NSNull null]) {
+                for (NSString *key in reviews.allKeys)  {
+                    NSString *timeStamp = key;
+                    NSString *suraIndex = reviews[key];
+                    NSTimeInterval interval = [timeStamp doubleValue];
+                    NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
+                    NSInteger index = [suraIndex integerValue];
+                    if (index == 0) {
+                        return;
+                    }
+                    NSString *suraName = [Sura suraNames][index - 1];
+                    [[DataSource shared] saveSuraLastRefresh:date suraName:suraName upload:NO];
                 }
-                NSString *suraName = [Sura suraNames][index - 1];
-                [[DataSource shared] saveSuraLastRefresh:date suraName:suraName upload:NO];
             }
+            
             if (completion != nil) {
                 completion();
             }
@@ -359,16 +367,19 @@ NetworkStatus remoteHostStatus;
     [[self memoRef] observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSLog(@"memoRef observeSingleEventOfType:FIRDataEventTypeValue");
-                for (FIRDataSnapshot *entry in snapshot.children) {
-                    NSString *suraIndex = entry.key;
-                    NSInteger state = [entry.value integerValue];
-                    NSInteger index = [suraIndex integerValue];
-                    if (index == 0) {
-                        return;
+                if (snapshot.value != [NSNull null]) {
+                    for (FIRDataSnapshot *entry in snapshot.children) {
+                        NSString *suraIndex = entry.key;
+                        NSInteger state = [entry.value integerValue];
+                        NSInteger index = [suraIndex integerValue];
+                        if (index == 0) {
+                            return;
+                        }
+                        NSString *suraName = [Sura suraNames][index - 1];
+                        [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
                     }
-                    NSString *suraName = [Sura suraNames][index - 1];
-                    [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
                 }
+                
                 if (completion != nil) {
                     completion();
                 }
