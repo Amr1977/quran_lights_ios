@@ -139,7 +139,9 @@
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"password"];
     NSError *error;
     [[FIRAuth auth] signOut:&error];
-    [self.navigationController popViewControllerAnimated:YES];
+    self.email.text = nil;
+    self.password.text = nil;
+    self.title = @"Sign in";
     
 }
 

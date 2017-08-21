@@ -76,7 +76,6 @@
                     <state key="normal" title="Sign out"/>
                     <connections>
                         <action selector="onSignOut:" destination="-1" eventType="touchUpInside" id="VhP-9S-Jgs"/>
-                        <action selector="onSignin:" destination="-1" eventType="touchUpInside" id="9TU-d0-avg"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6e-B7-Pyj" userLabel="reset">
