@@ -46,7 +46,7 @@
         self.password.text = password;
         self.title = @"Signed in";
     } else {
-        self.title = @"Not signed in";
+        self.title = @"Sign in to cloud sync your history";
     }
 }
 
@@ -68,7 +68,7 @@
             if (success) {
                 [self.navigationController popViewControllerAnimated:YES];
             } else {
-                [self presentViewController:[AMRTools showMenuWithTitle:@"Error signing in, check credentials" message:error  handlers:nil] animated:YES completion: nil];
+                [self presentViewController:[AMRTools showMenuWithTitle:@"Error signing in" message:error  handlers:nil] animated:YES completion: nil];
             }
         }];
     } else {
@@ -90,7 +90,7 @@
                 [self.navigationController popViewControllerAnimated:YES];
             } else {
                 //TODO check connectivity
-                [self presentViewController:[AMRTools showMenuWithTitle:@"Error signing up, check credentials" message:error handlers:nil] animated:YES completion: nil];
+                [self presentViewController:[AMRTools showMenuWithTitle:@"Error signing up" message:error handlers:nil] animated:YES completion: nil];
             }
         }];
     } else {
@@ -132,6 +132,17 @@
 - (IBAction)toggleShowPassword:(id)sender {
     self.password.secureTextEntry = !self.password.secureTextEntry;
 }
+
+- (IBAction)onSignOut:(id)sender {
+    ((AppDelegate *)[[UIApplication sharedApplication] delegate]).userID = nil;
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"email"];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"password"];
+    NSError *error;
+    [[FIRAuth auth] signOut:&error];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
 
 
 @end
