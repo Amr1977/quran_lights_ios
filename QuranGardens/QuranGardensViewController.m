@@ -834,8 +834,9 @@ Boolean hasAppearedBefore;
     if (self.periodicTaskManager.dataSource.settings.sortType == CharCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
-        [self.collectionView reloadData];
     }
+    
+    [self toast:self.periodicTaskManager.dataSource.settings.descendingSort ? @"Character Count Chapter Sort Desc." : @"Character Count Chapter Sort Asc."];
     
     [self charCountSuraSort];
     [self applyCurrentSort];
@@ -847,8 +848,9 @@ Boolean hasAppearedBefore;
     if (self.periodicTaskManager.dataSource.settings.sortType == RevalationOrderSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
-        [self.collectionView reloadData];
     }
+    
+    [self toast:self.periodicTaskManager.dataSource.settings.descendingSort ? @"Revalation Order Chapter Sort Desc." : @"Revalation Order Chapter Sort Asc."];
     
     [self revalSuraOrderSort];
     [self applyCurrentSort];
@@ -861,8 +863,9 @@ Boolean hasAppearedBefore;
     if (self.periodicTaskManager.dataSource.settings.sortType == WordCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
-        [self.collectionView reloadData];
     }
+    
+    [self toast:self.periodicTaskManager.dataSource.settings.descendingSort ? @"Words Count Chapter Sort Desc." : @"Words Count Chapter Sort Asc."];
     
     [self wordCountSuraSort];
     [self applyCurrentSort];
@@ -874,8 +877,9 @@ Boolean hasAppearedBefore;
     if (self.periodicTaskManager.dataSource.settings.sortType == VersesCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
-        [self.collectionView reloadData];
     }
+    
+    [self toast:self.periodicTaskManager.dataSource.settings.descendingSort ? @"Verses Count Chapter Sort Desc." : @"Verses Count Chapter Sort Asc."];
     
     [self versesCountSuraSort];
     [self applyCurrentSort];
@@ -889,8 +893,9 @@ Boolean hasAppearedBefore;
     if (self.periodicTaskManager.dataSource.settings.sortType == RefreshCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
-        [self.collectionView reloadData];
     }
+    
+    [self toast:self.periodicTaskManager.dataSource.settings.descendingSort ? @"Refresh Count Chapter Sort Desc." : @"Refresh Count Chapter Sort Asc."];
     
     [self refreshCountSuraSort];
     [self applyCurrentSort];
@@ -903,9 +908,11 @@ Boolean hasAppearedBefore;
     [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == NormalSuraOrderSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
-        [self toast:self.periodicTaskManager.dataSource.settings.descendingSort ? @"Quran Order Chapter Sort Desc." : @"Quran Order Chapter Sort Asc."];
+        
         [self.periodicTaskManager.dataSource saveSettings];
     }
+    
+    [self toast:self.periodicTaskManager.dataSource.settings.descendingSort ? @"Quran Order Chapter Sort Desc." : @"Quran Order Chapter Sort Asc."];
     
     [self normalSuraOrderSort];
     [self applyCurrentSort];
@@ -917,8 +924,9 @@ Boolean hasAppearedBefore;
     if (self.periodicTaskManager.dataSource.settings.sortType == LightSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
-        [self.collectionView reloadData];
     }
+    
+    [self toast:self.periodicTaskManager.dataSource.settings.descendingSort ? @"Cell Light Strength Chapter Sort Desc." : @"Cell Light Strength Chapter Sort Asc."];
     
     [self weakerFirstSuraFirstSort];
     [self applyCurrentSort];
