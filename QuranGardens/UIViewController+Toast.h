@@ -11,5 +11,7 @@
 @interface UIViewController (Toast)
 
 -(void)toast:(NSString *)message;
+-(void)toast:(NSString *)message view:(UIView *)view;
+
 
 @end

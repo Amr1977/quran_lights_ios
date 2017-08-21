@@ -139,8 +139,12 @@
     for (NSNumber *intervalNumber in timeIntervalNumbers) {
         result = result + [intervalNumber integerValue];
     }
+    if(timeIntervalNumbers.count == 0) {
+        result = 30*24*60*60;
+    } else {
+        result = result / timeIntervalNumbers.count;
+    }
     
-    result = result / timeIntervalNumbers.count;
     
     return result;
 }

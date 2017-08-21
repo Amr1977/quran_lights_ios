@@ -396,10 +396,13 @@ UIButton *soundToggle;
 
 - (void)toggleLightCalculationMethod {
     self.isLightCalculationBasedOnAverage = !self.isLightCalculationBasedOnAverage;
+    
     if (self.isLightCalculationBasedOnAverage) {
         [lightCalculationMethodButton setBackgroundColor:[[UIColor greenColor] colorWithAlphaComponent:0.5]];
+        [self toast:@"Average inter-refresh Light State."];
     } else {
         [lightCalculationMethodButton setBackgroundColor:[UIColor clearColor]];
+        [self toast:@"Last Refresh Light State."];
     }
     
     [[self collectionView] reloadData];
@@ -407,7 +410,7 @@ UIButton *soundToggle;
 
 - (void)setSortButtons{
     //sort by normal order
-    //self.moshafOrderButton = [[UIButton alloc] initWithFrame:imageFrame];
+
     [self.moshafOrderButton setTitle:@"B" forState:UIControlStateNormal];
     
     
@@ -418,11 +421,9 @@ UIButton *soundToggle;
     
     [self.moshafOrderButton setShowsTouchWhenHighlighted:YES];
     [self.moshafOrderButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    //UIBarButtonItem *moshafOrderItem = [[UIBarButtonItem alloc] initWithCustomView:self.moshafOrderButton];
     
     
     //sort by light strength
-    //self.lightSortButton = [[UIButton alloc] initWithFrame:imageFrame];
     [self.lightSortButton setTitle:@"L" forState:UIControlStateNormal];
     
     [self.lightSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
@@ -432,10 +433,8 @@ UIButton *soundToggle;
     
     [self.lightSortButton setShowsTouchWhenHighlighted:YES];
     [self.lightSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    //UIBarButtonItem *lightSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.lightSortButton];
     
     //sort by character count
-    //self.charCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
     [self.charCountSortButton setTitle:@"C" forState:UIControlStateNormal];
     
     [self.charCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
@@ -445,11 +444,9 @@ UIButton *soundToggle;
     
     [self.charCountSortButton setShowsTouchWhenHighlighted:YES];
     [self.charCountSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    //UIBarButtonItem *charCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.charCountSortButton];
     
     
     //sort by word count
-    //self.wordCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
     [self.wordCountSortButton setTitle:@"W" forState:UIControlStateNormal];
     
     [self.wordCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
@@ -459,11 +456,9 @@ UIButton *soundToggle;
     
     [self.wordCountSortButton setShowsTouchWhenHighlighted:YES];
     [self.wordCountSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    //UIBarButtonItem *wordCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.wordCountSortButton];
     
     
     //sort by refresh count
-    //self.refreshCountSortButton = [[UIButton alloc] initWithFrame:imageFrame];
     [self.refreshCountSortButton setTitle:@"F" forState:UIControlStateNormal];
     
     [self.refreshCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
@@ -473,11 +468,8 @@ UIButton *soundToggle;
     
     [self.refreshCountSortButton setShowsTouchWhenHighlighted:YES];
     [self.refreshCountSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    //UIBarButtonItem *refreshCountSortItem = [[UIBarButtonItem alloc] initWithCustomView:self.refreshCountSortButton];
-    
     
     //sort by revalation order
-    //self.revalationOrderSortButton = [[UIButton alloc] initWithFrame:imageFrame];
     [self.revalationOrderSortButton setTitle:@"R" forState:UIControlStateNormal];
     
     [self.revalationOrderSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
@@ -567,11 +559,7 @@ Boolean hasAppearedBefore;
     
     [self showSortBar];
     
-    if (![self hasCredentials] && delegate.isConnected) {
-        [self showLoginView];
-    } else {
-        [self startupHelpAlert];
-    }
+    [self startupHelpAlert];
 }
 
 - (void)showLoginView{
@@ -1320,6 +1308,8 @@ Boolean hasAppearedBefore;
     //remainingTimeInterval
     CGFloat progress = (self.isLightCalculationBasedOnAverage ? (self.periodicTaskManager.dataSource.settings.fadeTime - [task averageRefreshInterval]) : [task remainingTimeInterval]) / self.periodicTaskManager.dataSource.settings.fadeTime;
     
+    NSLog(@"progress %f",progress);
+    
     if (progress < 0.3) {
         cell.suraName.textColor = [UIColor colorWithRed:153/255 green:255/255 blue:153/255 alpha:0.2];
     } else {
@@ -1450,8 +1440,9 @@ Boolean hasAppearedBefore;
 
 - (void)toggleOverView {
     self.overviewMode = !self.overviewMode;
+    [self toast:self.overviewMode ? @"Overview mode On" : @"Overview mode off"];
     [self.collectionView reloadData];
-    [self showSortBar];
+    //[self showSortBar];
 }
 
 UIColor *backgroundColorTemp;
