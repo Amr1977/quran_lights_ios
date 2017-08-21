@@ -22,6 +22,7 @@
 #import "UsersViewController.h"
 #import "SignupViewController.h"
 #import "MBProgressHUD.h"
+#import "UIViewController+Toast.h"
 @import AVFoundation;
 @import Charts;
 
@@ -897,10 +898,12 @@ Boolean hasAppearedBefore;
 
 
 - (void)fastAccessNormalSuraOrderSort{
+    
     self.hideCounter += 1;
     [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == NormalSuraOrderSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
+        [self toast:self.periodicTaskManager.dataSource.settings.descendingSort ? @"Quran Order Chapter Sort Desc." : @"Quran Order Chapter Sort Asc."];
         [self.periodicTaskManager.dataSource saveSettings];
     }
     

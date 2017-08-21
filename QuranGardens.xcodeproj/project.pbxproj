@@ -70,6 +70,7 @@
 		C5A26B051EA27005009135D4 /* IntAxisValueFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26B001EA27005009135D4 /* IntAxisValueFormatter.m */; };
 		C5A26B061EA27005009135D4 /* LargeValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A26B011EA27005009135D4 /* LargeValueFormatter.swift */; };
 		C5A26B071EA27005009135D4 /* DateValueFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26B031EA27005009135D4 /* DateValueFormatter.m */; };
+		C5AFAE281F4B6243001770FD /* UIViewController+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = C5AFAE271F4B6243001770FD /* UIViewController+Toast.m */; };
 		C5F17C491E69BB6B00476CA3 /* UIViewController+Gestures.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */; };
 /* End PBXBuildFile section */
 
@@ -211,6 +212,8 @@
 		C5A26B011EA27005009135D4 /* LargeValueFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeValueFormatter.swift; sourceTree = "<group>"; };
 		C5A26B021EA27005009135D4 /* DateValueFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateValueFormatter.h; sourceTree = "<group>"; };
 		C5A26B031EA27005009135D4 /* DateValueFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateValueFormatter.m; sourceTree = "<group>"; };
+		C5AFAE261F4B6243001770FD /* UIViewController+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Toast.h"; sourceTree = "<group>"; };
+		C5AFAE271F4B6243001770FD /* UIViewController+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Toast.m"; sourceTree = "<group>"; };
 		C5D5C3EE1F27ED060006FBB4 /* Quran Lights.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Quran Lights.entitlements"; sourceTree = "<group>"; };
 		C5F17C471E69BB6B00476CA3 /* UIViewController+Gestures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Gestures.h"; sourceTree = "<group>"; };
 		C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Gestures.m"; sourceTree = "<group>"; };
@@ -282,6 +285,7 @@
 				076965AB1C5B5D0700ED2D33 /* Main.storyboard */,
 				C568B17B1EAA02E900445642 /* SettingsViewController.xib */,
 				C53A358A1F2C958B00CCA831 /* SignUp */,
+				C5AFAE291F4B625B001770FD /* Categories */,
 				076965DD1C5B62AE00ED2D33 /* Controller */,
 				C50E590B1EBC54A00076C3D6 /* charts */,
 				C5A26AFB1EA26FD8009135D4 /* Formatters */,
@@ -370,8 +374,6 @@
 				076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */,
 				07FAC8E81D66FA0000A18525 /* SettingsViewController.h */,
 				07FAC8E91D66FA0000A18525 /* SettingsViewController.m */,
-				C5F17C471E69BB6B00476CA3 /* UIViewController+Gestures.h */,
-				C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */,
 				C59A202D1E8116BD003C0F09 /* AMRTools.h */,
 				C59A202E1E8116BD003C0F09 /* AMRTools.m */,
 				C50658321EA5D26000330A9B /* FeedBackViewController.h */,
@@ -452,6 +454,17 @@
 				C5A26AFC1EA27005009135D4 /* QuranGardens-Bridging-Header.h */,
 			);
 			name = Formatters;
+			sourceTree = "<group>";
+		};
+		C5AFAE291F4B625B001770FD /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				C5AFAE261F4B6243001770FD /* UIViewController+Toast.h */,
+				C5AFAE271F4B6243001770FD /* UIViewController+Toast.m */,
+				C5F17C471E69BB6B00476CA3 /* UIViewController+Gestures.h */,
+				C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		C5FECDDC1EC2194E0081C89D /* resources */ = {
@@ -702,6 +715,7 @@
 				C50E59171EBC55710076C3D6 /* PieChartViewController.m in Sources */,
 				C5A26AEB1EA24420009135D4 /* ChartsViewController.m in Sources */,
 				C5A26AF51EA24D14009135D4 /* DemoBaseViewController.m in Sources */,
+				C5AFAE281F4B6243001770FD /* UIViewController+Toast.m in Sources */,
 				071C17AB1D673B5800019CDD /* Settings.m in Sources */,
 				C502D5541ED48D0B00A7267F /* User.m in Sources */,
 				C53533431EB14142005846C0 /* IntroViewController.m in Sources */,
