@@ -35,6 +35,21 @@
     [self.view addGestureRecognizer:tap];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (((AppDelegate *)[[UIApplication sharedApplication] delegate]).userID != nil) {
+        NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:@"email"];
+        NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
+        
+        self.email.text = email;
+        self.password.text = password;
+        self.title = @"Signed in";
+    } else {
+        self.title = @"Not signed in";
+    }
+}
+
 - (void)tap{
     [self.email resignFirstResponder];
     [self.password resignFirstResponder];

@@ -94,7 +94,6 @@ AppDelegate *delegate;
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFirebaseInvalidCredentials) name:@"FirebaseInvalidCredentials" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFirebaseWillStartSync) name:@"WillStartUpdatedFromFireBase" object:nil];
     
     delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -141,11 +140,6 @@ AppDelegate *delegate;
     dispatch_async(dispatch_get_main_queue(), ^{
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     });
-}
-
-- (void) onFirebaseInvalidCredentials {
-    
-    [self showLoginView];
 }
 
 - (void)usersMenu{
@@ -566,11 +560,6 @@ Boolean hasAppearedBefore;
     [self showSortBar];
     
     [self startupHelpAlert];
-}
-
-- (void)showLoginView{
-    SignupViewController *signupViewController = [[SignupViewController alloc] init];
-    [self.navigationController pushViewController:signupViewController animated:YES];
 }
 
 - (UIAlertController *)menu{
@@ -1313,8 +1302,6 @@ Boolean hasAppearedBefore;
     
     //remainingTimeInterval
     CGFloat progress = (self.isLightCalculationBasedOnAverage ? (self.periodicTaskManager.dataSource.settings.fadeTime - [task averageRefreshInterval]) : [task remainingTimeInterval]) / self.periodicTaskManager.dataSource.settings.fadeTime;
-    
-    NSLog(@"progress %f",progress);
     
     if (progress < 0.3) {
         cell.suraName.textColor = [UIColor colorWithRed:153/255 green:255/255 blue:153/255 alpha:0.2];
