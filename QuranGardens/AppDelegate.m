@@ -44,6 +44,10 @@ NetworkStatus remoteHostStatus;
 
 //TODO sync all members, not just current member !!!
 - (void)syncHistory {
+    if (!self.userID) {
+        return;
+    }
+    
     [self syncMembers:^{
         NSLog(@"Members synced.");
         [self onTimeStampAltered:^{
