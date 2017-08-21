@@ -247,6 +247,9 @@ NetworkStatus remoteHostStatus;
 //}
 
 - (FIRDatabaseReference *)reviewsRef {
+    if (!self.userID) {
+        return nil;
+    }
     return [[[[self.firebaseDatabaseReference
                child:@"users"]
               child: self.userID]
@@ -255,6 +258,9 @@ NetworkStatus remoteHostStatus;
 }
 
 - (FIRDatabaseReference *)memoRef {
+    if (!self.userID) {
+        return nil;
+    }
     return [[[[self.firebaseDatabaseReference
                child:@"users"]
               child: self.userID]
@@ -263,6 +269,9 @@ NetworkStatus remoteHostStatus;
 }
 
 - (FIRDatabaseReference *)membersRef {
+    if (!self.userID) {
+        return nil;
+    }
     return [[[self.firebaseDatabaseReference
                child:@"users"]
               child: self.userID]
@@ -300,6 +309,9 @@ NetworkStatus remoteHostStatus;
     
     [[NSUserDefaults standardUserDefaults] setObject:date
                                               forKey:userTimeStamp];
+    if (!self.userID) {
+        return;
+    }
     [[[[[self.firebaseDatabaseReference
        child:@"users"]
        child: self.userID]
@@ -308,6 +320,10 @@ NetworkStatus remoteHostStatus;
 }
 
 - (void)remoteTimeStamp:(void(^)(NSNumber *timestamp))completion {
+    if (!self.userID) {
+        completion(nil);
+        return;
+    }
     [[[[[self.firebaseDatabaseReference
         child:@"users"]
        child: self.userID]
@@ -367,6 +383,12 @@ NetworkStatus remoteHostStatus;
 }
 
 - (void)downloadMemoHistory:(void(^)(void))completion {
+    if (!self.userID) {
+        if (completion != nil) {
+            completion();
+        }
+        return;
+    }
 //TODO: if user switched while downloading data will be saved in other user history!!!!!
     [[self memoRef] observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

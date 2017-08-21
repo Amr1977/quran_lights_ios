@@ -388,10 +388,16 @@ UIButton *soundToggle;
 }
 
 - (void)toggleSound{
-    BOOL soundON = ![[NSUserDefaults standardUserDefaults] boolForKey:@"SoundOffFlag"];
-    [[NSUserDefaults standardUserDefaults] setBool:soundON forKey:@"SoundOffFlag"];
+    BOOL soundOff = ![[NSUserDefaults standardUserDefaults] boolForKey:@"SoundOffFlag"];
+    [[NSUserDefaults standardUserDefaults] setBool:soundOff forKey:@"SoundOffFlag"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [soundToggle setTitle:soundON ? @"🔇" : @"🔈" forState:UIControlStateNormal];
+    [soundToggle setTitle:soundOff ? @"🔇" : @"🔈" forState:UIControlStateNormal];
+    if(soundOff) {
+        [self toast:@"Sound Off"];
+    } else {
+        [self toast:@"Sound On"];
+    }
+    
 }
 
 - (void)toggleLightCalculationMethod {
@@ -1453,7 +1459,10 @@ static NSInteger tone = 0;
 
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    AudioServicesPlaySystemSound (systemSoundID + (tone++ % 10));
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"SoundOffFlag"]) {
+        AudioServicesPlaySystemSound (systemSoundID + (tone++ % 10));
+    }
+    
     SuraViewCell * cell = (SuraViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     backgroundColorTemp = cell.content.backgroundColor;
     textColorTemp = cell.suraName.textColor;
