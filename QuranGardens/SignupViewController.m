@@ -46,7 +46,7 @@
         self.password.text = password;
         self.title = @"Signed in";
     } else {
-        self.title = @"Sign in to cloud sync your history";
+        self.title = @"Sign in to cloud";
     }
 }
 
@@ -141,7 +141,7 @@
     [[FIRAuth auth] signOut:&error];
     self.email.text = nil;
     self.password.text = nil;
-    self.title = @"Sign in";
+    self.title = @"Sign in to cloud";
     
 }
 

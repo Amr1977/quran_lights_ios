@@ -94,6 +94,8 @@ AppDelegate *delegate;
 {
     [super viewDidLoad];
     
+    self.overviewMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"overviewMode"];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFirebaseWillStartSync) name:@"WillStartUpdatedFromFireBase" object:nil];
     
     delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -1433,6 +1435,7 @@ Boolean hasAppearedBefore;
 
 - (void)toggleOverView {
     self.overviewMode = !self.overviewMode;
+    [[NSUserDefaults standardUserDefaults] setBool:self.overviewMode forKey:@"overviewMode"];
     [self toast:self.overviewMode ? @"Overview mode On" : @"Overview mode off"];
     [self.collectionView reloadData];
     //[self showSortBar];
