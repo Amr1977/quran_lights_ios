@@ -33,6 +33,9 @@
                                                                           action:@selector(tap)];
     
     [self.view addGestureRecognizer:tap];
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
