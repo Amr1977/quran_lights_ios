@@ -85,6 +85,7 @@ UIImage *chartButtonImage;
 UIButton *scoreButton;
 CGFloat CellSmallHeight = 40;
 CGFloat CellSmallWidth = 40;
+BOOL updateInProgress;
 
 static NSMutableDictionary *operations;
 
@@ -139,6 +140,7 @@ AppDelegate *delegate;
 }
 
 - (void)onFirebaseWillStartSync {
+    updateInProgress = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     });
@@ -183,7 +185,9 @@ AppDelegate *delegate;
 }
     
 - (IBAction)onScoreTabbed:(id)sender {
-    [self usersMenu];
+    if(!updateInProgress) {
+        [self usersMenu];
+    }
 }
 
 NSInteger currentKhatma = 0;
@@ -1505,6 +1509,7 @@ static NSInteger tone = 0;
 }
 
 - (void)reload{
+    updateInProgress = NO;
     [[DataSource shared] load: ^{
         [self refreshViews];
         dispatch_async(dispatch_get_main_queue(), ^{
