@@ -332,7 +332,7 @@ UIButton *soundToggle;
     [settingsButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
 
-    
+    //link t quran-lights.firebaseapp.com
     fbButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 27, 27)];
     //[settingsButton setTitle:@"S" forState:UIControlStateNormal];
     //settingsButton.tintColor = [UIColor yellowColor];
@@ -382,10 +382,27 @@ UIButton *soundToggle;
     [soundToggle setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *soundToggleItem = [[UIBarButtonItem alloc] initWithCustomView:soundToggle];
     
-    self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, overviewItem, lightCalculationMethodItem, soundToggleItem];
+    UIButton *signInButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    signInButton.layer.cornerRadius = 10.0;
+    
+    [signInButton setTitle:@"👥" forState:UIControlStateNormal];
+    [signInButton addTarget:self
+                     action:@selector(showLoginView)
+           forControlEvents:UIControlEventTouchUpInside];
+    
+    [signInButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *signInItem = [[UIBarButtonItem alloc] initWithCustomView:signInButton];
+    
+    self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, overviewItem, lightCalculationMethodItem, soundToggleItem, signInItem];
     
     [self setSortButtons];
 }
+
+- (void)showLoginView{
+    SignupViewController *signupViewController = [[SignupViewController alloc] init];
+    [self.navigationController pushViewController:signupViewController animated:YES];
+}
+
 
 - (void)toggleSound{
     BOOL soundOff = ![[NSUserDefaults standardUserDefaults] boolForKey:@"SoundOffFlag"];

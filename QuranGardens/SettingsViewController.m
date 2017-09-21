@@ -125,24 +125,6 @@ static Settings* settingsCopy;
         self.languageLabel.text = [@"Language" localize];
         self.languageSelector.selectedSegmentIndex = 1;
     }
-    
-    UIButton *signInButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    signInButton.layer.cornerRadius = 10.0;
-    
-    [signInButton setTitle:@"🔑" forState:UIControlStateNormal];
-    [signInButton addTarget:self
-                    action:@selector(showLoginView)
-          forControlEvents:UIControlEventTouchUpInside];
-    
-    [signInButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *signInItem = [[UIBarButtonItem alloc] initWithCustomView:signInButton];
-    
-    self.navigationItem.rightBarButtonItems = @[signInItem];
-}
-
-- (void)showLoginView{
-    SignupViewController *signupViewController = [[SignupViewController alloc] init];
-    [self.navigationController pushViewController:signupViewController animated:YES];
 }
 
 - (void)backToCollection{
