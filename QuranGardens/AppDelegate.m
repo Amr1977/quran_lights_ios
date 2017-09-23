@@ -17,12 +17,18 @@
 
 //@property (nonatomic) int updateCounter;
 
+@property (strong, nonatomic) NSMutableArray<NSNumber *> *localTimeStampsHistory;
+@property (strong, nonatomic)__block FIRDatabaseReference *updateTimeStampRef;
+@property (strong, nonatomic)__block dispatch_block_t stabilizedSyncBlock;
+@property (nonatomic) __block BOOL isLoadedBefore;
+
 @end
 
 @implementation AppDelegate
 
 Reachability* reachability;
 NetworkStatus remoteHostStatus;
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -35,13 +41,17 @@ NetworkStatus remoteHostStatus;
     
     [self firebaseSignIn:^(BOOL success, NSString *error){
         if (error == nil){
-            [self syncHistory];
+            [self registerTimeStampTrigger];
+        } else {
+            NSLog(@"Error: %@",error.localizedLowercaseString);
         }
     }];
     
     return YES;
 }
 
+
+//TODO download ONLY new entries after last sync and upload ONLY diff entries.
 //TODO sync all members, not just current member !!!
 - (void)syncHistory {
     if (!self.userID) {
@@ -63,6 +73,42 @@ NetworkStatus remoteHostStatus;
                 }];
             }];
         }];
+    }];
+}
+
+-(void)registerTimeStampTrigger{
+    self.updateTimeStampRef = [[[[self.firebaseDatabaseReference
+                                  child:@"users"]
+                                 child: self.userID]
+                                child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
+                               child:@"update_stamp"];
+    [self.updateTimeStampRef observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        NSNumber *timestamp = snapshot.value;
+        
+        NSLog(@"TimeStamp Trigger: %ld", (long)[timestamp integerValue]);
+        
+        //Drop if local echo
+        
+        for (NSNumber *number in self.localTimeStampsHistory) {
+            if ([number integerValue] == [timestamp integerValue]) {
+                NSLog(@"Dropped local timestamp trigger echo");
+                return;
+            }
+        }
+        
+        //stabilized sync
+        if (self.stabilizedSyncBlock != nil) {
+            dispatch_block_cancel(self.stabilizedSyncBlock);
+            NSLog(@">>>>>>>>>>>>>>>>> Dropping repeated timestamp update trigger");
+        }
+        
+        self.stabilizedSyncBlock = dispatch_block_create(0, ^{
+            NSLog(@">>>>>>>>>>>>>>>>> Executing syncHistory block");
+            [self syncHistory];
+        });
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((self.isLoadedBefore ? 5 : 0) * NSEC_PER_SEC)), dispatch_get_main_queue(), self.stabilizedSyncBlock);
+        self.isLoadedBefore = YES;
     }];
 }
 
@@ -233,7 +279,7 @@ NetworkStatus remoteHostStatus;
             [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"email"];
             [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
             NSLog(@"firebaseSignIn created user %@ ", user);
-            [self syncHistory];
+            [self registerTimeStampTrigger];
             completion(YES, nil);
         }
     }];
@@ -304,7 +350,9 @@ NetworkStatus remoteHostStatus;
 }
 
 - (void)updateTimeStamp {
+    
     NSNumber *date = [NSNumber numberWithDouble: [[NSDate new] timeIntervalSince1970]];
+    [self.localTimeStampsHistory addObject:date];
     NSString *userTimeStamp = [[DataSource shared] userKey:@"UpdateTimeStamp"];
     
     [[NSUserDefaults standardUserDefaults] setObject:date
