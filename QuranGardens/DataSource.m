@@ -67,8 +67,9 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 - (void)onFirebaseSignIn{
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"UploadedToFireBase"]) {
         for (PeriodicTask *task in self.tasks) {
-            [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:[self suraIndexFromSuraName:task.name] withHistory:task.history];
+            [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:[self suraIndexFromSuraName:task.name] withHistory:task.history updateFBTimeStamp:NO];
         }
+        [((AppDelegate *)[UIApplication sharedApplication].delegate) updateTimeStamp:YES];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"UploadedToFireBase"];
     }
     
@@ -293,7 +294,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     //remote
     if(upload) {
         NSNumber *dateStamp = [NSNumber numberWithLongLong:[lastRefreshDate timeIntervalSince1970]];
-        [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:suraName withDate:dateStamp];
+        [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:suraName withDate:dateStamp updateFBTimeStamp:YES];
     }
     
     task.averageRefreshInterval = [AMRTools averageIntervalBetweenDatesInArray:task.history];
@@ -405,7 +406,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 - (void)saveMemorizedStateForSura:(NSString *)suraName{
     PeriodicTask* sura = [self getTaskWithSuraName:suraName];
     [[NSUserDefaults standardUserDefaults] setInteger:sura.memorizedState forKey:[self memorizedKeyForSuraName:suraName]];
-    [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:suraName withMemorization:sura.memorizedState];
+    [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:suraName withMemorization:sura.memorizedState updateFBTimeStamp:NO];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -414,7 +415,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     if (upload) {
-        [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:suraName withMemorization:state];
+        [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:suraName withMemorization:state updateFBTimeStamp:NO];
     }
 }
 
@@ -426,7 +427,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     if (task) {
         [[NSUserDefaults standardUserDefaults] setInteger:task.memorizedState forKey:[self memorizedKeyForSuraName:task.name]];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:task.name withMemorization:task.memorizedState];
+        [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:task.name withMemorization:task.memorizedState updateFBTimeStamp:NO];
     }
 }
 

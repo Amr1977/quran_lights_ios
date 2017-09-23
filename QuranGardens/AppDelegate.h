@@ -27,9 +27,9 @@
 @property (nonatomic) NSMutableDictionary<NSString *, NSNumber *> *fbMemorizationState;
 
 
-- (void)refreshSura:(NSString *)suraName;
-- (void)refreshSura:(NSString *)suraName withDate:(NSNumber *)date;
-- (void)refreshSura:(NSString *)suraName withHistory:(NSArray *)history;
+- (void)refreshSura:(NSString *)suraName updateFBTimeStamp:(BOOL)updateFBTimeStamp;
+- (void)refreshSura:(NSString *)suraName withDate:(NSNumber *)date updateFBTimeStamp:(BOOL)updateFBTimeStamp;
+- (void)refreshSura:(NSString *)suraName withHistory:(NSArray *)history updateFBTimeStamp:(BOOL)updateFBTimeStamp;
 - (NSMutableArray<NSNumber *> *)sort:(NSMutableArray<NSNumber *> *)source;
 
 - (void)signUpWithEmail: (NSString *)email
@@ -40,10 +40,10 @@
                password:(NSString *)password
              completion:(void (^)(BOOL success, NSString *error))completion;
 
-- (void)refreshSura:(NSString *)suraName withMemorization:(NSInteger)memorization;
+- (void)refreshSura:(NSString *)suraName withMemorization:(NSInteger)memorization updateFBTimeStamp:(BOOL)updateFBTimeStamp;
 
 - (void)syncHistory;
-- (void)updateTimeStamp;
+- (void)updateTimeStamp:(BOOL)updateFBTimeStamp;
 
 - (void)addMemberWithId:(NSString *)memberId name:(NSString *)name;
 

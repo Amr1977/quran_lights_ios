@@ -66,7 +66,7 @@ NetworkStatus remoteHostStatus;
             [self downloadReviewsHistory: ^{
                 [self downloadMemoHistory: ^{
                     [self uploadHistory:^{
-                        [self updateTimeStamp];
+                        [self updateTimeStamp:YES];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase"
                                                                             object:self];
                     }];
@@ -349,7 +349,7 @@ NetworkStatus remoteHostStatus;
                                               forKey:userTimeStamp];
 }
 
-- (void)updateTimeStamp {
+- (void)updateTimeStamp:(BOOL)updateFBTimeStamp {
     
     NSNumber *date = [NSNumber numberWithDouble: [[NSDate new] timeIntervalSince1970]];
     [self.localTimeStampsHistory addObject:date];
@@ -357,9 +357,10 @@ NetworkStatus remoteHostStatus;
     
     [[NSUserDefaults standardUserDefaults] setObject:date
                                               forKey:userTimeStamp];
-    if (!self.userID) {
+    if (!self.userID || !updateFBTimeStamp) {
         return;
     }
+    
     [[[[[self.firebaseDatabaseReference
        child:@"users"]
        child: self.userID]
@@ -468,11 +469,11 @@ NetworkStatus remoteHostStatus;
             NSMutableArray<NSDate *> *history = [[DataSource shared] loadRefreshHistoryForSuraName:suraName];
             NSInteger memoState = [[DataSource shared] loadMemorizedStateForSura:suraName];
             if (history != nil && history.count > 0){
-                [self refreshSura:suraName withHistory:history];
+                [self refreshSura:suraName withHistory:history updateFBTimeStamp:NO];
             }
             
             if (memoState != 0) {
-                [self refreshSura:suraName withMemorization:memoState];
+                [self refreshSura:suraName withMemorization:memoState updateFBTimeStamp:NO];
             }
         }
         
@@ -486,8 +487,8 @@ NetworkStatus remoteHostStatus;
     return [NSString stringWithFormat:@"%u", [[Sura suraNames] indexOfObject:suraName] + 1];
 }
 
-- (void)refreshSura:(NSString *)suraName withHistory:(NSArray *)history{
-    [self updateTimeStamp];
+- (void)refreshSura:(NSString *)suraName withHistory:(NSArray *)history updateFBTimeStamp:(BOOL)updateFBTimeStamp{
+    
     if (!self.userID) {
         return;
     }
@@ -503,10 +504,11 @@ NetworkStatus remoteHostStatus;
           child: [dateNumber stringValue]]
          setValue: [self suraIndexFromSuraName:suraName]];
     }
+    [self updateTimeStamp:updateFBTimeStamp];
 }
 
-- (void)refreshSura:(NSString *)suraName{
-    [self updateTimeStamp];
+- (void)refreshSura:(NSString *)suraName updateFBTimeStamp:(BOOL)updateFBTimeStamp{
+    
     if (self.userID) {
         [self removeObservers];
 
@@ -520,11 +522,12 @@ NetworkStatus remoteHostStatus;
            child:@"reviews"]
           child: dateString]
          setValue: [self suraIndexFromSuraName:suraName]];
+        [self updateTimeStamp:updateFBTimeStamp];
     }
 }
 
-- (void)refreshSura:(NSString *)suraName withMemorization:(NSInteger)memorization{
-    [self updateTimeStamp];
+- (void)refreshSura:(NSString *)suraName withMemorization:(NSInteger)memorization updateFBTimeStamp:(BOOL)updateFBTimeStamp{
+    
     
     if (self.userID) {
         [self removeObservers];
@@ -536,11 +539,12 @@ NetworkStatus remoteHostStatus;
              child: @"memorization"]
             child: [self suraIndexFromSuraName:suraName]]
            setValue: [NSNumber numberWithInteger:memorization]];
+        [self updateTimeStamp: updateFBTimeStamp];
     }
+    
 }
 
-- (void)refreshSura:(NSString *)suraName withDate:(NSNumber *)date {
-    [self updateTimeStamp];
+- (void)refreshSura:(NSString *)suraName withDate:(NSNumber *)date updateFBTimeStamp:(BOOL)updateFBTimeStamp{
     
     if (self.userID) {
         [self removeObservers];
@@ -552,6 +556,8 @@ NetworkStatus remoteHostStatus;
            child:@"reviews"]
           child: [date stringValue]]
          setValue: [self suraIndexFromSuraName:suraName]];
+        
+        [self updateTimeStamp: updateFBTimeStamp];
     }
 }
 
