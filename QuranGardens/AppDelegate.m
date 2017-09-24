@@ -65,8 +65,8 @@ NetworkStatus remoteHostStatus;
                                                                 object:self];
             [self downloadReviewsHistory: ^{
                 [self downloadMemoHistory: ^{
-                    [self uploadHistory:^{
-                        [self updateTimeStamp:YES];
+                    [self uploadHistory:^(BOOL success, BOOL dirty){
+                        [self updateTimeStamp:dirty];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase"
                                                                             object:self];
                     }];
@@ -414,6 +414,8 @@ NetworkStatus remoteHostStatus;
         result = @"0";
         [self setMostRecentFBReviewsTimeStamp:@"0"];
     }
+    
+    NSLog(@"getMostRecentFBReviewsTimeStamp: %@", result);
     return result;
 }
 
@@ -428,14 +430,30 @@ NetworkStatus remoteHostStatus;
     }
     //download all !! !@!@#@!$#$%%^$!!
     
-    [[[[self reviewsRef] queryOrderedByKey] queryStartingAtValue:[self getMostRecentFBReviewsTimeStamp]] observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    NSString *recentTimeStamp = [self getMostRecentFBReviewsTimeStamp];
+    
+    [[[[self reviewsRef] queryOrderedByKey] queryStartingAtValue:recentTimeStamp] observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSLog(@"reviewsRef observeSingleEventOfType:FIRDataEventTypeValue");
             NSDictionary<NSString *, NSDictionary *> *reviews = snapshot.value;
             if (snapshot.value != [NSNull null]) {
-                NSInteger maxTimeStamp = 0;
+                
+                NSInteger maxTimeStamp = [recentTimeStamp integerValue];
                 NSLog(@"history dump: %@", snapshot.value);
-                for (NSString *key in reviews.allKeys)  {
+                
+                NSMutableArray *keys = reviews.allKeys.mutableCopy;
+                [keys removeObject:recentTimeStamp];
+                
+                for (NSString *key in keys)  {
+                    if ([reviews[key] isKindOfClass:[NSDictionary class]]) {
+                        if ([snapshot.value isKindOfClass:[NSDictionary class]]){
+                            NSLog(@"[reviews[key] isKindOfClass:[NSDictionary class]] is true");
+                        } else {
+                            NSLog(@"[reviews[key] isKindOfClass:[NSDictionary class]] is false");
+                        }
+                    }
+                    
+                    
                     if ([key integerValue] > maxTimeStamp) {
                         maxTimeStamp = [key integerValue];
                     }
@@ -492,24 +510,49 @@ NetworkStatus remoteHostStatus;
 
 }
 
-- (void)uploadHistory:(void(^)(void))completion{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        for (NSString *suraName in [Sura suraNames]) {
-            NSMutableArray<NSDate *> *history = [[DataSource shared] loadRefreshHistoryForSuraName:suraName];
-            NSInteger memoState = [[DataSource shared] loadMemorizedStateForSura:suraName];
-            if (history != nil && history.count > 0){
-                [self refreshSura:suraName withHistory:history updateFBTimeStamp:NO];
-            }
-            
-            if (memoState != 0) {
-                [self refreshSura:suraName withMemorization:memoState updateFBTimeStamp:NO];
-            }
+BOOL uploadInProgress;
+
+//TODO handle error uploading
+- (void)uploadHistory:(void(^)(BOOL success, BOOL alteredHistory))completion{
+    uploadInProgress = YES;
+    static BOOL dirty = NO;
+    static BOOL networkError = NO;
+    
+    if ([self getUploadQueue].count == 0 || networkError) {
+        uploadInProgress = NO;
+        if (completion != nil) {
+            completion(!networkError, dirty);
+            //TODO alter update_time_stamp in completion after checking queue
         }
-        
-        if(completion != nil){
-            completion();
-        }
-    });
+        dirty = NO;
+        networkError = NO;
+        return;
+    }
+
+    NSString *timestamp = [self timestamp];
+    
+    [[[[[[self.firebaseDatabaseReference
+          child:@"users"]
+         child: self.userID]
+        child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
+       child:@"reviews"]
+      child: timestamp]
+     setValue: [self getUploadQueueHead] withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+         if (error == nil) {
+             dirty = YES;
+             [self dequeueFromUploadQueue];
+             [self setMostRecentFBReviewsTimeStamp:timestamp];
+             //use recursion to upload the rest
+             //replace recursion with loop
+         } else {
+             NSLog(@"History upload error %@", error.localizedDescription);
+             //terminate gracefully
+             networkError = YES;
+         }
+         [self uploadHistory:completion];
+     }];
+    
+    //TODO memorization upload
 }
 
 - (NSString *)suraNameToIndexString:(NSString *)suraName {
@@ -526,23 +569,27 @@ NetworkStatus remoteHostStatus;
         NSNumber *dateNumber =  [NSNumber numberWithLongLong:[date timeIntervalSince1970]];
         NSLog(@"attempting to send %@",dateNumber);
         NSDictionary *refreshRecord = @{@"time": dateNumber, @"sura": [self suraIndexFromSuraName:suraName]};
-        NSString *timestamp = [self timestamp];
-        [self setMostRecentFBReviewsTimeStamp:timestamp];
-        [[[[[[self.firebaseDatabaseReference
-               child:@"users"]
-              child: self.userID]
-             child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
-           child:@"reviews"]
-          child: timestamp]
-         setValue: refreshRecord withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-             if (error == nil) {
-                 [self updateTimeStamp:updateFBTimeStamp];
-             } else {
-                 //TODO presist it in a queue for later upload
-             }
-         }];
+        [self enqueueInUploadQueue:refreshRecord];
     }
     
+    if (!uploadInProgress) {
+        [self uploadHistory:^(BOOL success, BOOL alteredHistory){
+            if (alteredHistory) {
+                [self updateTimeStamp:updateFBTimeStamp];
+            }
+            
+        }];
+    }
+}
+
+- (NSDictionary *)getUploadQueueHead {
+    NSArray *queue = [self getUploadQueue];
+    
+    if (queue.count == 0) {
+        return nil;
+    }
+    
+    return queue[0];
 }
 
 - (void)enqueueInUploadQueue:(NSDictionary *)refreshRecord {
@@ -595,27 +642,22 @@ NetworkStatus remoteHostStatus;
         NSNumber *date =  [NSNumber numberWithDouble:[[NSDate new] timeIntervalSince1970]];
         
         NSDictionary *refreshRecord = @{@"time": date, @"sura": [self suraIndexFromSuraName:suraName]};
+        [self enqueueInUploadQueue:refreshRecord];
         
-        [[[[[[self.firebaseDatabaseReference
-              child:@"users"]
-             child: self.userID]
-            child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
-           child:@"reviews"]
-          child: [self timestamp]]
-         setValue: refreshRecord withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-             if (error == nil) {
-                 [self updateTimeStamp:updateFBTimeStamp];
-             } else {
-                 
-             }
-         }];
-        
+        if (!uploadInProgress) {
+            [self uploadHistory:^(BOOL success, BOOL alteredHistory){
+                if (alteredHistory) {
+                    [self updateTimeStamp:updateFBTimeStamp];
+                }
+                
+            }];
+        }
     }
 }
 
 - (void)refreshSura:(NSString *)suraName withMemorization:(NSInteger)memorization updateFBTimeStamp:(BOOL)updateFBTimeStamp{
     
-    
+    ///TODO memorization should have timstamp details and be structured like reviews tree
     if (self.userID) {
 
         [[[[[[self.firebaseDatabaseReference
@@ -635,15 +677,15 @@ NetworkStatus remoteHostStatus;
     if (self.userID) {
         NSDictionary *refreshRecord = @{@"time": date, @"sura": [self suraIndexFromSuraName:suraName]};
 
-        [[[[[[self.firebaseDatabaseReference
-              child: @"users"]
-             child: self.userID]
-            child: [[[DataSource shared] getCurrentUser] nonEmptyId]]
-           child: @"reviews"]
-          child: [self timestamp]]
-         setValue: refreshRecord];
+        [self enqueueInUploadQueue:refreshRecord];
         
-        [self updateTimeStamp: updateFBTimeStamp];
+        if (!uploadInProgress) {
+            [self uploadHistory:^(BOOL success, BOOL alteredHistory){
+                if (alteredHistory) {
+                    [self updateTimeStamp:updateFBTimeStamp];
+                }
+            }];
+        }
     }
 }
 
