@@ -77,12 +77,21 @@ NetworkStatus remoteHostStatus;
 }
 
 -(void)registerTimeStampTrigger{
+    if (!self.userID) {
+        return;
+    }
+    
     self.updateTimeStampRef = [[[[self.firebaseDatabaseReference
                                   child:@"users"]
                                  child: self.userID]
                                 child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
                                child:@"update_stamp"];
     [self.updateTimeStampRef observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        if(snapshot.value == [NSNull null]) {
+            return;
+        }
+        
         NSNumber *timestamp = snapshot.value;
         
         NSLog(@"TimeStamp Trigger: %ld", (long)[timestamp integerValue]);
@@ -331,10 +340,10 @@ NetworkStatus remoteHostStatus;
     
 }
 
-- (void)removeObservers{
-    [[self reviewsRef] removeAllObservers];
-    [[self memoRef] removeAllObservers];
-}
+//- (void)removeObservers{
+//    [[self reviewsRef] removeAllObservers];
+//    [[self memoRef] removeAllObservers];
+//}
 
 - (NSNumber *)currentLocalTimeStamp {
     NSString *userTimeStamp = [[DataSource shared] userKey:@"UpdateTimeStamp"];
@@ -496,32 +505,39 @@ NetworkStatus remoteHostStatus;
     for (NSDate *date in history) {
         NSNumber *dateNumber =  [NSNumber numberWithLongLong:[date timeIntervalSince1970]];
         NSLog(@"attempting to send %@",dateNumber);
+        NSDictionary *refreshRecord = @{@"time": dateNumber, @"sura": [self suraIndexFromSuraName:suraName]};
         [[[[[[self.firebaseDatabaseReference
                child:@"users"]
               child: self.userID]
              child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
            child:@"reviews"]
-          child: [dateNumber stringValue]]
-         setValue: [self suraIndexFromSuraName:suraName]];
+          child: [self timestamp]]
+         setValue: refreshRecord];
     }
     [self updateTimeStamp:updateFBTimeStamp];
+}
+
+- (NSString *)timestamp {
+    NSNumber *date =  [NSNumber numberWithLongLong: (long)([[NSDate new] timeIntervalSince1970] * 1000000.0)];
+    NSString *dateString = [date stringValue];
+    
+    return dateString;
 }
 
 - (void)refreshSura:(NSString *)suraName updateFBTimeStamp:(BOOL)updateFBTimeStamp{
     
     if (self.userID) {
-        [self removeObservers];
-
-        NSNumber *date =  [NSNumber numberWithLongLong:[[NSDate new] timeIntervalSince1970]];
-        NSString *dateString = [date stringValue];
+        NSNumber *date =  [NSNumber numberWithDouble:[[NSDate new] timeIntervalSince1970]];
+        
+        NSDictionary *refreshRecord = @{@"time": date, @"sura": [self suraIndexFromSuraName:suraName]};
         
         [[[[[[self.firebaseDatabaseReference
               child:@"users"]
              child: self.userID]
             child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
            child:@"reviews"]
-          child: dateString]
-         setValue: [self suraIndexFromSuraName:suraName]];
+          child: [self timestamp]]
+         setValue: refreshRecord];
         [self updateTimeStamp:updateFBTimeStamp];
     }
 }
@@ -530,7 +546,6 @@ NetworkStatus remoteHostStatus;
     
     
     if (self.userID) {
-        [self removeObservers];
 
         [[[[[[self.firebaseDatabaseReference
                child: @"users"]
@@ -547,15 +562,15 @@ NetworkStatus remoteHostStatus;
 - (void)refreshSura:(NSString *)suraName withDate:(NSNumber *)date updateFBTimeStamp:(BOOL)updateFBTimeStamp{
     
     if (self.userID) {
-        [self removeObservers];
+        NSDictionary *refreshRecord = @{@"time": date, @"sura": [self suraIndexFromSuraName:suraName]};
 
         [[[[[[self.firebaseDatabaseReference
-              child:@"users"]
+              child: @"users"]
              child: self.userID]
-            child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
-           child:@"reviews"]
-          child: [date stringValue]]
-         setValue: [self suraIndexFromSuraName:suraName]];
+            child: [[[DataSource shared] getCurrentUser] nonEmptyId]]
+           child: @"reviews"]
+          child: [self timestamp]]
+         setValue: refreshRecord];
         
         [self updateTimeStamp: updateFBTimeStamp];
     }
