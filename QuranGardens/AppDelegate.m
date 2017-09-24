@@ -408,20 +408,39 @@ NetworkStatus remoteHostStatus;
     }];
 }
 
+- (NSString *)getMostRecentFBReviewsTimeStamp {
+    NSString *result = [[NSUserDefaults standardUserDefaults] stringForKey:@"MostRecentFBReviewsTimeStamp"];
+    if (result == nil){
+        result = @"0";
+        [self setMostRecentFBReviewsTimeStamp:@"0"];
+    }
+    return result;
+}
+
+- (void)setMostRecentFBReviewsTimeStamp: (NSString *)timestamp {
+    [[NSUserDefaults standardUserDefaults] setObject:timestamp forKey:@"MostRecentFBReviewsTimeStamp"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (void)downloadReviewsHistory:(void(^)(void))completion {
     if (!self.userID) {
         return;
     }
-    //download all
+    //download all !! !@!@#@!$#$%%^$!!
     
-    [[self reviewsRef] observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [[[[self reviewsRef] queryOrderedByKey] queryStartingAtValue:[self getMostRecentFBReviewsTimeStamp]] observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSLog(@"reviewsRef observeSingleEventOfType:FIRDataEventTypeValue");
-            NSDictionary<NSString *, NSString *> *reviews = snapshot.value;
+            NSDictionary<NSString *, NSDictionary *> *reviews = snapshot.value;
             if (snapshot.value != [NSNull null]) {
+                NSInteger maxTimeStamp = 0;
+                NSLog(@"history dump: %@", snapshot.value);
                 for (NSString *key in reviews.allKeys)  {
-                    NSString *timeStamp = key;
-                    NSString *suraIndex = reviews[key];
+                    if ([key integerValue] > maxTimeStamp) {
+                        maxTimeStamp = [key integerValue];
+                    }
+                    NSString *timeStamp = reviews[key][@"time"];
+                    NSString *suraIndex = reviews[key][@"sura"];
                     NSTimeInterval interval = [timeStamp doubleValue];
                     NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
                     NSInteger index = [suraIndex integerValue];
@@ -431,6 +450,7 @@ NetworkStatus remoteHostStatus;
                     NSString *suraName = [Sura suraNames][index - 1];
                     [[DataSource shared] saveSuraLastRefresh:date suraName:suraName upload:NO];
                 }
+                [self setMostRecentFBReviewsTimeStamp:[NSString stringWithFormat:@"%ld",maxTimeStamp]];
             }
             
             if (completion != nil) {
@@ -506,16 +526,61 @@ NetworkStatus remoteHostStatus;
         NSNumber *dateNumber =  [NSNumber numberWithLongLong:[date timeIntervalSince1970]];
         NSLog(@"attempting to send %@",dateNumber);
         NSDictionary *refreshRecord = @{@"time": dateNumber, @"sura": [self suraIndexFromSuraName:suraName]};
+        NSString *timestamp = [self timestamp];
+        [self setMostRecentFBReviewsTimeStamp:timestamp];
         [[[[[[self.firebaseDatabaseReference
                child:@"users"]
               child: self.userID]
              child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
            child:@"reviews"]
-          child: [self timestamp]]
-         setValue: refreshRecord];
+          child: timestamp]
+         setValue: refreshRecord withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+             if (error == nil) {
+                 [self updateTimeStamp:updateFBTimeStamp];
+             } else {
+                 //TODO presist it in a queue for later upload
+             }
+         }];
     }
-    [self updateTimeStamp:updateFBTimeStamp];
+    
 }
+
+- (void)enqueueInUploadQueue:(NSDictionary *)refreshRecord {
+    NSMutableArray *uploadQueue = [self getUploadQueue].mutableCopy;
+    [uploadQueue addObject:refreshRecord];
+    [self setUploadQueue:uploadQueue];
+}
+
+- (NSDictionary *)dequeueFromUploadQueue {
+    NSMutableArray *uploadQueue = [self getUploadQueue].mutableCopy;
+    if(uploadQueue.count == 0){
+        return nil;
+    }
+    
+    NSDictionary *popedRefreshRecord = uploadQueue[0];
+    [uploadQueue removeObjectAtIndex:0];
+    [self setUploadQueue:uploadQueue];
+    
+    return popedRefreshRecord;
+}
+
+- (NSArray *)getUploadQueue{
+    NSArray *uploadQueue = [[NSUserDefaults standardUserDefaults] objectForKey:@"uploadQueue"];
+    if (uploadQueue == nil) {
+        uploadQueue = @[];
+        
+        [self setUploadQueue:uploadQueue];
+    }
+    
+    return uploadQueue;
+}
+
+- (void)setUploadQueue:(NSArray *)uploadQueue{
+    [[NSUserDefaults standardUserDefaults] setObject:uploadQueue forKey:@"uploadQueue"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
 
 - (NSString *)timestamp {
     NSNumber *date =  [NSNumber numberWithLongLong: (long)([[NSDate new] timeIntervalSince1970] * 1000000.0)];
@@ -537,8 +602,14 @@ NetworkStatus remoteHostStatus;
             child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
            child:@"reviews"]
           child: [self timestamp]]
-         setValue: refreshRecord];
-        [self updateTimeStamp:updateFBTimeStamp];
+         setValue: refreshRecord withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+             if (error == nil) {
+                 [self updateTimeStamp:updateFBTimeStamp];
+             } else {
+                 
+             }
+         }];
+        
     }
 }
 
