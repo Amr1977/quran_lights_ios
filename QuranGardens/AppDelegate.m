@@ -449,17 +449,43 @@ NetworkStatus remoteHostStatus;
                     if ([key integerValue] > maxTimeStamp) {
                         maxTimeStamp = [key integerValue];
                     }
-                    NSString *timeStamp = reviews[key][@"time"];
-                    NSString *suraIndex = reviews[key][@"sura"];
-                    NSTimeInterval interval = [timeStamp doubleValue];
-                    NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
-                    NSInteger index = [suraIndex integerValue];
-                    if (index == 0) {
-                        return;
+                    
+                    //TODO parse transaction record and apply operation
+                    NSDictionary *transaction = reviews[key];
+                    NSString *operation = transaction[@"op"];
+                    if (operation == nil) {
+                        operation = @"refresh";
                     }
-                    NSString *suraName = [Sura suraNames][index - 1];
-                    [[DataSource shared] saveSuraLastRefresh:date suraName:suraName upload:NO];
+                    if ([operation isEqualToString:@"refresh"]) {
+                        NSString *timeStamp = transaction[@"time"];
+                        NSString *suraIndex = transaction[@"sura"];
+                        NSTimeInterval interval = [timeStamp doubleValue];
+                        NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
+                        
+                        NSInteger index = [suraIndex integerValue];
+                        if (index == 0) {
+                            continue;
+                        }
+                        NSString *suraName = [Sura suraNames][index - 1];
+                        [[DataSource shared] saveSuraLastRefresh:date suraName:suraName upload:NO];
+                    }
+                    
+                    if ([operation isEqualToString:@"memorize"]) {
+                        NSString *suraIndex = transaction[@"sura"];
+                        NSInteger index = [suraIndex integerValue];
+                        if (index == 0) {
+                            continue;
+                        }
+                        NSString *suraName = [Sura suraNames][index - 1];
+                        
+                        NSString *memState = transaction[@"state"];
+                        
+                        NSInteger state = [memState integerValue];
+                        
+                        [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
+                    }
                 }
+                //TODO rename reviews to transactions
                 [self setMostRecentFBReviewsTimeStamp:[NSString stringWithFormat:@"%ld",maxTimeStamp]];
             }
             
