@@ -21,6 +21,7 @@
 @property (strong, nonatomic)__block FIRDatabaseReference *updateTimeStampRef;
 @property (strong, nonatomic)__block dispatch_block_t stabilizedSyncBlock;
 @property (nonatomic) __block BOOL isLoadedBefore;
+@property (nonatomic) __block BOOL shouldFullyUploadReviewsHistory;
 
 @end
 
@@ -89,6 +90,7 @@ NetworkStatus remoteHostStatus;
     [self.updateTimeStampRef observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         if(snapshot.value == [NSNull null]) {
+            self.shouldFullyUploadReviewsHistory = YES;
             return;
         }
         
@@ -428,7 +430,6 @@ NetworkStatus remoteHostStatus;
     if (!self.userID) {
         return;
     }
-    //download all !! !@!@#@!$#$%%^$!!
     
     NSString *recentTimeStamp = [self getMostRecentFBReviewsTimeStamp];
     
@@ -445,15 +446,6 @@ NetworkStatus remoteHostStatus;
                 [keys removeObject:recentTimeStamp];
                 
                 for (NSString *key in keys)  {
-                    if ([reviews[key] isKindOfClass:[NSDictionary class]]) {
-                        if ([snapshot.value isKindOfClass:[NSDictionary class]]){
-                            NSLog(@"[reviews[key] isKindOfClass:[NSDictionary class]] is true");
-                        } else {
-                            NSLog(@"[reviews[key] isKindOfClass:[NSDictionary class]] is false");
-                        }
-                    }
-                    
-                    
                     if ([key integerValue] > maxTimeStamp) {
                         maxTimeStamp = [key integerValue];
                     }
@@ -510,6 +502,21 @@ NetworkStatus remoteHostStatus;
 
 }
 
+- (void)enqueueAllReviewsHistoryForUpload{
+    //put all reviews transactions in upload queue
+    for (PeriodicTask *task in [DataSource shared].tasks) {
+        if(task.history.count == 0 ) {
+            continue;
+        }
+        
+        for (NSDate *date in task.history) {
+            NSNumber *dateNumber =  [NSNumber numberWithLongLong:[date timeIntervalSince1970]];
+            NSDictionary *refreshRecord = @{@"time": dateNumber, @"sura": [self suraIndexFromSuraName:task.name]};
+            [self enqueueInUploadQueue:refreshRecord];
+        }
+    }
+}
+
 BOOL uploadInProgress;
 
 //TODO handle error uploading
@@ -518,14 +525,19 @@ BOOL uploadInProgress;
     static BOOL dirty = NO;
     static BOOL networkError = NO;
     
+    if (self.shouldFullyUploadReviewsHistory) {
+        self.shouldFullyUploadReviewsHistory = NO;
+        [self enqueueAllReviewsHistoryForUpload];
+    }
+    
     if ([self getUploadQueue].count == 0 || networkError) {
         uploadInProgress = NO;
         if (completion != nil) {
             completion(!networkError, dirty);
-            //TODO alter update_time_stamp in completion after checking queue
         }
         dirty = NO;
         networkError = NO;
+        self.shouldFullyUploadReviewsHistory = NO;
         return;
     }
 
@@ -542,7 +554,6 @@ BOOL uploadInProgress;
              dirty = YES;
              [self dequeueFromUploadQueue];
              [self setMostRecentFBReviewsTimeStamp:timestamp];
-             //use recursion to upload the rest
              //replace recursion with loop
          } else {
              NSLog(@"History upload error %@", error.localizedDescription);
@@ -567,7 +578,6 @@ BOOL uploadInProgress;
     
     for (NSDate *date in history) {
         NSNumber *dateNumber =  [NSNumber numberWithLongLong:[date timeIntervalSince1970]];
-        NSLog(@"attempting to send %@",dateNumber);
         NSDictionary *refreshRecord = @{@"time": dateNumber, @"sura": [self suraIndexFromSuraName:suraName]};
         [self enqueueInUploadQueue:refreshRecord];
     }
