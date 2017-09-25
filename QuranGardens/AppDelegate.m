@@ -699,4 +699,56 @@ BOOL uploadInProgress;
     }
 }
 
+//TODO use string constants instead of magic strings!!
+- (NSMutableArray *)getMemorizationQueue {
+    NSMutableArray *memQueue = [((NSArray *)[[NSUserDefaults standardUserDefaults] objectForKey:@"MemorizationQueue"]) mutableCopy];
+    if (memQueue == nil){
+        memQueue = @[].mutableCopy;
+        [self setMemorizationQueue:memQueue];
+    }
+    
+    return memQueue;
+}
+
+- (void)setMemorizationQueue:(NSArray *)memQueue {
+    if (memQueue == nil) {
+        memQueue = @[];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:memQueue forKey:@"MemorizationQueue"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)enqueueInMemorizationQueue:(NSDictionary *)memorizationRecord {
+    if (memorizationRecord == nil) {
+        return;
+    }
+    NSMutableArray *memQueue = [self getMemorizationQueue];
+    [memQueue addObject:memorizationRecord];
+    
+    [self setMemorizationQueue:memQueue];
+}
+
+- (NSDictionary *)getMemorizationQueueHead {
+    NSMutableArray *memQueue = [self getMemorizationQueue];
+    if (memQueue.count == 0) {
+        return nil;
+    }
+    
+    return memQueue[0];
+}
+
+- (NSDictionary *)dequeueFromMemorizationQueue {
+    NSMutableArray *memQueue = [self getMemorizationQueue];
+    if(memQueue.count == 0) {
+        return nil;
+    }
+    
+    NSDictionary *memRecord = memQueue[0];
+    [memQueue removeObjectAtIndex:0];
+    
+    [self setMemorizationQueue:memQueue];
+    
+    return memRecord;
+}
+
 @end
