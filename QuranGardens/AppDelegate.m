@@ -20,7 +20,6 @@
 @property (strong, nonatomic) NSMutableArray<NSNumber *> *localTimeStampsHistory;
 @property (strong, nonatomic)__block FIRDatabaseReference *updateTimeStampRef;
 @property (strong, nonatomic)__block dispatch_block_t stabilizedSyncBlock;
-@property (nonatomic) __block BOOL isLoadedBefore;
 @property (nonatomic) __block BOOL shouldFullyUploadReviewsHistory;
 
 @end
@@ -29,6 +28,7 @@
 
 Reachability* reachability;
 NetworkStatus remoteHostStatus;
+BOOL uploadInProgress;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -42,7 +42,7 @@ NetworkStatus remoteHostStatus;
     
     [self firebaseSignIn:^(BOOL success, NSString *error){
         if (error == nil){
-            [self registerTimeStampTrigger];
+            //[self registerTimeStampTrigger];
         } else {
             NSLog(@"Error: %@",error.localizedLowercaseString);
         }
@@ -52,9 +52,9 @@ NetworkStatus remoteHostStatus;
 }
 
 
-//TODO download ONLY new entries after last sync and upload ONLY diff entries.
 //TODO sync all members, not just current member !!!
 - (void)syncHistory {
+    NSLog(@"syncHistory started");
     if (!self.userID) {
         return;
     }
@@ -65,12 +65,11 @@ NetworkStatus remoteHostStatus;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"WillStartUpdatedFromFireBase"
                                                                 object:self];
             [self downloadReviewsHistory: ^{
-                [self downloadMemoHistory: ^{
-                    [self uploadHistory:^(BOOL success, BOOL dirty){
-                        [self updateTimeStamp:dirty];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase"
-                                                                            object:self];
-                    }];
+                [self uploadHistory:^(BOOL success, BOOL dirty){
+                    [self updateTimeStamp:dirty];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase"
+                                                                        object:self];
+                    NSLog(@"syncHistory Completed.");
                 }];
             }];
         }];
@@ -78,9 +77,15 @@ NetworkStatus remoteHostStatus;
 }
 
 -(void)registerTimeStampTrigger{
+    NSLog(@"registerTimeStampTrigger started");
     if (!self.userID) {
         return;
     }
+    
+    /**
+    * first sync is made on app launch and does not need to be delayed
+    */
+    static BOOL isFirstSync = YES;
     
     self.updateTimeStampRef = [[[[self.firebaseDatabaseReference
                                   child:@"users"]
@@ -90,20 +95,21 @@ NetworkStatus remoteHostStatus;
     [self.updateTimeStampRef observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         if(snapshot.value == [NSNull null]) {
+            //Handle fresh firebase database
+            NSLog(@"self.shouldFullyUploadReviewsHistory = YES;");
             self.shouldFullyUploadReviewsHistory = YES;
-            return;
-        }
-        
-        NSNumber *timestamp = snapshot.value;
-        
-        NSLog(@"TimeStamp Trigger: %ld", (long)[timestamp integerValue]);
-        
-        //Drop if local echo
-        
-        for (NSNumber *number in self.localTimeStampsHistory) {
-            if ([number integerValue] == [timestamp integerValue]) {
-                NSLog(@"Dropped local timestamp trigger echo");
-                return;
+        } else {
+            NSNumber *timestamp = snapshot.value;
+            
+            NSLog(@"TimeStamp Trigger: %ld", (long)[timestamp integerValue]);
+            
+            //Drop if local echo
+            
+            for (NSNumber *number in self.localTimeStampsHistory) {
+                if ([number integerValue] == [timestamp integerValue]) {
+                    NSLog(@"Dropped local timestamp trigger echo");
+                    return;
+                }
             }
         }
         
@@ -118,8 +124,9 @@ NetworkStatus remoteHostStatus;
             [self syncHistory];
         });
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((self.isLoadedBefore ? 5 : 0) * NSEC_PER_SEC)), dispatch_get_main_queue(), self.stabilizedSyncBlock);
-        self.isLoadedBefore = YES;
+        //execute stabilized sync after a while
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((isFirstSync ? 0 : 5) * NSEC_PER_SEC)), dispatch_get_main_queue(), self.stabilizedSyncBlock);
+        isFirstSync = YES;
     }];
 }
 
@@ -226,6 +233,7 @@ NetworkStatus remoteHostStatus;
 
 - (void)firebaseSignIn:(void (^)(BOOL success, NSString *error)) completion {
     if (!self.isConnected) {
+        completion(NO, @"no Internet connection");
         return;
     }
     NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:@"email"];
@@ -253,7 +261,7 @@ NetworkStatus remoteHostStatus;
             [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"email"];
             [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
             [[NSNotificationCenter defaultCenter] postNotificationName:FireBaseSignInNotification object:self];
-            
+            [self registerTimeStampTrigger];
             if (completion != nil) {
                 completion(YES, nil);
             }
@@ -391,7 +399,7 @@ NetworkStatus remoteHostStatus;
       child:@"update_stamp"] observeSingleEventOfType: FIRDataEventTypeValue
      withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         NSLog(@"timestamp snapshot %@", snapshot);
-        if (completion == nil) return;
+         if (completion == nil) return;
         if (snapshot.value != [NSNull null]) {
              NSNumber *timestamp = (NSNumber *)[snapshot value];
              completion(timestamp);
@@ -404,6 +412,7 @@ NetworkStatus remoteHostStatus;
 - (void)onTimeStampAltered:(void(^)(void))completion{
     __block NSNumber *localTimeStamp = [self currentLocalTimeStamp];
     [self remoteTimeStamp:^(NSNumber *timestamp) {
+        NSLog(@"onTimeStampAltered: timestamp %@", timestamp);
         if ((timestamp == nil || [timestamp integerValue] != [localTimeStamp integerValue]) && completion != nil ) {
             completion();
         }
@@ -453,9 +462,12 @@ NetworkStatus remoteHostStatus;
                     //TODO parse transaction record and apply operation
                     NSDictionary *transaction = reviews[key];
                     NSString *operation = transaction[@"op"];
+                    
+                    //set default operation
                     if (operation == nil) {
                         operation = @"refresh";
                     }
+                    
                     if ([operation isEqualToString:@"refresh"]) {
                         NSString *timeStamp = transaction[@"time"];
                         NSString *suraIndex = transaction[@"sura"];
@@ -496,56 +508,26 @@ NetworkStatus remoteHostStatus;
     }];
 }
 
-- (void)downloadMemoHistory:(void(^)(void))completion {
-    if (!self.userID) {
-        if (completion != nil) {
-            completion();
-        }
-        return;
-    }
-//TODO: if user switched while downloading data will be saved in other user history!!!!!
-    [[self memoRef] observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                NSLog(@"memoRef observeSingleEventOfType:FIRDataEventTypeValue");
-                if (snapshot.value != [NSNull null]) {
-                    for (FIRDataSnapshot *entry in snapshot.children) {
-                        NSString *suraIndex = entry.key;
-                        NSInteger state = [entry.value integerValue];
-                        NSInteger index = [suraIndex integerValue];
-                        if (index == 0) {
-                            return;
-                        }
-                        NSString *suraName = [Sura suraNames][index - 1];
-                        [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
-                    }
-                }
-                
-                if (completion != nil) {
-                    completion();
-                }
-            });
-    }];
-
-}
-
 - (void)enqueueAllReviewsHistoryForUpload{
     //put all reviews transactions in upload queue
     for (PeriodicTask *task in [DataSource shared].tasks) {
-        if(task.history.count == 0 ) {
-            continue;
-        }
+        
+        
+        NSString *stateString = [NSString stringWithFormat:@"%ld", task.memorizedState];
+        NSDictionary *memRecord = @{@"op": @"memorize",
+                                    @"state": stateString,
+                                    @"sura": [self suraIndexFromSuraName:task.name]};
+        [self enqueueInUploadQueue:memRecord];
         
         for (NSDate *date in task.history) {
             NSNumber *dateNumber =  [NSNumber numberWithLongLong:[date timeIntervalSince1970]];
-            NSDictionary *refreshRecord = @{@"time": dateNumber, @"sura": [self suraIndexFromSuraName:task.name]};
+            NSDictionary *refreshRecord = @{@"op": @"refresh", @"time": dateNumber, @"sura": [self suraIndexFromSuraName:task.name]};
+            
             [self enqueueInUploadQueue:refreshRecord];
         }
     }
 }
 
-BOOL uploadInProgress;
-
-//TODO handle error uploading
 - (void)uploadHistory:(void(^)(BOOL success, BOOL alteredHistory))completion{
     uploadInProgress = YES;
     static BOOL dirty = NO;
@@ -604,7 +586,7 @@ BOOL uploadInProgress;
     
     for (NSDate *date in history) {
         NSNumber *dateNumber =  [NSNumber numberWithLongLong:[date timeIntervalSince1970]];
-        NSDictionary *refreshRecord = @{@"time": dateNumber, @"sura": [self suraIndexFromSuraName:suraName]};
+        NSDictionary *refreshRecord = @{@"op": @"refresh", @"time": dateNumber, @"sura": [self suraIndexFromSuraName:suraName]};
         [self enqueueInUploadQueue:refreshRecord];
     }
     
@@ -613,7 +595,6 @@ BOOL uploadInProgress;
             if (alteredHistory) {
                 [self updateTimeStamp:updateFBTimeStamp];
             }
-            
         }];
     }
 }
@@ -677,7 +658,7 @@ BOOL uploadInProgress;
     if (self.userID) {
         NSNumber *date =  [NSNumber numberWithDouble:[[NSDate new] timeIntervalSince1970]];
         
-        NSDictionary *refreshRecord = @{@"time": date, @"sura": [self suraIndexFromSuraName:suraName]};
+        NSDictionary *refreshRecord = @{@"op": @"refresh", @"time": date, @"sura": [self suraIndexFromSuraName:suraName]};
         [self enqueueInUploadQueue:refreshRecord];
         
         if (!uploadInProgress) {
@@ -685,33 +666,15 @@ BOOL uploadInProgress;
                 if (alteredHistory) {
                     [self updateTimeStamp:updateFBTimeStamp];
                 }
-                
             }];
         }
     }
 }
 
 - (void)refreshSura:(NSString *)suraName withMemorization:(NSInteger)memorization updateFBTimeStamp:(BOOL)updateFBTimeStamp{
-    
-    ///TODO memorization should have timstamp details and be structured like reviews tree
     if (self.userID) {
-
-        [[[[[[self.firebaseDatabaseReference
-               child: @"users"]
-              child: self.userID]
-            child: [[[DataSource shared] getCurrentUser] nonEmptyId]]
-             child: @"memorization"]
-            child: [self suraIndexFromSuraName:suraName]]
-           setValue: [NSNumber numberWithInteger:memorization]];
-        [self updateTimeStamp: updateFBTimeStamp];
-    }
-    
-}
-
-- (void)refreshSura:(NSString *)suraName withDate:(NSNumber *)date updateFBTimeStamp:(BOOL)updateFBTimeStamp{
-    
-    if (self.userID) {
-        NSDictionary *refreshRecord = @{@"time": date, @"sura": [self suraIndexFromSuraName:suraName]};
+        NSString *memString = [NSString stringWithFormat:@"%ld", memorization];
+        NSDictionary *refreshRecord = @{@"op": @"memorize" , @"state": memString , @"sura": [self suraIndexFromSuraName:suraName]};
 
         [self enqueueInUploadQueue:refreshRecord];
         
@@ -725,56 +688,20 @@ BOOL uploadInProgress;
     }
 }
 
-//TODO use string constants instead of magic strings!!
-- (NSMutableArray *)getMemorizationQueue {
-    NSMutableArray *memQueue = [((NSArray *)[[NSUserDefaults standardUserDefaults] objectForKey:@"MemorizationQueue"]) mutableCopy];
-    if (memQueue == nil){
-        memQueue = @[].mutableCopy;
-        [self setMemorizationQueue:memQueue];
-    }
-    
-    return memQueue;
-}
+- (void)refreshSura:(NSString *)suraName withDate:(NSNumber *)date updateFBTimeStamp:(BOOL)updateFBTimeStamp{
+    if (self.userID) {
+        NSDictionary *refreshRecord = @{@"op": @"refresh", @"time": date, @"sura": [self suraIndexFromSuraName:suraName]};
 
-- (void)setMemorizationQueue:(NSArray *)memQueue {
-    if (memQueue == nil) {
-        memQueue = @[];
+        [self enqueueInUploadQueue:refreshRecord];
+        
+        if (!uploadInProgress) {
+            [self uploadHistory:^(BOOL success, BOOL alteredHistory){
+                if (alteredHistory) {
+                    [self updateTimeStamp:updateFBTimeStamp];
+                }
+            }];
+        }
     }
-    [[NSUserDefaults standardUserDefaults] setObject:memQueue forKey:@"MemorizationQueue"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)enqueueInMemorizationQueue:(NSDictionary *)memorizationRecord {
-    if (memorizationRecord == nil) {
-        return;
-    }
-    NSMutableArray *memQueue = [self getMemorizationQueue];
-    [memQueue addObject:memorizationRecord];
-    
-    [self setMemorizationQueue:memQueue];
-}
-
-- (NSDictionary *)getMemorizationQueueHead {
-    NSMutableArray *memQueue = [self getMemorizationQueue];
-    if (memQueue.count == 0) {
-        return nil;
-    }
-    
-    return memQueue[0];
-}
-
-- (NSDictionary *)dequeueFromMemorizationQueue {
-    NSMutableArray *memQueue = [self getMemorizationQueue];
-    if(memQueue.count == 0) {
-        return nil;
-    }
-    
-    NSDictionary *memRecord = memQueue[0];
-    [memQueue removeObjectAtIndex:0];
-    
-    [self setMemorizationQueue:memQueue];
-    
-    return memRecord;
 }
 
 @end

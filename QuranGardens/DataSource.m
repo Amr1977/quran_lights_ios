@@ -427,7 +427,7 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     if (task) {
         [[NSUserDefaults standardUserDefaults] setInteger:task.memorizedState forKey:[self memorizedKeyForSuraName:task.name]];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:task.name withMemorization:task.memorizedState updateFBTimeStamp:NO];
+        [((AppDelegate *)[UIApplication sharedApplication].delegate) refreshSura:task.name withMemorization:task.memorizedState updateFBTimeStamp:YES];
     }
 }
 
