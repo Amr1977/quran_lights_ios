@@ -66,7 +66,13 @@ BOOL uploadInProgress;
                                                                 object:self];
             [self downloadReviewsHistory: ^{
                 [self uploadHistory:^(BOOL success, BOOL dirty){
-                    [self updateTimeStamp:dirty];
+                    if (success) {
+                        NSLog(@"🌻 Success uploading history. 🌻");
+                        [self updateTimeStamp:dirty];
+                    } else {
+                        NSLog(@">>>>>>>>>>>> 💥 💥 💥  Error uploading history. <<<<<<<<<<<<<<<<<");
+                    }
+                    
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase"
                                                                         object:self];
                     NSLog(@"syncHistory Completed.");
@@ -419,18 +425,18 @@ BOOL uploadInProgress;
     }];
 }
 
-- (NSString *)getMostRecentFBReviewsTimeStamp {
+- (NSString *)getLastTransactionTimeStamp {
     NSString *result = [[NSUserDefaults standardUserDefaults] stringForKey:@"MostRecentFBReviewsTimeStamp"];
     if (result == nil){
         result = @"0";
-        [self setMostRecentFBReviewsTimeStamp:@"0"];
+        [self setLastTransactionTimeStamp:@"0"];
     }
     
-    NSLog(@"getMostRecentFBReviewsTimeStamp: %@", result);
+    NSLog(@"getLastTransactionTimeStamp: %@", result);
     return result;
 }
 
-- (void)setMostRecentFBReviewsTimeStamp: (NSString *)timestamp {
+- (void)setLastTransactionTimeStamp: (NSString *)timestamp {
     [[NSUserDefaults standardUserDefaults] setObject:timestamp forKey:@"MostRecentFBReviewsTimeStamp"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -440,7 +446,7 @@ BOOL uploadInProgress;
         return;
     }
     
-    NSString *recentTimeStamp = [self getMostRecentFBReviewsTimeStamp];
+    NSString *recentTimeStamp = [self getLastTransactionTimeStamp];
     
     [[[[self reviewsRef] queryOrderedByKey] queryStartingAtValue:recentTimeStamp] observeSingleEventOfType:(FIRDataEventTypeValue) withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -498,7 +504,7 @@ BOOL uploadInProgress;
                     }
                 }
                 //TODO rename reviews to transactions
-                [self setMostRecentFBReviewsTimeStamp:[NSString stringWithFormat:@"%ld",maxTimeStamp]];
+                [self setLastTransactionTimeStamp:[NSString stringWithFormat:@"%ld",maxTimeStamp]];
             }
             
             if (completion != nil) {
@@ -508,7 +514,9 @@ BOOL uploadInProgress;
     }];
 }
 
-- (void)enqueueAllReviewsHistoryForUpload{
+- (NSDictionary *)reviewsDic {
+    
+    NSMutableDictionary *reviews = @{}.mutableCopy;
     //put all reviews transactions in upload queue
     for (PeriodicTask *task in [DataSource shared].tasks) {
         
@@ -517,15 +525,19 @@ BOOL uploadInProgress;
         NSDictionary *memRecord = @{@"op": @"memorize",
                                     @"state": stateString,
                                     @"sura": [self suraIndexFromSuraName:task.name]};
-        [self enqueueInUploadQueue:memRecord];
+        
+        reviews[[self timestamp]] = memRecord;
+        NSLog(@"reviews upload added: %@", memRecord);
         
         for (NSDate *date in task.history) {
             NSNumber *dateNumber =  [NSNumber numberWithLongLong:[date timeIntervalSince1970]];
             NSDictionary *refreshRecord = @{@"op": @"refresh", @"time": dateNumber, @"sura": [self suraIndexFromSuraName:task.name]};
-            
-            [self enqueueInUploadQueue:refreshRecord];
+            reviews[[self timestamp]] = refreshRecord;
+            NSLog(@"reviews upload added: %@", refreshRecord);
         }
     }
+    
+    return reviews;
 }
 
 - (void)uploadHistory:(void(^)(BOOL success, BOOL alteredHistory))completion{
@@ -535,7 +547,20 @@ BOOL uploadInProgress;
     
     if (self.shouldFullyUploadReviewsHistory) {
         self.shouldFullyUploadReviewsHistory = NO;
-        [self enqueueAllReviewsHistoryForUpload];
+        NSDictionary *reviews = [self reviewsDic];
+        [[[[[self.firebaseDatabaseReference
+            child:@"users"]
+           child: self.userID]
+          child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
+         child:@"reviews"] setValue:reviews withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+            if (error == nil) {
+                [self setLastTransactionTimeStamp:[self timestamp]];
+                completion(YES, YES);
+            } else {
+                completion(NO, NO);
+            }
+        }];
+        return;
     }
     
     if ([self getUploadQueue].count == 0 || networkError) {
@@ -545,7 +570,6 @@ BOOL uploadInProgress;
         }
         dirty = NO;
         networkError = NO;
-        self.shouldFullyUploadReviewsHistory = NO;
         return;
     }
 
@@ -561,7 +585,7 @@ BOOL uploadInProgress;
          if (error == nil) {
              dirty = YES;
              [self dequeueFromUploadQueue];
-             [self setMostRecentFBReviewsTimeStamp:timestamp];
+             [self setLastTransactionTimeStamp:timestamp];
              //replace recursion with loop
          } else {
              NSLog(@"History upload error %@", error.localizedDescription);
@@ -610,6 +634,7 @@ BOOL uploadInProgress;
 }
 
 - (void)enqueueInUploadQueue:(NSDictionary *)refreshRecord {
+    NSLog(@"Enqueue in upload queue: %@", refreshRecord);
     NSMutableArray *uploadQueue = [self getUploadQueue].mutableCopy;
     [uploadQueue addObject:refreshRecord];
     [self setUploadQueue:uploadQueue];
