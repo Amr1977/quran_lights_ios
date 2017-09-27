@@ -49,6 +49,7 @@
 - (NSDate *)loadSuraLastRefresh:(NSString *)suraName;
 - (BOOL)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName upload:(Boolean)upload;
 - (BOOL)saveSuraLastRefresh:(NSDate *)lastRefreshDate suraName:(NSString *)suraName;
+- (void)appendRefreshHistory:(NSArray <NSData *>*)history suraName:(NSString *)suraName upload:(Boolean)upload;
 
 @property (strong, nonatomic) User *currentUser;
 

@@ -437,6 +437,8 @@ BOOL uploadInProgress;
                 NSMutableArray *keys = reviews.allKeys.mutableCopy;
                 [keys removeObject:recentTimeStamp];
                 
+                NSMutableDictionary *surasHistory = @{}.mutableCopy;
+                
                 for (NSString *key in keys)  {
                     if ([key integerValue] > maxTimeStamp) {
                         maxTimeStamp = [key integerValue];
@@ -462,7 +464,11 @@ BOOL uploadInProgress;
                             continue;
                         }
                         NSString *suraName = [Sura suraNames][index - 1];
-                        [[DataSource shared] saveSuraLastRefresh:date suraName:suraName upload:NO];
+                        
+                        if(surasHistory[suraName] == nil){
+                            surasHistory[suraName] = @[].mutableCopy;
+                        }
+                        [surasHistory[suraName] addObject:date];
                     }
                     
                     if ([operation isEqualToString:@"memorize"]) {
@@ -480,6 +486,12 @@ BOOL uploadInProgress;
                         [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
                     }
                 }
+                
+                //insert new refresh transactions a sura at once
+                for (NSString *suraName in surasHistory.allKeys) {
+                    [[DataSource shared] appendRefreshHistory:surasHistory[suraName] suraName:suraName upload:NO];
+                }
+                
                 //TODO rename reviews to transactions
                 [self setLastTransactionTimeStamp:[NSString stringWithFormat:@"%ld",maxTimeStamp]];
             }
@@ -552,6 +564,8 @@ BOOL uploadInProgress;
 
     NSString *timestamp = [self timestamp];
     
+    
+    //TODO consider updating multiple nodes at once using [ref updateChildValues:]
     [[[[[[self.firebaseDatabaseReference
           child:@"users"]
          child: self.userID]

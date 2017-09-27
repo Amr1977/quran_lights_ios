@@ -301,6 +301,30 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     return YES;
 }
 
+- (void)appendRefreshHistory:(NSArray *)history suraName:(NSString *)suraName upload:(Boolean)upload{
+    if(history == nil || history.count == 0) {
+        return;
+    }
+    
+    PeriodicTask *task = [self getTaskWithSuraName:suraName];
+    
+    //TODO handle dropping duplicate entries
+    if (task.history == nil) {
+        task.history = @[].mutableCopy;
+    }
+    task.history = [task.history arrayByAddingObjectsFromArray:history];
+    task.history = [task.history sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSDate *date1 = (NSDate *)obj1;
+        NSDate *date2 = (NSDate *)obj2;
+        return [date1 compare:date2];
+    }];
+    NSLog(@"Batch saving/appending for sura: [%@], history %@", suraName, history);
+    [[NSUserDefaults standardUserDefaults] setObject:task.history forKey:[self refreshHistoryKeyForSuraName:suraName]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    task.averageRefreshInterval = [AMRTools averageIntervalBetweenDatesInArray:task.history];
+}
+
 - (NSString *)suraIndexFromSuraName:(NSString *)suraName{
     return [NSString stringWithFormat:@"%lu",((unsigned long) [Sura.suraNames indexOfObject:suraName] + 1)];
 }
