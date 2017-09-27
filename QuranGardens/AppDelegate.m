@@ -683,6 +683,9 @@ BOOL uploadInProgress;
         
         if (!uploadInProgress) {
             [self uploadHistory:^(BOOL success, BOOL alteredHistory){
+                if (success) {
+                    [self setLastTransactionTimeStamp:[self timestamp]];
+                }
                 if (alteredHistory) {
                     [self updateTimeStamp:updateFBTimeStamp];
                 }
@@ -700,6 +703,9 @@ BOOL uploadInProgress;
         
         if (!uploadInProgress) {
             [self uploadHistory:^(BOOL success, BOOL alteredHistory){
+                if (success) {
+                    [self setLastTransactionTimeStamp:[self timestamp]];
+                }
                 if (alteredHistory) {
                     [self updateTimeStamp:updateFBTimeStamp];
                 }
@@ -716,6 +722,9 @@ BOOL uploadInProgress;
         
         if (!uploadInProgress) {
             [self uploadHistory:^(BOOL success, BOOL alteredHistory){
+                if (success) {
+                    [self setLastTransactionTimeStamp:[self timestamp]];
+                }
                 if (alteredHistory) {
                     [self updateTimeStamp:updateFBTimeStamp];
                 }
