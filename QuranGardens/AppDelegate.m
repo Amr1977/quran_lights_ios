@@ -530,6 +530,9 @@ BOOL uploadInProgress;
 }
 
 - (void)uploadHistory:(void(^)(BOOL success, BOOL alteredHistory))completion{
+    if (self.userID == nil) {
+        return;
+    }
     uploadInProgress = YES;
     static BOOL dirty = NO;
     static BOOL networkError = NO;
@@ -548,6 +551,7 @@ BOOL uploadInProgress;
             } else {
                 completion(NO, NO);
             }
+            uploadInProgress = NO;
         }];
         return;
     }
