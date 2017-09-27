@@ -310,13 +310,6 @@ BOOL uploadInProgress;
     }];
 }
 
-//Only once per app install
-
-//- (void)setUpdateCounter:(int)updateCounter{
-//    _updateCounter = updateCounter;
-//    [self updateSensor];
-//}
-
 - (FIRDatabaseReference *)reviewsRef {
     if (!self.userID) {
         return nil;
@@ -326,17 +319,6 @@ BOOL uploadInProgress;
               child: self.userID]
              child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
             child:@"reviews"];
-}
-
-- (FIRDatabaseReference *)memoRef {
-    if (!self.userID) {
-        return nil;
-    }
-    return [[[[self.firebaseDatabaseReference
-               child:@"users"]
-              child: self.userID]
-             child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
-            child:@"memorization"];
 }
 
 - (FIRDatabaseReference *)membersRef {
@@ -355,11 +337,6 @@ BOOL uploadInProgress;
     }
     
 }
-
-//- (void)removeObservers{
-//    [[self reviewsRef] removeAllObservers];
-//    [[self memoRef] removeAllObservers];
-//}
 
 - (NSNumber *)currentLocalTimeStamp {
     NSString *userTimeStamp = [[DataSource shared] userKey:@"UpdateTimeStamp"];
