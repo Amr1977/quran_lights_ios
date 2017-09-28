@@ -416,6 +416,7 @@ BOOL uploadInProgress;
 - (void)setLastTransactionTimeStamp: (NSString *)timestamp {
     [[NSUserDefaults standardUserDefaults] setObject:timestamp forKey:@"MostRecentFBReviewsTimeStamp"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"MostRecentFBReviewsTimeStamp: %@", timestamp);
 }
 
 - (void)downloadReviewsHistory:(void(^)(void))completion {
@@ -430,8 +431,9 @@ BOOL uploadInProgress;
             NSLog(@"reviewsRef observeSingleEventOfType:FIRDataEventTypeValue");
             NSDictionary<NSString *, NSDictionary *> *reviews = snapshot.value;
             if (snapshot.value != [NSNull null]) {
+                [self setLastTransactionTimeStamp:[self timestamp]];
                 
-                NSInteger maxTimeStamp = [recentTimeStamp integerValue];
+                //NSInteger maxTimeStamp = [recentTimeStamp integerValue];
                 NSLog(@"history dump: %@", snapshot.value);
                 
                 NSMutableArray *keys = reviews.allKeys.mutableCopy;
@@ -440,9 +442,9 @@ BOOL uploadInProgress;
                 NSMutableDictionary *surasHistory = @{}.mutableCopy;
                 
                 for (NSString *key in keys)  {
-                    if ([key integerValue] > maxTimeStamp) {
-                        maxTimeStamp = [key integerValue];
-                    }
+//                    if ([key integerValue] > maxTimeStamp) {
+//                        maxTimeStamp = [key integerValue];
+//                    }
                     
                     //TODO parse transaction record and apply operation
                     NSDictionary *transaction = reviews[key];
@@ -493,7 +495,7 @@ BOOL uploadInProgress;
                 }
                 
                 //TODO rename reviews to transactions
-                [self setLastTransactionTimeStamp:[NSString stringWithFormat:@"%ld",maxTimeStamp]];
+                
             }
             
             if (completion != nil) {
