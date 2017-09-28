@@ -61,22 +61,20 @@ BOOL uploadInProgress;
     
     [self syncMembers:^{
         NSLog(@"Members synced.");
-        [self onTimeStampAltered:^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"WillStartUpdatedFromFireBase"
-                                                                object:self];
-            [self downloadReviewsHistory: ^{
-                [self uploadHistory:^(BOOL success, BOOL dirty){
-                    if (success) {
-                        NSLog(@"🌻 Success uploading history. 🌻");
-                        [self updateTimeStamp:dirty];
-                    } else {
-                        NSLog(@">>>>>>>>>>>> 💥 💥 💥  Error uploading history. <<<<<<<<<<<<<<<<<");
-                    }
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase"
-                                                                        object:self];
-                    NSLog(@"syncHistory Completed.");
-                }];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"WillStartUpdatedFromFireBase"
+                                                            object:self];
+        [self downloadReviewsHistory: ^{
+            [self uploadHistory:^(BOOL success, BOOL dirty){
+                if (success) {
+                    NSLog(@"🌻 Success uploading history. 🌻");
+                    [self updateTimeStamp:dirty];
+                } else {
+                    NSLog(@">>>>>>>>>>>> 💥 💥 💥  Error uploading history. <<<<<<<<<<<<<<<<<");
+                }
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedFromFireBase"
+                                                                    object:self];
+                NSLog(@"syncHistory Completed.");
             }];
         }];
     }];
@@ -416,7 +414,7 @@ BOOL uploadInProgress;
 - (void)setLastTransactionTimeStamp: (NSString *)timestamp {
     [[NSUserDefaults standardUserDefaults] setObject:timestamp forKey:@"MostRecentFBReviewsTimeStamp"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    NSLog(@"MostRecentFBReviewsTimeStamp: %@", timestamp);
+    NSLog(@"setLastTransactionTimeStamp: %@", timestamp);
 }
 
 - (void)downloadReviewsHistory:(void(^)(void))completion {
@@ -431,9 +429,8 @@ BOOL uploadInProgress;
             NSLog(@"reviewsRef observeSingleEventOfType:FIRDataEventTypeValue");
             NSDictionary<NSString *, NSDictionary *> *reviews = snapshot.value;
             if (snapshot.value != [NSNull null]) {
-                [self setLastTransactionTimeStamp:[self timestamp]];
                 
-                //NSInteger maxTimeStamp = [recentTimeStamp integerValue];
+                long long maxTimeStamp = [recentTimeStamp longLongValue];
                 NSLog(@"history dump: %@", snapshot.value);
                 
                 NSMutableArray *keys = reviews.allKeys.mutableCopy;
@@ -442,9 +439,9 @@ BOOL uploadInProgress;
                 NSMutableDictionary *surasHistory = @{}.mutableCopy;
                 
                 for (NSString *key in keys)  {
-//                    if ([key integerValue] > maxTimeStamp) {
-//                        maxTimeStamp = [key integerValue];
-//                    }
+                    if ([key longLongValue] > maxTimeStamp) {
+                        maxTimeStamp = [key longLongValue];
+                    }
                     
                     //TODO parse transaction record and apply operation
                     NSDictionary *transaction = reviews[key];
@@ -495,7 +492,8 @@ BOOL uploadInProgress;
                 }
                 
                 //TODO rename reviews to transactions
-                
+                NSLog(@"maxTimeStamp: %@", [NSString stringWithFormat:@"%lld", (long long)maxTimeStamp]);
+                [self setLastTransactionTimeStamp:[NSString stringWithFormat:@"%lld", (long long)maxTimeStamp]];
             }
             
             if (completion != nil) {
