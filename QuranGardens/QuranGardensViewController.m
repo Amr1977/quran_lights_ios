@@ -140,6 +140,9 @@ AppDelegate *delegate;
 }
 
 - (void)onFirebaseWillStartSync {
+    if (updateInProgress) {
+        return;
+    }
     updateInProgress = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"onFirebaseWillStartSync: Showin HUD");
