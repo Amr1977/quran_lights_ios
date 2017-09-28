@@ -1527,14 +1527,13 @@ static NSInteger tone = 0;
 }
 
 - (void)reload{
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"reload: Unhiding HUD");
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
     updateInProgress = NO;
     [[DataSource shared] load: ^{
         [self refreshViews];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"reload: Unhiding HUD");
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
     }];
 }
 
