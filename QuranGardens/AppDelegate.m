@@ -660,7 +660,7 @@ BOOL uploadInProgress;
 }
 
 - (NSArray *)getUploadQueue{
-    NSArray *uploadQueue = [[NSUserDefaults standardUserDefaults] objectForKey:@"uploadQueue"];
+    NSArray *uploadQueue = [[NSUserDefaults standardUserDefaults] objectForKey:[self uploadQueueKey]];
     if (uploadQueue == nil) {
         uploadQueue = @[];
         
@@ -671,8 +671,12 @@ BOOL uploadInProgress;
 }
 
 - (void)setUploadQueue:(NSArray *)uploadQueue{
-    [[NSUserDefaults standardUserDefaults] setObject:uploadQueue forKey:@"uploadQueue"];
+    [[NSUserDefaults standardUserDefaults] setObject:uploadQueue forKey:[self uploadQueueKey]];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSString *)uploadQueueKey {
+    return [[DataSource shared] userKey:@"uploadQueue"];
 }
 
 
