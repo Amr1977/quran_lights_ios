@@ -582,7 +582,7 @@ BOOL uploadInProgress;
          if (error == nil) {
              dirty = YES;
              [self dequeueFromUploadQueue];
-             [self setLastTransactionTimeStamp:timestamp];
+             [self setLastTransactionTimeStamp:[self timestamp]];
              //replace recursion with loop
          } else {
              NSLog(@"History upload error %@", error.localizedDescription);
@@ -669,8 +669,10 @@ BOOL uploadInProgress;
 
 
 - (NSString *)timestamp {
-    NSNumber *date =  [NSNumber numberWithLongLong: (long)([[NSDate new] timeIntervalSince1970] * 1000000.0)];
+    NSNumber *date =  [NSNumber numberWithLongLong: ([[NSDate new] timeIntervalSince1970] * 1000000)];
     NSString *dateString = [date stringValue];
+    
+    NSLog(@"generated timestamp: %@", dateString);
     
     return dateString;
 }
