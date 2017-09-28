@@ -21,6 +21,7 @@
 @property (strong, nonatomic)__block FIRDatabaseReference *updateTimeStampRef;
 @property (strong, nonatomic)__block dispatch_block_t stabilizedSyncBlock;
 @property (nonatomic) __block BOOL shouldFullyUploadReviewsHistory;
+@property (nonatomic) __block NSTimeInterval serverOffset;
 
 @end
 
@@ -42,6 +43,7 @@ BOOL uploadInProgress;
     
     [self firebaseSignIn:^(BOOL success, NSString *error){
         if (error == nil){
+            [self serverTimeSkew];
             //[self registerTimeStampTrigger];
         } else {
             NSLog(@"Error: %@",error.localizedLowercaseString);
@@ -49,6 +51,14 @@ BOOL uploadInProgress;
     }];
     
     return YES;
+}
+
+- (void)serverTimeSkew {
+    FIRDatabaseReference *offsetRef = [[FIRDatabase database] referenceWithPath:@".info/serverTimeOffset"];
+    [offsetRef observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
+        self.serverOffset = [(NSNumber *)snapshot.value doubleValue];
+        NSLog(@"Estimated server time: %0.6f", self.serverOffset);
+    }];
 }
 
 
@@ -240,8 +250,9 @@ BOOL uploadInProgress;
         completion(NO, @"no Internet connection");
         return;
     }
-    NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:@"email"];
-    NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
+    //TODO remove afrter debug finish
+    NSString *email = @"amr.lotfy@badrit.com";//[[NSUserDefaults standardUserDefaults] stringForKey:@"email"];
+    NSString *password = @"pazzword";//[[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
     
     if (email != nil && password != nil) {
         [self signInWithEmail:email password:password completion: completion];
@@ -546,7 +557,7 @@ BOOL uploadInProgress;
           child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
          child:@"reviews"] setValue:reviews withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
             if (error == nil) {
-                [self setLastTransactionTimeStamp:[self timestamp]];
+                //[self setLastTransactionTimeStamp:[self timestamp]];
                 completion(YES, YES);
             } else {
                 completion(NO, NO);
@@ -580,7 +591,7 @@ BOOL uploadInProgress;
          if (error == nil) {
              dirty = YES;
              [self dequeueFromUploadQueue];
-             [self setLastTransactionTimeStamp:[self timestamp]];
+             [self setLastTransactionTimeStamp:timestamp];
              //replace recursion with loop
          } else {
              NSLog(@"History upload error %@", error.localizedDescription);
@@ -667,7 +678,7 @@ BOOL uploadInProgress;
 
 
 - (NSString *)timestamp {
-    NSNumber *date =  [NSNumber numberWithLongLong: ([[NSDate new] timeIntervalSince1970] * 1000000)];
+    NSNumber *date =  [NSNumber numberWithLongLong: ([[NSDate new] timeIntervalSince1970] * 1000.0 + self.serverOffset) * 1000.0];
     NSString *dateString = [date stringValue];
     
     NSLog(@"generated timestamp: %@", dateString);

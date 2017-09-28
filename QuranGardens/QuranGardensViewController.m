@@ -142,6 +142,7 @@ AppDelegate *delegate;
 - (void)onFirebaseWillStartSync {
     updateInProgress = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"onFirebaseWillStartSync: Showin HUD");
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     });
 }
@@ -1526,10 +1527,12 @@ static NSInteger tone = 0;
 }
 
 - (void)reload{
+    
     updateInProgress = NO;
     [[DataSource shared] load: ^{
         [self refreshViews];
         dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"reload: Unhiding HUD");
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     }];
