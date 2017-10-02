@@ -116,7 +116,7 @@
 
 + (NSString *) floatToString:(float) val {
     
-    NSString *ret = [NSString stringWithFormat:@"%.2f", val];
+    NSString *ret = [NSString stringWithFormat:@"%.3f", val];
     
     return ret;
 }

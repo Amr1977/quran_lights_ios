@@ -205,7 +205,7 @@ NSInteger currentKhatma = 0;
     //NSInteger total = [self.statistics totalScore];
     
     //NSString *totalString = [AMRTools abbreviateNumber:total withDecimal:1];
-    NSString *todayString = [AMRTools abbreviateNumber:todayScore withDecimal:1];
+    NSString *todayString = [AMRTools abbreviateNumber:todayScore withDecimal:3];
     
     if (scoreButton == nil) {
         CGRect imageFrame = CGRectMake(0, 0, 40, 30);
@@ -1530,11 +1530,12 @@ static NSInteger tone = 0;
 }
 
 - (void)reload{
+    NSLog(@"reload: hiding HUD");
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"reload: Unhiding HUD");
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        updateInProgress = NO;
     });
-    updateInProgress = NO;
+    
     [[DataSource shared] load: ^{
         [self refreshViews];
     }];

@@ -557,7 +557,7 @@ BOOL uploadInProgress;
           child:[[[DataSource shared] getCurrentUser] nonEmptyId]]
          child:@"reviews"] setValue:reviews withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
             if (error == nil) {
-                //[self setLastTransactionTimeStamp:[self timestamp]];
+                [self setLastTransactionTimeStamp:[self timestamp]];
                 completion(YES, YES);
             } else {
                 completion(NO, NO);
@@ -600,8 +600,6 @@ BOOL uploadInProgress;
          }
          [self uploadHistory:completion];
      }];
-    
-    //TODO memorization upload
 }
 
 - (NSString *)suraNameToIndexString:(NSString *)suraName {
@@ -667,12 +665,15 @@ BOOL uploadInProgress;
         [self setUploadQueue:uploadQueue];
     }
     
+    NSLog(@"uploadQueue %@", uploadQueue);
+    
     return uploadQueue;
 }
 
 - (void)setUploadQueue:(NSArray *)uploadQueue{
     [[NSUserDefaults standardUserDefaults] setObject:uploadQueue forKey:[self uploadQueueKey]];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"uploadQueue %@", uploadQueue);
 }
 
 -(NSString *)uploadQueueKey {

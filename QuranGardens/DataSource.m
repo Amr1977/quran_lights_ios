@@ -279,6 +279,11 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
     [[NSUserDefaults standardUserDefaults] setObject:lastRefreshDate forKey:[self lastRefreshKeyForSuraName:suraName]];
     
     [oldHistory addObject:lastRefreshDate];
+    
+    NSOrderedSet *orderedHistorySet = [NSOrderedSet orderedSetWithArray:oldHistory];
+    
+    oldHistory = [orderedHistorySet array].mutableCopy;
+    
     task.history = [oldHistory sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         NSDate *date1 = (NSDate *)obj1;
         NSDate *date2 = (NSDate *)obj2;
@@ -313,11 +318,18 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
         task.history = @[].mutableCopy;
     }
     task.history = [task.history arrayByAddingObjectsFromArray:history];
+    
+    NSOrderedSet *orderedHistorySet = [NSOrderedSet orderedSetWithArray:task.history];
+    
+    task.history = [orderedHistorySet array];
+    
     task.history = [task.history sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         NSDate *date1 = (NSDate *)obj1;
         NSDate *date2 = (NSDate *)obj2;
         return [date1 compare:date2];
-    }];
+    }].mutableCopy;
+    
+    
     NSLog(@"Batch saving/appending for sura: [%@], history %@", suraName, history);
     [[NSUserDefaults standardUserDefaults] setObject:task.history forKey:[self refreshHistoryKeyForSuraName:suraName]];
     [[NSUserDefaults standardUserDefaults] synchronize];
