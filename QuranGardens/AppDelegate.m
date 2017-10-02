@@ -251,8 +251,8 @@ BOOL uploadInProgress;
         return;
     }
     //TODO remove afrter debug finish
-    NSString *email = @"amr.lotfy@badrit.com";//[[NSUserDefaults standardUserDefaults] stringForKey:@"email"];
-    NSString *password = @"pazzword";//[[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
+    NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:@"email"];
+    NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
     
     if (email != nil && password != nil) {
         [self signInWithEmail:email password:password completion: completion];
