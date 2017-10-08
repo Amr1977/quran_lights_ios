@@ -640,6 +640,14 @@ BOOL uploadInProgress;
 - (void)enqueueInUploadQueue:(NSDictionary *)refreshRecord {
     NSLog(@"Enqueue in upload queue: %@", refreshRecord);
     NSMutableArray *uploadQueue = [self getUploadQueue].mutableCopy;
+    NSNumber *time = refreshRecord[@"time"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"time", time];
+    NSArray *filteredArray = [uploadQueue filteredArrayUsingPredicate:predicate];
+    if(filteredArray == nil || filteredArray.count == 0) {
+        NSLog(@"Duplicate insertion in upload queue detected");
+        return;
+    }
+    
     [uploadQueue addObject:refreshRecord];
     [self setUploadQueue:uploadQueue];
 }

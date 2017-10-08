@@ -340,8 +340,9 @@ UIButton *soundToggle;
     fbButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 27, 27)];
     //[settingsButton setTitle:@"S" forState:UIControlStateNormal];
     //settingsButton.tintColor = [UIColor yellowColor];
-    [fbButton setBackgroundImage:[UIImage imageNamed:@"fb"] forState:UIControlStateNormal];
+    //[fbButton setBackgroundImage:[UIImage imageNamed:@"fb"] forState:UIControlStateNormal];
     //fbButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
+    [fbButton setTitle:@"i" forState:UIControlStateNormal];
     [fbButton addTarget:self
                        action:@selector(openFacePage)
              forControlEvents:UIControlEventTouchUpInside];
