@@ -65,7 +65,7 @@ BOOL uploadInProgress;
 //TODO sync all members, not just current member !!!
 - (void)syncHistory {
     NSLog(@"syncHistory started");
-    if (!self.userID) {
+    if (!self.isConnected || !self.userID) {
         return;
     }
     
@@ -92,7 +92,7 @@ BOOL uploadInProgress;
 
 -(void)registerTimeStampTrigger{
     NSLog(@"registerTimeStampTrigger started");
-    if (!self.userID) {
+    if (!(self.isConnected) || self.userID == nil  ) {
         return;
     }
     
@@ -114,8 +114,14 @@ BOOL uploadInProgress;
             self.shouldFullyUploadReviewsHistory = YES;
         } else {
             NSNumber *timestamp = snapshot.value;
-            
             NSLog(@"TimeStamp Trigger: %ld", (long)[timestamp integerValue]);
+            
+            //drop if matching user update timestamp
+            
+            if([timestamp integerValue] == [[self currentLocalTimeStamp] integerValue]) {
+                NSLog(@"Dropped timestamp trigger: matched current local timestamp.");
+                return;
+            }
             
             //Drop if local echo
             
@@ -320,7 +326,7 @@ BOOL uploadInProgress;
 }
 
 - (FIRDatabaseReference *)reviewsRef {
-    if (!self.userID) {
+    if (!(self.isConnected) || self.userID == nil  ) {
         return nil;
     }
     return [[[[self.firebaseDatabaseReference
@@ -331,7 +337,7 @@ BOOL uploadInProgress;
 }
 
 - (FIRDatabaseReference *)membersRef {
-    if (!self.userID) {
+    if (!(self.isConnected) || self.userID == nil  ) {
         return nil;
     }
     return [[[self.firebaseDatabaseReference
@@ -368,7 +374,8 @@ BOOL uploadInProgress;
     
     [[NSUserDefaults standardUserDefaults] setObject:date
                                               forKey:userTimeStamp];
-    if (!self.userID || !updateFBTimeStamp) {
+    
+    if (!self.isConnected || !self.userID || !updateFBTimeStamp ) {
         return;
     }
     
@@ -380,7 +387,7 @@ BOOL uploadInProgress;
 }
 
 - (void)remoteTimeStamp:(void(^)(NSNumber *timestamp))completion {
-    if (!self.userID) {
+    if (!self.isConnected || !self.userID) {
         completion(nil);
         return;
     }
@@ -429,7 +436,10 @@ BOOL uploadInProgress;
 }
 
 - (void)downloadReviewsHistory:(void(^)(void))completion {
-    if (!self.userID) {
+    if (!self.isConnected || !self.userID) {
+        if (completion != nil) {
+            completion();
+        }
         return;
     }
     
@@ -439,73 +449,65 @@ BOOL uploadInProgress;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSLog(@"reviewsRef observeSingleEventOfType:FIRDataEventTypeValue");
             NSDictionary<NSString *, NSDictionary *> *reviews = snapshot.value;
-            if (snapshot.value != [NSNull null]) {
-                
-                long long maxTimeStamp = [recentTimeStamp longLongValue];
-                NSLog(@"history dump: %@", snapshot.value);
-                
-                NSMutableArray *keys = reviews.allKeys.mutableCopy;
-                [keys removeObject:recentTimeStamp];
-                
-                NSMutableDictionary *surasHistory = @{}.mutableCopy;
-                
-                for (NSString *key in keys)  {
-                    if ([key longLongValue] > maxTimeStamp) {
-                        maxTimeStamp = [key longLongValue];
-                    }
-                    
-                    //TODO parse transaction record and apply operation
-                    NSDictionary *transaction = reviews[key];
-                    NSString *operation = transaction[@"op"];
-                    
-                    //set default operation
-                    if (operation == nil) {
-                        operation = @"refresh";
-                    }
-                    
-                    if ([operation isEqualToString:@"refresh"]) {
-                        NSString *timeStamp = transaction[@"time"];
-                        NSString *suraIndex = transaction[@"sura"];
-                        NSTimeInterval interval = [timeStamp doubleValue];
-                        NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
-                        
-                        NSInteger index = [suraIndex integerValue];
-                        if (index == 0) {
-                            continue;
-                        }
-                        NSString *suraName = [Sura suraNames][index - 1];
-                        
-                        if(surasHistory[suraName] == nil){
-                            surasHistory[suraName] = @[].mutableCopy;
-                        }
-                        [surasHistory[suraName] addObject:date];
-                    }
-                    
-                    if ([operation isEqualToString:@"memorize"]) {
-                        NSString *suraIndex = transaction[@"sura"];
-                        NSInteger index = [suraIndex integerValue];
-                        if (index == 0) {
-                            continue;
-                        }
-                        NSString *suraName = [Sura suraNames][index - 1];
-                        
-                        NSString *memState = transaction[@"state"];
-                        
-                        NSInteger state = [memState integerValue];
-                        
-                        [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
-                    }
+            if (snapshot.value == [NSNull null]) {
+                self.shouldFullyUploadReviewsHistory = YES;
+                if (completion != nil) {
+                    completion();
                 }
-                
-                //insert new refresh transactions a sura at once
-                for (NSString *suraName in surasHistory.allKeys) {
-                    [[DataSource shared] appendRefreshHistory:surasHistory[suraName] suraName:suraName upload:NO];
-                }
-                
-                //TODO rename reviews to transactions
-                NSLog(@"maxTimeStamp: %@", [NSString stringWithFormat:@"%lld", (long long)maxTimeStamp]);
-                [self setLastTransactionTimeStamp:[NSString stringWithFormat:@"%lld", (long long)maxTimeStamp]];
+                return;
             }
+            
+            long long maxTimeStamp = [recentTimeStamp longLongValue];
+            NSLog(@"history dump: %@", snapshot.value);
+            NSMutableArray *keys = reviews.allKeys.mutableCopy;
+            [keys removeObject:recentTimeStamp];
+            NSMutableDictionary *surasHistory = @{}.mutableCopy;
+            
+            for (NSString *key in keys)  {
+                if ([key longLongValue] > maxTimeStamp) {
+                    maxTimeStamp = [key longLongValue];
+                }
+                //TODO parse transaction record and apply operation
+                NSDictionary *transaction = reviews[key];
+                NSString *operation = transaction[@"op"];
+                //set default operation
+                if (operation == nil) {
+                    operation = @"refresh";
+                }
+                if ([operation isEqualToString:@"refresh"]) {
+                    NSString *timeStamp = transaction[@"time"];
+                    NSString *suraIndex = transaction[@"sura"];
+                    NSTimeInterval interval = [timeStamp doubleValue];
+                    NSDate *date = [NSDate dateWithTimeIntervalSince1970:interval];
+                    NSInteger index = [suraIndex integerValue];
+                    if (index == 0) { continue; }
+                    NSString *suraName = [Sura suraNames][index - 1];
+                    if(surasHistory[suraName] == nil){
+                        surasHistory[suraName] = @[].mutableCopy;
+                    }
+                    [surasHistory[suraName] addObject:date];
+                }
+                
+                if ([operation isEqualToString:@"memorize"]) {
+                    NSString *suraIndex = transaction[@"sura"];
+                    NSInteger index = [suraIndex integerValue];
+                    if (index == 0) {
+                        continue;
+                    }
+                    NSString *suraName = [Sura suraNames][index - 1];
+                    NSString *memState = transaction[@"state"];
+                    NSInteger state = [memState integerValue];
+                    [[DataSource shared] setMemorizedStateForSura:suraName state:state upload:NO];
+                }
+            }
+            //insert new refresh transactions a sura at once
+            for (NSString *suraName in surasHistory.allKeys) {
+                [[DataSource shared] appendRefreshHistory:surasHistory[suraName] suraName:suraName upload:NO];
+            }
+            //TODO rename reviews to transactions
+            NSLog(@"maxTimeStamp: %@", [NSString stringWithFormat:@"%lld", (long long)maxTimeStamp]);
+            [self setLastTransactionTimeStamp:[NSString stringWithFormat:@"%lld", (long long)maxTimeStamp]];
+            
             
             if (completion != nil) {
                 completion();
@@ -541,7 +543,7 @@ BOOL uploadInProgress;
 }
 
 - (void)uploadHistory:(void(^)(BOOL success, BOOL alteredHistory))completion{
-    if (self.userID == nil) {
+    if (!(self.isConnected) || self.userID == nil  ) {
         return;
     }
     uploadInProgress = YES;
@@ -592,7 +594,7 @@ BOOL uploadInProgress;
              dirty = YES;
              [self dequeueFromUploadQueue];
              [self setLastTransactionTimeStamp:timestamp];
-             //replace recursion with loop
+             //TODO: replace recursion with loop
          } else {
              NSLog(@"History upload error %@", error.localizedDescription);
              //terminate gracefully
@@ -608,7 +610,7 @@ BOOL uploadInProgress;
 
 - (void)refreshSura:(NSString *)suraName withHistory:(NSArray *)history updateFBTimeStamp:(BOOL)updateFBTimeStamp{
     
-    if (!self.userID) {
+    if (!self.isConnected || !self.userID) {
         return;
     }
     
@@ -620,6 +622,9 @@ BOOL uploadInProgress;
     
     if (!uploadInProgress) {
         [self uploadHistory:^(BOOL success, BOOL alteredHistory){
+            if (success) {
+                [self setLastTransactionTimeStamp:[self timestamp]];
+            }
             if (alteredHistory) {
                 [self updateTimeStamp:updateFBTimeStamp];
             }
