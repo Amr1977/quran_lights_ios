@@ -450,7 +450,6 @@ BOOL uploadInProgress;
             NSLog(@"reviewsRef observeSingleEventOfType:FIRDataEventTypeValue");
             NSDictionary<NSString *, NSDictionary *> *reviews = snapshot.value;
             if (snapshot.value == [NSNull null]) {
-                self.shouldFullyUploadReviewsHistory = YES;
                 if (completion != nil) {
                     completion();
                 }
@@ -648,7 +647,7 @@ BOOL uploadInProgress;
     NSNumber *time = refreshRecord[@"time"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"time", time];
     NSArray *filteredArray = [uploadQueue filteredArrayUsingPredicate:predicate];
-    if(filteredArray == nil || filteredArray.count == 0) {
+    if(filteredArray != nil && filteredArray.count > 0) {
         NSLog(@"Duplicate insertion in upload queue detected");
         return;
     }
