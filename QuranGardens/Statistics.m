@@ -336,7 +336,7 @@
             NSDate *date = task.history[i];
             if ([date compare:todayStart] == NSOrderedDescending) {
                 result += taskScore;
-                NSLog(@"Today: sura %@", task.name);
+                NSLog(@"Today: sura %@ %ld", task.name, (long)[date timeIntervalSince1970]);
             }
         }
     }
