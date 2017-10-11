@@ -14,6 +14,9 @@
 /** Sura order in mushaf. */
 @property (nonatomic) NSInteger order;
 
++ (NSString *)suraNameToIndexString:(NSString *)suraName;
++ (NSString *)suraIndexFromSuraName:(NSString *)suraName;
+
 + (NSArray<NSString *> *)suraNames;
 + (NSArray<NSNumber *> *)readNumbersFromFile:(NSString *)fileName;
 + (NSArray<NSString *> *)readLinesFromFile:(NSString *)fileName;

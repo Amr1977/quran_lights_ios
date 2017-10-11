@@ -211,8 +211,7 @@ NSInteger currentKhatma = 0;
         CGRect imageFrame = CGRectMake(0, 0, 40, 30);
         
         scoreButton = [[UIButton alloc] initWithFrame:imageFrame];
-        //[scoreButton setBackgroundImage:chartButtonImage forState:UIControlStateNormal];
-        [scoreButton setImage:chartButtonImage forState:UIControlStateNormal];
+        [scoreButton setTitle:@"💹" forState:UIControlStateNormal];
         
         [scoreButton addTarget:self
                         action:@selector(showCharts)
@@ -342,7 +341,7 @@ UIButton *soundToggle;
     //settingsButton.tintColor = [UIColor yellowColor];
     //[fbButton setBackgroundImage:[UIImage imageNamed:@"fb"] forState:UIControlStateNormal];
     //fbButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-    [fbButton setTitle:@"i" forState:UIControlStateNormal];
+    [fbButton setTitle:@"ℹ️" forState:UIControlStateNormal];
     [fbButton addTarget:self
                        action:@selector(openFacePage)
              forControlEvents:UIControlEventTouchUpInside];

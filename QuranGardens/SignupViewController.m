@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "AMRTools.h"
 #import "MBProgressHUD.h"
+#import "FireBaseManager.h"
 
 
 @interface SignupViewController ()
@@ -41,7 +42,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if (((AppDelegate *)[[UIApplication sharedApplication] delegate]).userID != nil) {
+    if([FireBaseManager shared].userID != nil) {
         NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:@"email"];
         NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
         
@@ -64,7 +65,7 @@
     
     if (![email isEqualToString:@""] && ![password isEqualToString:@""] && [AMRTools isValidEmail:email]) {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [(AppDelegate *)[[UIApplication sharedApplication] delegate] signInWithEmail:email password:password completion:^(BOOL success, NSString *error) {
+        [[FireBaseManager shared] signInWithEmail:email password:password completion:^(BOOL success, NSString *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             });
@@ -85,7 +86,7 @@
     
     if (![email isEqualToString:@""] && ![password isEqualToString:@""] && [AMRTools isValidEmail:email]) {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [(AppDelegate *)[[UIApplication sharedApplication] delegate] signUpWithEmail:email password:password completion:^(BOOL success, NSString *error){
+        [[FireBaseManager shared] signUpWithEmail:email password:password completion:^(BOOL success, NSString *error){
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             });
@@ -137,7 +138,7 @@
 }
 
 - (IBAction)onSignOut:(id)sender {
-    ((AppDelegate *)[[UIApplication sharedApplication] delegate]).userID = nil;
+    [FireBaseManager shared].userID = nil;
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"email"];
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"password"];
     NSError *error;

@@ -11,7 +11,14 @@
 
 @implementation AMRTools
     
-   
++ (NSMutableArray<NSNumber *> *)sort:(NSMutableArray<NSNumber *> *)source{
+    NSMutableArray<NSNumber *> * result = source;
+    NSSortDescriptor *lowToHigh = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    [result sortUsingDescriptors:[NSArray arrayWithObject:lowToHigh]];
+    
+    return result;
+}
+
     
 + (AVAudioPlayer *)getPlayer {
     static AVAudioPlayer *player;

@@ -209,4 +209,12 @@
     return allLinedStrings;
 }
 
++ (NSString *)suraNameToIndexString:(NSString *)suraName {
+    return [NSString stringWithFormat:@"%u", [[Sura suraNames] indexOfObject:suraName] + 1];
+}
+
++ (NSString *)suraIndexFromSuraName:(NSString *)suraName{
+    return [NSString stringWithFormat:@"%lu",((unsigned long) [Sura.suraNames indexOfObject:suraName] + 1)];
+}
+
 @end

@@ -18,17 +18,19 @@
 +(Boolean) isRTL;
 +(void)setLocaleArabic;
 +(void)setLocaleEnglish;
-+ (AVAudioPlayer *)getPlayer;
++(AVAudioPlayer *)getPlayer;
 +(void)play:(NSString *)path;
 +(NSString *)uniqueID;
 +(NSTimeInterval)averageIntervalBetweenDatesInArray:(NSArray<NSDate *> *)datesArray;
 
 +(BOOL)isValidEmail:(NSString *)checkString;
 
-+ (void)showMenuWithTitle:(NSString *)title
++(void)showMenuWithTitle:(NSString *)title
                   message:(NSString *)message
            viewController:(UIViewController *)viewController
                 okHandler:(void(^)(UIAlertAction * action))okBlock
             cancelHandler:(void(^)(UIAlertAction * action))cancelBlock;
+
++(NSMutableArray<NSNumber *> *)sort:(NSMutableArray<NSNumber *> *)source;
 
 @end

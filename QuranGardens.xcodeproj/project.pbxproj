@@ -56,6 +56,9 @@
 		C568B18A1EAA038100445642 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C568B18C1EAA038100445642 /* Localizable.strings */; };
 		C568B1981EAA27B800445642 /* NSString+Localization.m in Sources */ = {isa = PBXBuildFile; fileRef = C568B1971EAA27B800445642 /* NSString+Localization.m */; };
 		C56B782C1EA23E4200252039 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C56B782B1EA23E4200252039 /* Podfile */; };
+		C575EC991F8D37D8005E5170 /* SyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C575EC981F8D37D8005E5170 /* SyncManager.m */; };
+		C575EC9C1F8D39AB005E5170 /* FireBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C575EC9B1F8D39AA005E5170 /* FireBaseManager.m */; };
+		C575EC9F1F8D3AC7005E5170 /* MembersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C575EC9E1F8D3AC6005E5170 /* MembersManager.m */; };
 		C58BD3B21F29E0C2000BC3D7 /* QLUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C58BD3B11F29E0C2000BC3D7 /* QLUserManager.m */; };
 		C59A202F1E8116BD003C0F09 /* AMRTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C59A202E1E8116BD003C0F09 /* AMRTools.m */; };
 		C5A26AEB1EA24420009135D4 /* ChartsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AE91EA24420009135D4 /* ChartsViewController.m */; };
@@ -183,6 +186,12 @@
 		C568B1961EAA27B800445642 /* NSString+Localization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Localization.h"; sourceTree = "<group>"; };
 		C568B1971EAA27B800445642 /* NSString+Localization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Localization.m"; sourceTree = "<group>"; };
 		C56B782B1EA23E4200252039 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C575EC971F8D37D8005E5170 /* SyncManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyncManager.h; sourceTree = "<group>"; };
+		C575EC981F8D37D8005E5170 /* SyncManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyncManager.m; sourceTree = "<group>"; };
+		C575EC9A1F8D39AA005E5170 /* FireBaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FireBaseManager.h; sourceTree = "<group>"; };
+		C575EC9B1F8D39AA005E5170 /* FireBaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FireBaseManager.m; sourceTree = "<group>"; };
+		C575EC9D1F8D3AC6005E5170 /* MembersManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MembersManager.h; sourceTree = "<group>"; };
+		C575EC9E1F8D3AC6005E5170 /* MembersManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MembersManager.m; sourceTree = "<group>"; };
 		C58BD3B01F29E0C2000BC3D7 /* QLUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QLUserManager.h; sourceTree = "<group>"; };
 		C58BD3B11F29E0C2000BC3D7 /* QLUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QLUserManager.m; sourceTree = "<group>"; };
 		C59A202D1E8116BD003C0F09 /* AMRTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMRTools.h; sourceTree = "<group>"; };
@@ -269,6 +278,7 @@
 		076965A11C5B5D0700ED2D33 /* QuranGardens */ = {
 			isa = PBXGroup;
 			children = (
+				C50BC0841F8E3BBC00375592 /* Sync */,
 				C5D5C3EE1F27ED060006FBB4 /* Quran Lights.entitlements */,
 				C5FECDDC1EC2194E0081C89D /* resources */,
 				C566F4571E21143200628A94 /* GoogleService-Info.plist */,
@@ -288,6 +298,8 @@
 				076965A21C5B5D0700ED2D33 /* Supporting Files */,
 				0750B0C91D68F51C0081B1C4 /* reval.txt */,
 				C568B18C1EAA038100445642 /* Localizable.strings */,
+				C575EC9D1F8D3AC6005E5170 /* MembersManager.h */,
+				C575EC9E1F8D3AC6005E5170 /* MembersManager.m */,
 			);
 			path = QuranGardens;
 			sourceTree = "<group>";
@@ -373,6 +385,17 @@
 				AC5A8B9D69C915AD7FE135C0 /* Pods-QuranGardens.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		C50BC0841F8E3BBC00375592 /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				C575EC971F8D37D8005E5170 /* SyncManager.h */,
+				C575EC981F8D37D8005E5170 /* SyncManager.m */,
+				C575EC9A1F8D39AA005E5170 /* FireBaseManager.h */,
+				C575EC9B1F8D39AA005E5170 /* FireBaseManager.m */,
+			);
+			name = Sync;
 			sourceTree = "<group>";
 		};
 		C50E590B1EBC54A00076C3D6 /* charts */ = {
@@ -726,12 +749,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C575EC991F8D37D8005E5170 /* SyncManager.m in Sources */,
 				C5A26B061EA27005009135D4 /* LargeValueFormatter.swift in Sources */,
 				C58BD3B21F29E0C2000BC3D7 /* QLUserManager.m in Sources */,
 				C55B81D61ECEEB1E003A2523 /* PrayTime.m in Sources */,
 				C5F17C491E69BB6B00476CA3 /* UIViewController+Gestures.m in Sources */,
 				C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */,
 				073AA6F21DB89E0300370847 /* Statistics.m in Sources */,
+				C575EC9F1F8D3AC7005E5170 /* MembersManager.m in Sources */,
 				076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */,
 				075909F21D631B8900A6B7B1 /* DataSource.m in Sources */,
 				C50E59171EBC55710076C3D6 /* PieChartViewController.m in Sources */,
@@ -750,6 +775,7 @@
 				C568B1981EAA27B800445642 /* NSString+Localization.m in Sources */,
 				C502D5501ED486C500A7267F /* UsersViewController.m in Sources */,
 				C5A26B071EA27005009135D4 /* DateValueFormatter.m in Sources */,
+				C575EC9C1F8D39AB005E5170 /* FireBaseManager.m in Sources */,
 				C50E59131EBC553C0076C3D6 /* PiePolylineChartViewController.m in Sources */,
 				C5A26AF11EA24CFD009135D4 /* CubicLineChartViewController.m in Sources */,
 				07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */,
