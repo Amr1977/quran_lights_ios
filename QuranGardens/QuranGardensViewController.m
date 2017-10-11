@@ -348,7 +348,6 @@ UIButton *soundToggle;
     
     [fbButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *fbItem = [[UIBarButtonItem alloc] initWithCustomView:fbButton];
-   
     
     //overview mode
     overviewButton = [[UIButton alloc] initWithFrame:imageFrame];

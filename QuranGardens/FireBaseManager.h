@@ -18,9 +18,10 @@
 
 @property (strong, nonatomic) FIRDatabaseReference *firebaseDatabaseReference;
 @property (nonatomic) FIRDatabaseHandle refHandle;
-@property(strong, nonatomic) NSString *userID;
-@property (nonatomic) BOOL isSignedIn;
+@property(strong, nonatomic) __block NSString *userID;
+@property (nonatomic) __block BOOL isSignedIn;
 @property (nonatomic) __block NSTimeInterval serverOffset;
+@property (nonatomic) __block BOOL isConnected;
 
 - (void)firebaseSignIn:(void (^)(BOOL success, NSString *error))completion;
 
@@ -35,7 +36,6 @@
 - (FIRDatabaseReference *)membersRef;
 - (FIRDatabaseReference *)reviewsRef;
 - (void) start;
-- (BOOL)isConnected;
 
 + (FireBaseManager *)shared;
 

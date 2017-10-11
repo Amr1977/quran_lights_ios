@@ -7,7 +7,6 @@
 //
 
 #import "FireBaseManager.h"
-#import "Reachability.h"
 #import "SyncManager.h"
 #import "DataSource.h"
 @import Firebase;
@@ -15,9 +14,6 @@
 @import FirebaseAuth;
 
 @implementation FireBaseManager
-
-Reachability* reachability;
-NetworkStatus remoteHostStatus;
 
 + (FireBaseManager *)shared {
     static FireBaseManager *sharedInstance;
@@ -29,11 +25,9 @@ NetworkStatus remoteHostStatus;
 }
 
 - (void) start {
-    [self initReachability];
     [FIRApp configure];
-    //[FIRDatabase database].persistenceEnabled = YES;
-    
     self.firebaseDatabaseReference = [[FIRDatabase database] reference];
+    [self initFirebaseReachability];
     
     [self firebaseSignIn:^(BOOL success, NSString *error){
         //NSLog(@"Upload queue: %@", [self getUploadQueue]);
@@ -53,20 +47,21 @@ NetworkStatus remoteHostStatus;
         NSLog(@"Estimated server time: %0.6f", self.serverOffset);
     }];
 }
-- (void)initReachability{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNetworkChange:) name:kReachabilityChangedNotification object:nil];
-    reachability = [Reachability reachabilityForInternetConnection];
-    [reachability startNotifier];
-    
-    NSLog(@"Reachability: ");
-    if([self isConnected]) {
-        NSLog(@"Connection established\n");
-    } else {
-        NSLog(@" No connection\n");
-    }
+- (void)initFirebaseReachability{
+    FIRDatabaseReference *connectedRef = [[FIRDatabase database] referenceWithPath:@".info/connected"];
+    [connectedRef observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
+        if([snapshot.value boolValue]) {
+            self.isConnected = YES;
+            NSLog(@"🌻🌻🌻 Firebase connected 🌻🌻🌻");
+        } else {
+            self.isConnected = NO;
+            NSLog(@"💥💥💥 Firebase NOT connected. 💥💥💥");
+        }
+        [self handleNetworkChange];
+    }];
 }
 
-- (void)handleNetworkChange:(NSNotification *)notice {
+- (void)handleNetworkChange{
     if([self isConnected]) {
         NSLog(@"\nConnection established\n");
         if (!self.isSignedIn) {
@@ -79,14 +74,9 @@ NetworkStatus remoteHostStatus;
             [[SyncManager shared] syncHistory];
         }
     } else {
-        NSLog(@" No connection\n");
+        NSLog(@"No connection\n");
     }
 }
-
-- (BOOL)isConnected {
-    return [reachability currentReachabilityStatus] != NotReachable;
-}
-
 
 - (void)firebaseSignIn:(void (^)(BOOL success, NSString *error)) completion {
     if (![self isConnected]) {

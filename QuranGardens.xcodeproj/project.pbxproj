@@ -44,7 +44,6 @@
 		C50E59131EBC553C0076C3D6 /* PiePolylineChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E59121EBC553C0076C3D6 /* PiePolylineChartViewController.m */; };
 		C50E59171EBC55710076C3D6 /* PieChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E59151EBC55710076C3D6 /* PieChartViewController.m */; };
 		C50E59181EBC55710076C3D6 /* PieChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50E59161EBC55710076C3D6 /* PieChartViewController.xib */; };
-		C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C5147FCA1E61BB5500DE699E /* Reachability.m */; };
 		C53A35901F2CA6CC00CCA831 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53A358E1F2CA6CC00CCA831 /* SignupViewController.m */; };
 		C53A35911F2CA6CC00CCA831 /* SignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53A358F1F2CA6CC00CCA831 /* SignupViewController.xib */; };
 		C55B81D61ECEEB1E003A2523 /* PrayTime.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B81D51ECEEB1E003A2523 /* PrayTime.m */; };
@@ -165,8 +164,6 @@
 		C50E59141EBC55710076C3D6 /* PieChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartViewController.h; sourceTree = "<group>"; };
 		C50E59151EBC55710076C3D6 /* PieChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartViewController.m; sourceTree = "<group>"; };
 		C50E59161EBC55710076C3D6 /* PieChartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PieChartViewController.xib; sourceTree = "<group>"; };
-		C5147FC91E61BB0300DE699E /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		C5147FCA1E61BB5500DE699E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C53A358D1F2CA6CC00CCA831 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
 		C53A358E1F2CA6CC00CCA831 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
 		C53A358F1F2CA6CC00CCA831 /* SignupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignupViewController.xib; sourceTree = "<group>"; };
@@ -483,8 +480,6 @@
 		C5AFAE2B1F4B8418001770FD /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				C5147FC91E61BB0300DE699E /* Reachability.h */,
-				C5147FCA1E61BB5500DE699E /* Reachability.m */,
 				C59A202D1E8116BD003C0F09 /* AMRTools.h */,
 				C59A202E1E8116BD003C0F09 /* AMRTools.m */,
 			);
@@ -754,7 +749,6 @@
 				C58BD3B21F29E0C2000BC3D7 /* QLUserManager.m in Sources */,
 				C55B81D61ECEEB1E003A2523 /* PrayTime.m in Sources */,
 				C5F17C491E69BB6B00476CA3 /* UIViewController+Gestures.m in Sources */,
-				C5147FCB1E61BB5500DE699E /* Reachability.m in Sources */,
 				073AA6F21DB89E0300370847 /* Statistics.m in Sources */,
 				C575EC9F1F8D3AC7005E5170 /* MembersManager.m in Sources */,
 				076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */,
