@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,6 +23,9 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gZe-Hp-tKu" userLabel="contentView">
                         <rect key="frame" x="5" y="5" width="148" height="85"/>
                         <subviews>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="desert" translatesAutoresizingMaskIntoConstraints="NO" id="lem-W3-orE">
+                                <rect key="frame" x="0.0" y="-0.5" width="148" height="85"/>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun" translatesAutoresizingMaskIntoConstraints="NO" id="CrV-tX-pb7" userLabel="memorized">
                                 <rect key="frame" x="117" y="0.0" width="25" height="25.5"/>
                                 <constraints>
@@ -83,10 +87,14 @@
                             <constraint firstAttribute="trailing" secondItem="Auy-mw-Mdj" secondAttribute="trailing" constant="8" id="P9X-cP-EKj"/>
                             <constraint firstItem="CrV-tX-pb7" firstAttribute="top" secondItem="gZe-Hp-tKu" secondAttribute="top" id="QIh-Ic-noK"/>
                             <constraint firstItem="Auy-mw-Mdj" firstAttribute="centerY" secondItem="gZe-Hp-tKu" secondAttribute="centerY" id="YIM-hQ-dky"/>
+                            <constraint firstItem="lem-W3-orE" firstAttribute="centerX" secondItem="gZe-Hp-tKu" secondAttribute="centerX" id="aZ6-oe-gnA"/>
                             <constraint firstAttribute="bottom" secondItem="i2N-bH-ALD" secondAttribute="bottom" constant="5" id="cJL-ql-v0T"/>
                             <constraint firstItem="CrV-tX-pb7" firstAttribute="height" secondItem="gZe-Hp-tKu" secondAttribute="height" multiplier="0.3" id="cjt-Il-Or5"/>
+                            <constraint firstItem="lem-W3-orE" firstAttribute="height" secondItem="gZe-Hp-tKu" secondAttribute="height" id="k8Z-z2-LV3"/>
+                            <constraint firstItem="lem-W3-orE" firstAttribute="centerY" secondItem="gZe-Hp-tKu" secondAttribute="centerY" id="mUR-7W-RSx"/>
                             <constraint firstItem="eS0-nG-1jL" firstAttribute="top" secondItem="gZe-Hp-tKu" secondAttribute="top" constant="6" id="md6-7E-8rB"/>
                             <constraint firstAttribute="trailing" secondItem="h2h-r9-vaj" secondAttribute="trailing" constant="8" id="sz3-lD-Zf8"/>
+                            <constraint firstItem="lem-W3-orE" firstAttribute="width" secondItem="gZe-Hp-tKu" secondAttribute="width" id="ubk-kq-HRo"/>
                             <constraint firstItem="i2N-bH-ALD" firstAttribute="leading" secondItem="gZe-Hp-tKu" secondAttribute="leading" constant="8" id="wKW-t4-9eo"/>
                             <constraint firstAttribute="trailing" secondItem="CrV-tX-pb7" secondAttribute="trailing" constant="6" id="yHS-Wc-WWw"/>
                         </constraints>
@@ -101,6 +109,7 @@
             </constraints>
             <size key="customSize" width="158" height="95"/>
             <connections>
+                <outlet property="backgroundImage" destination="lem-W3-orE" id="dnC-tS-ALi"/>
                 <outlet property="content" destination="gZe-Hp-tKu" id="UL0-LG-dn2"/>
                 <outlet property="daysElapsed" destination="h2h-r9-vaj" id="joB-UY-1CC"/>
                 <outlet property="memorized" destination="CrV-tX-pb7" id="ruD-vX-8LQ"/>
@@ -116,6 +125,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="desert" width="137" height="91"/>
         <image name="sun" width="148" height="149"/>
     </resources>
 </document>

@@ -28,7 +28,7 @@
 
 
 CGFloat const CellHeight = 80;
-CGFloat const CellWidth = 125;
+CGFloat const CellWidth = 120;
 
 
 NSInteger const RefreshPeriod = 300; // refresh each 5 minutes;
@@ -1329,7 +1329,7 @@ Boolean hasAppearedBefore;
     //remainingTimeInterval
     CGFloat progress = (self.isLightCalculationBasedOnAverage ? (self.periodicTaskManager.dataSource.settings.fadeTime - [task averageRefreshInterval]) : [task remainingTimeInterval]) / self.periodicTaskManager.dataSource.settings.fadeTime;
     
-    if (progress < 0.3) {
+    if (progress < 0.3 && [task.history count] > 0) {
         cell.suraName.textColor = [UIColor colorWithRed:153/255 green:255/255 blue:153/255 alpha:0.2];
     } else {
         cell.suraName.textColor = [UIColor blackColor];
@@ -1380,7 +1380,13 @@ Boolean hasAppearedBefore;
         }
     }
     
-    if (days >= 30) {
+    if ([task.history count] == 0) {
+        [cell.backgroundImage setHidden:NO];
+    } else {
+        [cell.backgroundImage setHidden:YES];
+    }
+    
+    if (days >= 30 && [task.history count] > 0) {
         cell.content.layer.borderColor = [UIColor redColor].CGColor;
         
     } else {
@@ -1452,7 +1458,6 @@ Boolean hasAppearedBefore;
     [cell.score setHidden:self.overviewMode || !self.periodicTaskManager.dataSource.settings.showCharacterCount];
     
     [cell.daysElapsed setHidden:self.overviewMode || !self.periodicTaskManager.dataSource.settings.showElapsedDaysCount];
-    
     
     return cell;
 }
