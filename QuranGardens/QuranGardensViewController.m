@@ -317,6 +317,7 @@ UIButton *fbButton;
 UIButton *overviewButton;
 UIButton *lightCalculationMethodButton;
 UIButton *soundToggle;
+UIButton *toggleSingleTouchRefreshModeButton;
 
 #pragma mark - Navigation bar items
 - (void)setMenuButton{
@@ -396,9 +397,34 @@ UIButton *soundToggle;
     [signInButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *signInItem = [[UIBarButtonItem alloc] initWithCustomView:signInButton];
     
-    self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, overviewItem, lightCalculationMethodItem, soundToggleItem, signInItem];
+    toggleSingleTouchRefreshModeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    toggleSingleTouchRefreshModeButton.layer.cornerRadius = 10.0;
+    BOOL singleTouch = [[NSUserDefaults standardUserDefaults] boolForKey:@"single_touch_refresh_flag"];
+    [toggleSingleTouchRefreshModeButton setTitle:singleTouch ? @"⚡️" : @"🌻" forState:UIControlStateNormal];
+    
+    [toggleSingleTouchRefreshModeButton addTarget:self
+                     action:@selector(switchSingleTouchRefresh)
+           forControlEvents:UIControlEventTouchUpInside];
+    
+    [toggleSingleTouchRefreshModeButton setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *singleTouchRefreshItem = [[UIBarButtonItem alloc] initWithCustomView:toggleSingleTouchRefreshModeButton];
+    
+    self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, overviewItem, lightCalculationMethodItem, soundToggleItem, singleTouchRefreshItem, signInItem];
     
     [self setSortButtons];
+}
+
+- (void)switchSingleTouchRefresh {
+    BOOL singleTouchOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"single_touch_refresh_flag"];
+    singleTouchOn = !singleTouchOn;
+    [[NSUserDefaults standardUserDefaults] setBool:singleTouchOn forKey:@"single_touch_refresh_flag"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [toggleSingleTouchRefreshModeButton setTitle:singleTouchOn ? @"⚡️" : @"🌻" forState:UIControlStateNormal];
+    if(singleTouchOn) {
+        [self toast:@"Fast Refresh On"];
+    } else {
+        [self toast:@"Fast Refresh Off"];
+    }
 }
 
 - (void)showLoginView{
@@ -1517,7 +1543,13 @@ static NSInteger tone = 0;
 
     self.selectedTask = task;
     
-    [self showSuraMenu];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"single_touch_refresh_flag"]){
+        [AMRTools play:@"rahman.mp3"];
+        [self refreshTask:self.selectedTask];
+    } else {
+        [self showSuraMenu];
+    }
+    
 }
 
 - (void)refreshTask:(PeriodicTask *)task{
