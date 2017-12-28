@@ -11,5 +11,6 @@ target "QuranGardens" do
     pod ‘Charts’, :path => 'DevPods/Charts’
     #pod 'Realm'
     pod 'MBProgressHUD', '~> 1.0.0'
+    pod 'Google-Mobile-Ads-SDK'
 
 end

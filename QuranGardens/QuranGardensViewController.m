@@ -25,6 +25,8 @@
 #import "UIViewController+Toast.h"
 @import AVFoundation;
 @import Charts;
+@import GoogleMobileAds;
+
 
 
 CGFloat const CellHeight = 80;
@@ -74,6 +76,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (nonatomic) NSIndexPath* selectedCell;
 
 @property (nonatomic) BOOL isLightCalculationBasedOnAverage;
+@property(nonatomic, strong) GADBannerView *bannerView;//GADBannerView
 
 @end
 
@@ -137,6 +140,68 @@ AppDelegate *delegate;
     
     self.collectionView.layer.shouldRasterize = YES;
     self.bottomBar.layer.shouldRasterize = YES;
+    self.bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerLandscape];
+    [self addBannerViewToView:self.bannerView];
+    self.bannerView.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
+    self.bannerView.rootViewController = self;
+    [self.bannerView loadRequest:[GADRequest request]];
+}
+- (void)addBannerViewToView:(UIView *)bannerView {
+    bannerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.collectionView addSubview:bannerView];
+    if (@available(ios 11.0, *)) {
+        // In iOS 11, we need to constrain the view to the safe area.
+        [self positionBannerViewFullWidthAtBottomOfSafeArea:bannerView];
+    } else {
+        // In lower iOS versions, safe area is not available so we use
+        // bottom layout guide and view edges.
+        [self positionBannerViewFullWidthAtBottomOfView:bannerView];
+    }
+}
+
+#pragma mark - view positioning
+
+- (void)positionBannerViewFullWidthAtBottomOfSafeArea:(UIView *_Nonnull)bannerView NS_AVAILABLE_IOS(11.0) {
+    // Position the banner. Stick it to the bottom of the Safe Area.
+    // Make it constrained to the edges of the safe area.
+    UILayoutGuide *guide = self.view.safeAreaLayoutGuide;
+    
+    [NSLayoutConstraint activateConstraints:@[
+                                              [guide.leftAnchor constraintEqualToAnchor:bannerView.leftAnchor],
+                                              [guide.rightAnchor constraintEqualToAnchor:bannerView.rightAnchor],
+                                              [guide.bottomAnchor constraintEqualToAnchor:bannerView.bottomAnchor]
+                                              ]];
+}
+
+- (void)positionBannerViewFullWidthAtBottomOfView:(UIView *_Nonnull)bannerView {
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bannerView
+                                                          attribute:NSLayoutAttributeLeading
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeading
+                                                         multiplier:1
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bannerView
+                                                          attribute:NSLayoutAttributeTrailing
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeTrailing
+                                                         multiplier:1
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bannerView
+                                                          attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.bottomLayoutGuide
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.collectionView
+                                                          attribute:NSLayoutAttributeBottom
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:bannerView
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1
+                                                           constant:0]];
 }
 
 - (void)onFirebaseWillStartSync {
