@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="tII-DL-flJ" kind="relationship" relationship="rootViewController" id="Vj6-z1-QiU"/>
+                        <segue destination="4Wt-g1-VvK" kind="relationship" relationship="rootViewController" id="Scb-bm-mhF"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2vO-1j-l7Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -26,45 +26,82 @@
             <point key="canvasLocation" x="25" y="513"/>
         </scene>
         <!--Quran Gardens View Controller-->
-        <scene sceneID="2fT-GO-AYZ">
+        <scene sceneID="EhM-pH-7ii">
             <objects>
-                <collectionViewController definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalPresentationStyle="overCurrentContext" id="tII-DL-flJ" customClass="QuranGardensViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="sYx-Vc-T6D">
+                <viewController id="4Wt-g1-VvK" customClass="QuranGardensViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="czk-uI-p05"/>
+                        <viewControllerLayoutGuide type="bottom" id="fDF-M1-Cgy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dPp-xD-4d7">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="w5d-xr-Br4">
-                            <size key="itemSize" width="200" height="200"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells/>
-                        <connections>
-                            <outlet property="dataSource" destination="tII-DL-flJ" id="YQQ-Lv-CJq"/>
-                            <outlet property="delegate" destination="tII-DL-flJ" id="aY4-0F-etD"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" id="48c-RC-ZsH">
-                        <barButtonItem key="leftBarButtonItem" title="Score" id="4jf-WK-OZw">
-                            <color key="tintColor" red="0.64512801170349121" green="0.98709279298782349" blue="0.71397775411605835" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="onScoreTabbed:" destination="tII-DL-flJ" id="mYU-In-rFQ"/>
-                            </connections>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7g-Ey-ESW" userLabel="adView">
+                                <rect key="frame" x="0.0" y="924" width="768" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="ZOu-q2-SG4"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4Sb-si-INi">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="924"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="tWO-0s-TyT">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="LH7-JW-kB0">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="4Wt-g1-VvK" id="yQ4-kd-F3s"/>
+                                    <outlet property="delegate" destination="4Wt-g1-VvK" id="TgB-Uh-DAW"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="R7g-Ey-ESW" firstAttribute="top" secondItem="4Sb-si-INi" secondAttribute="bottom" id="2Zf-Sh-Xab"/>
+                            <constraint firstItem="R7g-Ey-ESW" firstAttribute="leading" secondItem="dPp-xD-4d7" secondAttribute="leading" id="54Z-nv-64v"/>
+                            <constraint firstItem="4Sb-si-INi" firstAttribute="leading" secondItem="dPp-xD-4d7" secondAttribute="leading" id="BHz-aL-fYO"/>
+                            <constraint firstItem="4Sb-si-INi" firstAttribute="top" secondItem="dPp-xD-4d7" secondAttribute="top" id="HIX-YQ-DWz"/>
+                            <constraint firstAttribute="trailing" secondItem="R7g-Ey-ESW" secondAttribute="trailing" id="bSD-iu-a0Q"/>
+                            <constraint firstAttribute="trailing" secondItem="4Sb-si-INi" secondAttribute="trailing" id="cSS-nF-a1f"/>
+                            <constraint firstAttribute="bottom" secondItem="R7g-Ey-ESW" secondAttribute="bottom" id="q5X-c2-FML"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ShP-O0-oLb">
+                        <barButtonItem key="leftBarButtonItem" title="Score" id="fK8-db-3H4">
+                            <color key="tintColor" red="0.6451280117" green="0.98709279299999997" blue="0.71397775409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="bottomBar" destination="5KM-hm-oo1" id="hhj-dz-WpB"/>
-                        <outlet property="charCountSortButton" destination="JgX-gc-613" id="GEi-IV-MhJ"/>
-                        <outlet property="lightSortButton" destination="F2r-ac-ydF" id="QNr-vs-Mu7"/>
-                        <outlet property="moshafOrderButton" destination="YoJ-kX-hky" id="Jcq-4q-Uno"/>
-                        <outlet property="refreshCountSortButton" destination="RDY-js-0gf" id="rQo-bQ-fvS"/>
-                        <outlet property="revalationOrderSortButton" destination="Lrq-9a-5EU" id="ytv-Dc-jSi"/>
-                        <outlet property="score" destination="4jf-WK-OZw" id="uhN-Ui-05f"/>
-                        <outlet property="verseCountSortButton" destination="KIN-rb-EDs" id="mwA-02-f4c"/>
-                        <outlet property="wordCountSortButton" destination="QjM-Rq-h0Q" id="foS-13-pOx"/>
+                        <outlet property="adContainerView" destination="R7g-Ey-ESW" id="96p-MJ-5ui"/>
+                        <outlet property="adViewContrainerHeight" destination="ZOu-q2-SG4" id="1cn-en-2fE"/>
+                        <outlet property="bottomBar" destination="5KM-hm-oo1" id="IOF-tH-WqH"/>
+                        <outlet property="charCountSortButton" destination="JgX-gc-613" id="C8z-bT-GeB"/>
+                        <outlet property="collectionView" destination="4Sb-si-INi" id="oca-Rq-oTy"/>
+                        <outlet property="collectionViewTopConstraint" destination="HIX-YQ-DWz" id="Ykl-hN-uUe"/>
+                        <outlet property="lightSortButton" destination="F2r-ac-ydF" id="pbw-GE-fz4"/>
+                        <outlet property="moshafOrderButton" destination="YoJ-kX-hky" id="zz6-NN-c7e"/>
+                        <outlet property="refreshCountSortButton" destination="RDY-js-0gf" id="aq5-h8-UYL"/>
+                        <outlet property="revalationOrderSortButton" destination="Lrq-9a-5EU" id="eX3-1M-TIv"/>
+                        <outlet property="score" destination="fK8-db-3H4" id="7DI-fW-Id2"/>
+                        <outlet property="verseCountSortButton" destination="KIN-rb-EDs" id="MC1-LS-mN7"/>
+                        <outlet property="wordCountSortButton" destination="QjM-Rq-h0Q" id="Q1M-O7-y4h"/>
                     </connections>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Dzs-Tt-XOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9hH-Ku-M4y" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="5KM-hm-oo1" userLabel="bottomBar">
                     <rect key="frame" x="0.0" y="0.0" width="768" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -145,7 +182,7 @@
                     </constraints>
                 </view>
             </objects>
-            <point key="canvasLocation" x="827" y="513"/>
+            <point key="canvasLocation" x="1482" y="354"/>
         </scene>
     </scenes>
 </document>

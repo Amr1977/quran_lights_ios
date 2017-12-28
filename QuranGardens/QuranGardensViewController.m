@@ -53,6 +53,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (strong, nonatomic) PeriodicTask *selectedTask;
 @property (nonatomic) BOOL showHelpScreen;
 @property (nonatomic) BOOL menuOpened;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (nonatomic) BOOL reversedSortOrder;
 @property (nonatomic, assign) SorterType sortType;
@@ -77,6 +78,11 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 
 @property (nonatomic) BOOL isLightCalculationBasedOnAverage;
 @property(nonatomic, strong) GADBannerView *bannerView;//GADBannerView
+@property (weak, nonatomic) IBOutlet UIView *adContainerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *adViewContrainerHeight;
+
+
 
 @end
 
@@ -1252,28 +1258,16 @@ Boolean hasAppearedBefore;
 }
 
 - (void)setupCollectionView{
-    
-    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
-    
-    //http://stackoverflow.com/questions/28325277/how-to-set-cell-spacing-and-uicollectionview-uicollectionviewflowlayout-size-r
-    layout.minimumInteritemSpacing = 2;
-    layout.minimumLineSpacing = 2;
-
-    self.collectionView=[[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
-    [self.collectionView setDataSource:self];
-    [self.collectionView setDelegate:self];
-    
     UINib *nib = [UINib nibWithNibName:@"SuraViewCell" bundle: nil];
     [self.collectionView registerNib:nib forCellWithReuseIdentifier:@"cellIdentifier"];
-    
+
 //    UIImage *image = [UIImage imageNamed:@"star.jpg"];
 //    self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:image];
 //    self.collectionView.backgroundView.alpha = 0.8;
     self.collectionView.backgroundView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSwipeHandlerToView:self.collectionView direction:@"left" handler:@selector(settings)];
     [self addSwipeHandlerToView:self.collectionView direction:@"right" handler:@selector(showCharts)];
+    self.collectionViewTopConstraint.constant = self.navigationController.navigationBar.frame.size.height;
 }
 
 - (void) showCharts {
