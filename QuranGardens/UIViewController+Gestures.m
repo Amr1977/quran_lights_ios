@@ -11,6 +11,7 @@
 @implementation UIViewController (Gestures)
 
 - (void)addSwipeHandlerToView:(UIView *)view direction:(NSString *)direction handler:(SEL)handler{
+    direction = [direction lowercaseString];
     if ([direction isEqualToString:@"right"]) {
         UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:handler];
         [swipeRight setDirection: UISwipeGestureRecognizerDirectionRight];
