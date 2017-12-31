@@ -37,15 +37,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7g-Ey-ESW" userLabel="adView">
-                                <rect key="frame" x="0.0" y="924" width="768" height="100"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="ZOu-q2-SG4"/>
-                                </constraints>
-                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4Sb-si-INi">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="924"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="tWO-0s-TyT">
                                     <size key="itemSize" width="50" height="50"/>
@@ -71,13 +64,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="R7g-Ey-ESW" firstAttribute="top" secondItem="4Sb-si-INi" secondAttribute="bottom" id="2Zf-Sh-Xab"/>
-                            <constraint firstItem="R7g-Ey-ESW" firstAttribute="leading" secondItem="dPp-xD-4d7" secondAttribute="leading" id="54Z-nv-64v"/>
-                            <constraint firstItem="4Sb-si-INi" firstAttribute="leading" secondItem="dPp-xD-4d7" secondAttribute="leading" id="BHz-aL-fYO"/>
-                            <constraint firstItem="4Sb-si-INi" firstAttribute="top" secondItem="dPp-xD-4d7" secondAttribute="top" id="HIX-YQ-DWz"/>
-                            <constraint firstAttribute="trailing" secondItem="R7g-Ey-ESW" secondAttribute="trailing" id="bSD-iu-a0Q"/>
+                            <constraint firstItem="4Sb-si-INi" firstAttribute="centerX" secondItem="dPp-xD-4d7" secondAttribute="centerX" id="AL9-DC-TwN"/>
+                            <constraint firstItem="4Sb-si-INi" firstAttribute="height" secondItem="dPp-xD-4d7" secondAttribute="height" id="Ik3-rE-Guf"/>
+                            <constraint firstItem="4Sb-si-INi" firstAttribute="leading" secondItem="dPp-xD-4d7" secondAttribute="leading" id="Oxu-Do-WAB"/>
                             <constraint firstAttribute="trailing" secondItem="4Sb-si-INi" secondAttribute="trailing" id="cSS-nF-a1f"/>
-                            <constraint firstAttribute="bottom" secondItem="R7g-Ey-ESW" secondAttribute="bottom" id="q5X-c2-FML"/>
+                            <constraint firstItem="4Sb-si-INi" firstAttribute="top" secondItem="dPp-xD-4d7" secondAttribute="top" id="g6m-GX-2xS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ShP-O0-oLb">
@@ -86,12 +77,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="adContainerView" destination="R7g-Ey-ESW" id="96p-MJ-5ui"/>
-                        <outlet property="adViewContrainerHeight" destination="ZOu-q2-SG4" id="1cn-en-2fE"/>
                         <outlet property="bottomBar" destination="5KM-hm-oo1" id="IOF-tH-WqH"/>
                         <outlet property="charCountSortButton" destination="JgX-gc-613" id="C8z-bT-GeB"/>
                         <outlet property="collectionView" destination="4Sb-si-INi" id="oca-Rq-oTy"/>
-                        <outlet property="collectionViewTopConstraint" destination="HIX-YQ-DWz" id="Ykl-hN-uUe"/>
+                        <outlet property="collectionViewHeightConstraint" destination="Ik3-rE-Guf" id="W5A-1V-Dft"/>
                         <outlet property="lightSortButton" destination="F2r-ac-ydF" id="pbw-GE-fz4"/>
                         <outlet property="moshafOrderButton" destination="YoJ-kX-hky" id="zz6-NN-c7e"/>
                         <outlet property="refreshCountSortButton" destination="RDY-js-0gf" id="aq5-h8-UYL"/>

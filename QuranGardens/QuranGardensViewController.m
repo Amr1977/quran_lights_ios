@@ -78,9 +78,9 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 
 @property (nonatomic) BOOL isLightCalculationBasedOnAverage;
 @property(nonatomic, strong) GADBannerView *bannerView;//GADBannerView
-@property (weak, nonatomic) IBOutlet UIView *adContainerView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewTopConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *adViewContrainerHeight;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeightConstraint;
+
 
 
 
@@ -141,47 +141,38 @@ AppDelegate *delegate;
     
     NSLog(@"Memorized %ld of total %ld", (long)[self.statistics memorizedScore], (long)[Statistics allSurasScore]);
     
-    self.bottomBar.backgroundColor = [UIColor blackColor];// colorWithAlphaComponent:1.0];
+    self.bottomBar.backgroundColor = [UIColor blackColor];
     [self.view addSubview:self.bottomBar];
     
     self.collectionView.layer.shouldRasterize = YES;
+    
     self.bottomBar.layer.shouldRasterize = YES;
+    
     self.bannerView = [[GADBannerView alloc] initWithAdSize: (([[UIDevice currentDevice] orientation] ==  UIDeviceOrientationPortrait) ? kGADAdSizeSmartBannerPortrait : kGADAdSizeSmartBannerLandscape)];
-    //[self addBannerViewToView:self.bannerView];
     self.bannerView.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
     self.bannerView.rootViewController = self;
+    self.bannerView.layer.zPosition = 1000;
     
-    self.adContainerView.backgroundColor = [UIColor blackColor];
-    self.adContainerView.layer.zPosition = 1000;
-    [self.adContainerView addSubview:self.bannerView];
-    self.adViewContrainerHeight.constant = 0;//self.bannerView.frame.size.height;
+    CGRect adFrame =  self.bannerView.frame;
+    adFrame.size.width = self.view.frame.size.width;
+    adFrame.origin.x = 0;
+    adFrame.origin.y = self.view.frame.size.height;
+    
+    self.bannerView.frame = adFrame;
+    
     self.bannerView.delegate = self;
-    //self.bannerView.center = self.adContainerView.center;
+    [self.view addSubview:self.bannerView];
     
-    [self addSwipeHandlerToView:self.bannerView direction:@"RIGHT" handler:@selector(hideAds)];
-//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.bannerView
-//                                                          attribute:NSLayoutAttributeCenterX
-//                                                          relatedBy:NSLayoutRelationEqual
-//                                                             toItem:self.view
-//                                                          attribute:NSLayoutAttributeCenterX
-//                                                         multiplier:1
-//                                                           constant:0]];
-//
-//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.bannerView
-//                                                          attribute:NSLayoutAttributeCenterY
-//                                                          relatedBy:NSLayoutRelationEqual
-//                                                             toItem:self.adContainerView
-//                                                          attribute:NSLayoutAttributeCenterY
-//                                                         multiplier:1
-//                                                           constant:0]];
+    //[self addSwipeHandlerToView:self.bannerView direction:@"RIGHT" handler:@selector(hideAds)];
     GADRequest *request = [GADRequest request];
-    //request.testDevices = @[ @"a7db1d0d680e13fda179adfabca6ac4b" ];
     
     [self.bannerView loadRequest:request];
+    [self positionBannerViewFullWidthAtBottomOfView: self.bannerView];
+    
 }
 
 -(void)hideAds {
-    self.adViewContrainerHeight.constant = 0;
+    
 }
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInt
@@ -189,38 +180,38 @@ AppDelegate *delegate;
     self.bannerView.adSize = (([[UIDevice currentDevice] orientation] ==  UIDeviceOrientationPortrait) ? kGADAdSizeSmartBannerPortrait : kGADAdSizeSmartBannerLandscape);
 }
 
+BOOL gotFirstAd = NO;
 
 - (void)adViewDidReceiveAd:(GADBannerView *)adView {
-    NSLog(@"adViewDidReceiveAd");
-    [UIView animateWithDuration:3.0 animations:^{
-        self.adViewContrainerHeight.constant = self.bannerView.frame.size.height;
-    }];
-}
-
-- (void)addBannerViewToView:(UIView *)bannerView {
-    bannerView.translatesAutoresizingMaskIntoConstraints = NO;
-    //[self.collectionView addSubview:bannerView];
-    if (@available(ios 11.0, *)) {
-        // In iOS 11, we need to constrain the view to the safe area.
-        [self positionBannerViewFullWidthAtBottomOfSafeArea:bannerView];
-    } else {
-        // In lower iOS versions, safe area is not available so we use
-        // bottom layout guide and view edges.
-        [self positionBannerViewFullWidthAtBottomOfView:bannerView];
+    NSLog(@"adViewDidReceiveAd %@", adView);
+    if (!gotFirstAd) {
+        gotFirstAd = YES;
+        [UIView animateWithDuration:0.5 animations:^{
+            CGRect adFrame =  self.bannerView.frame;
+            adFrame.origin.y = self.view.frame.size.height - adFrame.size.height;
+            self.bannerView.frame = adFrame;
+            
+            CGRect cFrame = self.collectionView.frame;
+            cFrame.size.height -= adFrame.size.height;
+            self.collectionView.frame = cFrame;
+            
+            self.collectionViewHeightConstraint.constant = -adFrame.size.height;
+        }];
     }
+    
 }
 
-#pragma mark - view positioning
+#pragma mark - ad view positioning
 
 - (void)positionBannerViewFullWidthAtBottomOfSafeArea:(UIView *_Nonnull)bannerView NS_AVAILABLE_IOS(11.0) {
     // Position the banner. Stick it to the bottom of the Safe Area.
     // Make it constrained to the edges of the safe area.
-    //UILayoutGuide *guide = self.view.safeAreaLayoutGuide;
+    UILayoutGuide *guide = self.view.safeAreaLayoutGuide;
     
     [NSLayoutConstraint activateConstraints:@[
-                                              [self.adContainerView.leftAnchor constraintEqualToAnchor:bannerView.leftAnchor],
-                                              [self.adContainerView.rightAnchor constraintEqualToAnchor:bannerView.rightAnchor],
-                                              [self.adContainerView.bottomAnchor constraintEqualToAnchor:bannerView.bottomAnchor]
+                                              [guide.leftAnchor constraintEqualToAnchor:bannerView.leftAnchor],
+                                              [guide.rightAnchor constraintEqualToAnchor:bannerView.rightAnchor],
+                                              [self.collectionView.bottomAnchor constraintEqualToAnchor:bannerView.topAnchor]
                                               ]];
 }
 
@@ -228,32 +219,29 @@ AppDelegate *delegate;
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bannerView
                                                           attribute:NSLayoutAttributeLeading
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.adContainerView
+                                                             toItem:self.view
                                                           attribute:NSLayoutAttributeLeading
                                                          multiplier:1
                                                            constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bannerView
                                                           attribute:NSLayoutAttributeTrailing
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.adContainerView
+                                                             toItem:self.view
                                                           attribute:NSLayoutAttributeTrailing
                                                          multiplier:1
                                                            constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bannerView
-                                                          attribute:NSLayoutAttributeBottom
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.adContainerView
                                                           attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.collectionView
+                                                          attribute:NSLayoutAttributeBottom
                                                          multiplier:1
                                                            constant:0]];
-//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.collectionView
-//                                                          attribute:NSLayoutAttributeBottom
-//                                                          relatedBy:NSLayoutRelationEqual
-//                                                             toItem:self.adContainerView
-//                                                          attribute:NSLayoutAttributeTop
-//                                                         multiplier:1
-//                                                           constant:0]];
 }
+
+#pragma mark - view positioning
+
+
 
 - (void)onFirebaseWillStartSync {
     if (updateInProgress) {
@@ -1314,7 +1302,6 @@ Boolean hasAppearedBefore;
     self.collectionView.backgroundView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSwipeHandlerToView:self.collectionView direction:@"left" handler:@selector(settings)];
     [self addSwipeHandlerToView:self.collectionView direction:@"right" handler:@selector(showCharts)];
-    self.collectionViewTopConstraint.constant = self.navigationController.navigationBar.frame.size.height + self.navigationController.navigationBar.frame.origin.y;
     self.collectionView.bounces = YES;
 }
 
@@ -1794,6 +1781,10 @@ static NSInteger tone = 0;
     self.bottomBar.frame = CGRectMake(0, size.height - self.bottomBar.frame.size.height, size.width, self.bottomBar.frame.size.height);
     [self.collectionView reloadData];
     //self.bannerView.center = self.adContainerView.center;
+    
+    CGRect adFrame =  self.bannerView.frame;
+    adFrame.origin.y = size.height - adFrame.size.height;
+    self.bannerView.frame = adFrame;
 }
 
 - (void)dealloc{
