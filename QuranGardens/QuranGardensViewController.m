@@ -163,7 +163,7 @@ AppDelegate *delegate;
     self.bannerView.delegate = self;
     [self.view addSubview:self.bannerView];
     
-    //[self addSwipeHandlerToView:self.bannerView direction:@"RIGHT" handler:@selector(hideAds)];
+    [self addSwipeHandlerToView:self.bannerView direction:@"RIGHT" handler:@selector(hideAds)];
     GADRequest *request = [GADRequest request];
     
     [self.bannerView loadRequest:request];
@@ -172,6 +172,20 @@ AppDelegate *delegate;
 }
 
 -(void)hideAds {
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        CGRect adFrame =  self.bannerView.frame;
+        adFrame.origin.y = self.view.frame.size.height;
+        self.bannerView.frame = adFrame;
+        
+        
+        CGRect cFrame = self.collectionView.frame;
+        cFrame.size.height += adFrame.size.height;
+        self.collectionView.frame = cFrame;
+        
+        self.collectionViewHeightConstraint.constant = 0;
+        [self.collectionView reloadData];
+    }];
     
 }
 
