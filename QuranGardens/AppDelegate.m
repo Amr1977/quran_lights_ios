@@ -21,6 +21,7 @@
     //[GADMobileAds configureWithApplicationID:@"ca-app-pub-4015465227414745~3668516035"];
     //test ad id: ca-app-pub-3940256099942544/2934735716
     [GADMobileAds configureWithApplicationID:@"ca-app-pub-4015465227414745~3668516035"];
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
     
     
     return YES;
@@ -47,6 +48,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
 }
 
 @end
