@@ -166,7 +166,7 @@ AppDelegate *delegate;
     [self addSwipeHandlerToView:self.bannerView direction:@"RIGHT" handler:@selector(hideAds)];
     GADRequest *request = [GADRequest request];
     
-    [self.bannerView loadRequest:request];
+    //[self.bannerView loadRequest:request];
     [self positionBannerViewFullWidthAtBottomOfView: self.bannerView];
     
 }
