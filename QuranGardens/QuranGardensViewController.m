@@ -158,17 +158,26 @@ AppDelegate *delegate;
     adFrame.origin.x = 0;
     adFrame.origin.y = self.view.frame.size.height;
     
-    self.bannerView.frame = adFrame;
+    //self.bannerView.frame = adFrame;
     
-    self.bannerView.delegate = self;
-    [self.view addSubview:self.bannerView];
+    //self.bannerView.delegate = self;
+    //[self.view addSubview:self.bannerView];
     
-    [self addSwipeHandlerToView:self.bannerView direction:@"RIGHT" handler:@selector(hideAds)];
-    GADRequest *request = [GADRequest request];
+   // [self addSwipeHandlerToView:self.bannerView direction:@"RIGHT" handler:@selector(hideAds)];
+    //GADRequest *request = [GADRequest request];
     
     //[self.bannerView loadRequest:request];
-    [self positionBannerViewFullWidthAtBottomOfView: self.bannerView];
+    //[self positionBannerViewFullWidthAtBottomOfView: self.bannerView];
     
+}
+
+- (NSInteger)getLastRefreshedSuraIndex {
+    NSInteger result = [[NSUserDefaults standardUserDefaults] integerForKey:@"last_refreshed_sura"];
+    return result;
+}
+
+- (void)setLastRefreshedSuraIndex:(NSInteger)index{
+    [[NSUserDefaults standardUserDefaults] setInteger:index forKey:@"last_refreshed_sura"];
 }
 
 -(void)hideAds {
@@ -1523,7 +1532,12 @@ Boolean hasAppearedBefore;
     if (days >= 30 && [task.history count] > 0) {
         cell.content.layer.borderColor = [UIColor redColor].CGColor;
         
-    } else {
+    } else
+    
+    if ([task index] == [self getLastRefreshedSuraIndex]) {
+         cell.content.layer.borderColor = [UIColor blueColor].CGColor;
+    }
+    else {
         cell.content.layer.borderColor = [UIColor clearColor].CGColor;
     }
     
@@ -1544,6 +1558,7 @@ Boolean hasAppearedBefore;
         //cell.memorized.layer.borderColor = [UIColor redColor].CGColor;
         
     }
+    
     else {
         cell.memorized.layer.borderColor = [UIColor clearColor].CGColor;
     }
@@ -1662,6 +1677,7 @@ static NSInteger tone = 0;
 
 - (void)refreshTask:(PeriodicTask *)task{
     [self.periodicTaskManager.dataSource saveSuraLastRefresh:[[NSDate alloc] init] suraName:task.name];
+    [self setLastRefreshedSuraIndex:[task index]];
     [self refreshViews];
 }
 

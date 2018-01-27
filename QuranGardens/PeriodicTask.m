@@ -9,6 +9,7 @@
 #import "PeriodicTask.h"
 #import "DataSource.h"
 #import "AMRTools.h"
+#import "Sura.h"
 
 static NSString * const PeriodicTaskNameKey = @"name";
 static NSString * const PeriodicTaskLastOccurrenceKey = @"lastOccurrence";
@@ -99,6 +100,10 @@ static NSString * const PeriodicTaskCycleIntervalKey = @"cycleInterval";
     self.averageRefreshInterval = [AMRTools averageIntervalBetweenDatesInArray:self.history];
     
     return self.averageRefreshInterval;
+}
+
+- (NSInteger)index {
+    return [[Sura suraIndexFromSuraName:self.name] integerValue];
 }
 
 @end

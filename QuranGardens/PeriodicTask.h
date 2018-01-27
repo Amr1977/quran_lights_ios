@@ -69,4 +69,6 @@
 - (void)fromPList:(NSDictionary *)plist;
 
 - (NSTimeInterval)calculateAverageRefresh;
+
+- (NSInteger)index;
 @end
