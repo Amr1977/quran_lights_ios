@@ -171,13 +171,15 @@ AppDelegate *delegate;
     
 }
 
-- (NSInteger)getLastRefreshedSuraIndex {
-    NSInteger result = [[NSUserDefaults standardUserDefaults] integerForKey:@"last_refreshed_sura"];
+- (NSInteger)getMarkedSuraIndex {
+    NSInteger result = [[NSUserDefaults standardUserDefaults] integerForKey:@"marked_sura_index"];
     return result;
 }
 
-- (void)setLastRefreshedSuraIndex:(NSInteger)index{
-    [[NSUserDefaults standardUserDefaults] setInteger:index forKey:@"last_refreshed_sura"];
+- (void)setMarkedSuraIndex:(NSInteger)index{
+    [[NSUserDefaults standardUserDefaults] setInteger:index forKey:@"marked_sura_index"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self.collectionView reloadData];
 }
 
 -(void)hideAds {
@@ -839,6 +841,14 @@ Boolean hasAppearedBefore;
         operations[[@"Refresh" localize]] = ^(){
             [AMRTools play:@"rahman.mp3"];
             [self refreshTask:self.selectedTask];
+        };
+    }
+    
+    [orderedKeys addObject:[@"Put Marker" localize]];
+    if (operations[[@"Put Marker" localize]] == nil) {
+        operations[[@"Put Marker" localize]] = ^(){
+            [self setMarkedSuraIndex:[self.selectedTask index]];
+            [self refreshViews];
         };
     }
     
@@ -1529,15 +1539,16 @@ Boolean hasAppearedBefore;
         [cell.backgroundImage setHidden:YES];
     }
     
+    if ([task index] == [self getMarkedSuraIndex]) {
+        cell.content.layer.borderColor = [UIColor blueColor].CGColor;
+    }
+    else
     if (days >= 30 && [task.history count] > 0) {
         cell.content.layer.borderColor = [UIColor redColor].CGColor;
         
     } else
     
-    if ([task index] == [self getLastRefreshedSuraIndex]) {
-         cell.content.layer.borderColor = [UIColor blueColor].CGColor;
-    }
-    else {
+     {
         cell.content.layer.borderColor = [UIColor clearColor].CGColor;
     }
     
@@ -1677,7 +1688,6 @@ static NSInteger tone = 0;
 
 - (void)refreshTask:(PeriodicTask *)task{
     [self.periodicTaskManager.dataSource saveSuraLastRefresh:[[NSDate alloc] init] suraName:task.name];
-    [self setLastRefreshedSuraIndex:[task index]];
     [self refreshViews];
 }
 
