@@ -826,7 +826,10 @@ Boolean hasAppearedBefore;
     [self presentViewController:menu animated:YES completion:nil];
 }
 
-
+- (void)setNotificationForTask: (PeriodicTask *)task {
+    
+    
+}
 
 
 
@@ -843,6 +846,15 @@ Boolean hasAppearedBefore;
             [self refreshTask:self.selectedTask];
         };
     }
+    
+    [orderedKeys addObject:[@"Set Notification" localize]];
+    
+    if (operations[[@"Set Notification" localize]] == nil) {
+        operations[[@"Set Notification" localize]] = ^(){
+            [self setNotificationForTask: self.selectedTask];
+        };
+    }
+
     
     [orderedKeys addObject:[@"Put Marker" localize]];
     if (operations[[@"Put Marker" localize]] == nil) {

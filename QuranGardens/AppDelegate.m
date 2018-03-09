@@ -23,8 +23,16 @@
     [GADMobileAds configureWithApplicationID:@"ca-app-pub-4015465227414745~3668516035"];
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     
+    [self registerForLocalNotifications];
+    
     
     return YES;
+}
+
+- (void)registerForLocalNotifications {
+    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
