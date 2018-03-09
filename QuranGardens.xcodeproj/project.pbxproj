@@ -30,8 +30,6 @@
 		076965D81C5B60C600ED2D33 /* Sura.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965D71C5B60C600ED2D33 /* Sura.m */; };
 		076965DB1C5B628200ED2D33 /* SuraViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965DA1C5B628200ED2D33 /* SuraViewCell.m */; };
 		076965E01C5B630E00ED2D33 /* QuranGardensViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */; };
-		07D7D30D1D9E64FE00CF4FE4 /* safe.png in Resources */ = {isa = PBXBuildFile; fileRef = 07D7D30C1D9E64FE00CF4FE4 /* safe.png */; };
-		07D7D30F1D9E885300CF4FE4 /* gold-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 07D7D30E1D9E885300CF4FE4 /* gold-star.png */; };
 		07FAC8EB1D66FA0000A18525 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FAC8E91D66FA0000A18525 /* SettingsViewController.m */; };
 		07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */; };
 		07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */; };
@@ -58,7 +56,6 @@
 		C575EC991F8D37D8005E5170 /* SyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C575EC981F8D37D8005E5170 /* SyncManager.m */; };
 		C575EC9C1F8D39AB005E5170 /* FireBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C575EC9B1F8D39AA005E5170 /* FireBaseManager.m */; };
 		C575EC9F1F8D3AC7005E5170 /* MembersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C575EC9E1F8D3AC6005E5170 /* MembersManager.m */; };
-		C58BD3B21F29E0C2000BC3D7 /* QLUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C58BD3B11F29E0C2000BC3D7 /* QLUserManager.m */; };
 		C59A202F1E8116BD003C0F09 /* AMRTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C59A202E1E8116BD003C0F09 /* AMRTools.m */; };
 		C5A26AEB1EA24420009135D4 /* ChartsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AE91EA24420009135D4 /* ChartsViewController.m */; };
 		C5A26AEC1EA24420009135D4 /* ChartsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A26AEA1EA24420009135D4 /* ChartsViewController.xib */; };
@@ -142,8 +139,6 @@
 		076965DA1C5B628200ED2D33 /* SuraViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuraViewCell.m; sourceTree = "<group>"; };
 		076965DE1C5B630E00ED2D33 /* QuranGardensViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuranGardensViewController.h; sourceTree = "<group>"; };
 		076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuranGardensViewController.m; sourceTree = "<group>"; };
-		07D7D30C1D9E64FE00CF4FE4 /* safe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = safe.png; sourceTree = "<group>"; };
-		07D7D30E1D9E885300CF4FE4 /* gold-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gold-star.png"; sourceTree = "<group>"; };
 		07FAC8E81D66FA0000A18525 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		07FAC8E91D66FA0000A18525 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		07FC8BF21C5D05C000695E0A /* PeriodicTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeriodicTaskManager.h; sourceTree = "<group>"; };
@@ -189,8 +184,6 @@
 		C575EC9B1F8D39AA005E5170 /* FireBaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FireBaseManager.m; sourceTree = "<group>"; };
 		C575EC9D1F8D3AC6005E5170 /* MembersManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MembersManager.h; sourceTree = "<group>"; };
 		C575EC9E1F8D3AC6005E5170 /* MembersManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MembersManager.m; sourceTree = "<group>"; };
-		C58BD3B01F29E0C2000BC3D7 /* QLUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QLUserManager.h; sourceTree = "<group>"; };
-		C58BD3B11F29E0C2000BC3D7 /* QLUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QLUserManager.m; sourceTree = "<group>"; };
 		C59A202D1E8116BD003C0F09 /* AMRTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMRTools.h; sourceTree = "<group>"; };
 		C59A202E1E8116BD003C0F09 /* AMRTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMRTools.m; sourceTree = "<group>"; };
 		C5A26AE81EA24420009135D4 /* ChartsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartsViewController.h; sourceTree = "<group>"; };
@@ -275,19 +268,15 @@
 		076965A11C5B5D0700ED2D33 /* QuranGardens */ = {
 			isa = PBXGroup;
 			children = (
+				076965A51C5B5D0700ED2D33 /* AppDelegate.h */,
+				076965A61C5B5D0700ED2D33 /* AppDelegate.m */,
+				C5AFAE2B1F4B8418001770FD /* Common */,
+				C54F29F5205256050032CB78 /* Modules */,
 				C50BC0841F8E3BBC00375592 /* Sync */,
 				C5D5C3EE1F27ED060006FBB4 /* Quran Lights.entitlements */,
 				C5FECDDC1EC2194E0081C89D /* resources */,
 				C566F4571E21143200628A94 /* GoogleService-Info.plist */,
-				076965A51C5B5D0700ED2D33 /* AppDelegate.h */,
-				076965A61C5B5D0700ED2D33 /* AppDelegate.m */,
-				C5AFAE2B1F4B8418001770FD /* Common */,
-				C53A358A1F2C958B00CCA831 /* SignUp */,
 				C5AFAE291F4B625B001770FD /* Categories */,
-				C5AFAE2C1F4B844F001770FD /* Members */,
-				C5AFAE2A1F4B83E7001770FD /* Settings */,
-				076965DD1C5B62AE00ED2D33 /* Main */,
-				C50E590B1EBC54A00076C3D6 /* charts */,
 				C5A26AFB1EA26FD8009135D4 /* Formatters */,
 				076965D51C5B609100ED2D33 /* Model */,
 				076965B01C5B5D0700ED2D33 /* LaunchScreen.storyboard */,
@@ -295,8 +284,6 @@
 				076965A21C5B5D0700ED2D33 /* Supporting Files */,
 				0750B0C91D68F51C0081B1C4 /* reval.txt */,
 				C568B18C1EAA038100445642 /* Localizable.strings */,
-				C575EC9D1F8D3AC6005E5170 /* MembersManager.h */,
-				C575EC9E1F8D3AC6005E5170 /* MembersManager.m */,
 			);
 			path = QuranGardens;
 			sourceTree = "<group>";
@@ -304,8 +291,6 @@
 		076965A21C5B5D0700ED2D33 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				07D7D30E1D9E885300CF4FE4 /* gold-star.png */,
-				07D7D30C1D9E64FE00CF4FE4 /* safe.png */,
 				076965A31C5B5D0700ED2D33 /* main.m */,
 				0750B0CB1D68F5FD0081B1C4 /* versecount.txt */,
 				0750B0D11D68F6600081B1C4 /* arabic-sura-names */,
@@ -336,22 +321,6 @@
 			children = (
 				C55B81D41ECEEB1E003A2523 /* PrayTime.h */,
 				C55B81D51ECEEB1E003A2523 /* PrayTime.m */,
-				075909F01D631B8900A6B7B1 /* DataSource.h */,
-				075909F11D631B8900A6B7B1 /* DataSource.m */,
-				076965D61C5B60C600ED2D33 /* Sura.h */,
-				076965D71C5B60C600ED2D33 /* Sura.m */,
-				07FC8BF51C5D05DC00695E0A /* PeriodicTask.h */,
-				07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */,
-				07FC8BF21C5D05C000695E0A /* PeriodicTaskManager.h */,
-				07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */,
-				071C17A91D673B5800019CDD /* Settings.h */,
-				071C17AA1D673B5800019CDD /* Settings.m */,
-				073AA6F01DB89E0300370847 /* Statistics.h */,
-				073AA6F11DB89E0300370847 /* Statistics.m */,
-				C502D5521ED48D0B00A7267F /* User.h */,
-				C502D5531ED48D0B00A7267F /* User.m */,
-				C58BD3B01F29E0C2000BC3D7 /* QLUserManager.h */,
-				C58BD3B11F29E0C2000BC3D7 /* QLUserManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -359,6 +328,7 @@
 		076965DC1C5B628F00ED2D33 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				076965AB1C5B5D0700ED2D33 /* Main.storyboard */,
 				C51039EB1E791B320076A184 /* cell */,
 			);
 			name = View;
@@ -367,10 +337,9 @@
 		076965DD1C5B62AE00ED2D33 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				C54F29F7205257810032CB78 /* Controller */,
+				C54F29F62052565D0032CB78 /* Model */,
 				076965DC1C5B628F00ED2D33 /* View */,
-				076965AB1C5B5D0700ED2D33 /* Main.storyboard */,
-				076965DE1C5B630E00ED2D33 /* QuranGardensViewController.h */,
-				076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -439,6 +408,44 @@
 			name = SignUp;
 			sourceTree = "<group>";
 		};
+		C54F29F5205256050032CB78 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				076965DD1C5B62AE00ED2D33 /* Main */,
+				C50E590B1EBC54A00076C3D6 /* charts */,
+				C5AFAE2C1F4B844F001770FD /* Members */,
+				C53A358A1F2C958B00CCA831 /* SignUp */,
+				C5AFAE2A1F4B83E7001770FD /* Settings */,
+			);
+			name = Modules;
+			sourceTree = "<group>";
+		};
+		C54F29F62052565D0032CB78 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				075909F01D631B8900A6B7B1 /* DataSource.h */,
+				075909F11D631B8900A6B7B1 /* DataSource.m */,
+				C502D5521ED48D0B00A7267F /* User.h */,
+				C502D5531ED48D0B00A7267F /* User.m */,
+				076965D61C5B60C600ED2D33 /* Sura.h */,
+				076965D71C5B60C600ED2D33 /* Sura.m */,
+				07FC8BF51C5D05DC00695E0A /* PeriodicTask.h */,
+				07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */,
+				07FC8BF21C5D05C000695E0A /* PeriodicTaskManager.h */,
+				07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		C54F29F7205257810032CB78 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				076965DE1C5B630E00ED2D33 /* QuranGardensViewController.h */,
+				076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		C5A26AFB1EA26FD8009135D4 /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
@@ -470,6 +477,8 @@
 		C5AFAE2A1F4B83E7001770FD /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				071C17A91D673B5800019CDD /* Settings.h */,
+				071C17AA1D673B5800019CDD /* Settings.m */,
 				C568B17B1EAA02E900445642 /* SettingsViewController.xib */,
 				07FAC8E81D66FA0000A18525 /* SettingsViewController.h */,
 				07FAC8E91D66FA0000A18525 /* SettingsViewController.m */,
@@ -480,6 +489,8 @@
 		C5AFAE2B1F4B8418001770FD /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				073AA6F01DB89E0300370847 /* Statistics.h */,
+				073AA6F11DB89E0300370847 /* Statistics.m */,
 				C59A202D1E8116BD003C0F09 /* AMRTools.h */,
 				C59A202E1E8116BD003C0F09 /* AMRTools.m */,
 			);
@@ -489,6 +500,8 @@
 		C5AFAE2C1F4B844F001770FD /* Members */ = {
 			isa = PBXGroup;
 			children = (
+				C575EC9D1F8D3AC6005E5170 /* MembersManager.h */,
+				C575EC9E1F8D3AC6005E5170 /* MembersManager.m */,
 				C502D54D1ED486C500A7267F /* UsersViewController.h */,
 				C502D54E1ED486C500A7267F /* UsersViewController.m */,
 				C502D54F1ED486C500A7267F /* UsersViewController.xib */,
@@ -645,11 +658,9 @@
 				076965B21C5B5D0700ED2D33 /* LaunchScreen.storyboard in Resources */,
 				C568B18A1EAA038100445642 /* Localizable.strings in Resources */,
 				076965AF1C5B5D0700ED2D33 /* Assets.xcassets in Resources */,
-				07D7D30D1D9E64FE00CF4FE4 /* safe.png in Resources */,
 				076965AD1C5B5D0700ED2D33 /* Main.storyboard in Resources */,
 				072594121D74AEB0009E5F05 /* charcount.txt in Resources */,
 				C568B17C1EAA02FD00445642 /* CubicLineChartViewController.xib in Resources */,
-				07D7D30F1D9E885300CF4FE4 /* gold-star.png in Resources */,
 				C508370E1EBBB20000B54E94 /* rahman.mp3 in Resources */,
 				0750B0CA1D68F51C0081B1C4 /* reval.txt in Resources */,
 				0750B0CC1D68F5FD0081B1C4 /* versecount.txt in Resources */,
@@ -746,7 +757,6 @@
 			files = (
 				C575EC991F8D37D8005E5170 /* SyncManager.m in Sources */,
 				C5A26B061EA27005009135D4 /* LargeValueFormatter.swift in Sources */,
-				C58BD3B21F29E0C2000BC3D7 /* QLUserManager.m in Sources */,
 				C55B81D61ECEEB1E003A2523 /* PrayTime.m in Sources */,
 				C5F17C491E69BB6B00476CA3 /* UIViewController+Gestures.m in Sources */,
 				073AA6F21DB89E0300370847 /* Statistics.m in Sources */,
