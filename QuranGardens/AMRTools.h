@@ -33,4 +33,6 @@
 
 +(NSMutableArray<NSNumber *> *)sort:(NSMutableArray<NSNumber *> *)source;
 
++ (NSString *)appID;
+
 @end

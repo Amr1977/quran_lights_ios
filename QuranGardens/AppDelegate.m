@@ -10,6 +10,7 @@
 #import <BuddyBuildSDK/BuddyBuildSDK.h>
 #import "FireBaseManager.h"
 #import "AMRTools.h"
+@import StoreKit;
 @import GoogleMobileAds;
 
 @implementation AppDelegate
@@ -25,6 +26,7 @@
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     
     [self registerForLocalNotifications];
+    [SKStoreReviewController requestReview];
     
     
     return YES;
