@@ -23,6 +23,7 @@
 #import "SignupViewController.h"
 #import "MBProgressHUD.h"
 #import "UIViewController+Toast.h"
+#import "NotificationsViewController.h"
 @import AVFoundation;
 @import Charts;
 @import GoogleMobileAds;
@@ -40,7 +41,7 @@ static NSString *const ShowHelpScreenKey = @"Show_help_screen";
 static NSString *const ReversedSortOrderOptionKey = @"reversed_sort_order";
 static NSString *const SorterTypeOptionKey = @"sorter_type";
 
-@interface QuranGardensViewController () <GADBannerViewDelegate>
+@interface QuranGardensViewController () <GADBannerViewDelegate, NotificationControllerDelegate>
 
 
 @property (strong, nonatomic) IBOutlet UIView *bottomBar;
@@ -81,7 +82,7 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeightConstraint;
 
-
+@property (strong, nonatomic) NotificationsViewController *notificationsViewController;
 
 
 @end
@@ -826,12 +827,6 @@ Boolean hasAppearedBefore;
     [self presentViewController:menu animated:YES completion:nil];
 }
 
-- (void)setNotificationForTask: (PeriodicTask *)task {
-    
-    
-}
-
-
 
 //TODO: save/load memorization state
 
@@ -851,7 +846,7 @@ Boolean hasAppearedBefore;
     
     if (operations[[@"Set Notification" localize]] == nil) {
         operations[[@"Set Notification" localize]] = ^(){
-            [self setNotificationForTask: self.selectedTask];
+            [self showNotificationsViewController];
         };
     }
 
@@ -1860,27 +1855,44 @@ static NSInteger tone = 0;
     [self showSortBar];
 }
 
-//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-//    NSLog(@"scrollViewDidEndDragging");
-//
-//}
-//
-//- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-//    NSLog(@"scrollViewDidEndDecelerating");
-//
-//}
+#pragma mark - Notifications
 
-- (void)sendMail {
-    NSString *recipients = @"mailto:amr.lotfy.othman@gmail.com?subject=Hello from California!";
+- (void)setNotificationForTask: (PeriodicTask *)task withDate: (NSDate *)notificationdate{
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
     
-    //NSString *body = @"&body=It is raining in sunny California!";
+    notification.fireDate = notificationdate;
+    notification.alertBody =  [NSString stringWithFormat:@"Time to read %@", task.name];
+    notification.timeZone = [NSTimeZone defaultTimeZone];
+    //notification.applicationIconBadgeNumber = 1;
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    //TODO use notification.repeatInterval
+    notification.repeatInterval = 0;
     
-    NSString *email = [NSString stringWithFormat:@"%@", recipients];
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
     
-    email = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
 }
 
+- (void)showNotificationsViewController {
+    if (!self.notificationsViewController) {
+       self.notificationsViewController = [[UIStoryboard storyboardWithName:@"NotificationsStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"NotificationsViewController"];
+        
+        self.notificationsViewController.delegate =self;
+    }
+    
+    self.notificationsViewController.suraName = [self.selectedTask.name localize];
+    
+    [self presentViewController:self.notificationsViewController animated:YES completion:nil];
+    
+}
+
+- (void)notificationControllerDidCancel {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)notificationControllerDidSelectDate:(NSDate *)notificationDate {
+    NSLog(@"notification date %@", notificationDate);
+    [self setNotificationForTask:self.selectedTask withDate:notificationDate];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end

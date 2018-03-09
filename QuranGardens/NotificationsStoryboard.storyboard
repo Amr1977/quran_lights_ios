@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Notifications View Controller-->
+        <scene sceneID="h5E-rf-l7B">
+            <objects>
+                <viewController storyboardIdentifier="NotificationsViewController" id="Xrk-qP-het" customClass="NotificationsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gaO-NX-TQF"/>
+                        <viewControllerLayoutGuide type="bottom" id="g9K-L7-mKs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rZv-pU-1aL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Waw-3I-FOD">
+                                <rect key="frame" x="28" y="298" width="320" height="216"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="XGB-zx-AWi"/>
+                                    <constraint firstAttribute="width" constant="320" id="f0N-86-lUo"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="542268335.01356101">
+                                    <!--2018-03-09 06:05:35 +0000-->
+                                </date>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4FP-w9-AAD">
+                                <rect key="frame" x="27" y="715" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="46" id="R9Q-DH-7bP"/>
+                                    <constraint firstAttribute="height" constant="30" id="U0q-Y5-o8W"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="jyJ-kx-tCb"/>
+                                    <constraint firstAttribute="width" constant="46" id="m6l-tH-LVf"/>
+                                </constraints>
+                                <state key="normal" title="OK"/>
+                                <connections>
+                                    <action selector="onOkTapped" destination="Xrk-qP-het" eventType="touchUpInside" id="uYc-Nl-t4T"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z4G-5U-gO8">
+                                <rect key="frame" x="291" y="715" width="68" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="68" id="1AV-qp-L9u"/>
+                                    <constraint firstAttribute="height" constant="30" id="3oX-5W-H8a"/>
+                                </constraints>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="onCancelTapped" destination="Xrk-qP-het" eventType="touchUpInside" id="a0r-XA-Vn6"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Waw-3I-FOD" firstAttribute="centerX" secondItem="rZv-pU-1aL" secondAttribute="centerX" id="4e2-4E-uXs"/>
+                            <constraint firstItem="g9K-L7-mKs" firstAttribute="top" secondItem="Z4G-5U-gO8" secondAttribute="bottom" constant="33" id="7cb-6B-cYt"/>
+                            <constraint firstAttribute="trailing" secondItem="Z4G-5U-gO8" secondAttribute="trailing" constant="16" id="9PB-Rf-pMY"/>
+                            <constraint firstItem="Waw-3I-FOD" firstAttribute="centerY" secondItem="rZv-pU-1aL" secondAttribute="centerY" id="HDG-Cl-yy4"/>
+                            <constraint firstItem="g9K-L7-mKs" firstAttribute="top" secondItem="4FP-w9-AAD" secondAttribute="bottom" constant="33" id="Ppb-gA-yEh"/>
+                            <constraint firstItem="g9K-L7-mKs" firstAttribute="top" secondItem="4FP-w9-AAD" secondAttribute="bottom" constant="33" id="jYS-Dx-kMz"/>
+                            <constraint firstItem="4FP-w9-AAD" firstAttribute="leading" secondItem="rZv-pU-1aL" secondAttribute="leading" constant="27" id="kfu-rY-iwl"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="datePicker" destination="Waw-3I-FOD" id="vPE-T4-gMQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2A9-pf-frF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="77.599999999999994" y="146.17691154422789"/>
+        </scene>
+    </scenes>
+</document>

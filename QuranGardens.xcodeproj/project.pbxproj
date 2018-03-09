@@ -44,6 +44,8 @@
 		C50E59181EBC55710076C3D6 /* PieChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50E59161EBC55710076C3D6 /* PieChartViewController.xib */; };
 		C53A35901F2CA6CC00CCA831 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C53A358E1F2CA6CC00CCA831 /* SignupViewController.m */; };
 		C53A35911F2CA6CC00CCA831 /* SignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C53A358F1F2CA6CC00CCA831 /* SignupViewController.xib */; };
+		C54F29FB205259440032CB78 /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54F29FA205259440032CB78 /* NotificationsViewController.m */; };
+		C54F2A00205259790032CB78 /* NotificationsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54F29FF205259790032CB78 /* NotificationsStoryboard.storyboard */; };
 		C55B81D61ECEEB1E003A2523 /* PrayTime.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B81D51ECEEB1E003A2523 /* PrayTime.m */; };
 		C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C566F4571E21143200628A94 /* GoogleService-Info.plist */; };
 		C568B1791EAA02E900445642 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C568B17B1EAA02E900445642 /* SettingsViewController.xib */; };
@@ -162,6 +164,9 @@
 		C53A358D1F2CA6CC00CCA831 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
 		C53A358E1F2CA6CC00CCA831 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
 		C53A358F1F2CA6CC00CCA831 /* SignupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignupViewController.xib; sourceTree = "<group>"; };
+		C54F29F9205259440032CB78 /* NotificationsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
+		C54F29FA205259440032CB78 /* NotificationsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
+		C54F29FF205259790032CB78 /* NotificationsStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NotificationsStoryboard.storyboard; sourceTree = "<group>"; };
 		C55B81D41ECEEB1E003A2523 /* PrayTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrayTime.h; sourceTree = "<group>"; };
 		C55B81D51ECEEB1E003A2523 /* PrayTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrayTime.m; sourceTree = "<group>"; };
 		C566F4571E21143200628A94 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -276,7 +281,6 @@
 				C5D5C3EE1F27ED060006FBB4 /* Quran Lights.entitlements */,
 				C5FECDDC1EC2194E0081C89D /* resources */,
 				C566F4571E21143200628A94 /* GoogleService-Info.plist */,
-				C5AFAE291F4B625B001770FD /* Categories */,
 				C5A26AFB1EA26FD8009135D4 /* Formatters */,
 				076965D51C5B609100ED2D33 /* Model */,
 				076965B01C5B5D0700ED2D33 /* LaunchScreen.storyboard */,
@@ -411,6 +415,7 @@
 		C54F29F5205256050032CB78 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				C54F29F8205258E60032CB78 /* Notifications */,
 				076965DD1C5B62AE00ED2D33 /* Main */,
 				C50E590B1EBC54A00076C3D6 /* charts */,
 				C5AFAE2C1F4B844F001770FD /* Members */,
@@ -444,6 +449,40 @@
 				076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		C54F29F8205258E60032CB78 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				C54F29FE205259630032CB78 /* Model */,
+				C54F29FD2052595B0032CB78 /* View */,
+				C54F29FC2052594A0032CB78 /* Controller */,
+			);
+			name = Notifications;
+			sourceTree = "<group>";
+		};
+		C54F29FC2052594A0032CB78 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C54F29F9205259440032CB78 /* NotificationsViewController.h */,
+				C54F29FA205259440032CB78 /* NotificationsViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		C54F29FD2052595B0032CB78 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C54F29FF205259790032CB78 /* NotificationsStoryboard.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		C54F29FE205259630032CB78 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		C5A26AFB1EA26FD8009135D4 /* Formatters */ = {
@@ -489,6 +528,7 @@
 		C5AFAE2B1F4B8418001770FD /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C5AFAE291F4B625B001770FD /* Categories */,
 				073AA6F01DB89E0300370847 /* Statistics.h */,
 				073AA6F11DB89E0300370847 /* Statistics.m */,
 				C59A202D1E8116BD003C0F09 /* AMRTools.h */,
@@ -658,6 +698,7 @@
 				076965B21C5B5D0700ED2D33 /* LaunchScreen.storyboard in Resources */,
 				C568B18A1EAA038100445642 /* Localizable.strings in Resources */,
 				076965AF1C5B5D0700ED2D33 /* Assets.xcassets in Resources */,
+				C54F2A00205259790032CB78 /* NotificationsStoryboard.storyboard in Resources */,
 				076965AD1C5B5D0700ED2D33 /* Main.storyboard in Resources */,
 				072594121D74AEB0009E5F05 /* charcount.txt in Resources */,
 				C568B17C1EAA02FD00445642 /* CubicLineChartViewController.xib in Resources */,
@@ -757,6 +798,7 @@
 			files = (
 				C575EC991F8D37D8005E5170 /* SyncManager.m in Sources */,
 				C5A26B061EA27005009135D4 /* LargeValueFormatter.swift in Sources */,
+				C54F29FB205259440032CB78 /* NotificationsViewController.m in Sources */,
 				C55B81D61ECEEB1E003A2523 /* PrayTime.m in Sources */,
 				C5F17C491E69BB6B00476CA3 /* UIViewController+Gestures.m in Sources */,
 				073AA6F21DB89E0300370847 /* Statistics.m in Sources */,

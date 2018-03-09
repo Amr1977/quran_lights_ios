@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <BuddyBuildSDK/BuddyBuildSDK.h>
 #import "FireBaseManager.h"
+#import "AMRTools.h"
 @import GoogleMobileAds;
 
 @implementation AppDelegate
@@ -33,6 +34,13 @@
     UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
     UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    [AMRTools play:@"rahman.mp3"];
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Time to read" message:notification.alertBody delegate:nil     cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alertView show];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
