@@ -1864,7 +1864,7 @@ static NSInteger tone = 0;
     notification.alertBody =  [NSString stringWithFormat:@"Time to read %@", task.name];
     notification.timeZone = [NSTimeZone defaultTimeZone];
     //notification.applicationIconBadgeNumber = 1;
-    notification.soundName = UILocalNotificationDefaultSoundName;
+    notification.soundName = @"rahman.caf";//UILocalNotificationDefaultSoundName;
     //TODO use notification.repeatInterval
     notification.repeatInterval = 0;
     
