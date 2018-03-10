@@ -47,6 +47,7 @@
 		C54F29FB205259440032CB78 /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C54F29FA205259440032CB78 /* NotificationsViewController.m */; };
 		C54F2A00205259790032CB78 /* NotificationsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C54F29FF205259790032CB78 /* NotificationsStoryboard.storyboard */; };
 		C54F2A022053288B0032CB78 /* ALUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54F2A012053288B0032CB78 /* ALUtils.swift */; };
+		C54F2A04205471920032CB78 /* rahman.caf in Resources */ = {isa = PBXBuildFile; fileRef = C54F2A03205471900032CB78 /* rahman.caf */; };
 		C55B81D61ECEEB1E003A2523 /* PrayTime.m in Sources */ = {isa = PBXBuildFile; fileRef = C55B81D51ECEEB1E003A2523 /* PrayTime.m */; };
 		C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C566F4571E21143200628A94 /* GoogleService-Info.plist */; };
 		C568B1791EAA02E900445642 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C568B17B1EAA02E900445642 /* SettingsViewController.xib */; };
@@ -169,6 +170,7 @@
 		C54F29FA205259440032CB78 /* NotificationsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		C54F29FF205259790032CB78 /* NotificationsStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NotificationsStoryboard.storyboard; sourceTree = "<group>"; };
 		C54F2A012053288B0032CB78 /* ALUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALUtils.swift; sourceTree = "<group>"; };
+		C54F2A03205471900032CB78 /* rahman.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = rahman.caf; sourceTree = "<group>"; };
 		C55B81D41ECEEB1E003A2523 /* PrayTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrayTime.h; sourceTree = "<group>"; };
 		C55B81D51ECEEB1E003A2523 /* PrayTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrayTime.m; sourceTree = "<group>"; };
 		C566F4571E21143200628A94 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -555,6 +557,7 @@
 		C5FECDDC1EC2194E0081C89D /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				C54F2A03205471900032CB78 /* rahman.caf */,
 				076965AE1C5B5D0700ED2D33 /* Assets.xcassets */,
 				0725940E1D74AEB0009E5F05 /* charcount.txt */,
 				0725940F1D74AEB0009E5F05 /* reval.txt */,
@@ -694,6 +697,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C502D5511ED486C500A7267F /* UsersViewController.xib in Resources */,
+				C54F2A04205471920032CB78 /* rahman.caf in Resources */,
 				C56B782C1EA23E4200252039 /* Podfile in Resources */,
 				C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */,
 				C50E59181EBC55710076C3D6 /* PieChartViewController.xib in Resources */,
