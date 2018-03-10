@@ -1912,7 +1912,7 @@ static NSInteger tone = 0;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)notificationControllerDidSelectDate:(NSDate *)notificationDate repetition:(NSCalendarUnit)repeatUnit{
+- (void)notificationControllerDidSelectDate:(NSDate *)notificationDate withRepeatPeriod:(NSCalendarUnit)repeatUnit{
     NSLog(@"notification date %@", notificationDate);
     [self setNotificationForTask:self.selectedTask withDate:notificationDate withRepeatPeriod:repeatUnit];
     [self dismissViewControllerAnimated:YES completion:nil];
