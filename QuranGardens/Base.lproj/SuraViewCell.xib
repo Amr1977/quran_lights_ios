@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -30,6 +30,12 @@
                                 <rect key="frame" x="117" y="0.0" width="25" height="25.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="CrV-tX-pb7" secondAttribute="height" multiplier="1:1" id="YSN-Cd-jBp"/>
+                                </constraints>
+                            </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm" translatesAutoresizingMaskIntoConstraints="NO" id="Jch-7F-jJj" userLabel="alarm">
+                                <rect key="frame" x="87" y="0.5" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Jch-7F-jJj" secondAttribute="height" multiplier="1:1" id="2Px-eK-KPt"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Auy-mw-Mdj" userLabel="sura name">
@@ -80,12 +86,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="eS0-nG-1jL" firstAttribute="leading" secondItem="gZe-Hp-tKu" secondAttribute="leading" constant="8" id="0vV-mF-cVn"/>
+                            <constraint firstItem="CrV-tX-pb7" firstAttribute="leading" secondItem="Jch-7F-jJj" secondAttribute="trailing" constant="5" id="2JW-1R-9jo"/>
+                            <constraint firstItem="Jch-7F-jJj" firstAttribute="centerY" secondItem="CrV-tX-pb7" secondAttribute="centerY" id="Ben-q1-BB3"/>
                             <constraint firstItem="Auy-mw-Mdj" firstAttribute="top" secondItem="gZe-Hp-tKu" secondAttribute="top" constant="31" id="BrD-ws-1K6"/>
                             <constraint firstItem="Auy-mw-Mdj" firstAttribute="leading" secondItem="gZe-Hp-tKu" secondAttribute="leading" constant="8" id="GXX-xj-MMp"/>
                             <constraint firstAttribute="bottom" secondItem="Auy-mw-Mdj" secondAttribute="bottom" constant="31" id="Loz-Vk-xWK"/>
                             <constraint firstAttribute="bottom" secondItem="h2h-r9-vaj" secondAttribute="bottom" constant="5" id="M1E-Jn-HlZ"/>
                             <constraint firstAttribute="trailing" secondItem="Auy-mw-Mdj" secondAttribute="trailing" constant="8" id="P9X-cP-EKj"/>
                             <constraint firstItem="CrV-tX-pb7" firstAttribute="top" secondItem="gZe-Hp-tKu" secondAttribute="top" id="QIh-Ic-noK"/>
+                            <constraint firstItem="Jch-7F-jJj" firstAttribute="height" secondItem="CrV-tX-pb7" secondAttribute="height" id="RhZ-xw-Mrd"/>
                             <constraint firstItem="Auy-mw-Mdj" firstAttribute="centerY" secondItem="gZe-Hp-tKu" secondAttribute="centerY" id="YIM-hQ-dky"/>
                             <constraint firstItem="lem-W3-orE" firstAttribute="centerX" secondItem="gZe-Hp-tKu" secondAttribute="centerX" id="aZ6-oe-gnA"/>
                             <constraint firstAttribute="bottom" secondItem="i2N-bH-ALD" secondAttribute="bottom" constant="5" id="cJL-ql-v0T"/>
@@ -94,8 +103,10 @@
                             <constraint firstItem="lem-W3-orE" firstAttribute="centerY" secondItem="gZe-Hp-tKu" secondAttribute="centerY" id="mUR-7W-RSx"/>
                             <constraint firstItem="eS0-nG-1jL" firstAttribute="top" secondItem="gZe-Hp-tKu" secondAttribute="top" constant="6" id="md6-7E-8rB"/>
                             <constraint firstAttribute="trailing" secondItem="h2h-r9-vaj" secondAttribute="trailing" constant="8" id="sz3-lD-Zf8"/>
+                            <constraint firstItem="Jch-7F-jJj" firstAttribute="width" secondItem="CrV-tX-pb7" secondAttribute="width" id="tMb-MW-HmB"/>
                             <constraint firstItem="lem-W3-orE" firstAttribute="width" secondItem="gZe-Hp-tKu" secondAttribute="width" id="ubk-kq-HRo"/>
                             <constraint firstItem="i2N-bH-ALD" firstAttribute="leading" secondItem="gZe-Hp-tKu" secondAttribute="leading" constant="8" id="wKW-t4-9eo"/>
+                            <constraint firstItem="Jch-7F-jJj" firstAttribute="width" secondItem="Jch-7F-jJj" secondAttribute="height" multiplier="1:1" id="xAq-vL-ZN4"/>
                             <constraint firstAttribute="trailing" secondItem="CrV-tX-pb7" secondAttribute="trailing" constant="6" id="yHS-Wc-WWw"/>
                         </constraints>
                     </view>
@@ -110,6 +121,7 @@
             <size key="customSize" width="158" height="95"/>
             <connections>
                 <outlet property="backgroundImage" destination="lem-W3-orE" id="dnC-tS-ALi"/>
+                <outlet property="bell" destination="Jch-7F-jJj" id="R8z-Ec-9GH"/>
                 <outlet property="content" destination="gZe-Hp-tKu" id="UL0-LG-dn2"/>
                 <outlet property="daysElapsed" destination="h2h-r9-vaj" id="joB-UY-1CC"/>
                 <outlet property="memorized" destination="CrV-tX-pb7" id="ruD-vX-8LQ"/>
@@ -125,6 +137,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="alarm" width="512" height="512"/>
         <image name="desert" width="137" height="91"/>
         <image name="sun" width="148" height="149"/>
     </resources>
