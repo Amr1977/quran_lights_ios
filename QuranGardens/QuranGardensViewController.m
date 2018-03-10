@@ -1857,19 +1857,42 @@ static NSInteger tone = 0;
 
 #pragma mark - Notifications
 
-- (void)setNotificationForTask: (PeriodicTask *)task withDate: (NSDate *)notificationdate{
+- (void)setNotificationForTask: (PeriodicTask *)task withDate: (NSDate *)notificationdate withRepeatPeriod:(NSCalendarUnit)repeatUnit{
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     
     notification.fireDate = notificationdate;
     notification.alertBody =  [NSString stringWithFormat:@"Time to read %@", task.name];
     notification.timeZone = [NSTimeZone defaultTimeZone];
     //notification.applicationIconBadgeNumber = 1;
-    notification.soundName = @"rahman.caf";//UILocalNotificationDefaultSoundName;
+    
+    // https://stackoverflow.com/a/9389200/1356559
+    notification.soundName = @"rahman.caf";
     //TODO use notification.repeatInterval
-    notification.repeatInterval = 0;
+    NSDictionary<NSString *, NSString *> *userInfo = @{ @"uid" : task.name };
+    notification.userInfo = userInfo;
+    
+    notification.repeatInterval = repeatUnit;
+    
     
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    
+}
+
+- (void)cancelNotificationsForTask:(PeriodicTask *)task {
+    //https://stackoverflow.com/a/6341476/1356559
+    UIApplication *app = [UIApplication sharedApplication];
+    NSArray *eventArray = [app scheduledLocalNotifications];
+    for (int i=0; i < [eventArray count]; i++)
+    {
+        UILocalNotification* oneEvent = [eventArray objectAtIndex:i];
+        NSDictionary *userInfoCurrent = oneEvent.userInfo;
+        NSString *uid = [NSString stringWithFormat:@"%@",[userInfoCurrent valueForKey:@"uid"]];
+        if ([uid isEqualToString:task.name])
+        {
+            //Cancelling local notification
+            [app cancelLocalNotification:oneEvent];
+            break;
+        }
+    }
 }
 
 - (void)showNotificationsViewController {
@@ -1889,9 +1912,14 @@ static NSInteger tone = 0;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)notificationControllerDidSelectDate:(NSDate *)notificationDate {
+- (void)notificationControllerDidSelectDate:(NSDate *)notificationDate repetition:(NSCalendarUnit)repeatUnit{
     NSLog(@"notification date %@", notificationDate);
-    [self setNotificationForTask:self.selectedTask withDate:notificationDate];
+    [self setNotificationForTask:self.selectedTask withDate:notificationDate withRepeatPeriod:repeatUnit];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)NotificationControllerDidChooseToDeleteNotification {
+    [self cancelNotificationsForTask:self.selectedTask];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

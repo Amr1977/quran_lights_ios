@@ -11,7 +11,8 @@
 @protocol NotificationControllerDelegate
 
 - (void)notificationControllerDidCancel;
-- (void)notificationControllerDidSelectDate:(NSDate *)notificationDate;
+- (void)notificationControllerDidSelectDate:(NSDate *)notificationDate withRepeatPeriod:(NSCalendarUnit)repeatUnit;
+- (void)NotificationControllerDidChooseToDeleteNotification;
 
 @end
 

@@ -52,25 +52,46 @@
                                     <constraint firstAttribute="width" constant="68" id="1AV-qp-L9u"/>
                                     <constraint firstAttribute="height" constant="30" id="3oX-5W-H8a"/>
                                 </constraints>
-                                <state key="normal" title="Cancel"/>
+                                <state key="normal" title="Exit"/>
                                 <connections>
                                     <action selector="onCancelTapped" destination="Xrk-qP-het" eventType="touchUpInside" id="a0r-XA-Vn6"/>
+                                </connections>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iad-AP-VmJ">
+                                <rect key="frame" x="60.666666666666657" y="540" width="254.99999999999997" height="29"/>
+                                <segments>
+                                    <segment title="Once"/>
+                                    <segment title="Daily"/>
+                                    <segment title="Weekly"/>
+                                    <segment title="Monthly"/>
+                                </segments>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9pl-NP-c2e">
+                                <rect key="frame" x="164.66666666666666" y="715" width="45" height="30"/>
+                                <state key="normal" title="Delete"/>
+                                <connections>
+                                    <action selector="onDeleteTapped" destination="Xrk-qP-het" eventType="touchUpInside" id="T6d-lA-0qB"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="iad-AP-VmJ" firstAttribute="centerX" secondItem="Waw-3I-FOD" secondAttribute="centerX" id="1eq-jg-S8a"/>
                             <constraint firstItem="Waw-3I-FOD" firstAttribute="centerX" secondItem="rZv-pU-1aL" secondAttribute="centerX" id="4e2-4E-uXs"/>
                             <constraint firstItem="g9K-L7-mKs" firstAttribute="top" secondItem="Z4G-5U-gO8" secondAttribute="bottom" constant="33" id="7cb-6B-cYt"/>
                             <constraint firstAttribute="trailing" secondItem="Z4G-5U-gO8" secondAttribute="trailing" constant="16" id="9PB-Rf-pMY"/>
                             <constraint firstItem="Waw-3I-FOD" firstAttribute="centerY" secondItem="rZv-pU-1aL" secondAttribute="centerY" id="HDG-Cl-yy4"/>
                             <constraint firstItem="g9K-L7-mKs" firstAttribute="top" secondItem="4FP-w9-AAD" secondAttribute="bottom" constant="33" id="Ppb-gA-yEh"/>
+                            <constraint firstItem="iad-AP-VmJ" firstAttribute="top" secondItem="Waw-3I-FOD" secondAttribute="bottom" constant="26" id="gSr-Xw-DPV"/>
                             <constraint firstItem="g9K-L7-mKs" firstAttribute="top" secondItem="4FP-w9-AAD" secondAttribute="bottom" constant="33" id="jYS-Dx-kMz"/>
+                            <constraint firstItem="9pl-NP-c2e" firstAttribute="centerX" secondItem="rZv-pU-1aL" secondAttribute="centerX" id="kUx-HN-Hrp"/>
                             <constraint firstItem="4FP-w9-AAD" firstAttribute="leading" secondItem="rZv-pU-1aL" secondAttribute="leading" constant="27" id="kfu-rY-iwl"/>
+                            <constraint firstItem="9pl-NP-c2e" firstAttribute="centerY" secondItem="4FP-w9-AAD" secondAttribute="centerY" id="nbc-8V-Lrg"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="datePicker" destination="Waw-3I-FOD" id="vPE-T4-gMQ"/>
+                        <outlet property="periodicSegmentControl" destination="iad-AP-VmJ" id="Fna-0r-pfZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2A9-pf-frF" userLabel="First Responder" sceneMemberID="firstResponder"/>
