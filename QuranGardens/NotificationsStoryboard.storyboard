@@ -25,11 +25,11 @@
                                 <rect key="frame" x="-0.66666666666665719" y="0.0" width="375.33333333333326" height="812"/>
                             </imageView>
                             <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c5l-wz-bnG">
-                                <rect key="frame" x="28" y="298" width="320" height="216"/>
+                                <rect key="frame" x="28" y="248" width="320" height="216"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <datePicker contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Waw-3I-FOD">
-                                <rect key="frame" x="28" y="298" width="320" height="216"/>
+                                <rect key="frame" x="28" y="248" width="320" height="216"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="216" id="XGB-zx-AWi"/>
@@ -64,7 +64,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iad-AP-VmJ">
-                                <rect key="frame" x="60.666666666666657" y="540" width="254.99999999999997" height="29"/>
+                                <rect key="frame" x="60.666666666666657" y="490" width="254.99999999999997" height="29"/>
                                 <segments>
                                     <segment title="Once"/>
                                     <segment title="Daily"/>
@@ -86,7 +86,7 @@
                             <constraint firstItem="Waw-3I-FOD" firstAttribute="centerX" secondItem="rZv-pU-1aL" secondAttribute="centerX" id="4e2-4E-uXs"/>
                             <constraint firstItem="g9K-L7-mKs" firstAttribute="top" secondItem="Z4G-5U-gO8" secondAttribute="bottom" constant="33" id="7cb-6B-cYt"/>
                             <constraint firstAttribute="trailing" secondItem="Z4G-5U-gO8" secondAttribute="trailing" constant="16" id="9PB-Rf-pMY"/>
-                            <constraint firstItem="Waw-3I-FOD" firstAttribute="centerY" secondItem="rZv-pU-1aL" secondAttribute="centerY" id="HDG-Cl-yy4"/>
+                            <constraint firstItem="Waw-3I-FOD" firstAttribute="centerY" secondItem="rZv-pU-1aL" secondAttribute="centerY" constant="-50" id="HDG-Cl-yy4"/>
                             <constraint firstItem="hd9-iw-zny" firstAttribute="centerY" secondItem="rZv-pU-1aL" secondAttribute="centerY" id="LhM-TY-7Rf"/>
                             <constraint firstItem="c5l-wz-bnG" firstAttribute="width" secondItem="Waw-3I-FOD" secondAttribute="width" id="Nez-3y-E7H"/>
                             <constraint firstItem="g9K-L7-mKs" firstAttribute="top" secondItem="4FP-w9-AAD" secondAttribute="bottom" constant="33" id="Ppb-gA-yEh"/>
