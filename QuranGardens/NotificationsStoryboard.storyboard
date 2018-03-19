@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,6 +21,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarms_background" translatesAutoresizingMaskIntoConstraints="NO" id="hd9-iw-zny">
+                                <rect key="frame" x="-0.66666666666665719" y="0.0" width="375.33333333333326" height="812"/>
+                            </imageView>
+                            <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c5l-wz-bnG">
+                                <rect key="frame" x="28" y="298" width="320" height="216"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <datePicker contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Waw-3I-FOD">
                                 <rect key="frame" x="28" y="298" width="320" height="216"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
@@ -81,12 +87,20 @@
                             <constraint firstItem="g9K-L7-mKs" firstAttribute="top" secondItem="Z4G-5U-gO8" secondAttribute="bottom" constant="33" id="7cb-6B-cYt"/>
                             <constraint firstAttribute="trailing" secondItem="Z4G-5U-gO8" secondAttribute="trailing" constant="16" id="9PB-Rf-pMY"/>
                             <constraint firstItem="Waw-3I-FOD" firstAttribute="centerY" secondItem="rZv-pU-1aL" secondAttribute="centerY" id="HDG-Cl-yy4"/>
+                            <constraint firstItem="hd9-iw-zny" firstAttribute="centerY" secondItem="rZv-pU-1aL" secondAttribute="centerY" id="LhM-TY-7Rf"/>
+                            <constraint firstItem="c5l-wz-bnG" firstAttribute="width" secondItem="Waw-3I-FOD" secondAttribute="width" id="Nez-3y-E7H"/>
                             <constraint firstItem="g9K-L7-mKs" firstAttribute="top" secondItem="4FP-w9-AAD" secondAttribute="bottom" constant="33" id="Ppb-gA-yEh"/>
+                            <constraint firstItem="hd9-iw-zny" firstAttribute="width" secondItem="rZv-pU-1aL" secondAttribute="width" id="Tca-UR-Bzd"/>
+                            <constraint firstItem="hd9-iw-zny" firstAttribute="centerX" secondItem="rZv-pU-1aL" secondAttribute="centerX" id="YfB-vP-Tfu"/>
+                            <constraint firstItem="hd9-iw-zny" firstAttribute="height" secondItem="rZv-pU-1aL" secondAttribute="height" id="cHg-9g-936"/>
+                            <constraint firstItem="c5l-wz-bnG" firstAttribute="centerY" secondItem="Waw-3I-FOD" secondAttribute="centerY" id="deq-km-WpM"/>
                             <constraint firstItem="iad-AP-VmJ" firstAttribute="top" secondItem="Waw-3I-FOD" secondAttribute="bottom" constant="26" id="gSr-Xw-DPV"/>
                             <constraint firstItem="g9K-L7-mKs" firstAttribute="top" secondItem="4FP-w9-AAD" secondAttribute="bottom" constant="33" id="jYS-Dx-kMz"/>
                             <constraint firstItem="9pl-NP-c2e" firstAttribute="centerX" secondItem="rZv-pU-1aL" secondAttribute="centerX" id="kUx-HN-Hrp"/>
                             <constraint firstItem="4FP-w9-AAD" firstAttribute="leading" secondItem="rZv-pU-1aL" secondAttribute="leading" constant="27" id="kfu-rY-iwl"/>
+                            <constraint firstItem="c5l-wz-bnG" firstAttribute="height" secondItem="Waw-3I-FOD" secondAttribute="height" id="nCF-9C-gZw"/>
                             <constraint firstItem="9pl-NP-c2e" firstAttribute="centerY" secondItem="4FP-w9-AAD" secondAttribute="centerY" id="nbc-8V-Lrg"/>
+                            <constraint firstItem="c5l-wz-bnG" firstAttribute="centerX" secondItem="Waw-3I-FOD" secondAttribute="centerX" id="wse-AA-goT"/>
                         </constraints>
                     </view>
                     <connections>
@@ -99,4 +113,7 @@
             <point key="canvasLocation" x="77.599999999999994" y="146.17691154422789"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="alarms_background" width="1920" height="1200"/>
+    </resources>
 </document>
