@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="ipad10_5" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -23,40 +20,51 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="moon" translatesAutoresizingMaskIntoConstraints="NO" id="eNq-Sg-egQ">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="كِتَابٌ أَنزَلْنَاهُ إِلَيْكَ مُبَارَكٌ لِّيَدَّبَّرُوا آيَاتِهِ وَلِيَتَذَكَّرَ أُولُو الْأَلْبَابِ  (38:29)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VJx-yJ-SXl">
-                                <rect key="frame" x="0.0" y="70" width="834" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quran Lights" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="8pZ-Tz-R4V">
+                                <rect key="frame" x="56.333333333333343" y="266" width="262.33333333333326" height="80"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="67"/>
+                                <color key="textColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep Adding Lights !" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGm-XO-SxC">
+                                <rect key="frame" x="56" y="351" width="262.33333333333331" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="7Io-Sc-CUn"/>
+                                    <constraint firstAttribute="height" constant="30" id="TkG-3S-gwG"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V1.8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SUO-f3-kes">
+                                <rect key="frame" x="16" y="718" width="343" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="uQz-RJ-wwn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="VJx-yJ-SXl" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="2Sd-kW-hQs"/>
-                            <constraint firstItem="eNq-Sg-egQ" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" id="ETO-hD-crJ"/>
-                            <constraint firstItem="eNq-Sg-egQ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Oh3-ZB-Bi5"/>
-                            <constraint firstItem="VJx-yJ-SXl" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="50" id="Rhz-M1-5W7"/>
-                            <constraint firstItem="eNq-Sg-egQ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="hGt-Ql-268"/>
-                            <constraint firstItem="eNq-Sg-egQ" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="vPl-tC-sPj"/>
-                            <constraint firstItem="VJx-yJ-SXl" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="xiW-jM-By1"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="SUO-f3-kes" secondAttribute="bottom" constant="10" id="DWw-yF-BuZ"/>
+                            <constraint firstItem="HGm-XO-SxC" firstAttribute="top" secondItem="8pZ-Tz-R4V" secondAttribute="bottom" constant="5" id="Dej-Ob-8Dc"/>
+                            <constraint firstItem="HGm-XO-SxC" firstAttribute="centerX" secondItem="8pZ-Tz-R4V" secondAttribute="centerX" id="FEI-U1-VEq"/>
+                            <constraint firstItem="8pZ-Tz-R4V" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="RBu-OW-pKu"/>
+                            <constraint firstItem="8pZ-Tz-R4V" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-100" id="a8x-yh-Rby"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="SUO-f3-kes" secondAttribute="trailing" id="ht1-wh-fv3"/>
+                            <constraint firstItem="SUO-f3-kes" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="pef-rt-Urx"/>
+                            <constraint firstItem="8pZ-Tz-R4V" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.7" id="rN5-fW-cJJ"/>
+                            <constraint firstItem="HGm-XO-SxC" firstAttribute="width" secondItem="8pZ-Tz-R4V" secondAttribute="width" id="zmu-hP-7sG"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.517985611510795" y="375"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="moon" width="480" height="360"/>
-    </resources>
 </document>
