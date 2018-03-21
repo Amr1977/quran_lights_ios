@@ -74,6 +74,9 @@
                     <navigationItem key="navigationItem" id="ShP-O0-oLb">
                         <barButtonItem key="leftBarButtonItem" title="Score" id="fK8-db-3H4">
                             <color key="tintColor" red="0.6451280117" green="0.98709279299999997" blue="0.71397775409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="onScoreTabbed:" destination="4Wt-g1-VvK" id="5vD-VY-LTm"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
