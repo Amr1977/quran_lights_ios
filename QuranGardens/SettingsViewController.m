@@ -128,7 +128,9 @@ static Settings* settingsCopy;
 }
 
 - (void)backToCollection{
-    [self.navigationController popViewControllerAnimated: YES];
+    //[self.navigationController popViewControllerAnimated: YES];
+    //TODO do it!
+    //[self.delegate hideSettingsView];
 }
 
 -(void)hideKeyBoard {
@@ -245,6 +247,7 @@ static Settings* settingsCopy;
         [tableView deselectRowAtIndexPath:selectedCellIndexPath animated:NO];
         self.settingsAltered = YES;
         self.settings.sortType = indexPath.row;
+        [self applySettings];
     }
 }
 
@@ -294,6 +297,11 @@ static Settings* settingsCopy;
 }
 
 - (void)dealloc{
+    [self applySettings];
+    
+}
+
+- (void)applySettings{
     self.settings.fadeTime = [self.refreshPeriodText.text integerValue] * 24 * 60 * 60;
     self.settings.descendingSort = (self.sortDirectionSegments.selectedSegmentIndex == 1);
     self.settings.sortType = self.sortTypeTableView.indexPathForSelectedRow.row;
@@ -304,7 +312,6 @@ static Settings* settingsCopy;
     } else {
         NSLog(@"Nothing changed");
     }
-    
 }
 
 @end

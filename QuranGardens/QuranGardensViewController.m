@@ -92,6 +92,9 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 
 @property (strong, nonatomic) SettingsViewController *settingsViewController;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *settingsViewHeightConstraints;
+
+
 
 
 @end
@@ -186,8 +189,6 @@ AppDelegate *delegate;
 }
 
 - (void)initSettingsView{
-    //[[[UIApplication sharedApplication] keyWindow] addSubview:self.settingsView];
-    [self.settingsView.layer setZPosition:1000];
     [self.settingsView setHidden:YES];
     
     [self addSwipeHandlerToView:self.settingsView direction:@"left" handler:@selector(HideSettingsView)];
@@ -201,11 +202,15 @@ AppDelegate *delegate;
     self.settingsViewController.settings = [self.periodicTaskManager.dataSource.settings copy];
     self.settingsViewController.delegate = self;
     
+    [self.settingsViewController didMoveToParentViewController:self];
+    
     [self addChildViewController:self.settingsViewController];
     [self.settingsViewController.view setFrame:CGRectMake(0.0f, 0.0f, self.settingsView.frame.size.width, self.settingsView.frame.size.height)];
     [self.settingsView addSubview:self.settingsViewController.view];
     
     [self.settingsViewController didMoveToParentViewController:self];
+    
+    self.settingsViewHeightConstraints.constant = -64.0 ;
     
     //TODO: Add shadow
 }
@@ -776,6 +781,8 @@ UIButton *toggleSingleTouchRefreshModeButton;
     [self applyCurrentSort];
     [self refreshScoreButton];
     [self.collectionView reloadData];
+    
+    [self.settingsViewController beginAppearanceTransition: YES animated: NO];
 }
 
 Boolean hasAppearedBefore;

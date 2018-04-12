@@ -128,6 +128,7 @@
                         <outlet property="score" destination="fK8-db-3H4" id="7DI-fW-Id2"/>
                         <outlet property="settingsDismissDetector" destination="94x-dm-hKH" id="ETL-HE-XVd"/>
                         <outlet property="settingsView" destination="e8U-gc-hio" id="IGS-bW-B1o"/>
+                        <outlet property="settingsViewHeightConstraints" destination="U5p-dH-s9D" id="67N-eZ-6Ns"/>
                         <outlet property="verseCountSortButton" destination="KIN-rb-EDs" id="MC1-LS-mN7"/>
                         <outlet property="wordCountSortButton" destination="QjM-Rq-h0Q" id="Q1M-O7-y4h"/>
                     </connections>
