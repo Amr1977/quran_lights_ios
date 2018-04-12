@@ -61,14 +61,49 @@
                                     <outlet property="delegate" destination="4Wt-g1-VvK" id="TgB-Uh-DAW"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="94x-dm-hKH" userLabel="settingsDismissDetector">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jZ0-eL-vH4" userLabel="right_edge_swipe_detector">
+                                <rect key="frame" x="763" y="0.0" width="5" height="1024"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="5" id="P1b-gp-SkH"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SUU-j2-DLy" userLabel="left_edge_swipe_detector">
+                                <rect key="frame" x="0.0" y="0.0" width="5" height="1024"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="5" id="6Cd-Zk-LSb"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e8U-gc-hio" userLabel="settingsView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="1024"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="lwI-IN-RD4"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="SUU-j2-DLy" firstAttribute="leading" secondItem="dPp-xD-4d7" secondAttribute="leading" id="1mT-EJ-Dda"/>
+                            <constraint firstItem="SUU-j2-DLy" firstAttribute="centerY" secondItem="dPp-xD-4d7" secondAttribute="centerY" id="7So-Do-uC1"/>
                             <constraint firstItem="4Sb-si-INi" firstAttribute="centerX" secondItem="dPp-xD-4d7" secondAttribute="centerX" id="AL9-DC-TwN"/>
+                            <constraint firstItem="jZ0-eL-vH4" firstAttribute="centerY" secondItem="dPp-xD-4d7" secondAttribute="centerY" id="DaD-ff-uXQ"/>
                             <constraint firstItem="4Sb-si-INi" firstAttribute="height" secondItem="dPp-xD-4d7" secondAttribute="height" id="Ik3-rE-Guf"/>
+                            <constraint firstAttribute="trailing" secondItem="jZ0-eL-vH4" secondAttribute="trailing" id="OvR-GD-ZI2"/>
                             <constraint firstItem="4Sb-si-INi" firstAttribute="leading" secondItem="dPp-xD-4d7" secondAttribute="leading" id="Oxu-Do-WAB"/>
+                            <constraint firstItem="SUU-j2-DLy" firstAttribute="height" secondItem="dPp-xD-4d7" secondAttribute="height" id="Qb4-CL-3uW"/>
+                            <constraint firstItem="e8U-gc-hio" firstAttribute="leading" secondItem="dPp-xD-4d7" secondAttribute="leading" id="RS0-ag-Glm"/>
+                            <constraint firstItem="e8U-gc-hio" firstAttribute="height" secondItem="dPp-xD-4d7" secondAttribute="height" id="U5p-dH-s9D"/>
                             <constraint firstAttribute="trailing" secondItem="4Sb-si-INi" secondAttribute="trailing" id="cSS-nF-a1f"/>
                             <constraint firstItem="4Sb-si-INi" firstAttribute="top" secondItem="dPp-xD-4d7" secondAttribute="top" id="g6m-GX-2xS"/>
+                            <constraint firstItem="jZ0-eL-vH4" firstAttribute="height" secondItem="dPp-xD-4d7" secondAttribute="height" id="jrN-xV-Pb7"/>
+                            <constraint firstItem="e8U-gc-hio" firstAttribute="centerY" secondItem="dPp-xD-4d7" secondAttribute="centerY" id="xIw-Fg-RMB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ShP-O0-oLb">
@@ -84,11 +119,15 @@
                         <outlet property="charCountSortButton" destination="JgX-gc-613" id="C8z-bT-GeB"/>
                         <outlet property="collectionView" destination="4Sb-si-INi" id="oca-Rq-oTy"/>
                         <outlet property="collectionViewHeightConstraint" destination="Ik3-rE-Guf" id="W5A-1V-Dft"/>
+                        <outlet property="leftEdgeSwipeDetector" destination="SUU-j2-DLy" id="xmt-h2-zqT"/>
                         <outlet property="lightSortButton" destination="F2r-ac-ydF" id="pbw-GE-fz4"/>
                         <outlet property="moshafOrderButton" destination="YoJ-kX-hky" id="zz6-NN-c7e"/>
                         <outlet property="refreshCountSortButton" destination="RDY-js-0gf" id="aq5-h8-UYL"/>
                         <outlet property="revalationOrderSortButton" destination="Lrq-9a-5EU" id="eX3-1M-TIv"/>
+                        <outlet property="rightEdgeSwipeDetector" destination="jZ0-eL-vH4" id="9Ig-7E-aIA"/>
                         <outlet property="score" destination="fK8-db-3H4" id="7DI-fW-Id2"/>
+                        <outlet property="settingsDismissDetector" destination="94x-dm-hKH" id="ETL-HE-XVd"/>
+                        <outlet property="settingsView" destination="e8U-gc-hio" id="IGS-bW-B1o"/>
                         <outlet property="verseCountSortButton" destination="KIN-rb-EDs" id="MC1-LS-mN7"/>
                         <outlet property="wordCountSortButton" destination="QjM-Rq-h0Q" id="Q1M-O7-y4h"/>
                     </connections>

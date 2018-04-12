@@ -45,6 +45,8 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 
 
 @property (strong, nonatomic) IBOutlet UIView *bottomBar;
+@property (weak, nonatomic) IBOutlet UIView *settingsView;
+@property (weak, nonatomic) IBOutlet UIView *settingsDismissDetector;
 
 
 
@@ -83,6 +85,13 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeightConstraint;
 
 @property (strong, nonatomic) NotificationsViewController *notificationsViewController;
+
+@property (weak, nonatomic) IBOutlet UIView *rightEdgeSwipeDetector;
+
+@property (weak, nonatomic) IBOutlet UIView *leftEdgeSwipeDetector;
+
+@property (strong, nonatomic) SettingsViewController *settingsViewController;
+
 
 
 @end
@@ -159,6 +168,10 @@ AppDelegate *delegate;
     adFrame.origin.x = 0;
     adFrame.origin.y = self.view.frame.size.height;
     
+    [self addSwipeHandlerToView:self.leftEdgeSwipeDetector direction:@"right" handler:@selector(showLeftMenu)];
+    [self addSwipeHandlerToView:self.rightEdgeSwipeDetector direction:@"left" handler:@selector(showRightMenu)];
+    [self initSettingsView];
+    
     //self.bannerView.frame = adFrame;
     
     //self.bannerView.delegate = self;
@@ -171,6 +184,41 @@ AppDelegate *delegate;
     //[self positionBannerViewFullWidthAtBottomOfView: self.bannerView];
     
 }
+
+- (void)initSettingsView{
+    //[[[UIApplication sharedApplication] keyWindow] addSubview:self.settingsView];
+    [self.settingsView.layer setZPosition:1000];
+    [self.settingsView setHidden:YES];
+    
+    [self addSwipeHandlerToView:self.settingsView direction:@"left" handler:@selector(HideSettingsView)];
+    [self addSwipeHandlerToView:self.settingsDismissDetector direction:@"tap" handler:@selector(HideSettingsView)];
+    [self addSwipeHandlerToView:self.settingsDismissDetector direction:@"right" handler:@selector(HideSettingsView)];
+    [self addSwipeHandlerToView:self.settingsDismissDetector direction:@"left" handler:@selector(HideSettingsView)];
+    [self addSwipeHandlerToView:self.settingsDismissDetector direction:@"up" handler:@selector(HideSettingsView)];
+    [self addSwipeHandlerToView:self.settingsDismissDetector direction:@"down" handler:@selector(HideSettingsView)];
+    
+    self.settingsViewController = [[SettingsViewController alloc] init];
+    self.settingsViewController.settings = [self.periodicTaskManager.dataSource.settings copy];
+    self.settingsViewController.delegate = self;
+    
+    [self addChildViewController:self.settingsViewController];
+    [self.settingsViewController.view setFrame:CGRectMake(0.0f, 0.0f, self.settingsView.frame.size.width, self.settingsView.frame.size.height)];
+    [self.settingsView addSubview:self.settingsViewController.view];
+    
+    [self.settingsViewController didMoveToParentViewController:self];
+    
+    //TODO: Add shadow
+}
+
+- (void)showLeftMenu {
+    NSLog(@"Show left menu.");
+    [self showSettingsView];
+}
+
+- (void)showRightMenu {
+    NSLog(@"Show Right menu.");
+}
+
 
 - (NSInteger)getMarkedSuraIndex {
     NSInteger result = [[NSUserDefaults standardUserDefaults] integerForKey:@"marked_sura_index"];
@@ -944,11 +992,10 @@ Boolean hasAppearedBefore;
 }
 
 - (void)settings{
-    SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
-    settingsViewController.settings = [self.periodicTaskManager.dataSource.settings copy];
-    settingsViewController.delegate = self;
+    [self showSettingsView];
     
-    [self.navigationController pushViewController:settingsViewController animated:YES];
+    
+    //[self.navigationController pushViewController:settingsViewController animated:YES];
 }
 
 //TODO: extract common steps to some block
@@ -1340,8 +1387,8 @@ Boolean hasAppearedBefore;
 //    self.collectionView.backgroundView.alpha = 0.8;
     
     self.collectionView.backgroundView.contentMode = UIViewContentModeScaleAspectFit;
-    [self addSwipeHandlerToView:self.collectionView direction:@"left" handler:@selector(settings)];
-    [self addSwipeHandlerToView:self.collectionView direction:@"right" handler:@selector(showCharts)];
+    //[self addSwipeHandlerToView:self.collectionView direction:@"left" handler:@selector(settings)];
+    //[self addSwipeHandlerToView:self.collectionView direction:@"right" handler:@selector(showCharts)];
     self.collectionView.bounces = YES;
 }
 
@@ -1922,5 +1969,20 @@ static NSInteger tone = 0;
     [self cancelNotificationsForTask:self.selectedTask];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark Settings
+
+- (void)showSettingsView{
+    [self.settingsDismissDetector setHidden:NO];
+    [self.settingsView setHidden:NO];
+    
+}
+
+- (void)HideSettingsView{
+    [self.settingsDismissDetector setHidden:YES];
+    [self.settingsView setHidden:YES];
+    
+}
+
 
 @end

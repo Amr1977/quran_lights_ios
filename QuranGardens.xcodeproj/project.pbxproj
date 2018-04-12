@@ -57,6 +57,8 @@
 		C568B18A1EAA038100445642 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C568B18C1EAA038100445642 /* Localizable.strings */; };
 		C568B1981EAA27B800445642 /* NSString+Localization.m in Sources */ = {isa = PBXBuildFile; fileRef = C568B1971EAA27B800445642 /* NSString+Localization.m */; };
 		C56B782C1EA23E4200252039 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C56B782B1EA23E4200252039 /* Podfile */; };
+		C56E912420623E3000777B3A /* SettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C56E912320623E3000777B3A /* SettingsView.m */; };
+		C56E912620623E4C00777B3A /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56E912520623E4C00777B3A /* SettingsView.xib */; };
 		C575EC991F8D37D8005E5170 /* SyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C575EC981F8D37D8005E5170 /* SyncManager.m */; };
 		C575EC9C1F8D39AB005E5170 /* FireBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C575EC9B1F8D39AA005E5170 /* FireBaseManager.m */; };
 		C575EC9F1F8D3AC7005E5170 /* MembersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C575EC9E1F8D3AC6005E5170 /* MembersManager.m */; };
@@ -187,6 +189,9 @@
 		C568B1961EAA27B800445642 /* NSString+Localization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Localization.h"; sourceTree = "<group>"; };
 		C568B1971EAA27B800445642 /* NSString+Localization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Localization.m"; sourceTree = "<group>"; };
 		C56B782B1EA23E4200252039 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C56E912220623E3000777B3A /* SettingsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsView.h; sourceTree = "<group>"; };
+		C56E912320623E3000777B3A /* SettingsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsView.m; sourceTree = "<group>"; };
+		C56E912520623E4C00777B3A /* SettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsView.xib; sourceTree = "<group>"; };
 		C575EC971F8D37D8005E5170 /* SyncManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyncManager.h; sourceTree = "<group>"; };
 		C575EC981F8D37D8005E5170 /* SyncManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyncManager.m; sourceTree = "<group>"; };
 		C575EC9A1F8D39AA005E5170 /* FireBaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FireBaseManager.h; sourceTree = "<group>"; };
@@ -490,6 +495,16 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		C56E912120623DD100777B3A /* view */ = {
+			isa = PBXGroup;
+			children = (
+				C56E912220623E3000777B3A /* SettingsView.h */,
+				C56E912320623E3000777B3A /* SettingsView.m */,
+				C56E912520623E4C00777B3A /* SettingsView.xib */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
 		C5A26AFB1EA26FD8009135D4 /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
@@ -521,6 +536,7 @@
 		C5AFAE2A1F4B83E7001770FD /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C56E912120623DD100777B3A /* view */,
 				071C17A91D673B5800019CDD /* Settings.h */,
 				071C17AA1D673B5800019CDD /* Settings.m */,
 				C568B17B1EAA02E900445642 /* SettingsViewController.xib */,
@@ -725,6 +741,7 @@
 				C50E590F1EBC55080076C3D6 /* PiePolylineChartViewController.xib in Resources */,
 				C5A26AEC1EA24420009135D4 /* ChartsViewController.xib in Resources */,
 				C53A35911F2CA6CC00CCA831 /* SignupViewController.xib in Resources */,
+				C56E912620623E4C00777B3A /* SettingsView.xib in Resources */,
 				0750B0D21D68F6600081B1C4 /* arabic-sura-names in Resources */,
 				C568B1791EAA02E900445642 /* SettingsViewController.xib in Resources */,
 			);
@@ -845,6 +862,7 @@
 				076965A41C5B5D0700ED2D33 /* main.m in Sources */,
 				C5A26B051EA27005009135D4 /* IntAxisValueFormatter.m in Sources */,
 				C5A26AF91EA26F75009135D4 /* LineChartTimeViewController.m in Sources */,
+				C56E912420623E3000777B3A /* SettingsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

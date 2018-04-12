@@ -28,6 +28,10 @@
         UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:handler];
         [swipe setDirection: UISwipeGestureRecognizerDirectionDown];
         [view addGestureRecognizer:swipe];
+    } else if ([direction isEqualToString:@"tap"]) {
+        UITapGestureRecognizer *swipe = [[UITapGestureRecognizer alloc] initWithTarget:self action:handler];
+
+        [view addGestureRecognizer:swipe];
     }
 }
 
