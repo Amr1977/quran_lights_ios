@@ -127,6 +127,11 @@ static Settings* settingsCopy;
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self applySettings];
+}
+
 - (void)backToCollection{
     //[self.navigationController popViewControllerAnimated: YES];
     //TODO do it!
@@ -242,13 +247,13 @@ static Settings* settingsCopy;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //TODO: find sort type by indexing string in cell text in sortTypeList in Settings class
-    if (self.settings.sortType != indexPath.row) {
+    //if (self.settings.sortType != indexPath.row) {
         NSIndexPath* selectedCellIndexPath = [NSIndexPath indexPathForRow:self.settings.sortType inSection:0];
         [tableView deselectRowAtIndexPath:selectedCellIndexPath animated:NO];
         self.settingsAltered = YES;
         self.settings.sortType = indexPath.row;
         [self applySettings];
-    }
+    //}
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

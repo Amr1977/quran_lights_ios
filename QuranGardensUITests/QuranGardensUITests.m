@@ -7,12 +7,18 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "QuranGardensViewController.h"
+#import "AppDelegate.h"
 
 @interface QuranGardensUITests : XCTestCase
+
+
 
 @end
 
 @implementation QuranGardensUITests
+UIApplication       *app;
+AppDelegate     *appDelegate;
 
 - (void)setUp {
     [super setUp];
