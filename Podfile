@@ -12,5 +12,10 @@ target "QuranGardens" do
     #pod 'Realm'
     pod 'MBProgressHUD', '~> 1.0.0'
     pod 'Google-Mobile-Ads-SDK'
+    
+    target "QuranLightsTests" do
+        inherit! :search_paths
+
+    end
 
 end

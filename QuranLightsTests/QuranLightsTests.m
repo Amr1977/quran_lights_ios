@@ -1,19 +1,18 @@
 //
-//  QuranGardensTests.m
-//  QuranGardensTests
+//  QuranLightsTests.m
+//  QuranLightsTests
 //
-//  Created by Amr Lotfy on 1/29/16.
-//  Copyright © 2016 Amr Lotfy. All rights reserved.
+//  Created by   Amr Lotfy on 5/1/18.
+//  Copyright © 2018 Amr Lotfy. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
 
-
-@interface QuranGardensTests : XCTestCase
+@interface QuranLightsTests : XCTestCase
 
 @end
 
-@implementation QuranGardensTests
+@implementation QuranLightsTests
 
 - (void)setUp {
     [super setUp];
