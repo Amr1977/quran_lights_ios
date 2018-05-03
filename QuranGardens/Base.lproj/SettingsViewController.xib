@@ -39,7 +39,7 @@
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xX7-2n-FnQ">
                     <rect key="frame" x="0.0" y="0.0" width="331" height="1783"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                     <view key="tableFooterView" contentMode="scaleToFill" id="dVV-CQ-If4" userLabel="content">
                         <rect key="frame" x="0.0" y="828" width="331" height="930"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -89,7 +89,7 @@
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7fh-KB-XlF">
                                 <rect key="frame" x="8" y="196" width="205" height="325"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="205" id="X0E-Jc-u6B"/>
                                     <constraint firstAttribute="height" constant="325" id="zWi-c0-obk"/>
@@ -107,6 +107,9 @@
                                     <segment title="Ascending"/>
                                     <segment title="Descending"/>
                                 </segments>
+                                <connections>
+                                    <action selector="isTapped:" destination="-1" eventType="valueChanged" id="eI2-Jf-fEI"/>
+                                </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kYM-X4-7Cf">
                                 <rect key="frame" x="18" y="576" width="177" height="29"/>
@@ -157,6 +160,7 @@
                                     <constraint firstAttribute="height" constant="31" id="o4i-hK-IU9"/>
                                 </constraints>
                                 <connections>
+                                    <action selector="isTapped:" destination="-1" eventType="valueChanged" id="W7h-Fa-wz7"/>
                                     <action selector="onSwitchTapped:" destination="-1" eventType="valueChanged" id="4mK-Eq-g2H"/>
                                 </connections>
                             </switch>
@@ -177,6 +181,7 @@
                                     <constraint firstAttribute="height" constant="31" id="o3T-2V-bxt"/>
                                 </constraints>
                                 <connections>
+                                    <action selector="isTapped:" destination="-1" eventType="valueChanged" id="x1u-BC-Whv"/>
                                     <action selector="onSwitchTapped:" destination="-1" eventType="valueChanged" id="gzc-vi-Sqf"/>
                                 </connections>
                             </switch>
@@ -199,6 +204,7 @@
                                     <constraint firstAttribute="width" constant="49" id="TyF-lI-bCU"/>
                                 </constraints>
                                 <connections>
+                                    <action selector="isTapped:" destination="-1" eventType="valueChanged" id="hn2-Ff-XNK"/>
                                     <action selector="onSwitchTapped:" destination="-1" eventType="valueChanged" id="h9j-cZ-xfZ"/>
                                 </connections>
                             </switch>
@@ -221,6 +227,7 @@
                                     <constraint firstAttribute="height" constant="31" id="vVb-AF-ISd"/>
                                 </constraints>
                                 <connections>
+                                    <action selector="isTapped:" destination="-1" eventType="valueChanged" id="5qk-zU-QPG"/>
                                     <action selector="onSwitchTapped:" destination="-1" eventType="valueChanged" id="lXU-wc-Yqd"/>
                                 </connections>
                             </switch>
@@ -243,6 +250,7 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="31" id="dYL-PK-ekU"/>
                                 </constraints>
                                 <connections>
+                                    <action selector="isTapped:" destination="-1" eventType="valueChanged" id="InV-wF-QmT"/>
                                     <action selector="onSwitchTapped:" destination="-1" eventType="valueChanged" id="LKL-vv-0PW"/>
                                 </connections>
                             </switch>
@@ -264,11 +272,12 @@
                                     <constraint firstAttribute="height" constant="31" id="vM1-mC-bSY"/>
                                 </constraints>
                                 <connections>
+                                    <action selector="isTapped:" destination="-1" eventType="valueChanged" id="NYA-l8-Mly"/>
                                     <action selector="onSwitchTapped:" destination="-1" eventType="valueChanged" id="ht0-4N-voK"/>
                                 </connections>
                             </switch>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="2fc-ec-sHj" firstAttribute="centerY" secondItem="8Lw-Sd-cqH" secondAttribute="centerY" id="0ym-hY-lKy"/>
                             <constraint firstItem="6JH-0d-9wI" firstAttribute="centerY" secondItem="NTo-D2-yaH" secondAttribute="centerY" id="45s-Wk-xqn"/>

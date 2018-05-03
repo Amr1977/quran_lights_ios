@@ -101,6 +101,8 @@ static Settings* settingsCopy;
         default:
             break;
     }
+    
+    [self applySettings];
 }
 
 
@@ -288,6 +290,7 @@ static Settings* settingsCopy;
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     NSLog(@"textFieldDidEndEditing");
     NSLog(@"fself.refreshPeriodText.text: %@", self.refreshPeriodText.text);
+    [self applySettings];
 }
 
 - (IBAction)didEndEditing:(id)sender{
@@ -316,11 +319,12 @@ static Settings* settingsCopy;
     self.settings.sortType = self.sortTypeTableView.indexPathForSelectedRow.row;
     NSLog(@"SettingsViewController: delivering settings: %@",[self settings]);
     NSLog(@"Settings copy %@", settingsCopy);
-    if (![self.settings isEqual:settingsCopy]) {
-        [self.delegate settingsViewController:self didChangeSettings:self.settings];
-    } else {
-        NSLog(@"Nothing changed");
-    }
+    [self.delegate settingsViewController:self didChangeSettings:self.settings];
+}
+
+- (IBAction)isTapped:(id)sender {
+    [self applySettings];
+    
 }
 
 @end

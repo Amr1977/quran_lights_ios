@@ -1988,6 +1988,7 @@ static NSInteger tone = 0;
 
 - (void)showSettingsView{
     self.navigationController.navigationBar.layer.zPosition = -1;
+    //self.settingsView.layer.zPosition = 1000;
     [self.settingsDismissDetector setHidden:NO];
     [self.settingsView setHidden:NO];
     
@@ -1995,6 +1996,7 @@ static NSInteger tone = 0;
 
 - (void)HideSettingsView{
     self.navigationController.navigationBar.layer.zPosition = 0;
+    //self.settingsView.layer.zPosition = 0;
     [self.settingsDismissDetector setHidden:YES];
     [self.settingsView setHidden:YES];
     

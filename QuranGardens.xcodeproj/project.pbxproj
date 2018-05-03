@@ -62,6 +62,7 @@
 		C575EC9F1F8D3AC7005E5170 /* MembersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C575EC9E1F8D3AC6005E5170 /* MembersManager.m */; };
 		C58277C820985C9C00D8E868 /* QuranGardensViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */; };
 		C58277CB20985D6900D8E868 /* QuranGardensCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58277CA20985D6900D8E868 /* QuranGardensCollectionTests.swift */; };
+		C584857B209B13530016ECF5 /* reval.txt in Resources */ = {isa = PBXBuildFile; fileRef = C584857A209B13530016ECF5 /* reval.txt */; };
 		C59A202F1E8116BD003C0F09 /* AMRTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C59A202E1E8116BD003C0F09 /* AMRTools.m */; };
 		C5A26AEB1EA24420009135D4 /* ChartsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AE91EA24420009135D4 /* ChartsViewController.m */; };
 		C5A26AEC1EA24420009135D4 /* ChartsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5A26AEA1EA24420009135D4 /* ChartsViewController.xib */; };
@@ -189,6 +190,7 @@
 		C575EC9E1F8D3AC6005E5170 /* MembersManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MembersManager.m; sourceTree = "<group>"; };
 		C58277C920985D6800D8E868 /* QuranLightsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuranLightsTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		C58277CA20985D6900D8E868 /* QuranGardensCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuranGardensCollectionTests.swift; sourceTree = "<group>"; };
+		C584857A209B13530016ECF5 /* reval.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = reval.txt; sourceTree = "<group>"; };
 		C58E954620985143004EA947 /* QuranLightsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuranLightsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C58E954A20985143004EA947 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C59A202D1E8116BD003C0F09 /* AMRTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMRTools.h; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 		076965961C5B5D0700ED2D33 = {
 			isa = PBXGroup;
 			children = (
+				C5D5C3EE1F27ED060006FBB4 /* Quran Lights.entitlements */,
 				C56B782B1EA23E4200252039 /* Podfile */,
 				076965A11C5B5D0700ED2D33 /* QuranGardens */,
 				C58E954720985143004EA947 /* QuranLightsTests */,
@@ -271,7 +274,6 @@
 				C5AFAE291F4B625B001770FD /* Categories */,
 				C54F29F5205256050032CB78 /* Modules */,
 				C50BC0841F8E3BBC00375592 /* Sync */,
-				C5D5C3EE1F27ED060006FBB4 /* Quran Lights.entitlements */,
 				C5FECDDC1EC2194E0081C89D /* resources */,
 				C5A26AFB1EA26FD8009135D4 /* Formatters */,
 				076965D51C5B609100ED2D33 /* Model */,
@@ -583,6 +585,7 @@
 		C5FECDDC1EC2194E0081C89D /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				C584857A209B13530016ECF5 /* reval.txt */,
 				C54F2A03205471900032CB78 /* rahman.caf */,
 				076965AE1C5B5D0700ED2D33 /* Assets.xcassets */,
 				0725940E1D74AEB0009E5F05 /* charcount.txt */,
@@ -707,6 +710,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C502D5511ED486C500A7267F /* UsersViewController.xib in Resources */,
+				C584857B209B13530016ECF5 /* reval.txt in Resources */,
 				C54F2A04205471920032CB78 /* rahman.caf in Resources */,
 				C56B782C1EA23E4200252039 /* Podfile in Resources */,
 				C566F4581E21143200628A94 /* GoogleService-Info.plist in Resources */,
