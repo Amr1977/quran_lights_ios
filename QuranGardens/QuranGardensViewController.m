@@ -26,9 +26,6 @@
 #import "NotificationsViewController.h"
 @import AVFoundation;
 @import Charts;
-@import GoogleMobileAds;
-
-
 
 CGFloat const CellHeight = 80;
 CGFloat const CellWidth = 120;
@@ -41,15 +38,10 @@ static NSString *const ShowHelpScreenKey = @"Show_help_screen";
 static NSString *const ReversedSortOrderOptionKey = @"reversed_sort_order";
 static NSString *const SorterTypeOptionKey = @"sorter_type";
 
-@interface QuranGardensViewController () <GADBannerViewDelegate, NotificationControllerDelegate>
+@interface QuranGardensViewController () <NotificationControllerDelegate>
 
-
-@property (strong, nonatomic) IBOutlet UIView *bottomBar;
 @property (weak, nonatomic) IBOutlet UIView *settingsView;
 @property (weak, nonatomic) IBOutlet UIView *settingsDismissDetector;
-
-
-
 @property (strong, nonatomic) PeriodicTaskManager *periodicTaskManager;
 @property (strong, nonatomic) UIAlertController *menu;
 @property (strong, nonatomic) UIAlertController *suraMenu;
@@ -57,45 +49,21 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (nonatomic) BOOL showHelpScreen;
 @property (nonatomic) BOOL menuOpened;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-
 @property (nonatomic) BOOL reversedSortOrder;
 @property (nonatomic, assign) SorterType sortType;
-
 @property (strong,nonatomic) UIImage *sunImage;
 @property (strong,nonatomic) UIImage *recordImage;
-
 @property (strong, nonatomic) Statistics* statistics;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *score;
-
-@property (strong, nonatomic) IBOutlet UIButton *moshafOrderButton;
-@property (strong, nonatomic) IBOutlet UIButton *lightSortButton;
-@property (strong, nonatomic) IBOutlet UIButton *charCountSortButton;
-@property (strong, nonatomic) IBOutlet UIButton *wordCountSortButton;
-@property (strong, nonatomic) IBOutlet UIButton *verseCountSortButton;
-@property (strong, nonatomic) IBOutlet UIButton *refreshCountSortButton;//UIButton *scoreButton
-@property (strong, nonatomic) IBOutlet UIButton *revalationOrderSortButton;
-
-@property (nonatomic) __block NSInteger hideCounter;
 @property (nonatomic) __block Boolean overviewMode;
 @property (nonatomic) NSIndexPath* selectedCell;
-
 @property (nonatomic) BOOL isLightCalculationBasedOnAverage;
-@property(nonatomic, strong) GADBannerView *bannerView;//GADBannerView
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeightConstraint;
-
 @property (strong, nonatomic) NotificationsViewController *notificationsViewController;
-
 @property (weak, nonatomic) IBOutlet UIView *rightEdgeSwipeDetector;
-
 @property (weak, nonatomic) IBOutlet UIView *leftEdgeSwipeDetector;
-
 @property (strong, nonatomic) SettingsViewController *settingsViewController;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *settingsViewHeightConstraints;
-
-
-
 
 @end
 
@@ -154,38 +122,9 @@ AppDelegate *delegate;
     
     NSLog(@"Memorized %ld of total %ld", (long)[self.statistics memorizedScore], (long)[Statistics allSurasScore]);
     
-    self.bottomBar.backgroundColor = [UIColor blackColor];
-    [self.view addSubview:self.bottomBar];
-    
     self.collectionView.layer.shouldRasterize = YES;
-    
-    self.bottomBar.layer.shouldRasterize = YES;
-    
-    self.bannerView = [[GADBannerView alloc] initWithAdSize: (([[UIDevice currentDevice] orientation] ==  UIDeviceOrientationPortrait) ? kGADAdSizeSmartBannerPortrait : kGADAdSizeSmartBannerLandscape)];
-    self.bannerView.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
-    self.bannerView.rootViewController = self;
-    self.bannerView.layer.zPosition = 1000;
-    
-    CGRect adFrame =  self.bannerView.frame;
-    adFrame.size.width = self.view.frame.size.width;
-    adFrame.origin.x = 0;
-    adFrame.origin.y = self.view.frame.size.height;
-    
     [self addSwipeHandlerToView:self.leftEdgeSwipeDetector direction:@"right" handler:@selector(showLeftMenu)];
     [self addSwipeHandlerToView:self.rightEdgeSwipeDetector direction:@"left" handler:@selector(showRightMenu)];
-    
-    
-    //self.bannerView.frame = adFrame;
-    
-    //self.bannerView.delegate = self;
-    //[self.view addSubview:self.bannerView];
-    
-   // [self addSwipeHandlerToView:self.bannerView direction:@"RIGHT" handler:@selector(hideAds)];
-    //GADRequest *request = [GADRequest request];
-    
-    //[self.bannerView loadRequest:request];
-    //[self positionBannerViewFullWidthAtBottomOfView: self.bannerView];
-    
 }
 
 BOOL appearedBefore;
@@ -240,50 +179,6 @@ BOOL appearedBefore;
     [self.collectionView reloadData];
 }
 
--(void)hideAds {
-    [UIView animateWithDuration:0.5 animations:^{
-        
-        CGRect adFrame =  self.bannerView.frame;
-        adFrame.origin.y = self.view.frame.size.height;
-        self.bannerView.frame = adFrame;
-        
-        
-        CGRect cFrame = self.collectionView.frame;
-        cFrame.size.height += adFrame.size.height;
-        self.collectionView.frame = cFrame;
-        
-        self.collectionViewHeightConstraint.constant = 0;
-        [self.collectionView reloadData];
-    }];
-    
-}
-
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInt
-                               duration:(NSTimeInterval)duration {
-    self.bannerView.adSize = (([[UIDevice currentDevice] orientation] ==  UIDeviceOrientationPortrait) ? kGADAdSizeSmartBannerPortrait : kGADAdSizeSmartBannerLandscape);
-}
-
-BOOL gotFirstAd = NO;
-
-- (void)adViewDidReceiveAd:(GADBannerView *)adView {
-    NSLog(@"adViewDidReceiveAd %@", adView);
-    if (!gotFirstAd) {
-        gotFirstAd = YES;
-        [UIView animateWithDuration:0.5 animations:^{
-            CGRect adFrame =  self.bannerView.frame;
-            adFrame.origin.y = self.view.frame.size.height - adFrame.size.height;
-            self.bannerView.frame = adFrame;
-            
-            CGRect cFrame = self.collectionView.frame;
-            cFrame.size.height -= adFrame.size.height;
-            self.collectionView.frame = cFrame;
-            
-            self.collectionViewHeightConstraint.constant = -adFrame.size.height;
-        }];
-    }
-    
-}
-
 #pragma mark - ad view positioning
 
 - (void)positionBannerViewFullWidthAtBottomOfSafeArea:(UIView *_Nonnull)bannerView NS_AVAILABLE_IOS(11.0) {
@@ -298,29 +193,7 @@ BOOL gotFirstAd = NO;
                                               ]];
 }
 
-- (void)positionBannerViewFullWidthAtBottomOfView:(UIView *_Nonnull)bannerView {
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bannerView
-                                                          attribute:NSLayoutAttributeLeading
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeLeading
-                                                         multiplier:1
-                                                           constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bannerView
-                                                          attribute:NSLayoutAttributeTrailing
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeTrailing
-                                                         multiplier:1
-                                                           constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bannerView
-                                                          attribute:NSLayoutAttributeTop
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.collectionView
-                                                          attribute:NSLayoutAttributeBottom
-                                                         multiplier:1
-                                                           constant:0]];
-}
+
 
 #pragma mark - view positioning
 
@@ -339,37 +212,6 @@ BOOL gotFirstAd = NO;
 
 - (void)usersMenu{
     [self.navigationController pushViewController:[[UsersViewController alloc] init] animated:YES];
-}
-
-- (void)hideSortBar {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.hideCounter -= 1;
-        NSLog(@"hide sort bar called, hide counter %ld", (long)self.hideCounter);
-        if (self.hideCounter <= 0) {
-            self.hideCounter = 0;
-//            if (self.overviewMode) {
-//                return;
-//            }
-            NSLog(@"hiding sort bar");
-            [self.bottomBar setHidden:YES];
-            self.bottomBar.frame =  CGRectMake(0, self.collectionView.frame.size.height + self.collectionView.frame.origin.y, self.collectionView.frame.size.width, 0);
-            
-        }
-    });
-}
-
-- (void)showSortBar {
-    self.hideCounter += 1;
-    NSLog(@"show sort bar called, hide counter %ld", (long)self.hideCounter);
-    [self.bottomBar setHidden:NO];
-    [UIView animateWithDuration:1 animations:^{
-        self.bottomBar.frame =  CGRectMake(0, self.collectionView.frame.size.height  + self.collectionView.frame.origin.y - 50, self.collectionView.frame.size.width, 50);
-    } completion:^(BOOL finished) {
-        [self hideSortBar];
-    }];
-    
-    
-    
 }
 
 - (void)openFacePage {
@@ -599,7 +441,6 @@ UIButton *toggleSingleTouchRefreshModeButton;
     
     self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, overviewItem, lightCalculationMethodItem, soundToggleItem, singleTouchRefreshItem, signInItem];
     
-    [self setSortButtons];
 }
 
 - (void)switchSingleTouchRefresh {
@@ -648,98 +489,6 @@ UIButton *toggleSingleTouchRefreshModeButton;
     [[self collectionView] reloadData];
 }
 
-- (void)setSortButtons{
-    //sort by normal order
-
-    [self.moshafOrderButton setTitle:@"B" forState:UIControlStateNormal];
-    
-    
-    [self.moshafOrderButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
-    [self.moshafOrderButton addTarget:self
-                               action:@selector(fastAccessNormalSuraOrderSort)
-                     forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.moshafOrderButton setShowsTouchWhenHighlighted:YES];
-    [self.moshafOrderButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    
-    
-    //sort by light strength
-    [self.lightSortButton setTitle:@"L" forState:UIControlStateNormal];
-    
-    [self.lightSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
-    [self.lightSortButton addTarget:self
-                             action:@selector(fastAccessWeakerFirstSuraFirstSort)
-                   forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.lightSortButton setShowsTouchWhenHighlighted:YES];
-    [self.lightSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    
-    //sort by character count
-    [self.charCountSortButton setTitle:@"C" forState:UIControlStateNormal];
-    
-    [self.charCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
-    [self.charCountSortButton addTarget:self
-                                 action:@selector(fastAccessCharCountSuraSort)
-                       forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.charCountSortButton setShowsTouchWhenHighlighted:YES];
-    [self.charCountSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    
-    
-    //sort by word count
-    [self.wordCountSortButton setTitle:@"W" forState:UIControlStateNormal];
-    
-    [self.wordCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
-    [self.wordCountSortButton addTarget:self
-                                 action:@selector(fastAccessWordCountSuraSort)
-                       forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.wordCountSortButton setShowsTouchWhenHighlighted:YES];
-    [self.wordCountSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    
-    
-    //sort by refresh count
-    [self.refreshCountSortButton setTitle:@"F" forState:UIControlStateNormal];
-    
-    [self.refreshCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
-    [self.refreshCountSortButton addTarget:self
-                                    action:@selector(fastAccessRefreshCountSuraSort)
-                          forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.refreshCountSortButton setShowsTouchWhenHighlighted:YES];
-    [self.refreshCountSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    
-    //sort by revalation order
-    [self.revalationOrderSortButton setTitle:@"R" forState:UIControlStateNormal];
-    
-    [self.revalationOrderSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
-    [self.revalationOrderSortButton addTarget:self
-                                       action:@selector(fastAccessRevalationOrderSuraSort)
-                             forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.revalationOrderSortButton setShowsTouchWhenHighlighted:YES];
-    [self.revalationOrderSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    
-    //sort by verse count
-    [self.verseCountSortButton setTitle:@"V" forState:UIControlStateNormal];
-    
-    [self.verseCountSortButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
-    [self.verseCountSortButton addTarget:self
-                                  action:@selector(fastAccessVerseCountSuraSort)
-                        forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.verseCountSortButton setShowsTouchWhenHighlighted:YES];
-    [self.verseCountSortButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-
-    [self.bottomBar addSubview:self.moshafOrderButton];
-    [self.bottomBar addSubview:self.lightSortButton];
-    [self.bottomBar addSubview:self.charCountSortButton];
-    [self.bottomBar addSubview:self.wordCountSortButton];
-    [self.bottomBar addSubview:self.verseCountSortButton];
-    [self.bottomBar addSubview:self.revalationOrderSortButton];
-    [self.bottomBar addSubview:self.refreshCountSortButton];
-}
-
 - (void)howItWorks{
     
    UIAlertController *howItWorks = [UIAlertController alertControllerWithTitle:[@"How it works" localize]
@@ -779,9 +528,6 @@ UIButton *toggleSingleTouchRefreshModeButton;
     CellSmallWidth = sideLength;
     CellSmallHeight = sideLength;
 
-    self.bottomBar.frame =  CGRectMake(0, self.collectionView.frame.size.height - self.bottomBar.frame.size.height, self.collectionView.frame.size.width, self.bottomBar.frame.size.height);
-    
-    
     [self applyCurrentSort];
     [self refreshScoreButton];
     [self.collectionView reloadData];
@@ -803,8 +549,6 @@ Boolean hasAppearedBefore;
         appearedBefore = YES;
         [self startupHelpAlert];
     }
-
-    [self showSortBar];
 }
 
 - (UIAlertController *)menu{
@@ -1070,8 +814,6 @@ Boolean hasAppearedBefore;
 }
 
 - (void)fastAccessCharCountSuraSort{
-    self.hideCounter += 1;
-    [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == CharCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -1084,8 +826,6 @@ Boolean hasAppearedBefore;
 }
 
 - (void)fastAccessRevalationOrderSuraSort{
-    self.hideCounter += 1;
-    [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == RevalationOrderSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -1099,8 +839,6 @@ Boolean hasAppearedBefore;
 
 
 - (void)fastAccessWordCountSuraSort{
-    self.hideCounter += 1;
-    [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == WordCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -1113,8 +851,6 @@ Boolean hasAppearedBefore;
 }
 
 - (void)fastAccessVerseCountSuraSort{
-    self.hideCounter += 1;
-    [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == VersesCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -1129,8 +865,6 @@ Boolean hasAppearedBefore;
 
 
 - (void)fastAccessRefreshCountSuraSort{
-    self.hideCounter += 1;
-    [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == RefreshCountSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -1145,8 +879,6 @@ Boolean hasAppearedBefore;
 
 - (void)fastAccessNormalSuraOrderSort{
     
-    self.hideCounter += 1;
-    [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == NormalSuraOrderSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         
@@ -1160,8 +892,6 @@ Boolean hasAppearedBefore;
 }
 
 - (void)fastAccessWeakerFirstSuraFirstSort{
-    self.hideCounter += 1;
-    [self hideSortBar];
     if (self.periodicTaskManager.dataSource.settings.sortType == LightSort) {
         self.periodicTaskManager.dataSource.settings.descendingSort = !self.periodicTaskManager.dataSource.settings.descendingSort;
         [self.periodicTaskManager.dataSource saveSettings];
@@ -1786,82 +1516,30 @@ static NSInteger tone = 0;
     switch (self.sortType) {
         case NormalSuraOrderSort:
             [self normalSuraOrderSort];
-            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.8];
-            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-
             break;
+            
         case LightSort:
             [self weakerFirstSuraFirstSort];
-            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.8];
-            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-
             break;
             
         case VersesCountSort:
             [self versesCountSuraSort];
-            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.8];
-            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-
             break;
             
         case WordCountSort:
             [self wordCountSuraSort];
-            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.8];
-            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             break;
             
         case CharCountSort:
             [self charCountSuraSort];
-            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.8];
-            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             break;
             
         case RevalationOrderSort:;
             [self revalSuraOrderSort];
-            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.8];
-            
             break;
             
         case RefreshCountSort:
             [self refreshCountSuraSort];
-            self.moshafOrderButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.lightSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.charCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.wordCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.verseCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-            self.refreshCountSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.8];
-            self.revalationOrderSortButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
             
             break;
             
@@ -1869,7 +1547,7 @@ static NSInteger tone = 0;
             NSLog(@"Unsupported sort type");
             break;
     }
-    
+
     
     if (self.reversedSortOrder) {
         [self reversedSuraOrderSort];
@@ -1879,20 +1557,11 @@ static NSInteger tone = 0;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    
-    self.bannerView.adSize = (([[UIDevice currentDevice] orientation] ==  UIDeviceOrientationPortrait) ? kGADAdSizeSmartBannerPortrait : kGADAdSizeSmartBannerLandscape);
-
-    
     CGFloat sideLength = sqrt(size.height * size.width * 0.9 / 114.0);
     CellSmallWidth = sideLength;
     CellSmallHeight = sideLength;
-    self.bottomBar.frame = CGRectMake(0, size.height - self.bottomBar.frame.size.height, size.width, self.bottomBar.frame.size.height);
+
     [self.collectionView reloadData];
-    //self.bannerView.center = self.adContainerView.center;
-    
-    CGRect adFrame =  self.bannerView.frame;
-    adFrame.origin.y = size.height - adFrame.size.height;
-    self.bannerView.frame = adFrame;
 }
 
 - (void)dealloc{
@@ -1908,14 +1577,6 @@ static NSInteger tone = 0;
     [self.periodicTaskManager.dataSource saveSettings];
     [self refresh];
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    //TODO: Apply new settings
-}
-
-#pragma mark - Collection View
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    NSLog(@"scrollViewWillBeginDragging");
-    [self showSortBar];
 }
 
 #pragma mark - Notifications
@@ -1989,7 +1650,7 @@ static NSInteger tone = 0;
 #pragma mark Settings
 
 - (void)showSettingsView{
-    self.navigationController.navigationBar.layer.zPosition = -1;
+    //self.navigationController.navigationBar.layer.zPosition = -1;
     //self.settingsView.layer.zPosition = 1000;
     [self.settingsDismissDetector setHidden:NO];
     [self.settingsView setHidden:NO];
@@ -1997,7 +1658,7 @@ static NSInteger tone = 0;
 }
 
 - (void)HideSettingsView{
-    self.navigationController.navigationBar.layer.zPosition = 0;
+    //self.navigationController.navigationBar.layer.zPosition = 0;
     //self.settingsView.layer.zPosition = 0;
     [self.settingsDismissDetector setHidden:YES];
     [self.settingsView setHidden:YES];

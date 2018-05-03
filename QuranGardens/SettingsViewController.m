@@ -284,7 +284,20 @@ static Settings* settingsCopy;
     NSLog(@"textFieldShouldEndEditing");
     NSLog(@"fself.refreshPeriodText.text: %@", self.refreshPeriodText.text);
     textField.backgroundColor = [UIColor whiteColor];
-    return YES;
+    
+    int days = [self.refreshPeriodText.text integerValue];
+    
+    return days != 0;
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    if ([string rangeOfCharacterFromSet:notDigits].location == NSNotFound)
+    {
+        return YES;
+    }
+    
+    return NO;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
@@ -310,7 +323,7 @@ static Settings* settingsCopy;
 
 - (void)applySettings{
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         self.settings.fadeTime = [self.refreshPeriodText.text integerValue] * 24 * 60 * 60;
         self.settings.descendingSort = (self.sortDirectionSegments.selectedSegmentIndex == 1);
         self.settings.sortType = self.sortTypeTableView.indexPathForSelectedRow.row;

@@ -11,7 +11,6 @@
 #import "FireBaseManager.h"
 #import "AMRTools.h"
 @import StoreKit;
-@import GoogleMobileAds;
 
 @implementation AppDelegate
 
@@ -19,10 +18,7 @@
     // Override point for customization after application launch.
     [BuddyBuildSDK setup];
     [[FireBaseManager shared] start];
-    //actual ad id
-    //[GADMobileAds configureWithApplicationID:@"ca-app-pub-4015465227414745~3668516035"];
-    //test ad id: ca-app-pub-3940256099942544/2934735716
-    [GADMobileAds configureWithApplicationID:@"ca-app-pub-4015465227414745~3668516035"];
+
     //[UIApplication sharedApplication].idleTimerDisabled = YES;
     
     [self registerForLocalNotifications];
