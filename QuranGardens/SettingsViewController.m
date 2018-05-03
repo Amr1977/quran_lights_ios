@@ -308,18 +308,28 @@ static Settings* settingsCopy;
     [self hideKeyBoard];
 }
 
-- (void)dealloc{
-    [self applySettings];
-    
-}
-
 - (void)applySettings{
-    self.settings.fadeTime = [self.refreshPeriodText.text integerValue] * 24 * 60 * 60;
-    self.settings.descendingSort = (self.sortDirectionSegments.selectedSegmentIndex == 1);
-    self.settings.sortType = self.sortTypeTableView.indexPathForSelectedRow.row;
-    NSLog(@"SettingsViewController: delivering settings: %@",[self settings]);
-    NSLog(@"Settings copy %@", settingsCopy);
-    [self.delegate settingsViewController:self didChangeSettings:self.settings];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        self.settings.fadeTime = [self.refreshPeriodText.text integerValue] * 24 * 60 * 60;
+        self.settings.descendingSort = (self.sortDirectionSegments.selectedSegmentIndex == 1);
+        self.settings.sortType = self.sortTypeTableView.indexPathForSelectedRow.row;
+        NSLog(@"SettingsViewController: delivering settings: %@",[self settings]);
+        //NSLog(@"Settings copy %@", settingsCopy);
+        [self.delegate settingsViewController:self didChangeSettings:self.settings];
+    });
+    
+//    dispatch_async(dispatch_get_main_queue(), ^(void){
+//        //Run UI Updates
+//
+//    });
+    
+//    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+//        //Background Thread
+//
+//
+//    });
+    
 }
 
 - (IBAction)isTapped:(id)sender {

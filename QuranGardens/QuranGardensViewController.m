@@ -212,7 +212,7 @@ BOOL appearedBefore;
     
     [self.settingsViewController didMoveToParentViewController:self];
     
-    self.settingsViewHeightConstraints.constant = -64.0 ;
+    //self.settingsViewHeightConstraints.constant = -64.0 ;
     
     [self.settingsViewController didMoveToParentViewController:self];
     
@@ -1902,10 +1902,12 @@ static NSInteger tone = 0;
 #pragma mark - SettingsViewControllerDelegate
 
 - (void)settingsViewController:(SettingsViewController *)settingsViewController didChangeSettings:(Settings *)settings{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.periodicTaskManager.dataSource.settings = [settings copy];
     NSLog(@"QuranGardensViewController: received Settings: %@", self.periodicTaskManager.dataSource.settings);
     [self.periodicTaskManager.dataSource saveSettings];
     [self refresh];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     //TODO: Apply new settings
 }
 
