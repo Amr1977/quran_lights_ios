@@ -173,7 +173,7 @@ AppDelegate *delegate;
     
     [self addSwipeHandlerToView:self.leftEdgeSwipeDetector direction:@"right" handler:@selector(showLeftMenu)];
     [self addSwipeHandlerToView:self.rightEdgeSwipeDetector direction:@"left" handler:@selector(showRightMenu)];
-    [self initSettingsView];
+    
     
     //self.bannerView.frame = adFrame;
     
@@ -188,6 +188,8 @@ AppDelegate *delegate;
     
 }
 
+BOOL appearedBefore;
+
 - (void)initSettingsView{
     [self.settingsView setHidden:YES];
     
@@ -197,20 +199,22 @@ AppDelegate *delegate;
     [self addSwipeHandlerToView:self.settingsDismissDetector direction:@"left" handler:@selector(HideSettingsView)];
     [self addSwipeHandlerToView:self.settingsDismissDetector direction:@"up" handler:@selector(HideSettingsView)];
     [self addSwipeHandlerToView:self.settingsDismissDetector direction:@"down" handler:@selector(HideSettingsView)];
-    
+
     self.settingsViewController = [[SettingsViewController alloc] init];
     self.settingsViewController.settings = [self.periodicTaskManager.dataSource.settings copy];
     self.settingsViewController.delegate = self;
     
-    [self.settingsViewController didMoveToParentViewController:self];
     
     [self addChildViewController:self.settingsViewController];
+    
     [self.settingsViewController.view setFrame:CGRectMake(0.0f, 0.0f, self.settingsView.frame.size.width, self.settingsView.frame.size.height)];
     [self.settingsView addSubview:self.settingsViewController.view];
     
     [self.settingsViewController didMoveToParentViewController:self];
     
     self.settingsViewHeightConstraints.constant = -64.0 ;
+    
+    [self.settingsViewController didMoveToParentViewController:self];
     
     //TODO: Add shadow
 }
@@ -794,10 +798,13 @@ Boolean hasAppearedBefore;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+    if(!appearedBefore) {
+        [self initSettingsView];
+        appearedBefore = YES;
+        [self startupHelpAlert];
+    }
+
     [self showSortBar];
-    
-    [self startupHelpAlert];
 }
 
 - (UIAlertController *)menu{
@@ -1980,12 +1987,14 @@ static NSInteger tone = 0;
 #pragma mark Settings
 
 - (void)showSettingsView{
+    self.navigationController.navigationBar.layer.zPosition = -1;
     [self.settingsDismissDetector setHidden:NO];
     [self.settingsView setHidden:NO];
     
 }
 
 - (void)HideSettingsView{
+    self.navigationController.navigationBar.layer.zPosition = 0;
     [self.settingsDismissDetector setHidden:YES];
     [self.settingsView setHidden:YES];
     

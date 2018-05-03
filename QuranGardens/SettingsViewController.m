@@ -181,6 +181,10 @@ static Settings* settingsCopy;
             label.text = [label.text localize];
         }
     }
+    
+    NSLog(@"View size %@",NSStringFromCGRect(self.view.frame));
+    NSLog(@"Screen size %@",NSStringFromCGRect([[UIScreen mainScreen] bounds]));
+    
 }
 
 - (void)setSettings:(Settings *)settings{

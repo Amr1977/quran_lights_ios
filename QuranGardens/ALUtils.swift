@@ -58,7 +58,7 @@ struct ALUtils {
         for familyName in fontFamilyNames {
             print("------------------------------")
             print("Font Family Name = [\(familyName)]")
-            let names = UIFont.fontNames(forFamilyName: familyName as! String)
+            let names = UIFont.fontNames(forFamilyName: familyName)
             print("Font Names = [\(names)]")
         }
     }
