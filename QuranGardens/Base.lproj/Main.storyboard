@@ -80,8 +80,8 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e8U-gc-hio" userLabel="settingsView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="1024"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="960"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="lwI-IN-RD4"/>
                                 </constraints>
@@ -92,20 +92,20 @@
                             <constraint firstItem="SUU-j2-DLy" firstAttribute="leading" secondItem="dPp-xD-4d7" secondAttribute="leading" id="1mT-EJ-Dda"/>
                             <constraint firstItem="94x-dm-hKH" firstAttribute="centerY" secondItem="dPp-xD-4d7" secondAttribute="centerY" id="3Lp-37-lMO"/>
                             <constraint firstItem="SUU-j2-DLy" firstAttribute="centerY" secondItem="dPp-xD-4d7" secondAttribute="centerY" id="7So-Do-uC1"/>
+                            <constraint firstAttribute="bottom" secondItem="e8U-gc-hio" secondAttribute="bottom" id="7Wd-rp-hUl"/>
                             <constraint firstItem="4Sb-si-INi" firstAttribute="centerX" secondItem="dPp-xD-4d7" secondAttribute="centerX" id="AL9-DC-TwN"/>
                             <constraint firstItem="jZ0-eL-vH4" firstAttribute="centerY" secondItem="dPp-xD-4d7" secondAttribute="centerY" id="DaD-ff-uXQ"/>
                             <constraint firstItem="94x-dm-hKH" firstAttribute="centerX" secondItem="dPp-xD-4d7" secondAttribute="centerX" id="EJN-Bq-lfo"/>
                             <constraint firstItem="4Sb-si-INi" firstAttribute="height" secondItem="dPp-xD-4d7" secondAttribute="height" id="Ik3-rE-Guf"/>
+                            <constraint firstItem="e8U-gc-hio" firstAttribute="top" secondItem="dPp-xD-4d7" secondAttribute="top" constant="64" id="JhZ-A8-4To"/>
                             <constraint firstAttribute="trailing" secondItem="jZ0-eL-vH4" secondAttribute="trailing" id="OvR-GD-ZI2"/>
                             <constraint firstItem="4Sb-si-INi" firstAttribute="leading" secondItem="dPp-xD-4d7" secondAttribute="leading" id="Oxu-Do-WAB"/>
                             <constraint firstItem="SUU-j2-DLy" firstAttribute="height" secondItem="dPp-xD-4d7" secondAttribute="height" id="Qb4-CL-3uW"/>
                             <constraint firstItem="e8U-gc-hio" firstAttribute="leading" secondItem="dPp-xD-4d7" secondAttribute="leading" id="RS0-ag-Glm"/>
-                            <constraint firstItem="e8U-gc-hio" firstAttribute="height" secondItem="dPp-xD-4d7" secondAttribute="height" id="U5p-dH-s9D"/>
                             <constraint firstItem="94x-dm-hKH" firstAttribute="width" secondItem="dPp-xD-4d7" secondAttribute="width" id="XO3-1u-KaN"/>
                             <constraint firstAttribute="trailing" secondItem="4Sb-si-INi" secondAttribute="trailing" id="cSS-nF-a1f"/>
                             <constraint firstItem="4Sb-si-INi" firstAttribute="top" secondItem="dPp-xD-4d7" secondAttribute="top" id="g6m-GX-2xS"/>
                             <constraint firstItem="jZ0-eL-vH4" firstAttribute="height" secondItem="dPp-xD-4d7" secondAttribute="height" id="jrN-xV-Pb7"/>
-                            <constraint firstItem="e8U-gc-hio" firstAttribute="centerY" secondItem="dPp-xD-4d7" secondAttribute="centerY" id="xIw-Fg-RMB"/>
                             <constraint firstItem="94x-dm-hKH" firstAttribute="height" secondItem="dPp-xD-4d7" secondAttribute="height" id="zL9-Q3-FAm"/>
                         </constraints>
                     </view>
@@ -125,7 +125,6 @@
                         <outlet property="score" destination="fK8-db-3H4" id="7DI-fW-Id2"/>
                         <outlet property="settingsDismissDetector" destination="94x-dm-hKH" id="ETL-HE-XVd"/>
                         <outlet property="settingsView" destination="e8U-gc-hio" id="IGS-bW-B1o"/>
-                        <outlet property="settingsViewHeightConstraints" destination="U5p-dH-s9D" id="67N-eZ-6Ns"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9hH-Ku-M4y" userLabel="First Responder" sceneMemberID="firstResponder"/>

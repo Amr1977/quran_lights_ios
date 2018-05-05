@@ -147,12 +147,12 @@ BOOL appearedBefore;
     [self addChildViewController:self.settingsViewController];
     
     [self.settingsViewController.view setFrame:CGRectMake(0.0f, 0.0f, self.settingsView.frame.size.width, self.settingsView.frame.size.height)];
+    //TODO add constraints
     [self.settingsView addSubview:self.settingsViewController.view];
     
     [self.settingsViewController didMoveToParentViewController:self];
     
-    //self.settingsViewHeightConstraints.constant = -64.0 ;
-    
+   
     [self.settingsViewController didMoveToParentViewController:self];
     
     //TODO: Add shadow
@@ -1560,6 +1560,10 @@ static NSInteger tone = 0;
     CGFloat sideLength = sqrt(size.height * size.width * 0.9 / 114.0);
     CellSmallWidth = sideLength;
     CellSmallHeight = sideLength;
+    
+    //[self HideSettingsView];
+    [self.settingsViewController.view setFrame:CGRectMake(0.0f, 0.0f, self.settingsView.frame.size.width, self.settingsView.frame.size.height)];
+    
 
     [self.collectionView reloadData];
 }
@@ -1652,6 +1656,7 @@ static NSInteger tone = 0;
 - (void)showSettingsView{
     //self.navigationController.navigationBar.layer.zPosition = -1;
     //self.settingsView.layer.zPosition = 1000;
+    [self.settingsViewController.view setFrame:CGRectMake(0.0f, 0.0f, self.settingsView.frame.size.width, self.settingsView.frame.size.height)];
     [self.settingsDismissDetector setHidden:NO];
     [self.settingsView setHidden:NO];
     

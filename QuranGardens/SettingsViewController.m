@@ -35,6 +35,9 @@ static CGFloat const DefaultCellHeight = 44;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *languageSelector;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+
 
 /** Either a number of days or in the format [xy][xn][xw][xd][xh][xm][xs], where x is an integer, y: year, n: month, w: week, d: day, h: hour, m: minute, s: second*/
 //@property (strong, nonatomic) NSString *fadeTimeString;
@@ -134,6 +137,11 @@ static Settings* settingsCopy;
     [self applySettings];
 }
 
+-(void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.scrollView.contentSize = self.content.frame.size;
+}
+
 - (void)backToCollection{
     //[self.navigationController popViewControllerAnimated: YES];
     //TODO do it!
@@ -147,6 +155,7 @@ static Settings* settingsCopy;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
     [self updateUI];
 }
 
