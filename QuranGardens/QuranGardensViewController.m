@@ -1562,10 +1562,16 @@ static NSInteger tone = 0;
     CellSmallHeight = sideLength;
     
     //[self HideSettingsView];
-    [self.settingsViewController.view setFrame:CGRectMake(0.0f, 0.0f, self.settingsView.frame.size.width, self.settingsView.frame.size.height)];
+    
     
 
     [self.collectionView reloadData];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self.settingsViewController.view setFrame:CGRectMake(0.0f, 0.0f, self.settingsView.frame.size.width, self.settingsView.frame.size.height)];
+    
 }
 
 - (void)dealloc{
