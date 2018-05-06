@@ -1512,7 +1512,6 @@ static NSInteger tone = 0;
 }
 
 - (void)applyCurrentSort{
-    
     switch (self.sortType) {
         case NormalSuraOrderSort:
             [self normalSuraOrderSort];
@@ -1534,7 +1533,7 @@ static NSInteger tone = 0;
             [self charCountSuraSort];
             break;
             
-        case RevalationOrderSort:;
+        case RevalationOrderSort:
             [self revalSuraOrderSort];
             break;
             
@@ -1548,7 +1547,6 @@ static NSInteger tone = 0;
             break;
     }
 
-    
     if (self.reversedSortOrder) {
         [self reversedSuraOrderSort];
     }
@@ -1560,18 +1558,12 @@ static NSInteger tone = 0;
     CGFloat sideLength = sqrt(size.height * size.width * 0.9 / 114.0);
     CellSmallWidth = sideLength;
     CellSmallHeight = sideLength;
-    
-    //[self HideSettingsView];
-    
-    
-
     [self.collectionView reloadData];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [self.settingsViewController.view setFrame:CGRectMake(0.0f, 0.0f, self.settingsView.frame.size.width, self.settingsView.frame.size.height)];
-    
 }
 
 - (void)dealloc{

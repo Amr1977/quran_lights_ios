@@ -326,6 +326,7 @@
                             </constraints>
                         </view>
                     </subviews>
+                    <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="dVV-CQ-If4" firstAttribute="width" secondItem="7W4-al-7oR" secondAttribute="width" id="4mU-sm-gi8"/>
                         <constraint firstAttribute="trailing" secondItem="dVV-CQ-If4" secondAttribute="trailing" id="UI7-GG-w5E"/>
