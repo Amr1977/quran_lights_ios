@@ -31,11 +31,12 @@
 		07FC8BF41C5D05C000695E0A /* PeriodicTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */; };
 		07FC8BF71C5D05DC00695E0A /* PeriodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */; };
 		0A8DAB34FE051E524BD30303 /* Pods_QuranGardens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82855D8766F94B78534A777E /* Pods_QuranGardens.framework */; };
-		91E54798050502B08862257B /* Pods_QuranLightsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B612E88BEE3BAFE28761F7 /* Pods_QuranLightsTests.framework */; };
+		5945BF2C2C83A8FDB6254035 /* Pods_QuranLightsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 499F41361E8EA9191219F16D /* Pods_QuranLightsUITests.framework */; };
 		C502D5501ED486C500A7267F /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C502D54E1ED486C500A7267F /* UsersViewController.m */; };
 		C502D5511ED486C500A7267F /* UsersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C502D54F1ED486C500A7267F /* UsersViewController.xib */; };
 		C502D5541ED48D0B00A7267F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C502D5531ED48D0B00A7267F /* User.m */; };
 		C508370E1EBBB20000B54E94 /* rahman.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C508370D1EBBB20000B54E94 /* rahman.mp3 */; };
+		C50D72BE209EFC9E00568020 /* QuranLightsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50D72BD209EFC9E00568020 /* QuranLightsUITests.swift */; };
 		C50E590F1EBC55080076C3D6 /* PiePolylineChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C50E590C1EBC55080076C3D6 /* PiePolylineChartViewController.xib */; };
 		C50E59131EBC553C0076C3D6 /* PiePolylineChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E59121EBC553C0076C3D6 /* PiePolylineChartViewController.m */; };
 		C50E59171EBC55710076C3D6 /* PieChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E59151EBC55710076C3D6 /* PieChartViewController.m */; };
@@ -60,8 +61,6 @@
 		C575EC991F8D37D8005E5170 /* SyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C575EC981F8D37D8005E5170 /* SyncManager.m */; };
 		C575EC9C1F8D39AB005E5170 /* FireBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C575EC9B1F8D39AA005E5170 /* FireBaseManager.m */; };
 		C575EC9F1F8D3AC7005E5170 /* MembersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C575EC9E1F8D3AC6005E5170 /* MembersManager.m */; };
-		C58277C820985C9C00D8E868 /* QuranGardensViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076965DF1C5B630E00ED2D33 /* QuranGardensViewController.m */; };
-		C58277CB20985D6900D8E868 /* QuranGardensCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58277CA20985D6900D8E868 /* QuranGardensCollectionTests.swift */; };
 		C584857B209B13530016ECF5 /* reval.txt in Resources */ = {isa = PBXBuildFile; fileRef = C584857A209B13530016ECF5 /* reval.txt */; };
 		C59A202F1E8116BD003C0F09 /* AMRTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C59A202E1E8116BD003C0F09 /* AMRTools.m */; };
 		C5A26AEB1EA24420009135D4 /* ChartsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A26AE91EA24420009135D4 /* ChartsViewController.m */; };
@@ -78,7 +77,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C58E954B20985143004EA947 /* PBXContainerItemProxy */ = {
+		C50D72C0209EFC9E00568020 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 076965971C5B5D0700ED2D33 /* Project object */;
 			proxyType = 1;
@@ -138,6 +137,8 @@
 		07FC8BF31C5D05C000695E0A /* PeriodicTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodicTaskManager.m; sourceTree = "<group>"; };
 		07FC8BF51C5D05DC00695E0A /* PeriodicTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeriodicTask.h; sourceTree = "<group>"; };
 		07FC8BF61C5D05DC00695E0A /* PeriodicTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodicTask.m; sourceTree = "<group>"; };
+		40E4BFC1E7E1E9BEDDF06179 /* Pods-QuranLightsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranLightsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuranLightsUITests/Pods-QuranLightsUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		499F41361E8EA9191219F16D /* Pods_QuranLightsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuranLightsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56BC2EE239CF001631768E70 /* Pods-QuranLightsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranLightsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuranLightsTests/Pods-QuranLightsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7B0F5A342BF0C6DC814D5502 /* Pods-QuranLightsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranLightsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuranLightsTests/Pods-QuranLightsTests.release.xcconfig"; sourceTree = "<group>"; };
 		82855D8766F94B78534A777E /* Pods_QuranGardens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuranGardens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +151,9 @@
 		C502D5531ED48D0B00A7267F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		C508370D1EBBB20000B54E94 /* rahman.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rahman.mp3; sourceTree = "<group>"; };
 		C50D72B6209EF1AF00568020 /* Quran Lights.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Quran Lights.entitlements"; sourceTree = "<group>"; };
+		C50D72BB209EFC9E00568020 /* QuranLightsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuranLightsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C50D72BD209EFC9E00568020 /* QuranLightsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuranLightsUITests.swift; sourceTree = "<group>"; };
+		C50D72BF209EFC9E00568020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C50E590C1EBC55080076C3D6 /* PiePolylineChartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PiePolylineChartViewController.xib; sourceTree = "<group>"; };
 		C50E59111EBC553C0076C3D6 /* PiePolylineChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PiePolylineChartViewController.h; sourceTree = "<group>"; };
 		C50E59121EBC553C0076C3D6 /* PiePolylineChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PiePolylineChartViewController.m; sourceTree = "<group>"; };
@@ -189,11 +193,7 @@
 		C575EC9B1F8D39AA005E5170 /* FireBaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FireBaseManager.m; sourceTree = "<group>"; };
 		C575EC9D1F8D3AC6005E5170 /* MembersManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MembersManager.h; sourceTree = "<group>"; };
 		C575EC9E1F8D3AC6005E5170 /* MembersManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MembersManager.m; sourceTree = "<group>"; };
-		C58277C920985D6800D8E868 /* QuranLightsTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuranLightsTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		C58277CA20985D6900D8E868 /* QuranGardensCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuranGardensCollectionTests.swift; sourceTree = "<group>"; };
 		C584857A209B13530016ECF5 /* reval.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = reval.txt; sourceTree = "<group>"; };
-		C58E954620985143004EA947 /* QuranLightsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuranLightsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C58E954A20985143004EA947 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C59A202D1E8116BD003C0F09 /* AMRTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMRTools.h; sourceTree = "<group>"; };
 		C59A202E1E8116BD003C0F09 /* AMRTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMRTools.m; sourceTree = "<group>"; };
 		C5A26AE81EA24420009135D4 /* ChartsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartsViewController.h; sourceTree = "<group>"; };
@@ -218,6 +218,7 @@
 		C5F17C471E69BB6B00476CA3 /* UIViewController+Gestures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Gestures.h"; sourceTree = "<group>"; };
 		C5F17C481E69BB6B00476CA3 /* UIViewController+Gestures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Gestures.m"; sourceTree = "<group>"; };
 		CC0FB87F801C545BFDDA00FB /* Pods-QuranGardens.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranGardens.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens.debug.xcconfig"; sourceTree = "<group>"; };
+		DE3A77C362FE87C8007A43A0 /* Pods-QuranLightsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuranLightsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuranLightsUITests/Pods-QuranLightsUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,11 +235,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C58E954320985143004EA947 /* Frameworks */ = {
+		C50D72B8209EFC9E00568020 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91E54798050502B08862257B /* Pods_QuranLightsTests.framework in Frameworks */,
+				5945BF2C2C83A8FDB6254035 /* Pods_QuranLightsUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,7 +251,7 @@
 			children = (
 				C56B782B1EA23E4200252039 /* Podfile */,
 				076965A11C5B5D0700ED2D33 /* QuranGardens */,
-				C58E954720985143004EA947 /* QuranLightsTests */,
+				C50D72BC209EFC9E00568020 /* QuranLightsUITests */,
 				076965A01C5B5D0700ED2D33 /* Products */,
 				E5D1290A52CBC62F69226967 /* Frameworks */,
 				1A31A46E988B24B386D3DD0C /* Pods */,
@@ -261,7 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				0769659F1C5B5D0700ED2D33 /* Quran Lights.app */,
-				C58E954620985143004EA947 /* QuranLightsTests.xctest */,
+				C50D72BB209EFC9E00568020 /* QuranLightsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -331,6 +332,8 @@
 				AC5A8B9D69C915AD7FE135C0 /* Pods-QuranGardens.release.xcconfig */,
 				56BC2EE239CF001631768E70 /* Pods-QuranLightsTests.debug.xcconfig */,
 				7B0F5A342BF0C6DC814D5502 /* Pods-QuranLightsTests.release.xcconfig */,
+				40E4BFC1E7E1E9BEDDF06179 /* Pods-QuranLightsUITests.debug.xcconfig */,
+				DE3A77C362FE87C8007A43A0 /* Pods-QuranLightsUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -344,6 +347,15 @@
 				C575EC9B1F8D39AA005E5170 /* FireBaseManager.m */,
 			);
 			name = Sync;
+			sourceTree = "<group>";
+		};
+		C50D72BC209EFC9E00568020 /* QuranLightsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C50D72BD209EFC9E00568020 /* QuranLightsUITests.swift */,
+				C50D72BF209EFC9E00568020 /* Info.plist */,
+			);
+			path = QuranLightsUITests;
 			sourceTree = "<group>";
 		};
 		C50E590B1EBC54A00076C3D6 /* charts */ = {
@@ -474,40 +486,6 @@
 			name = view;
 			sourceTree = "<group>";
 		};
-		C58E954720985143004EA947 /* QuranLightsTests */ = {
-			isa = PBXGroup;
-			children = (
-				C58E954A20985143004EA947 /* Info.plist */,
-				C58E9550209851D0004EA947 /* Cases */,
-				C58E9551209851F0004EA947 /* Data */,
-				C58E955220985211004EA947 /* Supporting files */,
-			);
-			path = QuranLightsTests;
-			sourceTree = "<group>";
-		};
-		C58E9550209851D0004EA947 /* Cases */ = {
-			isa = PBXGroup;
-			children = (
-				C58277CA20985D6900D8E868 /* QuranGardensCollectionTests.swift */,
-				C58277C920985D6800D8E868 /* QuranLightsTests-Bridging-Header.h */,
-			);
-			path = Cases;
-			sourceTree = "<group>";
-		};
-		C58E9551209851F0004EA947 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		C58E955220985211004EA947 /* Supporting files */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Supporting files";
-			sourceTree = "<group>";
-		};
 		C5A26AFB1EA26FD8009135D4 /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
@@ -607,6 +585,7 @@
 				071D38961C5FAFFE0063D80E /* AssetsLibrary.framework */,
 				82855D8766F94B78534A777E /* Pods_QuranGardens.framework */,
 				C0B612E88BEE3BAFE28761F7 /* Pods_QuranLightsTests.framework */,
+				499F41361E8EA9191219F16D /* Pods_QuranLightsUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -635,26 +614,26 @@
 			productReference = 0769659F1C5B5D0700ED2D33 /* Quran Lights.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C58E954520985143004EA947 /* QuranLightsTests */ = {
+		C50D72BA209EFC9E00568020 /* QuranLightsUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C58E954D20985143004EA947 /* Build configuration list for PBXNativeTarget "QuranLightsTests" */;
+			buildConfigurationList = C50D72C2209EFC9E00568020 /* Build configuration list for PBXNativeTarget "QuranLightsUITests" */;
 			buildPhases = (
-				9448C8FA01BB139C066579A6 /* [CP] Check Pods Manifest.lock */,
-				C58E954220985143004EA947 /* Sources */,
-				C58E954320985143004EA947 /* Frameworks */,
-				C58E954420985143004EA947 /* Resources */,
-				6EC8806AAA074FE21EA3A5EA /* [CP] Embed Pods Frameworks */,
-				4160437A9747D816B80A7333 /* [CP] Copy Pods Resources */,
+				6F3920CC6243E7A81699C82F /* [CP] Check Pods Manifest.lock */,
+				C50D72B7209EFC9E00568020 /* Sources */,
+				C50D72B8209EFC9E00568020 /* Frameworks */,
+				C50D72B9209EFC9E00568020 /* Resources */,
+				469F2F03F8D7AD47E3945C53 /* [CP] Embed Pods Frameworks */,
+				5C5405E3FFEA33319C3C5629 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C58E954C20985143004EA947 /* PBXTargetDependency */,
+				C50D72C1209EFC9E00568020 /* PBXTargetDependency */,
 			);
-			name = QuranLightsTests;
-			productName = QuranLightsTests;
-			productReference = C58E954620985143004EA947 /* QuranLightsTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
+			name = QuranLightsUITests;
+			productName = QuranLightsUITests;
+			productReference = C50D72BB209EFC9E00568020 /* QuranLightsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -662,6 +641,7 @@
 		076965971C5B5D0700ED2D33 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Amr Lotfy";
 				TargetAttributes = {
@@ -678,10 +658,9 @@
 							};
 						};
 					};
-					C58E954520985143004EA947 = {
+					C50D72BA209EFC9E00568020 = {
 						CreatedOnToolsVersion = 9.2;
 						DevelopmentTeam = Q4635HRLC8;
-						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 0769659E1C5B5D0700ED2D33;
 					};
@@ -702,7 +681,7 @@
 			projectRoot = "";
 			targets = (
 				0769659E1C5B5D0700ED2D33 /* QuranGardens */,
-				C58E954520985143004EA947 /* QuranLightsTests */,
+				C50D72BA209EFC9E00568020 /* QuranLightsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -739,7 +718,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C58E954420985143004EA947 /* Resources */ = {
+		C50D72B9209EFC9E00568020 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -773,19 +752,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4160437A9747D816B80A7333 /* [CP] Copy Pods Resources */ = {
+		469F2F03F8D7AD47E3945C53 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuranLightsTests/Pods-QuranLightsTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuranLightsUITests/Pods-QuranLightsUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4D905F10AED41217FC695C88 /* [CP] Copy Pods Resources */ = {
@@ -803,22 +782,22 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6EC8806AAA074FE21EA3A5EA /* [CP] Embed Pods Frameworks */ = {
+		5C5405E3FFEA33319C3C5629 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuranLightsTests/Pods-QuranLightsTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuranLightsUITests/Pods-QuranLightsUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9448C8FA01BB139C066579A6 /* [CP] Check Pods Manifest.lock */ = {
+		6F3920CC6243E7A81699C82F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -829,7 +808,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-QuranLightsTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-QuranLightsUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -899,22 +878,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C58E954220985143004EA947 /* Sources */ = {
+		C50D72B7209EFC9E00568020 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C58277C820985C9C00D8E868 /* QuranGardensViewController.m in Sources */,
-				C58277CB20985D6900D8E868 /* QuranGardensCollectionTests.swift in Sources */,
+				C50D72BE209EFC9E00568020 /* QuranLightsUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C58E954C20985143004EA947 /* PBXTargetDependency */ = {
+		C50D72C1209EFC9E00568020 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0769659E1C5B5D0700ED2D33 /* QuranGardens */;
-			targetProxy = C58E954B20985143004EA947 /* PBXContainerItemProxy */;
+			targetProxy = C50D72C0209EFC9E00568020 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1124,16 +1102,13 @@
 			};
 			name = Release;
 		};
-		C58E954E20985143004EA947 /* Debug */ = {
+		C50D72C3209EFC9E00568020 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56BC2EE239CF001631768E70 /* Pods-QuranLightsTests.debug.xcconfig */;
+			baseConfigurationReference = 40E4BFC1E7E1E9BEDDF06179 /* Pods-QuranLightsUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1146,29 +1121,26 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q4635HRLC8;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = QuranLightsTests/Info.plist;
+				INFOPLIST_FILE = QuranLightsUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.greenlights.QuranLightsTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.greenlights.QuranLightsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "QuranLightsTests/Cases/QuranLightsTests-Bridging-Header.h";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Quran Lights.app/Quran Lights";
+				TEST_TARGET_NAME = QuranGardens;
 			};
 			name = Debug;
 		};
-		C58E954F20985143004EA947 /* Release */ = {
+		C50D72C4209EFC9E00568020 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B0F5A342BF0C6DC814D5502 /* Pods-QuranLightsTests.release.xcconfig */;
+			baseConfigurationReference = DE3A77C362FE87C8007A43A0 /* Pods-QuranLightsUITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1181,15 +1153,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q4635HRLC8;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = QuranLightsTests/Info.plist;
+				INFOPLIST_FILE = QuranLightsUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.greenlights.QuranLightsTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.greenlights.QuranLightsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "QuranLightsTests/Cases/QuranLightsTests-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Quran Lights.app/Quran Lights";
+				TEST_TARGET_NAME = QuranGardens;
 			};
 			name = Release;
 		};
@@ -1214,11 +1186,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C58E954D20985143004EA947 /* Build configuration list for PBXNativeTarget "QuranLightsTests" */ = {
+		C50D72C2209EFC9E00568020 /* Build configuration list for PBXNativeTarget "QuranLightsUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C58E954E20985143004EA947 /* Debug */,
-				C58E954F20985143004EA947 /* Release */,
+				C50D72C3209EFC9E00568020 /* Debug */,
+				C50D72C4209EFC9E00568020 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
