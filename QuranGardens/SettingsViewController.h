@@ -14,6 +14,8 @@
 @property (strong, nonatomic) Settings *settings;
 @property (weak, nonatomic) id delegate;
 
+-(void)hideKeyBoard;
+
 @end
 
 @protocol SettingsViewControllerDelegate <NSObject>

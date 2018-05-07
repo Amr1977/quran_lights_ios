@@ -155,6 +155,7 @@ static Settings* settingsCopy;
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+     [self.refreshPeriodText resignFirstResponder];
     [self applySettings];
 }
 
@@ -359,12 +360,11 @@ static Settings* settingsCopy;
 }
 
 - (void)applySettings{
+    [self hideKeyBoard];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         NSLog(@"SettingsViewController: delivering settings: %@",[self settings]);
         [self.delegate settingsViewController:self didChangeSettings:self.settings];
     });
-
-    
 }
 - (IBAction)sortSegmentControlTapped:(id)sender {
     self.settings.descendingSort = (self.sortDirectionSegments.selectedSegmentIndex == 1);
@@ -407,7 +407,11 @@ static Settings* settingsCopy;
                                    UIActivityTypePostToVimeo];
     
     activityVC.excludedActivityTypes = excludeActivities;
-    [self presentViewController:activityVC animated:YES completion:nil];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        activityVC.popoverPresentationController.sourceView = self.view;
+        activityVC.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width/2, self.view.bounds.size.height/4, 0, 0);
+    }
+    [self presentViewController:activityVC animated:true completion:nil];
 }
 
 -(void) sendEmailTo:(NSString *)to withSubject:(NSString *)subject withBody:(NSString *)body {

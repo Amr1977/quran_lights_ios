@@ -1514,6 +1514,7 @@ static NSInteger tone = 0;
 }
 
 - (void)HideSettingsView{
+    [self.settingsViewController hideKeyBoard];
     [UIView animateWithDuration:0.2
                           delay:0
                         options:UIViewAnimationOptionCurveLinear
