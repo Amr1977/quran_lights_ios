@@ -371,4 +371,53 @@ static Settings* settingsCopy;
     [self.delegate settingsViewController:self didChangeSettings:self.settings];
 }
 
+- (IBAction)onTapRateUs {
+    NSString *appUrlString = @"https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8";
+    NSURL *appURL = [[NSURL alloc] initWithString:appUrlString];
+    if([[UIApplication sharedApplication] canOpenURL:appURL]) {
+        [[UIApplication sharedApplication] openURL:appURL];
+    }
+}
+
+- (IBAction)reviewUs {
+    NSString *appUrlString = @"https://itunes.apple.com/us/app/quran-lights/id1218872513?action=write-review";
+    NSURL *appURL = [[NSURL alloc] initWithString:appUrlString];
+    if([[UIApplication sharedApplication] canOpenURL:appURL]) {
+        [[UIApplication sharedApplication] openURL:appURL];
+    }
+}
+
+- (IBAction)contactUs {
+    [self sendEmailTo:@"amr.lotfy.othman@gmail.com" withSubject:@"Quran Lights Feedback" withBody:@""];
+}
+
+- (IBAction)shareApp {
+    
+    NSURL *url=[NSURL URLWithString:@"https://itunes.apple.com/us/app/quran-lights/id1218872513?mt=8"];
+    NSString *textToShare = @"Quran Lights - A unique Quran performance measurement and visualization tool";
+    NSArray *objectsToShare = @[textToShare, url];
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    
+    NSArray *excludeActivities = @[UIActivityTypeAirDrop,
+                                   UIActivityTypePrint,
+                                   UIActivityTypeAssignToContact,
+                                   UIActivityTypeSaveToCameraRoll,
+                                   UIActivityTypeAddToReadingList,
+                                   UIActivityTypePostToFlickr,
+                                   UIActivityTypePostToVimeo];
+    
+    activityVC.excludedActivityTypes = excludeActivities;
+    [self presentViewController:activityVC animated:YES completion:nil];
+}
+
+-(void) sendEmailTo:(NSString *)to withSubject:(NSString *)subject withBody:(NSString *)body {
+    NSString *mailString = [NSString stringWithFormat:@"mailto:?to=%@&subject=%@&body=%@",
+                            [to stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
+                            [subject stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
+                            [body stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mailString]];
+}
+
+
+
 @end
