@@ -34,6 +34,11 @@ typedef NS_OPTIONS(NSUInteger, SorterType) {
 @property (nonatomic) BOOL showCharacterCount;
 @property (nonatomic) BOOL showElapsedDaysCount;
 
+@property (nonatomic) BOOL isFastRefreshOn;
+@property (nonatomic) BOOL isSoundOn;
+@property (nonatomic) BOOL isAverageModeOn;
+@property (nonatomic) BOOL isCompactCellsOn;
+
 - (BOOL)isEqual:(Settings *)settings;
 
 + (NSArray<NSString *>*)sortTypeList;

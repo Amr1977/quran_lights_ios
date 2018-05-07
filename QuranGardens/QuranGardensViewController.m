@@ -55,9 +55,9 @@ static NSString *const SorterTypeOptionKey = @"sorter_type";
 @property (strong,nonatomic) UIImage *recordImage;
 @property (strong, nonatomic) Statistics* statistics;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *score;
-@property (nonatomic) __block Boolean overviewMode;
+//@property (nonatomic) __block Boolean overviewMode;
 @property (nonatomic) NSIndexPath* selectedCell;
-@property (nonatomic) BOOL isLightCalculationBasedOnAverage;
+//@property (nonatomic) BOOL isLightCalculationBasedOnAverage;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeightConstraint;
 @property (strong, nonatomic) NotificationsViewController *notificationsViewController;
 @property (weak, nonatomic) IBOutlet UIView *rightEdgeSwipeDetector;
@@ -84,8 +84,6 @@ AppDelegate *delegate;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.overviewMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"overviewMode"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFirebaseWillStartSync) name:@"WillStartUpdatedFromFireBase" object:nil];
     
@@ -143,16 +141,10 @@ BOOL appearedBefore;
     self.settingsViewController.settings = [self.periodicTaskManager.dataSource.settings copy];
     self.settingsViewController.delegate = self;
     
-    
     [self addChildViewController:self.settingsViewController];
-    
     [self.settingsViewController.view setFrame:CGRectMake(0.0f, 0.0f, self.settingsView.frame.size.width, self.settingsView.frame.size.height)];
-    //TODO add constraints
     [self.settingsView addSubview:self.settingsViewController.view];
-    
     [self.settingsViewController didMoveToParentViewController:self];
-    
-   
     [self.settingsViewController didMoveToParentViewController:self];
     
     //TODO: Add shadow
@@ -351,142 +343,38 @@ UIButton *toggleSingleTouchRefreshModeButton;
 
 #pragma mark - Navigation bar items
 - (void)setMenuButton{
-
     CGRect imageFrame = CGRectMake(0, 0, 30, 30);
     
     settingsButton = [[UIButton alloc] initWithFrame:imageFrame];
     [settingsButton setTitle:@"⚙️" forState:UIControlStateNormal];
-    //settingsButton.tintColor = [UIColor yellowColor];
-    //[settingsButton setBackgroundImage:barButtonImage forState:UIControlStateNormal];
     settingsButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-    [settingsButton addTarget:self
-                   action:@selector(settings)
-         forControlEvents:UIControlEventTouchUpInside];
+    [settingsButton addTarget:self action:@selector(settings) forControlEvents:UIControlEventTouchUpInside];
     
     [settingsButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
 
     //link t quran-lights.firebaseapp.com
     fbButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 27, 27)];
-    //[settingsButton setTitle:@"S" forState:UIControlStateNormal];
-    //settingsButton.tintColor = [UIColor yellowColor];
-    //[fbButton setBackgroundImage:[UIImage imageNamed:@"fb"] forState:UIControlStateNormal];
-    //fbButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
     [fbButton setTitle:@"ℹ️" forState:UIControlStateNormal];
-    [fbButton addTarget:self
-                       action:@selector(openFacePage)
-             forControlEvents:UIControlEventTouchUpInside];
+    [fbButton addTarget:self action:@selector(openFacePage) forControlEvents:UIControlEventTouchUpInside];
     
     [fbButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *fbItem = [[UIBarButtonItem alloc] initWithCustomView:fbButton];
-    
-    //overview mode
-    overviewButton = [[UIButton alloc] initWithFrame:imageFrame];
-    [overviewButton setTitle:@"↕️" forState:UIControlStateNormal];//🔍🔇🔈
-    [overviewButton addTarget:self
-                 action:@selector(toggleOverView)
-       forControlEvents:UIControlEventTouchUpInside];
-    
-    [overviewButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *overviewItem = [[UIBarButtonItem alloc] initWithCustomView:overviewButton];
-    
-    
-    //overview mode
-    lightCalculationMethodButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    lightCalculationMethodButton.layer.cornerRadius = 10.0;
-    [lightCalculationMethodButton setTitle:@"🔆" forState:UIControlStateNormal];//🔍🔇🔈
-    [lightCalculationMethodButton addTarget:self
-                       action:@selector(toggleLightCalculationMethod)
-             forControlEvents:UIControlEventTouchUpInside];
-    
-    [lightCalculationMethodButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *lightCalculationMethodItem = [[UIBarButtonItem alloc] initWithCustomView:lightCalculationMethodButton];
-    
-    
-    //sound on/off
-    //overview mode
-    soundToggle = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    soundToggle.layer.cornerRadius = 10.0;
-    BOOL soundOffFlag = [[NSUserDefaults standardUserDefaults] boolForKey:@"SoundOffFlag"];
-    [soundToggle setTitle:soundOffFlag ? @"🔇" : @"🔈" forState:UIControlStateNormal];//🔍🔇🔈
-    [soundToggle addTarget:self
-                                     action:@selector(toggleSound)
-                           forControlEvents:UIControlEventTouchUpInside];
-    
-    [soundToggle setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *soundToggleItem = [[UIBarButtonItem alloc] initWithCustomView:soundToggle];
-    
     UIButton *signInButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     signInButton.layer.cornerRadius = 10.0;
     
     [signInButton setTitle:@"👥" forState:UIControlStateNormal];
-    [signInButton addTarget:self
-                     action:@selector(showLoginView)
-           forControlEvents:UIControlEventTouchUpInside];
+    [signInButton addTarget:self action:@selector(showLoginView) forControlEvents:UIControlEventTouchUpInside];
     
     [signInButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *signInItem = [[UIBarButtonItem alloc] initWithCustomView:signInButton];
-    
-    toggleSingleTouchRefreshModeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    toggleSingleTouchRefreshModeButton.layer.cornerRadius = 10.0;
-    BOOL singleTouch = [[NSUserDefaults standardUserDefaults] boolForKey:@"single_touch_refresh_flag"];
-    [toggleSingleTouchRefreshModeButton setTitle:singleTouch ? @"⚡️" : @"🌻" forState:UIControlStateNormal];
-    
-    [toggleSingleTouchRefreshModeButton addTarget:self
-                     action:@selector(switchSingleTouchRefresh)
-           forControlEvents:UIControlEventTouchUpInside];
-    
-    [toggleSingleTouchRefreshModeButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *singleTouchRefreshItem = [[UIBarButtonItem alloc] initWithCustomView:toggleSingleTouchRefreshModeButton];
-    
-    self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, overviewItem, lightCalculationMethodItem, soundToggleItem, singleTouchRefreshItem, signInItem];
-    
-}
-
-- (void)switchSingleTouchRefresh {
-    BOOL singleTouchOn = [[NSUserDefaults standardUserDefaults] boolForKey:@"single_touch_refresh_flag"];
-    singleTouchOn = !singleTouchOn;
-    [[NSUserDefaults standardUserDefaults] setBool:singleTouchOn forKey:@"single_touch_refresh_flag"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [toggleSingleTouchRefreshModeButton setTitle:singleTouchOn ? @"⚡️" : @"🌻" forState:UIControlStateNormal];
-    if(singleTouchOn) {
-        [self toast:@"Fast Refresh On"];
-    } else {
-        [self toast:@"Fast Refresh Off"];
-    }
+   
+    self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, signInItem];
 }
 
 - (void)showLoginView{
     SignupViewController *signupViewController = [[SignupViewController alloc] init];
     [self.navigationController pushViewController:signupViewController animated:YES];
-}
-
-
-- (void)toggleSound{
-    BOOL soundOff = ![[NSUserDefaults standardUserDefaults] boolForKey:@"SoundOffFlag"];
-    [[NSUserDefaults standardUserDefaults] setBool:soundOff forKey:@"SoundOffFlag"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [soundToggle setTitle:soundOff ? @"🔇" : @"🔈" forState:UIControlStateNormal];
-    if(soundOff) {
-        [self toast:@"Sound Off"];
-    } else {
-        [self toast:@"Sound On"];
-    }
-    
-}
-
-- (void)toggleLightCalculationMethod {
-    self.isLightCalculationBasedOnAverage = !self.isLightCalculationBasedOnAverage;
-    
-    if (self.isLightCalculationBasedOnAverage) {
-        [lightCalculationMethodButton setBackgroundColor:[[UIColor greenColor] colorWithAlphaComponent:0.5]];
-        [self toast:@"Average inter-refresh Light State."];
-    } else {
-        [lightCalculationMethodButton setBackgroundColor:[UIColor clearColor]];
-        [self toast:@"Last Refresh Light State."];
-    }
-    
-    [[self collectionView] reloadData];
 }
 
 - (void)howItWorks{
@@ -557,13 +445,6 @@ Boolean hasAppearedBefore;
                                                     message:@""
                                              preferredStyle:UIAlertControllerStyleAlert];
         
-//        UIAlertAction* resetAction = [UIAlertAction actionWithTitle:@"Reset"
-//                                                              style:UIAlertActionStyleDestructive
-//                                                            handler:^(UIAlertAction * action) {
-//                                                                  [self resetAllTasks];
-//                                                                  self.menuOpened = NO;
-//                                                              }];
-        
         UIAlertAction* howItWorksAction = [UIAlertAction actionWithTitle:[@"How it works" localize]
                                                                    style:UIAlertActionStyleDefault
                                                                  handler:^(UIAlertAction * action) {
@@ -578,28 +459,11 @@ Boolean hasAppearedBefore;
                                                                self.menuOpened = NO;
                                                            }];
         
-//        UIAlertAction* saveAction = [UIAlertAction actionWithTitle:@"Save To File"
-//                                                                 style:UIAlertActionStyleDefault
-//                                                               handler:^(UIAlertAction * action) {
-//                                                                   [self save];
-//                                                                   self.menuOpened = NO;
-//                                                               }];
-//        
-//        UIAlertAction* loadAction = [UIAlertAction actionWithTitle:@"Load from File"
-//                                                             style:UIAlertActionStyleDefault
-//                                                           handler:^(UIAlertAction * action) {
-//                                                               [self load];
-//                                                               self.menuOpened = NO;
-//                                                           }];
-        
         UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:[@"Cancel" localize]
                                                                style:UIAlertActionStyleDefault
                                                              handler:^(UIAlertAction * action) { self.menuOpened = NO; }];
         [_menu addAction:howItWorksAction];
         [_menu addAction:settingsAction];
-//        [_menu addAction:saveAction];
-//        [_menu addAction:loadAction];
-        //[_menu addAction:resetAction];
         [_menu addAction:cancelAction];
     }
     return _menu;
@@ -634,16 +498,12 @@ Boolean hasAppearedBefore;
 }
 
 
-//TODO: save/load memorization state
-
 - (void)showSuraMenu{
-    
     NSMutableArray <NSString *>* orderedKeys = @[].mutableCopy;
     [orderedKeys addObject:[@"Refresh" localize]];
     
     if (operations[[@"Refresh" localize]] == nil) {
         operations[[@"Refresh" localize]] = ^(){
-            [AMRTools play:@"rahman.mp3"];
             [self refreshTask:self.selectedTask];
         };
     }
@@ -1278,7 +1138,7 @@ Boolean hasAppearedBefore;
     task.cycleInterval = self.periodicTaskManager.dataSource.settings.fadeTime;
     
     //remainingTimeInterval
-    CGFloat progress = (self.isLightCalculationBasedOnAverage ? (self.periodicTaskManager.dataSource.settings.fadeTime - [task averageRefreshInterval]) : [task remainingTimeInterval]) / self.periodicTaskManager.dataSource.settings.fadeTime;
+    CGFloat progress = (self.periodicTaskManager.dataSource.settings.isAverageModeOn ? (self.periodicTaskManager.dataSource.settings.fadeTime - [task averageRefreshInterval]) : [task remainingTimeInterval]) / self.periodicTaskManager.dataSource.settings.fadeTime;
     
     if (progress < 0.3 && [task.history count] > 0) {
         cell.suraName.textColor = [UIColor colorWithRed:153/255 green:255/255 blue:153/255 alpha:0.2];
@@ -1322,9 +1182,9 @@ Boolean hasAppearedBefore;
     NSUInteger days = progress != 0 ? [[NSDate new] timeIntervalSinceDate:[task.history lastObject]] / (60*60*24) : 10000;
     NSUInteger avgDays = task.averageRefreshInterval / (60*60*24);
     if (days < 1000 && days > 0) {
-        cell.daysElapsed.text = [NSString stringWithFormat:@"%ldD", self.isLightCalculationBasedOnAverage ? (long)avgDays : (long)days];
+        cell.daysElapsed.text = [NSString stringWithFormat:@"%ldD", self.periodicTaskManager.dataSource.settings.isAverageModeOn ? (long)avgDays : (long)days];
     } else {
-        if(self.isLightCalculationBasedOnAverage && avgDays > 0) {
+        if(self.periodicTaskManager.dataSource.settings.isAverageModeOn && avgDays > 0) {
             cell.daysElapsed.text = [NSString stringWithFormat:@"%ldD", (long)avgDays];
         } else {
             cell.daysElapsed.text = nil;
@@ -1375,15 +1235,15 @@ Boolean hasAppearedBefore;
     cell.content.backgroundColor = [UIColor colorWithRed:0.0/255.0 green:MAX(progress,0) blue:0.0/255.0 alpha:1];
     
     
-    NSString *suraIndex = self.overviewMode || self.periodicTaskManager.dataSource.settings.showSuraIndex ?
+    NSString *suraIndex = self.periodicTaskManager.dataSource.settings.isCompactCellsOn || self.periodicTaskManager.dataSource.settings.showSuraIndex ?
     [NSString stringWithFormat:@"%lu ",(unsigned long) [Sura.suraNames indexOfObject:task.name] + 1] : @"";
     
-    NSString *refreshCount = (self.periodicTaskManager.dataSource.settings.showRefreshCount && !self.overviewMode ? [NSString stringWithFormat:@" [%lu]", (unsigned long)task.history.count] : @"");
+    NSString *refreshCount = (self.periodicTaskManager.dataSource.settings.showRefreshCount && !self.periodicTaskManager.dataSource.settings.isCompactCellsOn ? [NSString stringWithFormat:@" [%lu]", (unsigned long)task.history.count] : @"");
     
     
-    cell.suraName.text = [NSString stringWithFormat:@"%@%@%@", suraIndex, self.overviewMode ? @"" : [task.name localize], refreshCount];
+    cell.suraName.text = [NSString stringWithFormat:@"%@%@%@", suraIndex, self.periodicTaskManager.dataSource.settings.isCompactCellsOn ? @"" : [task.name localize], refreshCount];
     
-    if (self.overviewMode) {
+    if (self.periodicTaskManager.dataSource.settings.isCompactCellsOn) {
         cell.suraName.textAlignment = NSTextAlignmentCenter;
         cell.suraNameLeadingConstraint.constant = 3;
         cell.suraNameTrailingConstraint.constant = 3;
@@ -1411,21 +1271,13 @@ Boolean hasAppearedBefore;
     
     [cell.memorized setHidden: !self.periodicTaskManager.dataSource.settings.showMemorizationMark || task.memorizedState == NOT_MEMORIZED];
 
-    [cell.verseCountLabel setHidden:self.overviewMode || !self.periodicTaskManager.dataSource.settings.showVerseCount];
+    [cell.verseCountLabel setHidden:self.periodicTaskManager.dataSource.settings.isCompactCellsOn || !self.periodicTaskManager.dataSource.settings.showVerseCount];
     
-    [cell.score setHidden:self.overviewMode || !self.periodicTaskManager.dataSource.settings.showCharacterCount];
+    [cell.score setHidden:self.periodicTaskManager.dataSource.settings.isCompactCellsOn || !self.periodicTaskManager.dataSource.settings.showCharacterCount];
     
-    [cell.daysElapsed setHidden:self.overviewMode || !self.periodicTaskManager.dataSource.settings.showElapsedDaysCount];
+    [cell.daysElapsed setHidden:self.periodicTaskManager.dataSource.settings.isCompactCellsOn || !self.periodicTaskManager.dataSource.settings.showElapsedDaysCount];
     
     return cell;
-}
-
-- (void)toggleOverView {
-    self.overviewMode = !self.overviewMode;
-    [[NSUserDefaults standardUserDefaults] setBool:self.overviewMode forKey:@"overviewMode"];
-    [self toast:self.overviewMode ? @"Overview mode On" : @"Overview mode off"];
-    [self.collectionView reloadData];
-    //[self showSortBar];
 }
 
 UIColor *backgroundColorTemp;
@@ -1467,21 +1319,17 @@ static NSInteger tone = 0;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.overviewMode ? CGSizeMake(CellSmallWidth, CellSmallHeight) : CGSizeMake(CellWidth, CellHeight);
+    return self.periodicTaskManager.dataSource.settings.isCompactCellsOn ? CGSizeMake(CellSmallWidth, CellSmallHeight) : CGSizeMake(CellWidth, CellHeight);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView  didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
     PeriodicTask *task = [self.periodicTaskManager getTaskAtIndex:indexPath.row];
-
     self.selectedTask = task;
-    
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"single_touch_refresh_flag"]){
-        [AMRTools play:@"rahman.mp3"];
+    if (self.periodicTaskManager.dataSource.settings.isFastRefreshOn){
         [self refreshTask:self.selectedTask];
     } else {
         [self showSuraMenu];
     }
-    
 }
 
 - (void)refreshTask:(PeriodicTask *)task{
@@ -1490,7 +1338,6 @@ static NSInteger tone = 0;
 }
 
 - (void)refreshViews{
-    //[self.bannerView loadRequest:[GADRequest request]];
     NSLog(@"refreshViews");
     dispatch_async(dispatch_get_main_queue(), ^{
         [self applyCurrentSort];
@@ -1570,17 +1417,6 @@ static NSInteger tone = 0;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - SettingsViewControllerDelegate
-
-- (void)settingsViewController:(SettingsViewController *)settingsViewController didChangeSettings:(Settings *)settings{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    self.periodicTaskManager.dataSource.settings = [settings copy];
-    NSLog(@"QuranGardensViewController: received Settings: %@", self.periodicTaskManager.dataSource.settings);
-    [self.periodicTaskManager.dataSource saveSettings];
-    [self refresh];
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-}
-
 #pragma mark - Notifications
 
 - (void)setNotificationForTask: (PeriodicTask *)task withDate: (NSDate *)notificationdate withRepeatPeriod:(NSCalendarUnit)repeatUnit{
@@ -1651,21 +1487,44 @@ static NSInteger tone = 0;
 
 #pragma mark Settings
 
+#pragma mark - SettingsViewControllerDelegate
+
+- (void)settingsViewController:(SettingsViewController *)settingsViewController didChangeSettings:(Settings *)settings{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.periodicTaskManager.dataSource.settings = [settings copy];
+    NSLog(@"QuranGardensViewController: received Settings: %@", self.periodicTaskManager.dataSource.settings);
+    [self.periodicTaskManager.dataSource saveSettings];
+    [self refresh];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
 - (void)showSettingsView{
-    //self.navigationController.navigationBar.layer.zPosition = -1;
-    //self.settingsView.layer.zPosition = 1000;
+    self.settingsView.transform = CGAffineTransformMakeTranslation(-320, 0);
     [self.settingsViewController.view setFrame:CGRectMake(0.0f, 0.0f, self.settingsView.frame.size.width, self.settingsView.frame.size.height)];
     [self.settingsDismissDetector setHidden:NO];
     [self.settingsView setHidden:NO];
-    
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         self.settingsView.transform = CGAffineTransformMakeTranslation(0, 0);
+                     }
+                     completion:nil
+     ];
 }
 
 - (void)HideSettingsView{
-    //self.navigationController.navigationBar.layer.zPosition = 0;
-    //self.settingsView.layer.zPosition = 0;
-    [self.settingsDismissDetector setHidden:YES];
-    [self.settingsView setHidden:YES];
-    
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         self.settingsView.transform = CGAffineTransformMakeTranslation(-320, 0);
+                     }
+                     completion:^(BOOL finished){
+                         [self.settingsDismissDetector setHidden:YES];
+                         [self.settingsView setHidden:YES];
+                         self.settingsView.transform = CGAffineTransformMakeTranslation(0, 0);
+                     }];
 }
 
 

@@ -49,6 +49,11 @@ NSInteger const DefaultCycleInterval = 10*24*60*60;
     settingsCopy.showCharacterCount = self.showCharacterCount;
     settingsCopy.showElapsedDaysCount = self.showElapsedDaysCount;
     
+    settingsCopy.isCompactCellsOn = self.isCompactCellsOn;
+    settingsCopy.isAverageModeOn = self.isAverageModeOn;
+    settingsCopy.isSoundOn = self.isSoundOn;
+    settingsCopy.isFastRefreshOn = self.isFastRefreshOn;
+    
     return settingsCopy;
 }
 

@@ -29,12 +29,9 @@ static CGFloat const DefaultCellHeight = 44;
 @property (weak, nonatomic) IBOutlet UITextField *refreshPeriodText;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *sortDirectionSegments;
 @property (weak, nonatomic) IBOutlet UITableView *sortTypeTableView;
-@property (nonatomic) BOOL settingsAltered;
 
 @property (weak, nonatomic) IBOutlet UILabel *languageLabel;
-
 @property (weak, nonatomic) IBOutlet UISegmentedControl *languageSelector;
-
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 
@@ -62,6 +59,16 @@ static CGFloat const DefaultCellHeight = 44;
 
 @property (weak, nonatomic) IBOutlet UILabel *elapsedDaysLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *elapsedDaysSwitch;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *singleTapToRefreshLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *singleTapToRefreshSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *soundLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *soundOptionSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *averageModeLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *averageModeSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *compactCellsOptionLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *compactCellsOptionSwith;
 
 @end
 
@@ -100,6 +107,20 @@ static Settings* settingsCopy;
             self.settings.showElapsedDaysCount = sender.isOn;
             break;
             
+        case 7:
+            self.settings.isFastRefreshOn = sender.isOn;
+            break;
+            
+        case 8:
+            self.settings.isSoundOn = sender.isOn;
+            break;
+        case 9:
+            self.settings.isAverageModeOn = sender.isOn;
+            break;
+            
+        case 10:
+            self.settings.isCompactCellsOn = sender.isOn;
+            break;
             
         default:
             break;
@@ -186,6 +207,13 @@ static Settings* settingsCopy;
     [self.characterCountSwitch setOn:self.settings.showCharacterCount];
     [self.elapsedDaysSwitch setOn:self.settings.showElapsedDaysCount];
     
+    [self.singleTapToRefreshSwitch setOn:self.settings.isFastRefreshOn];
+    [self.soundOptionSwitch setOn:self.settings.isSoundOn];
+    [self.averageModeSwitch setOn:self.settings.isAverageModeOn];
+    [self.compactCellsOptionSwith setOn:self.settings.isCompactCellsOn];
+
+    //TODO localize added options labels
+    
     for (UIView *subview in [self.content subviews]) {
         if ([subview isKindOfClass:[UILabel class]]) {
             UILabel *label = (UILabel *)subview;
@@ -265,7 +293,7 @@ static Settings* settingsCopy;
     //if (self.settings.sortType != indexPath.row) {
         NSIndexPath* selectedCellIndexPath = [NSIndexPath indexPathForRow:self.settings.sortType inSection:0];
         [tableView deselectRowAtIndexPath:selectedCellIndexPath animated:NO];
-        self.settingsAltered = YES;
+        //self.settingsAltered = YES;
         self.settings.sortType = indexPath.row;
         [self applySettings];
     //}
@@ -312,12 +340,12 @@ static Settings* settingsCopy;
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     NSLog(@"textFieldDidEndEditing");
     NSLog(@"fself.refreshPeriodText.text: %@", self.refreshPeriodText.text);
-    [self applySettings];
 }
 
 - (IBAction)didEndEditing:(id)sender{
     NSLog(@"didEndEditing");
     [self hideKeyBoard];
+    [self applySettings];
 }
 
 - (IBAction)onSignUp:(id)sender {
@@ -331,32 +359,16 @@ static Settings* settingsCopy;
 }
 
 - (void)applySettings{
-    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        self.settings.fadeTime = [self.refreshPeriodText.text integerValue] * 24 * 60 * 60;
-        self.settings.descendingSort = (self.sortDirectionSegments.selectedSegmentIndex == 1);
-        self.settings.sortType = self.sortTypeTableView.indexPathForSelectedRow.row;
         NSLog(@"SettingsViewController: delivering settings: %@",[self settings]);
-        //NSLog(@"Settings copy %@", settingsCopy);
         [self.delegate settingsViewController:self didChangeSettings:self.settings];
     });
-    
-//    dispatch_async(dispatch_get_main_queue(), ^(void){
-//        //Run UI Updates
-//
-//    });
-    
-//    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-//        //Background Thread
-//
-//
-//    });
+
     
 }
-
-- (IBAction)isTapped:(id)sender {
-    [self applySettings];
-    
+- (IBAction)sortSegmentControlTapped:(id)sender {
+    self.settings.descendingSort = (self.sortDirectionSegments.selectedSegmentIndex == 1);
+    [self.delegate settingsViewController:self didChangeSettings:self.settings];
 }
 
 @end

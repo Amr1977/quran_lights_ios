@@ -30,6 +30,11 @@ NSString * const ShowRefreshCountKey = @"ShowRefreshCountKey";
 NSString * const ShowCharacterCountKey = @"ShowCharacterCountKey";
 NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 
+NSString * const IsFastRefreshOnKey = @"IsFastRefreshOnKey";
+NSString * const IsSoundOnKey = @"IsSoundOnKey";
+NSString * const IsAverageModeOnKey = @"IsAverageModeOnKey";
+NSString * const IsCompactCellsOnKey = @"IsCompactCellsOnKey";
+
 @implementation DataSource
 
 @synthesize currentUser = _currentUser;
@@ -50,6 +55,10 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
         _settings.showCharacterCount = NO;
         _settings.showElapsedDaysCount = NO;
         
+        _settings.isFastRefreshOn = NO;
+        _settings.isSoundOn = NO;
+        _settings.isAverageModeOn = NO;
+        _settings.isCompactCellsOn = NO;
     }
     
     return _settings;
@@ -356,35 +365,19 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
 }
 
 - (void)saveSettings{
-    [[NSUserDefaults standardUserDefaults] setBool:self.settings.descendingSort
-                                            forKey:[self userKey: SortDirectionKey]];
-    
-    [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime
-                                              forKey:[self userKey:GlobalRefreshIntervalKey]];
-    
-    [[NSUserDefaults standardUserDefaults] setInteger:self.settings.sortType
-                                               forKey:[self userKey: SortTypeKey]];
-    
-    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showVerseCount
-                                            forKey:[self userKey:ShowVerseCountKey]];
-    
-    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showMemorizationMark
-                                            forKey:[self userKey:ShowMemorizationStateKey]];
-    
-    
-    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showSuraIndex
-                                            forKey:[self userKey:ShowSuraIndexKey]];
-    
-    
-    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showRefreshCount
-                                            forKey:[self userKey:ShowRefreshCountKey]];
-    
-    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showCharacterCount
-                                            forKey:[self userKey:ShowCharacterCountKey]];
-    
-    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showElapsedDaysCount
-                                            forKey:[self userKey:ShowElapsedDaysKey]];
-    
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.descendingSort forKey:[self userKey: SortDirectionKey]];
+    [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime forKey:[self userKey:GlobalRefreshIntervalKey]];
+    [[NSUserDefaults standardUserDefaults] setInteger:self.settings.sortType forKey:[self userKey: SortTypeKey]];
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showVerseCount forKey:[self userKey:ShowVerseCountKey]];
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showMemorizationMark forKey:[self userKey:ShowMemorizationStateKey]];
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showSuraIndex forKey:[self userKey:ShowSuraIndexKey]];
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showRefreshCount forKey:[self userKey:ShowRefreshCountKey]];
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showCharacterCount forKey:[self userKey:ShowCharacterCountKey]];
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.showElapsedDaysCount forKey:[self userKey:ShowElapsedDaysKey]];
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.isFastRefreshOn forKey:[self userKey:IsFastRefreshOnKey]];
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.isSoundOn forKey:[self userKey:IsSoundOnKey]];
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.isAverageModeOn forKey:[self userKey:IsAverageModeOnKey]];
+    [[NSUserDefaults standardUserDefaults] setBool:self.settings.isCompactCellsOn forKey:[self userKey:IsCompactCellsOnKey]];
     
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -402,36 +395,31 @@ NSString * const ShowElapsedDaysKey = @"ShowElapsedDaysKey";
         self.settings.fadeTime = [[NSUserDefaults standardUserDefaults] doubleForKey:[self userKey:GlobalRefreshIntervalKey]];
         if (!self.settings.fadeTime) {
             self.settings.fadeTime = DefaultCycleInterval;
-            [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime
-                                                      forKey:[self userKey:GlobalRefreshIntervalKey]];
+            [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime forKey:[self userKey:GlobalRefreshIntervalKey]];
         }
     } else {
         self.settings.fadeTime = DefaultCycleInterval;
-        [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime
-                                                  forKey:[self userKey:GlobalRefreshIntervalKey]];
+        [[NSUserDefaults standardUserDefaults] setDouble:self.settings.fadeTime forKey:[self userKey:GlobalRefreshIntervalKey]];
     }
     
     if ([[NSUserDefaults standardUserDefaults] objectForKey:SortTypeKey]) {
         self.settings.sortType = (SorterType) [[NSUserDefaults standardUserDefaults] integerForKey:[self userKey:SortTypeKey]];
     } else {
         self.settings.sortType = NormalSuraOrderSort;
-        [[NSUserDefaults standardUserDefaults] setInteger:self.settings.sortType
-                                                   forKey:[self userKey:SortTypeKey]];
+        [[NSUserDefaults standardUserDefaults] setInteger:self.settings.sortType forKey:[self userKey:SortTypeKey]];
     }
     
-    
     self.settings.showVerseCount = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:ShowVerseCountKey]];
-    
     self.settings.showMemorizationMark = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:ShowMemorizationStateKey]];
-    
     self.settings.showSuraIndex = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:ShowSuraIndexKey]];
-    
-    
     self.settings.showRefreshCount = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:ShowRefreshCountKey]];
-    
     self.settings.showCharacterCount = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:ShowCharacterCountKey]];
-    
     self.settings.showElapsedDaysCount = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:ShowElapsedDaysKey]];
+    
+    self.settings.isFastRefreshOn = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:IsFastRefreshOnKey]];
+    self.settings.isSoundOn = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:IsSoundOnKey]];
+    self.settings.isAverageModeOn = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:IsAverageModeOnKey]];
+    self.settings.isCompactCellsOn = [[NSUserDefaults standardUserDefaults] boolForKey:[self userKey:IsCompactCellsOnKey]];
     
     NSLog(@"Loaded Settings: %@", self.settings);
 }
