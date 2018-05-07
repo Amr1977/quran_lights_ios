@@ -422,6 +422,21 @@ static Settings* settingsCopy;
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mailString]];
 }
 
+- (IBAction)followUs:(id)sender {
+     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/QuranicLights/"]];
+}
+
+- (IBAction)openCharts:(id)sender {
+    [self.delegate showCharts];
+}
+
+- (IBAction)showProfiles:(id)sender {
+    [self.delegate showMembersView];
+}
+
+- (IBAction)showLoginView:(id)sender {
+    [self.delegate showLoginView];
+}
 
 
 @end

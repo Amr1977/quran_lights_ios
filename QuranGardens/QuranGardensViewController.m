@@ -157,6 +157,7 @@ BOOL appearedBefore;
 
 - (void)showRightMenu {
     NSLog(@"Show Right menu.");
+    [self dailyScoreChart];
 }
 
 
@@ -206,11 +207,12 @@ BOOL appearedBefore;
     [self.navigationController pushViewController:[[UsersViewController alloc] init] animated:YES];
 }
 
-- (void)openFacePage {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/QuranicLights/"]];
-}
-    
+
 - (IBAction)onScoreTabbed:(id)sender {
+    [self showMembersView];
+}
+
+- (void)showMembersView{
     if(!updateInProgress) {
         [self usersMenu];
     }
@@ -224,32 +226,10 @@ NSInteger currentKhatma = 0;
 - (void)refreshScoreButton{
     NSInteger todayScore =  [self.statistics todayScore];
     NSInteger yesterdayScore = [self.statistics yesterdayScore];
-    //NSInteger total = [self.statistics totalScore];
-    
-    //NSString *totalString = [AMRTools abbreviateNumber:total withDecimal:1];
+    NSInteger total = [self.statistics totalScore];
+    NSString *totalString = [AMRTools abbreviateNumber:total withDecimal:1];
     NSString *todayString = [AMRTools abbreviateNumber:todayScore withDecimal:3];
-    
-    if (scoreButton == nil) {
-        CGRect imageFrame = CGRectMake(0, 0, 40, 30);
-        
-        scoreButton = [[UIButton alloc] initWithFrame:imageFrame];
-        [scoreButton setTitle:@"💹" forState:UIControlStateNormal];
-        
-        [scoreButton addTarget:self
-                        action:@selector(showCharts)
-              forControlEvents:UIControlEventTouchUpInside];
-        
-        [scoreButton setShowsTouchWhenHighlighted:YES];//👤
-        
-        UIBarButtonItem *chartsItem = [[UIBarButtonItem alloc] initWithCustomView:scoreButton];
-        
-        self.navigationItem.leftBarButtonItems = @[chartsItem, self.score];
-    }
-    
-//    [scoreButton setTitle:[NSString stringWithFormat:@"%@/%@",totalString, todayString]
-//                 forState:UIControlStateNormal];
-    
-    
+    self.navigationItem.leftBarButtonItems = @[self.score];
     
     NSInteger newKhatma = [self.periodicTaskManager getCurrentKhatmaNumber];
     
@@ -259,9 +239,7 @@ NSInteger currentKhatma = 0;
         currentKhatma = newKhatma;
     }
     
-    
-    self.score.title = [NSString stringWithFormat:@"%@", todayString];
-    
+    self.score.title = [NSString stringWithFormat:@"Total: %@ , Today: %@, Khatma: %d",totalString, todayString, newKhatma];
     
     UIColor *color = ((todayScore > yesterdayScore)? [UIColor greenColor] : [UIColor whiteColor]);
     [scoreButton setTintColor:color];
@@ -289,7 +267,7 @@ NSInteger currentKhatma = 0;
 }
 
 - (void)setNavigationBar{
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"sunrise.jpg"] forBarMetrics:UIBarMetricsDefault];
+    //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"sunrise.jpg"] forBarMetrics:UIBarMetricsDefault];
     [self setMenuButton];
 }
 
@@ -354,22 +332,8 @@ UIButton *toggleSingleTouchRefreshModeButton;
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
 
     //link t quran-lights.firebaseapp.com
-    fbButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 27, 27)];
-    [fbButton setTitle:@"ℹ️" forState:UIControlStateNormal];
-    [fbButton addTarget:self action:@selector(openFacePage) forControlEvents:UIControlEventTouchUpInside];
-    
-    [fbButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *fbItem = [[UIBarButtonItem alloc] initWithCustomView:fbButton];
-    UIButton *signInButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    signInButton.layer.cornerRadius = 10.0;
-    
-    [signInButton setTitle:@"👥" forState:UIControlStateNormal];
-    [signInButton addTarget:self action:@selector(showLoginView) forControlEvents:UIControlEventTouchUpInside];
-    
-    [signInButton setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *signInItem = [[UIBarButtonItem alloc] initWithCustomView:signInButton];
    
-    self.navigationItem.rightBarButtonItems = @[menuButton,fbItem, signInItem];
+    self.navigationItem.rightBarButtonItems = @[menuButton];
 }
 
 - (void)showLoginView{
@@ -992,7 +956,7 @@ Boolean hasAppearedBefore;
     
     self.collectionView.backgroundView.contentMode = UIViewContentModeScaleAspectFit;
     //[self addSwipeHandlerToView:self.collectionView direction:@"left" handler:@selector(settings)];
-    //[self addSwipeHandlerToView:self.collectionView direction:@"right" handler:@selector(showCharts)];
+
     self.collectionView.bounces = YES;
 }
 
@@ -1056,11 +1020,7 @@ Boolean hasAppearedBefore;
 //                                                   }];
 //    [menu addAction:action];
     
-    
-    
     [self presentViewController:menu animated:YES completion:nil];
-    
-    
 }
 
 - (void)dailyScoreChart {

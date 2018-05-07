@@ -22,5 +22,9 @@
 
 - (void)settingsViewController:(SettingsViewController *)settingsViewController didChangeSettings:(Settings *)settings;
 
+- (void)showCharts;
+-(void)showMembersView;
+-(void)showLoginView;
+
 @end
 

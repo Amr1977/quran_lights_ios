@@ -412,14 +412,12 @@
     NSMutableArray<PeriodicTask *> *tasks = self.dataSource.tasks;
     
     for (PeriodicTask *task in tasks) {
-        
-        float term = [task remainingTimeInterval] / self.dataSource.settings.fadeTime;
+        float term = MAX(([task remainingTimeInterval] / self.dataSource.settings.fadeTime), 0);
         result = result +  term * (float)[Statistics suraScore:task.name];
-        
         NSLog(@"light ratio term %@ %f", task.name, term);
     }
     
-    result = result / (float)[Statistics allSurasScore];
+    result = 100.0f * result / (float)[Statistics allSurasScore];
     
     return result;
 }
