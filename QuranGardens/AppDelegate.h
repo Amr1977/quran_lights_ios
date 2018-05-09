@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define AppVersion @"1.6.5"
-
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

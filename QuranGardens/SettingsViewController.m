@@ -361,6 +361,11 @@ static Settings* settingsCopy;
 
 - (void)applySettings{
     [self hideKeyBoard];
+    NSInteger lightDays = self.refreshPeriodText.text.integerValue;
+    if (lightDays > 0) {
+        self.settings.fadeTime = lightDays * 24 * 60 * 60;
+    }
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         NSLog(@"SettingsViewController: delivering settings: %@",[self settings]);
         [self.delegate settingsViewController:self didChangeSettings:self.settings];
