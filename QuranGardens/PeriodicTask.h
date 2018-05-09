@@ -35,7 +35,7 @@
 /** Last time that task Occurred */
 //@property (strong, nonatomic) NSDate *lastOccurrence;
 
-@property(strong, nonatomic) NSArray<NSDate *> *history;
+@property(strong, nonatomic) NSMutableArray<NSDate *> *history;
 
 /** Average time elapsed between refreshes of this task/sura */
 @property (nonatomic) NSTimeInterval averageRefreshInterval;
