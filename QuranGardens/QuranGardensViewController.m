@@ -235,6 +235,9 @@ NSInteger currentKhatma = 0;
     
     if (newKhatma > currentKhatma) {
         NSLog(@"Congratulations, A Khatma is Completed");
+        if(self.periodicTaskManager.dataSource.settings.isSoundOn){
+            [self playCelebrationSound];
+        }
         [self showMessageAlertViewWithTitle:[@"Congratulations!" localize] message:[@"You have completed a Khatma 🙂" localize]];
         currentKhatma = newKhatma;
     }
@@ -461,6 +464,17 @@ Boolean hasAppearedBefore;
     [self presentViewController:menu animated:YES completion:nil];
 }
 
+- (void) playCelebrationSound{
+    if(self.periodicTaskManager.dataSource.settings.isSoundOn){
+        [AMRTools play:@"rahman.mp3"];
+    }
+}
+
+- (void)playToneSound {
+    if (self.periodicTaskManager.dataSource.settings.isSoundOn) {
+        AudioServicesPlaySystemSound (systemSoundID + (tone++ % 10));
+    }
+}
 
 - (void)showSuraMenu{
     NSMutableArray <NSString *>* orderedKeys = @[].mutableCopy;
@@ -494,7 +508,7 @@ Boolean hasAppearedBefore;
     }
     if (operations[[@"Memorized" localize]] == nil) {
         operations[[@"Memorized" localize]] = ^(){
-            [AMRTools play:@"rahman.mp3"];
+            [self playCelebrationSound];
             if (self.selectedTask.memorizedState == BEING_MEMORIZED) {
                 self.selectedTask.memorizeDate = [NSDate new];
                 [[DataSource shared] saveSuraMemorizationDate:self.selectedTask.memorizeDate suraName:self.selectedTask.name];
@@ -1243,14 +1257,12 @@ Boolean hasAppearedBefore;
 UIColor *backgroundColorTemp;
 UIColor *textColorTemp;
 
-#define systemSoundID 1200
+static NSInteger systemSoundID = 1200;
 static NSInteger tone = 0;
 
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"SoundOffFlag"]) {
-        AudioServicesPlaySystemSound (systemSoundID + (tone++ % 10));
-    }
+    [self playToneSound];
     
     SuraViewCell * cell = (SuraViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     backgroundColorTemp = cell.content.backgroundColor;

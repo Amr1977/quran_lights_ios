@@ -22,20 +22,12 @@
     
 + (AVAudioPlayer *)getPlayer {
     static AVAudioPlayer *player;
-    static dispatch_once_t once;
-    
-    dispatch_once(&once, ^
-                  {
-                      player = [AVAudioPlayer new];
-                  });
+    player = [AVAudioPlayer new];
     
     return player;
 }
     
 + (void)play:(NSString *)path {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SoundOffFlag"]) {
-        return;
-    }
     NSString *fullPath =[NSString stringWithFormat:@"%@/%@",[[NSBundle mainBundle] resourcePath], path];
         
     NSURL *soundUrl= [NSURL fileURLWithPath:fullPath];
@@ -44,8 +36,6 @@
     NSData *audioData = [NSData dataWithContentsOfURL:soundUrl];
     NSError *error = nil;
     [[[AMRTools getPlayer] initWithData:audioData error:&error] play];
-    
-    
     }
 
 + (UIAlertController *)showMenuWithTitle:(NSString *)title message:(NSString *)message handlers:(NSDictionary *)handlers{
