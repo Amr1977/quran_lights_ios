@@ -327,9 +327,11 @@ UIButton *toggleSingleTouchRefreshModeButton;
     CGRect imageFrame = CGRectMake(0, 0, 30, 30);
     
     settingsButton = [[UIButton alloc] initWithFrame:imageFrame];
-    [settingsButton setTitle:@"⚙️" forState:UIControlStateNormal];
-    settingsButton.tintColor = [[UIColor yellowColor] colorWithAlphaComponent:0.5];
-    [settingsButton addTarget:self action:@selector(settings) forControlEvents:UIControlEventTouchUpInside];
+    UIImage *hamburgerImage = [[UIImage imageNamed:@"hamburger"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [settingsButton setImage:hamburgerImage forState:UIControlStateNormal];
+    //[settingsButton setTitle:@"⚙️" forState:UIControlStateNormal];
+    settingsButton.tintColor = [UIColor greenColor];
+    [settingsButton addTarget:self action:@selector(toggleSettingsView) forControlEvents:UIControlEventTouchUpInside];
     
     [settingsButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
@@ -1468,6 +1470,14 @@ static NSInteger tone = 0;
     [self.periodicTaskManager.dataSource saveSettings];
     [self refresh];
     [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+- (void)toggleSettingsView{
+    if (self.settingsView.isHidden) {
+        [self showSettingsView];
+    } else {
+        [self HideSettingsView];
+    }
 }
 
 - (void)showSettingsView{
