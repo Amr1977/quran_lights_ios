@@ -100,12 +100,15 @@
         return;
     }
     
-    [[FIRAuth auth] signInWithEmail:email password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
+    [[FIRAuth auth] signInWithEmail:email
+                           password:password
+                         completion:^(FIRAuthDataResult * _Nullable authResult,
+                                      NSError * _Nullable error) {
         if (!error) {
             self.isSignedIn = YES;
             NSLog(@"Success sign in firebase: email: %@, password: %@", email, password);
-            NSLog(@"user.uid: %@",user.uid);
-            self.userID = user.uid;
+            NSLog(@"user.uid: %@", authResult.user.uid);
+            self.userID = authResult.user.uid;
             [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"email"];
             [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
             [[NSNotificationCenter defaultCenter] postNotificationName:FireBaseSignInNotification object:self];
@@ -135,14 +138,19 @@
         return;
     }
     
-    [[FIRAuth auth] createUserWithEmail:email password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
+    [[FIRAuth auth] createUserWithEmail:email
+                               password:password
+                             completion:^(FIRAuthDataResult * _Nullable authResult,
+                                          NSError * _Nullable error) {
         if (error != nil) {
             completion(NO, error.localizedDescription);
         } else {
             self.isSignedIn = YES;
+            NSLog(@"user.uid: %@", authResult.user.uid);
+            self.userID = authResult.user.uid;
             [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"email"];
             [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
-            NSLog(@"firebaseSignIn created user %@ ", user);
+            NSLog(@"firebaseSignIn created user %@ ", self.userID);
             [[SyncManager shared] registerTimeStampTrigger];
             completion(YES, nil);
         }
