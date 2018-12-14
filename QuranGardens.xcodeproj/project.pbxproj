@@ -12,7 +12,6 @@
 		071D38991C5FB00E0063D80E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D38981C5FB00E0063D80E /* CoreText.framework */; };
 		071D389B1C5FB01D0063D80E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389A1C5FB01D0063D80E /* SystemConfiguration.framework */; };
 		071D389D1C5FB0250063D80E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389C1C5FB0250063D80E /* CoreTelephony.framework */; };
-		071D389F1C5FB0420063D80E /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071D389E1C5FB0420063D80E /* BuddyBuildSDK.framework */; };
 		072594121D74AEB0009E5F05 /* charcount.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0725940E1D74AEB0009E5F05 /* charcount.txt */; };
 		072594131D74AEB0009E5F05 /* wordcount.txt in Resources */ = {isa = PBXBuildFile; fileRef = 072594111D74AEB0009E5F05 /* wordcount.txt */; };
 		073AA6F21DB89E0300370847 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 073AA6F11DB89E0300370847 /* Statistics.m */; };
@@ -226,7 +225,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				071D389F1C5FB0420063D80E /* BuddyBuildSDK.framework in Frameworks */,
 				071D389D1C5FB0250063D80E /* CoreTelephony.framework in Frameworks */,
 				071D389B1C5FB01D0063D80E /* SystemConfiguration.framework in Frameworks */,
 				071D38991C5FB00E0063D80E /* CoreText.framework in Frameworks */,
@@ -600,9 +598,9 @@
 				94EC31F8EA0FE2BEAEBD3398 /* [CP] Check Pods Manifest.lock */,
 				0769659B1C5B5D0700ED2D33 /* Sources */,
 				0769659C1C5B5D0700ED2D33 /* Frameworks */,
+				0700D57121C39A980053C5FB /* ShellScript */,
 				0769659D1C5B5D0700ED2D33 /* Resources */,
 				2B4422EBA3D3BC3B1BD8F997 /* [CP] Embed Pods Frameworks */,
-				4D905F10AED41217FC695C88 /* [CP] Copy Pods Resources */,
 				C57786CF1EA21C48002D8494 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -622,8 +620,6 @@
 				C50D72B7209EFC9E00568020 /* Sources */,
 				C50D72B8209EFC9E00568020 /* Frameworks */,
 				C50D72B9209EFC9E00568020 /* Resources */,
-				469F2F03F8D7AD47E3945C53 /* [CP] Embed Pods Frameworks */,
-				5C5405E3FFEA33319C3C5629 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -728,6 +724,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0700D57121C39A980053C5FB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#   ON/OFF Script Toggle (script ON with #, script OFF without #)\n#exit 0\n\n#   Increment build number\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n\n#   Output version & build numbers into a label on LaunchScreen.storyboard\nversionNumber=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleShortVersionString\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nsed -i bak -e \"/userLabel=\\\"APP_VERSION\\\"/s/text=\\\"[^\\\"]*\\\"/text=\\\"V$versionNumber\\\"/\" $PROJECT_DIR/$PROJECT_NAME/Base.lproj/LaunchScreen.storyboard\n";
+		};
 		2B4422EBA3D3BC3B1BD8F997 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -737,64 +750,23 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		469F2F03F8D7AD47E3945C53 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuranLightsUITests/Pods-QuranLightsUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4D905F10AED41217FC695C88 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuranGardens/Pods-QuranGardens-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5C5405E3FFEA33319C3C5629 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QuranLightsUITests/Pods-QuranLightsUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6F3920CC6243E7A81699C82F /* [CP] Check Pods Manifest.lock */ = {

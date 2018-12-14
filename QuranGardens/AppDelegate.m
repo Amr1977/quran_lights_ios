@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import <BuddyBuildSDK/BuddyBuildSDK.h>
 #import "FireBaseManager.h"
 #import "AMRTools.h"
 @import StoreKit;
@@ -16,14 +15,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [BuddyBuildSDK setup];
     [[FireBaseManager shared] start];
 
     //[UIApplication sharedApplication].idleTimerDisabled = YES;
     
     [self registerForLocalNotifications];
     [SKStoreReviewController requestReview];
-    
     
     return YES;
 }
