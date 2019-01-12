@@ -276,14 +276,14 @@ NSString * const IsCompactCellsOnKey = @"IsCompactCellsOnKey";
     NSLog(@"saving for %@ refreshed at: %@",suraName,lastRefreshDate);
     PeriodicTask *task = [self getTaskWithSuraName:suraName];
     NSMutableArray<NSDate *> * oldHistory = task.history.mutableCopy;
-    for (NSDate *date in oldHistory) {
-        double diff = [lastRefreshDate timeIntervalSince1970] - [date timeIntervalSince1970];
-        if (diff * diff < 1) {
-            //duplicate drop
-            NSLog(@"timestamp diff: %f dropped", diff);
-            return NO;
-        }
-    }
+//    for (NSDate *date in oldHistory) {
+//        double diff = [lastRefreshDate timeIntervalSince1970] - [date timeIntervalSince1970];
+//        if (diff * diff < 1) {
+//            //duplicate drop
+//            NSLog(@"timestamp diff: %f dropped", diff);
+//            return NO;
+//        }
+//    }
     
     //local
     [[NSUserDefaults standardUserDefaults] setObject:lastRefreshDate forKey:[self lastRefreshKeyForSuraName:suraName]];
