@@ -2,6 +2,9 @@ PODS:
   - Charts (3.0.2):
     - Charts/Core (= 3.0.2)
   - Charts/Core (3.0.2)
+  - Crashlytics (3.12.0):
+    - Fabric (~> 1.9.0)
+  - Fabric (1.9.0)
   - Firebase/Auth (5.15.0):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.2.0)
@@ -73,6 +76,8 @@ PODS:
 
 DEPENDENCIES:
   - Charts (from `DevPods/Charts`)
+  - Crashlytics (~> 3.12.0)
+  - Fabric (~> 1.9.0)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -80,6 +85,8 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Crashlytics
+    - Fabric
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -100,6 +107,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Charts: f7a5891d4acdf1e98d753da2ef674cce33e10976
+  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
   FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
   FirebaseAuth: 02e969ff430e156d99d4cb842d77b806b71ad7bb
@@ -114,6 +123,6 @@ SPEC CHECKSUMS:
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
 
-PODFILE CHECKSUM: ca1e5b030040966b20105cf0e533df96b96a38ff
+PODFILE CHECKSUM: 4e91dd2caa00cc80c589b8ccfb2550f3af13eb5d
 
 COCOAPODS: 1.5.3

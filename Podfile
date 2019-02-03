@@ -12,6 +12,8 @@ target "QuranGardens" do
     #pod 'Realm'
     pod 'MBProgressHUD', '~> 1.0.0'
     #pod 'Google-Mobile-Ads-SDK'
+    pod 'Fabric', '~> 1.9.0'
+    pod 'Crashlytics', '~> 3.12.0'
     
     target "QuranLightsUITests" do
         inherit! :search_paths
