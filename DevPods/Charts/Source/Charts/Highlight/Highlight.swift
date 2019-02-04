@@ -196,17 +196,17 @@ open class Highlight: NSObject
             return false
         }
         
-        if (object! as AnyObject).dataIndex != dataIndex
+        if (object as! Highlight).dataIndex != dataIndex
         {
             return false
         }
         
-        if (object! as AnyObject).dataSetIndex != _dataSetIndex
+        if (object as! Highlight).dataSetIndex != _dataSetIndex
         {
             return false
         }
         
-        if (object! as AnyObject).stackIndex != _stackIndex
+        if (object as! Highlight).stackIndex != _stackIndex
         {
             return false
         }
