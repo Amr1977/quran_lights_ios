@@ -8,7 +8,8 @@ target "QuranGardens" do
     pod 'Firebase/Core'
     #pod 'FirebaseUI', '~> 1.0'
     #pod 'Charts'
-    pod ‘Charts’, :path => 'DevPods/Charts’
+    #pod ‘Charts’, :path => 'DevPods/Charts’
+    pod 'Highcharts', '~> 8.0.0'
     #pod 'Realm'
     pod 'MBProgressHUD', '~> 1.0.0'
     #pod 'Google-Mobile-Ads-SDK'
